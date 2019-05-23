@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fetchReport returns a state object 1`] = `
+Object {
+  "meta": Object {
+    "notifications": Object {
+      "rejected": Object {
+        "title": "Failed to load report 1",
+        "variant": "danger",
+      },
+    },
+  },
+  "payload": Promise {},
+  "type": "FETCH_REPORT",
+}
+`;
+
+exports[`fetchReports returns a state object 1`] = `
+Object {
+  "meta": Object {
+    "notifications": Object {
+      "rejected": Object {
+        "title": "Failed to load reports",
+        "variant": "danger",
+      },
+    },
+  },
+  "payload": Promise {},
+  "type": "FETCH_REPORTS",
+}
+`;
