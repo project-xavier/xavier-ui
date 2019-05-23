@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getAllReports returns a state object 1`] = `Promise {}`;
+
+exports[`getReportById returns a state object 1`] = `Promise {}`;
