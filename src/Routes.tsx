@@ -1,8 +1,8 @@
 import { Route, Switch, Redirect } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import React from 'react';
 import asyncComponent from './Utilities/asyncComponent';
 import some from 'lodash/some';
+import { GlobalProps } from './models/GlobalProps';
 
 /**
  * Aysnc imports of components
@@ -18,14 +18,14 @@ import some from 'lodash/some';
  *         see the difference with DashboardMap and InventoryDeployments.
  *
  */
-const Dashboard = asyncComponent(() =>
-    import(/* webpackChunkName: "SamplePage" */ './PresentationalComponents/dashboard/dashboard'));
+const DashboardPage = asyncComponent(() =>
+    import(/* webpackChunkName: "DashboardPage" */ './PresentationalComponents/DashboardPage/DashboardPage'));
 const UploadFiles = asyncComponent(() =>
-    import(/* webpackChunkName: "SamplePage" */ './SmartComponents/UploadFiles/UploadFiles'));
+    import(/* webpackChunkName: "UploadFiles" */ './SmartComponents/UploadFiles/UploadFiles'));
 const ReportList = asyncComponent(() =>
-    import(/* webpackChunkName: "Rules" */ './SmartComponents/ReportList/ReportList'));
+    import(/* webpackChunkName: "ReportList" */ './SmartComponents/ReportList/ReportList'));
 const ReportView = asyncComponent(() =>
-    import(/* webpackChunkName: "Rules" */ './SmartComponents/ReportView/ReportView'));
+    import(/* webpackChunkName: "ReportView" */ './SmartComponents/ReportView/ReportView'));
 
 const paths = {
     dashboard: '/dashboard',
@@ -34,19 +34,25 @@ const paths = {
     reportView: '/reports/:reportId'
 };
 
-const InsightsRoute = ({ component: Component, rootClass, ...rest }) => {
+interface InsightsRouteProps {
+    component: any;
+    rootClass: string;
+}
+
+const InsightsRoute = ({ component: Component, rootClass, ...rest } : InsightsRouteProps) => {
     const root = document.getElementById('root');
-    root.removeAttribute('class');
-    root.classList.add(`page__${rootClass}`, 'pf-c-page__main');
-    root.setAttribute('role', 'main');
+    if (root) {
+        root.removeAttribute('class');
+        root.classList.add(`page__${rootClass}`, 'pf-c-page__main');
+        root.setAttribute('role', 'main');
+    }
 
     return (<Route { ...rest } component={ Component } />);
 };
 
-InsightsRoute.propTypes = {
-    component: PropTypes.func,
-    rootClass: PropTypes.string
-};
+interface RoutesProps {
+    childProps: GlobalProps;
+}
 
 /**
  * the Switch component changes routes depending on the path.
@@ -56,22 +62,18 @@ InsightsRoute.propTypes = {
  *      path - https://prod.foo.redhat.com:1337/insights/advisor/rules
  *      component - component to be rendered when a route has been chosen.
  */
-export const Routes = (props) => {
+export const Routes = (props: RoutesProps) => {
     const path = props.childProps.location.pathname;
 
     return (
         <Switch>
-            <InsightsRoute path={ paths.dashboard } component={ Dashboard } rootClass='dashboard' />
-            <InsightsRoute path={ paths.upload } component={ UploadFiles } rootClass='upload' />
-            <InsightsRoute path={ paths.reports } component={ ReportList } rootClass='reports' exact />
-            <InsightsRoute path={ paths.reportView } component={ ReportView } rootClass='report' exact/>
+            <InsightsRoute component={ DashboardPage } rootClass='dashboard' path={ paths.dashboard } />
+            <InsightsRoute component={ UploadFiles } rootClass='upload' path={ paths.upload } />
+            <InsightsRoute component={ ReportList } rootClass='reports' path={ paths.reports } exact />
+            <InsightsRoute component={ ReportView } rootClass='report' path={ paths.reportView } exact />
 
             { /* Finally, catch all unmatched routes */ }
             <Route render={ () => some(paths, p => p === path) ? null : (<Redirect to={ paths.dashboard } />) } />
         </Switch>
     );
-};
-
-Routes.propTypes = {
-    childProps: PropTypes.object.isRequired
 };

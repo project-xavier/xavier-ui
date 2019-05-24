@@ -6,7 +6,7 @@ export const ActionTypes = {
     UPLOAD_CLEAR: 'UPLOAD_CLEAR'
 };
 
-export const uploadRequest = (customerId, file, config) => {
+export const uploadRequest = (customerId: string, file: File, config = {}) => {
     const formData = new FormData();
     formData.append('file', file, file.name);
     return {
@@ -24,7 +24,7 @@ export const uploadRequest = (customerId, file, config) => {
     };
 };
 
-export const uploadProgress = (file, progress) => ({
+export const uploadProgress = (file: File, progress: number) => ({
     type: ActionTypes.UPLOAD_PROGRESS,
     payload: {
         file,
