@@ -1,4 +1,7 @@
 # xavier-ui
+[![Build Status](https://travis-ci.org/project-xavier/xavier-ui.svg?branch=master)](https://travis-ci.org/project-xavier/xavier-ui)
+[![codecov](https://codecov.io/gh/project-xavier/xavier-ui/branch/master/graph/badge.svg)](https://codecov.io/gh/carlosthe19916/xavier-ui)
+
 
 ## Pre requirements
 - Install Nodejs
