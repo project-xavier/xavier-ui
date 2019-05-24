@@ -30,7 +30,7 @@ cd insights-proxy
 yarn install
 ```
 
-(Optional) You can also clone jaxrs-util-mocks for having jax-rs mocks
+(Optional) You can also clone jaxrs-util-mocks for having jax-rs mocks in order to be able to develop locally without any need of having a running backend
 ``` bash
 git clone https://github.com/carlosthe19916/jaxrs-util-mocks.git
 cd jaxrs-util-mocks
