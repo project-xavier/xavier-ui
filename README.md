@@ -14,11 +14,27 @@ npm install -g webpack-cli
 **NOTE: FOR RUNNING AND DEVELOPING YOU NEED TO ACTIVATE YOUR Red Hat VPN.**
 
 ## Cloning the repositories
-
-* You can curl a script to bypass the downloading. You will still have to run each application yourself as noted in the "Running and Developing" section below *
+You'll need to clone these repositories:
 
 ``` bash
-sh <(curl https://gist.githubusercontent.com/carlosthe19916/d010db5b7743af4b7799e7d6cafb9bee/raw/362f69ee82641164d87b1de52f3c4d629edbf71c/analytics-ui)
+git clone https://github.com/project-xavier/xavier-ui.git
+cd xavier-ui
+yarn install
+
+git clone https://github.com/carlosthe19916/insights-chrome.git
+cd insights-chrome
+yarn install
+
+git clone https://github.com/RedHatInsights/insights-proxy.git
+cd insights-proxy
+yarn install
+```
+
+(Optional) You can also clone jaxrs-util-mocks for having jax-rs mocks
+``` bash
+git clone https://github.com/carlosthe19916/jaxrs-util-mocks.git
+cd jaxrs-util-mocks
+mvn install
 ```
 
 ## Setup the initial /etc/hosts entries (do this once)
@@ -29,16 +45,10 @@ sudo bash scripts/patch-etc-hosts.sh
 ```
 
 ## Running and Developing
-* You can curl a script to bypass the running
-``` bash
-sh <(curl https://gist.githubusercontent.com/carlosthe19916/868c50d4b05ad28fae5b5618936d88e4/raw/77c16539b83bfdebebc3c5f45723aa4b0ebf2053/analytics-ui-run)
-```
 
-Or if you prefer, you can start the projects by your own:
-
-### analytics-ui
+### xavier-ui
 ```shell
-cd analytics-ui
+cd xavier-ui
 yarn start
 ```
 
@@ -53,14 +63,14 @@ yarn start
 Move to insight-chrome/build folder and then execute:
 ```shell
 cd insights-chrome/build
-SPANDX_CONFIG=../../analytics-ui/profiles/local-frontend-and-api.js LOCAL_CHROME=true sh ../../insights-proxy/scripts/run.sh
+SPANDX_CONFIG=../../xavier-ui/profiles/local-frontend-and-api.js LOCAL_CHROME=true sh ../../insights-proxy/scripts/run.sh
 ```
 
-### jaxrs-util-mocks
+### (Optional) jaxrs-util-mocks
 ```shell
 cd jaxrs-util-mocks
 ./mvnw compile quarkus:dev
 ```
 
 # Open you browser
-open your browser - [Analytics UI](https://ci.foo.redhat.com:1337/analytics/xavier/reports)
+open your browser - [https://ci.foo.redhat.com:1337/analytics/xavier/reports](https://ci.foo.redhat.com:1337/analytics/xavier/reports)
