@@ -6,12 +6,12 @@ describe('request', () => {
         ok: true,
         json: () => objectResolver
     });
-    const fetchSpy = jest.fn(() => mockFetchPromise);
+    const fetchSpy: any = jest.fn(() => mockFetchPromise);
 
     beforeAll(() => {
-        window.insights = {
-            chrome: { auth: { getUser: jest.fn(() => objectResolver) }}
-        };
+        // window.insights = {
+        //     chrome: { auth: { getUser: jest.fn(() => objectResolver) }}
+        // };
         window.fetch = fetchSpy;
     });
 
@@ -24,7 +24,8 @@ describe('request', () => {
     });
 
     afterAll(() => {
-        window.fetch.mockClear();
+        const fetch: any = window.fetch;
+        fetch.mockClear();
     });
 });
 
@@ -39,8 +40,8 @@ describe('API calls', () => {
 
     describe('post', () => {
         it('calls request with /create and post', () => {
-            expect(ApiClient.post('/create', {})).toEqual({});
-            expect(ApiClient.request).toHaveBeenCalledWith('/create', {}, 'post', undefined);
+            expect(ApiClient.post('/create', {key: 'value'})).toEqual({});
+            expect(ApiClient.request).toHaveBeenCalledWith('/create', {key: 'value'}, 'post', {});
         });
     });
 
@@ -53,19 +54,20 @@ describe('API calls', () => {
 
     describe('put', () => {
         it('calls request with path and put', () => {
-            expect(ApiClient.put('/update', {})).toEqual({});
-            expect(ApiClient.request).toHaveBeenCalledWith('/update', {}, 'put', undefined);
+            expect(ApiClient.put('/update', {key: 'value'})).toEqual({});
+            expect(ApiClient.request).toHaveBeenCalledWith('/update', {key: 'value'}, 'put', {});
         });
     });
 
     describe('delete', () => {
         it('calls request with path and delete', () => {
             expect(ApiClient.delete('/destroy')).toEqual({});
-            expect(ApiClient.request).toHaveBeenCalledWith('/destroy', null, 'delete', undefined);
+            expect(ApiClient.request).toHaveBeenCalledWith('/destroy', null, 'delete', {});
         });
     });
 
     afterAll(() => {
-        ApiClient.request.mockClear();
+        const request: any = ApiClient.request;
+        request.mockClear();
     });
 });

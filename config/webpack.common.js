@@ -7,8 +7,8 @@ const gitRevisionPlugin = new GitRevisionPlugin({
     branch: true
 });
 const entry = process.env.NODE_ENV === 'production' ?
-    path.resolve(__dirname, '../src/entry.js') :
-    path.resolve(__dirname, '../src/entry-dev.js');
+    path.resolve(__dirname, '../src/entry.tsx') :
+    path.resolve(__dirname, '../src/entry-dev.tsx');
 
 let deploymentEnv = '/apps';
 const gitBranch = process.env.BRANCH || gitRevisionPlugin.branch();

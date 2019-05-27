@@ -16,7 +16,7 @@ export const fetchReports = () => ({
     }
 });
 
-export const fetchReport = (id) => ({
+export const fetchReport = (id: number) => ({
     type: FETCH_REPORT,
     payload: getReportById(id),
     meta: {

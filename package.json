@@ -6,11 +6,22 @@
     "@babel/runtime": "^7.1.2",
     "@patternfly/patternfly": "^1.0.219",
     "@patternfly/react-core": "2.1.4",
-    "@red-hat-insights/insights-frontend-components": "^3.38.0",
+    "@patternfly/react-table": "^2.5.11",
+    "@redhat-cloud-services/frontend-components": "^0.0.5",
+    "@redhat-cloud-services/frontend-components-utilities": "^0.0.5",
+    "@types/jest": "^24.0.13",
+    "@types/lodash": "^4.14.130",
+    "@types/node": "^12.0.2",
+    "@types/react": "^16.8.18",
+    "@types/react-dom": "^16.8.4",
+    "@types/react-redux": "^7.0.9",
+    "@types/react-router-dom": "^4.3.3",
+    "@types/redux-logger": "^3.0.7",
     "axios": "^0.18.0",
     "classnames": "^2.2.5",
     "create-react-class": "^15.6.3",
-    "react-dropzone": "^10.1.4"
+    "react-dropzone": "^10.1.4",
+    "typescript": "^3.4.5"
   },
   "sassIncludes": {
     "patternfly": "node_modules/patternfly/dist/sass",
@@ -21,7 +32,7 @@
     "coverageDirectory": "./coverage/",
     "collectCoverage": true,
     "collectCoverageFrom": [
-      "src/**/*.{js,jsx}",
+      "src/**/*.{js,jsx,ts,tsx}",
       "!src/**/stories/*"
     ],
     "setupFiles": [
