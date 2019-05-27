@@ -1,0 +1,10 @@
+import EmptyDashboard from './EmptyDashboard';
+
+describe('EmptyDashboard', () => {
+    it('expect to render ', () => {
+        const wrapper = shallow(
+            <EmptyDashboard></EmptyDashboard>
+        );
+        expect(wrapper).toMatchSnapshot();
+    });
+});

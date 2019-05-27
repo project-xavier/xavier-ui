@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoadingState expect to render children when loaded 1`] = `ShallowWrapper {}`;
+
+exports[`LoadingState expect to render children when undefined 1`] = `ShallowWrapper {}`;
+
+exports[`LoadingState expect to render placeholder when loading 1`] = `ShallowWrapper {}`;
