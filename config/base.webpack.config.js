@@ -24,6 +24,9 @@ const webpackConfig = {
     entry: {
         App: config.paths.entry
     },
+    resolve: {
+        extensions: [ '.ts', '.tsx', '.js' ]
+    },
     output: {
         filename: 'js/[name]-[hash].js',
         path: config.paths.public,
@@ -32,7 +35,7 @@ const webpackConfig = {
     },
     module: {
         rules: [{
-            test: /\.js$/,
+            test: /\.(js|ts|tsx)$/,
             exclude: /(node_modules|bower_components)/i,
             use: [{ loader: 'source-map-loader' }, { loader: 'babel-loader' }, { loader: 'eslint-loader' }]
         }, {

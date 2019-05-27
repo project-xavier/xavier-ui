@@ -5,17 +5,25 @@ import {
     Main,
     PageHeader,
     PageHeaderTitle
-} from '@red-hat-insights/insights-frontend-components';
+} from '@redhat-cloud-services/frontend-components';
 import {
     Breadcrumb,
     BreadcrumbItem
 } from '@patternfly/react-core';
+import { GlobalProps } from '../../models/GlobalProps';
 
-import PropTypes from 'prop-types';
+interface Props extends GlobalProps {
+    title: string;
+    mainStyle?: any;
+    showBreadcrumb: boolean;
+};
 
-export class UploadFilesPage extends Component {
+interface State {
+}
 
-    toIndex(event) {
+export class UploadFilesPage extends Component<Props, State> {
+
+    toIndex(event: any): void {
         event.preventDefault();
         this.props.history.push('/reports');
     }
@@ -52,19 +60,6 @@ export class UploadFilesPage extends Component {
             </Fragment>
         );
     }
-};
-
-UploadFilesPage.defaultProps = {
-    showBreadcrumb: true
-};
-
-UploadFilesPage.propTypes = {
-    title: PropTypes.string.isRequired,
-    rightBar: PropTypes.node,
-    showBreadcrumb: PropTypes.bool,
-    children: PropTypes.node,
-    history: PropTypes.object,
-    mainStyle: PropTypes.object
 };
 
 export default withRouter(UploadFilesPage);

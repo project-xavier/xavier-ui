@@ -12,6 +12,10 @@ describe('uploadFile', () => {
         const customerId = 'myCustomerId';
         const file = new File([ '' ], 'myFile.zip');
         const config = {};
-        expect(actionGenerator.uploadFile(customerId, file, config)).toMatchSnapshot();
+
+        const formData = new FormData();
+        formData.append('file', file, file.name);
+        
+        expect(actionGenerator.uploadFile(customerId, formData, config)).toMatchSnapshot();
     });
 });

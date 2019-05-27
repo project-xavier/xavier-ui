@@ -2,12 +2,11 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import {
     Skeleton,
     SkeletonSize,
     TableToolbar
-} from '@red-hat-insights/insights-frontend-components';
+} from '@redhat-cloud-services/frontend-components';
 import {
     Button,
     Bullseye,
@@ -15,28 +14,51 @@ import {
     EmptyStateIcon,
     EmptyStateBody,
     Title,
-    ToolbarItem,
-    ToolbarGroup
+    ToolbarGroup,
+    ToolbarItem
 } from '@patternfly/react-core';
 import {
     Table,
     TableHeader,
     TableBody,
-    TableGridBreakpoint
+    TableGridBreakpoint,
+    IRow,
+    ICell
 } from '@patternfly/react-table';
 import { CubesIcon } from '@patternfly/react-icons';
 import ReportListPage from '../../PresentationalComponents/ReportListPage/ReportListPage';
 import LoadingState from '../../PresentationalComponents/LoadingState/LoadingState';
 import * as actionCreators from '../../actions/ReportActions';
+import { Report } from '../../models/Report';
+import { GlobalState } from '../../models/GlobalState';
 
-class ReportsList extends React.Component {
+interface StateToProps {
+    total: number;
+    error: string;
+    loading: boolean;
+    reports: Report[];
+}
 
-    constructor(props) {
+interface DispatchToProps {
+    fetchReports: () => any;
+}
+
+interface Props extends StateToProps, DispatchToProps {
+};
+
+interface State {
+    columns: Array<ICell | String>;
+    rows: Array<IRow | Array<String>>
+};
+
+class ReportsList extends React.Component<Props, State> {
+
+    constructor(props: Props) {
         super(props);
         this.state = {
             columns: [
-                { title: 'Report ID' },
-                { title: 'Customer ID' },
+                { title: 'Report Id', props: {}},
+                { title: 'Customer Id', props: {}},
                 {
                     title: 'File name',
                     props: {
@@ -49,20 +71,20 @@ class ReportsList extends React.Component {
         };
     }
 
-    componentDidMount() {
+    componentDidMount(): void {
         this.refreshData();
     }
 
-    refreshData() {
+    refreshData(): void {
         this.props.fetchReports().then(() =>
             this.filtersInRowsAndCells()
         );
     }
 
-    filtersInRowsAndCells() {
-        const reports = Object.values(this.props.reports);
+    filtersInRowsAndCells(): void {
+        const reports: Report[] = Object.values(this.props.reports);
 
-        let rows = [];
+        let rows: any[][] = [];
         if (reports.length > 0) {
             rows = reports.map(({ id, customerId, fileName }) => (
                 [
@@ -70,9 +92,10 @@ class ReportsList extends React.Component {
                     { title: customerId },
                     { title: fileName },
                     {
-                        title: <Button variant='primary' component= { Link } to={ `/reports/${id}` }>View</Button>
+                        title: <Button variant='primary' component={ Link } to={ `/reports/${id}` }>View</Button>
                     }
-                ]));
+                ]
+            ));
         }
 
         this.setState({ rows });
@@ -100,13 +123,13 @@ class ReportsList extends React.Component {
 
         return (
             <React.Fragment>
-                <TableToolbar>
+                { <TableToolbar>
                     <ToolbarGroup>
                         <ToolbarItem>
                             <Button component={ Link } to={ '/upload' }>Upload</Button>
                         </ToolbarItem>
                     </ToolbarGroup>
-                </TableToolbar>
+                </TableToolbar> }
                 <Table aria-label='Reports list'
                     rows={ rows }
                     cells={ columns }
@@ -136,22 +159,17 @@ class ReportsList extends React.Component {
     }
 }
 
-ReportsList.propTypes = {
-    fetchReports: PropTypes.func.isRequired,
-    reports: PropTypes.array.isRequired,
-    loading: PropTypes.bool,
-    total: PropTypes.number,
-    error: PropTypes.string
+const mapStateToProps = (state: GlobalState)  => {
+    let { reports: { reports, loading, error, total }} = state;
+    return {
+        reports,
+        loading,
+        error,
+        total
+    };
 };
 
-const mapStateToProps = ({ reports: { reports, loading, error, total }}) => ({
-    reports,
-    loading,
-    error,
-    total
-});
-
-const mapDispatchToProps = (dispatch) =>
+const mapDispatchToProps = (dispatch: any) =>
     bindActionCreators({
         fetchReports: actionCreators.fetchReports
     }, dispatch);
