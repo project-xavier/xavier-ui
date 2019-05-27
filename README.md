@@ -52,6 +52,7 @@ sudo bash scripts/patch-etc-hosts.sh
 ### xavier-ui
 ```shell
 cd xavier-ui
+yarn install
 yarn start
 ```
 
@@ -62,7 +63,7 @@ cd insights-chrome
 yarn start
 ```
 
-### insights-chrome
+### insights-proxy
 Move to insight-chrome/build folder and then execute:
 ```shell
 cd insights-chrome/build
