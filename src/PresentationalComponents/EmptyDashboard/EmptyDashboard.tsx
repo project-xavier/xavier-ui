@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import {
     Title,
+    TitleSize,
     Button,
     EmptyState,
     EmptyStateIcon,
@@ -18,12 +19,8 @@ const EmptyDashboard = () => {
                 <Bullseye>
                     <EmptyState>
                         <EmptyStateIcon icon={ CubesIcon } />
-                        <Title headingLevel="h5" size="lg">
-                            No Uploads
-                        </Title>
-                        <EmptyStateBody>
-                            You have not uploaded any file yet.
-                        </EmptyStateBody>
+                        <Title size={ TitleSize.lg }>No Uploads</Title>
+                        <EmptyStateBody>You have not uploaded any file yet.</EmptyStateBody>
                         <Link to="/upload">
                             <Button variant="primary">Upload</Button>
                         </Link>

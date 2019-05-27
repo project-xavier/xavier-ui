@@ -16,7 +16,7 @@ const initialState = {
     loading: false
 };
 
-const fromRequest = (type, payload, meta: {}) => ({
+const fromRequest = (type: string, payload: any, meta = {}) => ({
     type,
     payload,
     meta: { partial: false, ...meta }

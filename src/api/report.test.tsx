@@ -15,6 +15,6 @@ describe('getAllReports', () => {
 
 describe('getReportById', () => {
     it('returns a state object', () => {
-        expect(actionGenerator.getReportById()).toMatchSnapshot();
+        expect(actionGenerator.getReportById(1)).toMatchSnapshot();
     });
 });
