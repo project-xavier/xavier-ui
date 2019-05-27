@@ -112,7 +112,7 @@ class ReportsList extends React.Component<Props, State> {
                     <EmptyStateBody>
                         There are no reports processed yet.
                     </EmptyStateBody>
-                    Upload
+                    <Button variant="primary" component={ Link } to={ '/upload' }>Upload</Button>
                 </EmptyState>
             </Bullseye>
         );
