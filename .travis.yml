@@ -6,14 +6,17 @@ node_js:
 - '10'
 install:
   - npm ci
-script:
-  - npm run travis:verify
-  - npx codecov
-after_success:
-- curl -sSL https://raw.githubusercontent.com/RedHatInsights/insights-frontend-builder-common/master/src/bootstrap.sh | bash -s
+jobs:
+  include:
+  - stage: Lint
+    script: npm run lint
+  - stage: Test
+    script: npm run test --coverage --maxWorkers=4 && npx codecov
+  # - stage: Deploy
+  #   script: npm run build && curl -sSL https://raw.githubusercontent.com/RedHatInsights/insights-frontend-builder-common/master/src/bootstrap.sh | bash -s
 env:
     global:
-    - REPO="git@github.com:project-xavier/project-xavier-build"
-    - REPO_DIR="project-xavier-build"
+    - REPO="git@github.com:RedHatInsights/xavier-ui-deploy"
+    - REPO_DIR="xavier-ui-deploy"
     - BRANCH=${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}
     - NODE_OPTIONS="--max-old-space-size=4096 --max_old_space_size=4096"
