@@ -1,3 +1,58 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`EmptyDashboard expect to render  1`] = `ShallowWrapper {}`;
+exports[`EmptyDashboard expect to render  1`] = `
+<Card
+  className=""
+  component="article"
+>
+  <CardBody
+    className=""
+    component="div"
+  >
+    <Bullseye
+      className=""
+      component="div"
+    >
+      <EmptyState
+        className=""
+      >
+        <EmptyStateIcon
+          className=""
+          icon={[Function]}
+        />
+        <Title
+          className=""
+          headingLevel="h1"
+          size="lg"
+        >
+          No Uploads
+        </Title>
+        <EmptyStateBody
+          className=""
+        >
+          You have not uploaded any file yet.
+        </EmptyStateBody>
+        <Link
+          replace={false}
+          to="/upload"
+        >
+          <Button
+            aria-label={null}
+            className=""
+            component="button"
+            isActive={false}
+            isBlock={false}
+            isDisabled={false}
+            isFocus={false}
+            isHover={false}
+            type="button"
+            variant="primary"
+          >
+            Upload
+          </Button>
+        </Link>
+      </EmptyState>
+    </Bullseye>
+  </CardBody>
+</Card>
+`;

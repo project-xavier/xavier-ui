@@ -15,7 +15,7 @@ import { GlobalProps } from '../../models/GlobalProps';
 interface Props extends GlobalProps {
     title: string;
     mainStyle?: any;
-    showBreadcrumb: boolean;
+    showBreadcrumb?: boolean;
 };
 
 interface State {
