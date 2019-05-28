@@ -1,6 +1,6 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
     Skeleton,
@@ -31,8 +31,9 @@ import LoadingState from '../../PresentationalComponents/LoadingState/LoadingSta
 import * as actionCreators from '../../actions/ReportActions';
 import { Report } from '../../models/Report';
 import { GlobalState } from '../../models/GlobalState';
+import { GlobalProps } from '../../models/GlobalProps';
 
-interface StateToProps {
+interface StateToProps extends GlobalProps {
     total: number;
     error: string;
     loading: boolean;
@@ -51,7 +52,7 @@ interface State {
     rows: Array<IRow | Array<String>>
 };
 
-class ReportsList extends React.Component<Props, State> {
+export class ReportList extends React.Component<Props, State> {
 
     constructor(props: Props) {
         super(props);
@@ -174,4 +175,4 @@ const mapDispatchToProps = (dispatch: any) =>
         fetchReports: actionCreators.fetchReports
     }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(ReportsList);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ReportList));

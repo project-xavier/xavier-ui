@@ -18,6 +18,6 @@ const DashboardPage = () => {
             </Main>
         </React.Fragment>
     );
-}
+};
 
 export default DashboardPage;

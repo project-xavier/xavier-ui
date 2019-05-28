@@ -1,0 +1,185 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReportList expect to redirect because error 1`] = `
+<Redirect
+  push={false}
+  to="/reports"
+/>
+`;
+
+exports[`ReportList expect to redirect because no reportId 1`] = `
+<Redirect
+  push={false}
+  to="/reports"
+/>
+`;
+
+exports[`ReportList expect to render loading object 1`] = `
+<ReportListPage
+  showBreadcrumb={false}
+  title="Report "
+>
+  <LoadingState
+    loading={true}
+    placeholder={
+      <Spinner
+        centered={true}
+      />
+    }
+  >
+    <Card
+      className=""
+      component="article"
+    >
+      <CardBody
+        className=""
+        component="div"
+      >
+        <div
+          className="pf-c-content"
+        >
+          <dl>
+            <dt>
+              Customer id:
+            </dt>
+            <dd>
+              123456
+            </dd>
+            <dt>
+              File name:
+            </dt>
+            <dd>
+              file1.json
+            </dd>
+            <dt>
+              Number of hosts:
+            </dt>
+            <dd>
+              254
+            </dd>
+            <dt>
+              Total disk space:
+            </dt>
+            <dd>
+              5,871,365
+               B
+            </dd>
+            <dt>
+              Total price:
+            </dt>
+            <dd>
+              $1,200.00
+            </dd>
+            <dt>
+              Creation date:
+            </dt>
+            <dd>
+              Thu Jan 01 1970 01:04:14 GMT+0100 (Central European Standard Time)
+            </dd>
+          </dl>
+          <Button
+            aria-label={null}
+            className=""
+            component={[Function]}
+            isActive={false}
+            isBlock={false}
+            isDisabled={false}
+            isFocus={false}
+            isHover={false}
+            to="/reports"
+            type="button"
+            variant="secondary"
+          >
+            Back
+          </Button>
+        </div>
+      </CardBody>
+    </Card>
+  </LoadingState>
+</ReportListPage>
+`;
+
+exports[`ReportList expect to render object 1`] = `
+<ReportListPage
+  showBreadcrumb={false}
+  title="Report 36"
+>
+  <LoadingState
+    loading={false}
+    placeholder={
+      <Spinner
+        centered={true}
+      />
+    }
+  >
+    <Card
+      className=""
+      component="article"
+    >
+      <CardBody
+        className=""
+        component="div"
+      >
+        <div
+          className="pf-c-content"
+        >
+          <dl>
+            <dt>
+              Customer id:
+            </dt>
+            <dd>
+              123456
+            </dd>
+            <dt>
+              File name:
+            </dt>
+            <dd>
+              file1.json
+            </dd>
+            <dt>
+              Number of hosts:
+            </dt>
+            <dd>
+              254
+            </dd>
+            <dt>
+              Total disk space:
+            </dt>
+            <dd>
+              5,871,365
+               B
+            </dd>
+            <dt>
+              Total price:
+            </dt>
+            <dd>
+              $1,200.00
+            </dd>
+            <dt>
+              Creation date:
+            </dt>
+            <dd>
+              Thu Jan 01 1970 01:04:14 GMT+0100 (Central European Standard Time)
+            </dd>
+          </dl>
+          <Button
+            aria-label={null}
+            className=""
+            component={[Function]}
+            isActive={false}
+            isBlock={false}
+            isDisabled={false}
+            isFocus={false}
+            isHover={false}
+            to="/reports"
+            type="button"
+            variant="secondary"
+          >
+            Back
+          </Button>
+        </div>
+      </CardBody>
+    </Card>
+  </LoadingState>
+</ReportListPage>
+`;

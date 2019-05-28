@@ -18,17 +18,24 @@ import { GlobalProps } from '../../models/GlobalProps';
 import { Report } from '../../models/Report';
 import { GlobalState } from '../../models/GlobalState';
 
-interface Props extends GlobalProps {
+interface StateToProps extends GlobalProps {
+    error: string;
     report: Report;
-    loading: boolean;
+    loading: boolean;    
+}
+
+interface DispatchToProps {
     fetchReport: (reportId: number) => void;
+}
+
+interface Props extends StateToProps, DispatchToProps {
 };
 
 interface State {
     reportId: number;
 };
 
-class ReportView extends React.Component<Props, State> {
+export class ReportView extends React.Component<Props, State> {
 
     constructor(props: Props) {
         super(props);
@@ -49,22 +56,26 @@ class ReportView extends React.Component<Props, State> {
     }
 
     render() {
-        const { report } = this.props;
-        let action = this.props.match.params.reportId && report ? report.id : 'Unknown report';
+        const { report, error } = this.props;
+        const { reportId } = this.state;
 
-        if (report && !this.props.match.params.reportId) {
-            return <Redirect to={ `/reports/${ report.id }` } />;
+        if (!reportId || error) {
+            return <Redirect to={ `/reports` } />;
         }
 
+        let action = !this.props.loading && report ? report.id : '';
+
         return (
-            <ReportListPage title={ `Report ${action}` } showBreadcrumb={ false }>
+            <ReportListPage
+                title={ `Report ${action}` }
+                showBreadcrumb={ false }>
                 <LoadingState
                     loading={ this.props.loading }
                     placeholder={ <Spinner centered/> }>
                     <Card>
                         <CardBody>
                             {
-                                report ? <div className="pf-c-content">
+                                report ? (<div className="pf-c-content">
                                     <dl>
                                         <dt>Customer id:</dt>
                                         <dd>{ report.customerId }</dd>
@@ -81,7 +92,9 @@ class ReportView extends React.Component<Props, State> {
                                     </dl>
                                     <Button variant="secondary" component= { Link } to="/reports">Back</Button>
                                 </div>
-                                    : ''
+                                ) : (
+                                    ''
+                                )
                             }
                         </CardBody>
                     </Card>
@@ -92,10 +105,11 @@ class ReportView extends React.Component<Props, State> {
 }
 
 const mapStateToProps = (state: GlobalState)  => {
-    let { report, loading } = state.reports;
+    let { report, loading, error } = state.reports;
     return {
         report,
-        loading
+        loading,
+        error
     };
 };
 
