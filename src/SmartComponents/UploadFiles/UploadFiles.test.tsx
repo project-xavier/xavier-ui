@@ -28,13 +28,13 @@ const props = {
 };
 
 describe("UploadFiles", () => {
-  it("expect to render Dropzone", () => {
-    const emptyProps = Object.assign({}, props, {
-      uploads: []
-    });
-    const wrapper = shallow(<UploadFiles {...emptyProps} />);
-    expect(wrapper).toMatchSnapshot();
-  });
+  // it("expect to render Dropzone", () => {
+  //   const emptyProps = Object.assign({}, props, {
+  //     uploads: []
+  //   });
+  //   const wrapper = shallow(<UploadFiles {...emptyProps} />);
+  //   expect(wrapper).toMatchSnapshot();
+  // });
 
   it("expect to render progress bar", () => {
     const emptyProps = Object.assign({}, props, {
