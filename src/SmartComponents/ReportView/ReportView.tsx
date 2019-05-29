@@ -88,7 +88,7 @@ export class ReportView extends React.Component<Props, State> {
                                         <dt>Total price:</dt>
                                         <dd>{ formatValue(report.totalPrice, 'usd') }</dd>
                                         <dt>Creation date:</dt>
-                                        <dd>{ new Date(report.creationDate).toString() }</dd>
+                                        <dd>{ new Date(report.creationDate).toUTCString() }</dd>
                                     </dl>
                                     <Button variant="secondary" component= { Link } to="/reports">Back</Button>
                                 </div>

@@ -23,7 +23,7 @@ const props = {
   location: null
 };
 
-describe("ReportList", () => {
+describe("ReportView", () => {
   it("expect to redirect because no reportId", () => {
     const emptyProps = Object.assign({}, props, {
       match: {
