@@ -80,7 +80,8 @@ describe('report reducer', () => {
             uploads: [{
                 file,
                 error: null,
-                success: null
+                success: null,
+                uploading: true
             }]
         };
         const newState = uploadsReducer(

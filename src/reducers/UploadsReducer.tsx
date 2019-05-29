@@ -37,7 +37,8 @@ export const uploadsReducer = function (state = initialStateFor('uploads', []), 
                     {
                         file: action.meta.file,
                         success: null,
-                        error: null
+                        error: null,
+                        uploading: true
                     }
                 ]
             };
@@ -50,7 +51,8 @@ export const uploadsReducer = function (state = initialStateFor('uploads', []), 
                         return {
                             ...upload,
                             success: true,
-                            error: null
+                            error: null,
+                            uploading: false
                         };
                     } else {
                         return {
@@ -68,7 +70,8 @@ export const uploadsReducer = function (state = initialStateFor('uploads', []), 
                         return {
                             ...upload,
                             success: false,
-                            error: action.payload.message
+                            error: action.payload.message,
+                            uploading: false
                         };
                     }
 

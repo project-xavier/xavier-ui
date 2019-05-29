@@ -42,7 +42,7 @@ interface State {
     customerId: string;
 };
 
-class UploadFiles extends Component<Props, State> {
+export class UploadFiles extends Component<Props, State> {
 
     constructor(props: Props) {
         super(props);
@@ -82,7 +82,7 @@ class UploadFiles extends Component<Props, State> {
 
     render() {
         const showDropZone: boolean = this.props.uploads.length === 0;
-        const uploading: boolean = this.props.uploads.some((element) => element.success === null);
+        const uploading: boolean = this.props.uploads.some((element) => element.uploading);
 
         const dropzoneRef: any = createRef();
         const openDialog = () => {
