@@ -52,26 +52,4 @@ describe("UploadFiles", () => {
     const wrapper = shallow(<UploadFiles {...emptyProps} />);
     expect(wrapper).toMatchSnapshot();
   });
-
-  // it("expect to redirect because error", () => {
-  //   const errorProps = Object.assign({}, props, {
-  //     error: 'Error loading data'
-  //   });
-  //   const wrapper = shallow(<UploadFiles {...errorProps} />);
-  //   expect(wrapper).toMatchSnapshot();
-  // });
-
-  // it("expect to render loading object", () => {
-  //   const loadingProps = Object.assign({}, props, {
-  //     loading: true
-  //   });
-  //   const wrapper = shallow(<UploadFiles {...loadingProps} />);
-  //   expect(wrapper).toMatchSnapshot();
-  // });
-
-  // it("expect to render object", () => {
-  //   const objProps = Object.assign({}, props);
-  //   const wrapper = shallow(<UploadFiles {...objProps} />);
-  //   expect(wrapper).toMatchSnapshot();
-  // });
 });
