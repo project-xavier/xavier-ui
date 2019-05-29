@@ -1,5 +1,88 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`UploadFiles expect to render Dropzone 1`] = `
+<withRouter(UploadFilesPage)
+  showBreadcrumb={false}
+  title="Upload"
+>
+  <Card
+    className=""
+    component="article"
+  >
+    <CardBody
+      className=""
+      component="div"
+    >
+      <div>
+        <ForwardRef
+          accept={
+            Array [
+              "application/zip",
+              "application/json",
+            ]
+          }
+          multiple={false}
+          noClick={true}
+          noKeyboard={true}
+          onDrop={[Function]}
+        >
+          <Component />
+        </ForwardRef>
+        <br />
+        <Form
+          className="pf-l-level"
+          isHorizontal={true}
+        >
+          <FormGroup
+            className=""
+            fieldId="horizontal-form-name"
+            isInline={false}
+            isRequired={true}
+            isValid={true}
+            label="Customer id"
+          >
+            <TextInput
+              aria-describedby="horizontal-form-name-helper"
+              aria-label={null}
+              className=""
+              id="horizontal-form-name"
+              isDisabled={false}
+              isReadOnly={false}
+              isRequired={true}
+              isValid={true}
+              name="horizontal-form-name"
+              onChange={[Function]}
+              type="text"
+              value="123456"
+            />
+          </FormGroup>
+        </Form>
+      </div>
+    </CardBody>
+    <CardFooter
+      className=""
+      component="div"
+    >
+      <Button
+        aria-label={null}
+        className=""
+        component={[Function]}
+        isActive={false}
+        isBlock={false}
+        isDisabled={false}
+        isFocus={false}
+        isHover={false}
+        to="/reports"
+        type="button"
+        variant="tertiary"
+      >
+        Cancel
+      </Button>
+    </CardFooter>
+  </Card>
+</withRouter(UploadFilesPage)>
+`;
+
 exports[`UploadFiles expect to render progress bar 1`] = `
 <withRouter(UploadFilesPage)
   showBreadcrumb={false}
@@ -31,7 +114,7 @@ exports[`UploadFiles expect to render progress bar 1`] = `
             min={0}
             size={null}
             title="Uploading: myFile1.zip"
-            value={null}
+            value={0}
             valueText={null}
             variant="info"
           />
@@ -49,7 +132,7 @@ exports[`UploadFiles expect to render progress bar 1`] = `
             min={0}
             size={null}
             title="Uploading: myFile2.zip"
-            value={null}
+            value={0}
             valueText={null}
             variant="info"
           />

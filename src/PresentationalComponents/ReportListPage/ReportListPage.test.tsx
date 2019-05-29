@@ -51,24 +51,4 @@ describe("ReportListPage", () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  // it("should redirect to '/reports'", () => {
-  //   const mockPushFn = jest.fn();
-  //   const props = Object.assign({}, routerProps, {
-  //     history: {
-  //       push: mockPushFn,
-  //       location: {
-  //         pathname: "/reports"
-  //       }
-  //     }
-  //   });
-
-  //   const component = shallow(
-  //       <ReportListPage title="My title" {...props}>
-  //         children
-  //       </ReportListPage>
-  //   ).dive();
-  //   component.find('[className="save-button"]').simulate("click");
-  //   expect(mockPushFn).toHaveBeenCalled();
-  //   component.unmount();
-  // });
 });

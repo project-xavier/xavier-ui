@@ -14,27 +14,27 @@ const props = {
       file: new File([""], "myFile1.zip"),
       success: null,
       error: null,
-      progress: null,
+      progress: 0,
       uploading: false
     },
     {
       file: new File([""], "myFile2.zip"),
       success: null,
       error: null,
-      progress: null,
+      progress: 0,
       uploading: false
     }
   ]
 };
 
 describe("UploadFiles", () => {
-  // it("expect to render Dropzone", () => {
-  //   const emptyProps = Object.assign({}, props, {
-  //     uploads: []
-  //   });
-  //   const wrapper = shallow(<UploadFiles {...emptyProps} />);
-  //   expect(wrapper).toMatchSnapshot();
-  // });
+  it("expect to render Dropzone", () => {
+    const emptyProps = Object.assign({}, props, {
+      uploads: []
+    });
+    const wrapper = shallow(<UploadFiles {...emptyProps} />);
+    expect(wrapper).toMatchSnapshot();
+  });
 
   it("expect to render progress bar", () => {
     const emptyProps = Object.assign({}, props, {
