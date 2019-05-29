@@ -13,6 +13,7 @@ const props = {
     totalPrice: 1200,
     creationDate: 254112
   },
+
   match: {
     params: {
       reportId: 1

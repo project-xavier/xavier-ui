@@ -30,7 +30,11 @@ const props = {
     then: (fn: Function) => {
       fn();
     }
-  })
+  }),
+
+  history: null,
+  location: null,
+  match: null
 };
 
 describe("ReportList", () => {

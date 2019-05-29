@@ -35,7 +35,7 @@ import { RouterGlobalProps } from '../../models/router';
 
 interface StateToProps extends RouterGlobalProps {
     total: number;
-    error: string;
+    error: string | null;
     loading: boolean;
     reports: Report[];
 }

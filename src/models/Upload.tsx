@@ -1,7 +1,7 @@
 export interface Upload {
     file: File,
-    success: boolean,
-    error: string,
+    success: boolean | null,
+    error: string | null,
     progress: number,
     uploading: boolean
 }

@@ -1,5 +1,4 @@
 import React from 'react';
-import './DashboardPage.scss';
 import {
     Main,
     PageHeader,

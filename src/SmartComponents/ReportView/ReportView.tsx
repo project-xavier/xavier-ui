@@ -19,8 +19,8 @@ import { Report } from '../../models';
 import { GlobalState } from '../../models/state';
 
 interface StateToProps extends RouterGlobalProps {
-    error: string;
-    report: Report;
+    error: string | null;
+    report: Report | null;
     loading: boolean;
 }
 

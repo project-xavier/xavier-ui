@@ -3,9 +3,7 @@ import { Upload } from '../Upload';
 
 export interface GlobalState {
     reports: ReportState,
-    uploads: {
-        uploads: Upload[]
-    }
+    uploads: UploadState
 }
 
 export interface ReportState {
@@ -14,4 +12,8 @@ export interface ReportState {
     report: Report | null;
     reports: Report[];
     loading: boolean;
+}
+
+export interface UploadState {
+    uploads: Upload[]
 }

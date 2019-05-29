@@ -1,6 +1,6 @@
 import {
     reportsReducer,
-    reportInitialState as systemInitialState
+    initialState as systemInitialState
 } from './ReportsReducer';
 import {
     FETCH_REPORTS,
@@ -15,6 +15,7 @@ import {
 import reportsMock, { reportMock } from './__fixtures__/reports';
 import { GenericAction } from '../models/action';
 import { ReportState } from '../models/state';
+import { Report } from '../models';
 
 const initialState = {
     error: null,
@@ -64,14 +65,14 @@ describe('report reducer', () => {
     });
 
     it('should handle FETCH_REPORTS_PENDING', () => {
-        const expectedNewState = {
+        const expectedNewState: ReportState = {
             ...reportInitialState,
             total: 0,
             reports: [],
             loading: true,
             error: null
         };
-        const newState = reportsReducer(
+        const newState: ReportState = reportsReducer(
             reportInitialState,
             fromRequest(pendingMessage(FETCH_REPORTS), {})
         );
@@ -79,13 +80,13 @@ describe('report reducer', () => {
     });
 
     it('should handle FETCH_REPORT_PENDING', () => {
-        const expectedNewState = {
+        const expectedNewState: ReportState = {
             ...reportInitialState,
             report: null,
             loading: true,
             error: null
         };
-        const newState = reportsReducer(
+        const newState: ReportState = reportsReducer(
             reportInitialState,
             fromRequest(pendingMessage(FETCH_REPORT), {})
         );
@@ -93,13 +94,13 @@ describe('report reducer', () => {
     });
 
     it('should handle FETCH_REPORTS_SUCCESS', () => {
-        const expectedNewState = {
+        const expectedNewState: ReportState = {
             ...reportInitialState,
             loading: false,
             reports: reportsMock.data,
             total: 3
         };
-        const newState = reportsReducer(
+        const newState: ReportState = reportsReducer(
             reportInitialState,
             fromRequest(successMessage(FETCH_REPORTS), reportsMock)
         );
@@ -107,14 +108,14 @@ describe('report reducer', () => {
     });
 
     it('should handle FETCH_REPORT_SUCCESS', () => {
-        let testReport = reportMock.data;
+        let testReport: Report = reportMock.data;
 
-        const expectedNewState = {
+        const expectedNewState: ReportState = {
             ...reportInitialState,
             loading: false,
             report: testReport
         };
-        const newState = reportsReducer(
+        const newState: ReportState = reportsReducer(
             reportInitialState,
             fromRequest(successMessage(FETCH_REPORT), reportMock)
         );
@@ -123,31 +124,36 @@ describe('report reducer', () => {
 
     it('should handle FETCH_REPORTS_FAILURE', () => {
         const error = 'It broke';
-        const newState = reportsReducer(
-            reportInitialState,
-            fromRequest(failureMessage(FETCH_REPORTS), { message: error })
-        );
-        expect(newState).toEqual({
+        
+        const expectedNewState: ReportState = {
             ...reportInitialState,
             total: 0,
             reports: [],
             loading: false,
             error
-        });
+        };
+        const newState: ReportState = reportsReducer(
+            reportInitialState,
+            fromRequest(failureMessage(FETCH_REPORTS), { message: error })
+        );
+
+        expect(newState).toEqual(expectedNewState);
     });
 
     it('should handle FETCH_REPORT_FAILURE', () => {
         const error = 'It broke';
-        const newState = reportsReducer(
-            reportInitialState,
-            fromRequest(failureMessage(FETCH_REPORT), { message: error })
-        );
-        expect(newState).toEqual({
+
+        const expectedNewState: ReportState = {
             ...reportInitialState,
             report: null,
             loading: false,
             error
-        });
+        };
+        const newState: ReportState = reportsReducer(
+            reportInitialState,
+            fromRequest(failureMessage(FETCH_REPORT), { message: error })
+        );
+        expect(newState).toEqual(expectedNewState);
     });
 
 });

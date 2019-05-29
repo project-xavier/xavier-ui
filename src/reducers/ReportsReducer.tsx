@@ -10,7 +10,7 @@ import {
 import { ReportState } from '../models/state';
 import { GenericAction } from '../models/action';
 
-export const reportInitialState: ReportState = {
+export const initialState: ReportState = {
     error: null,
     total: 0,
     report: null,
@@ -19,7 +19,7 @@ export const reportInitialState: ReportState = {
 };
 
 export const reportsReducer = function (
-    state: ReportState = reportInitialState,
+    state: ReportState = initialState,
     action: GenericAction
 ) {
     switch (action.type) {
