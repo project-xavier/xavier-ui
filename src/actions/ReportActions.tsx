@@ -1,9 +1,10 @@
 import { getAllReports, getReportById } from '../api/report';
+import { GenericAction } from '../models/action';
 
 export const FETCH_REPORTS = 'FETCH_REPORTS';
 export const FETCH_REPORT = 'FETCH_REPORT';
 
-export const fetchReports = () => ({
+export const fetchReports = (): GenericAction  => ({
     type: FETCH_REPORTS,
     payload: getAllReports(),
     meta: {
@@ -16,7 +17,7 @@ export const fetchReports = () => ({
     }
 });
 
-export const fetchReport = (id: number) => ({
+export const fetchReport = (id: number): GenericAction => ({
     type: FETCH_REPORT,
     payload: getReportById(id),
     meta: {

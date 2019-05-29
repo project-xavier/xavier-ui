@@ -1,9 +1,11 @@
+import { AxiosPromise } from 'axios';
 import ApiClient from './apiClient';
+import { Report } from '../models';
 
-export function getAllReports() {
-    return ApiClient.get('/report');
+export function getAllReports(): AxiosPromise<Report[]> {
+    return ApiClient.get<Report[]>('/report');
 }
 
-export function getReportById(id: number) {
-    return ApiClient.get(`/report/${id}`);
+export function getReportById(id: number): AxiosPromise<Report> {
+    return ApiClient.get<Report>(`/report/${id}`);
 }

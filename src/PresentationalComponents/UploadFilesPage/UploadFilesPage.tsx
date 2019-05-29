@@ -10,9 +10,9 @@ import {
     Breadcrumb,
     BreadcrumbItem
 } from '@patternfly/react-core';
-import { GlobalProps } from '../../models/GlobalProps';
+import { RouterGlobalProps } from '../../models/router';
 
-interface Props extends GlobalProps {
+interface Props extends RouterGlobalProps {
     title: string;
     mainStyle?: any;
     showBreadcrumb?: boolean;

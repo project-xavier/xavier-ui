@@ -27,11 +27,11 @@ import {
     uploadProgress,
     uploadClear
 } from '../../actions/UploadActions';
-import { GlobalProps } from '../../models/GlobalProps';
-import { GlobalState } from '../../models/GlobalState';
+import { RouterGlobalProps } from '../../models/router';
+import { GlobalState } from '../../models/state';
 import { Upload } from '../../models/Upload';
 
-interface Props extends GlobalProps {
+interface Props extends RouterGlobalProps {
     uploadProgress: (file: File, progress: number) => void;
     uploadRequest: (customerId: string, file: File, config: {}) => void;
     uploadClear: () => void;

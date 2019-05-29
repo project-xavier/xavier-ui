@@ -8,7 +8,7 @@ import {
     pendingMessage
 } from './reducerHelper';
 
-import uploadsMock, { uploadMock } from '../__fixtures__/uploads';
+import uploadsMock, { uploadMock } from './__fixtures__/uploads';
 
 const initialState = {
     error: null,

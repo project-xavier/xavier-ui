@@ -14,14 +14,14 @@ import { ReportListPage } from '../../PresentationalComponents/ReportListPage/Re
 import LoadingState from '../../PresentationalComponents/LoadingState/LoadingState';
 import { fetchReport } from '../../actions/ReportActions';
 import { formatValue } from '../../Utilities/formatValue';
-import { GlobalProps } from '../../models/GlobalProps';
-import { Report } from '../../models/Report';
-import { GlobalState } from '../../models/GlobalState';
+import { RouterGlobalProps } from '../../models/router';
+import { Report } from '../../models';
+import { GlobalState } from '../../models/state';
 
-interface StateToProps extends GlobalProps {
+interface StateToProps extends RouterGlobalProps {
     error: string;
     report: Report;
-    loading: boolean;    
+    loading: boolean;
 }
 
 interface DispatchToProps {

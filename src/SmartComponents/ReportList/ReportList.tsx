@@ -29,11 +29,11 @@ import { CubesIcon } from '@patternfly/react-icons';
 import ReportListPage from '../../PresentationalComponents/ReportListPage/ReportListPage';
 import LoadingState from '../../PresentationalComponents/LoadingState/LoadingState';
 import * as actionCreators from '../../actions/ReportActions';
-import { Report } from '../../models/Report';
-import { GlobalState } from '../../models/GlobalState';
-import { GlobalProps } from '../../models/GlobalProps';
+import { Report } from '../../models';
+import { GlobalState } from '../../models/state';
+import { RouterGlobalProps } from '../../models/router';
 
-interface StateToProps extends GlobalProps {
+interface StateToProps extends RouterGlobalProps {
     total: number;
     error: string;
     loading: boolean;
