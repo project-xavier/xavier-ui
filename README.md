@@ -62,7 +62,7 @@ cd insights-chrome
 npm run start
 ```
 
-### insights-chrome
+### insights-proxy
 Move to insight-chrome/build folder and then execute:
 ```shell
 cd insights-chrome/build
