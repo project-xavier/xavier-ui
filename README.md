@@ -5,8 +5,7 @@
 
 ## Pre requirements
 - Install Nodejs
-- Install npm
-- Install [yarn](https://yarnpkg.com/en/docs/install)
+- Install npm (avoid using yarn)
 
 Global npm packages needed:
 ```shell
@@ -22,15 +21,15 @@ You'll need to clone these repositories:
 ``` bash
 git clone https://github.com/project-xavier/xavier-ui.git
 cd xavier-ui
-yarn install
+npm ci
 
 git clone https://github.com/carlosthe19916/insights-chrome.git
 cd insights-chrome
-yarn install
+npm install
 
 git clone https://github.com/RedHatInsights/insights-proxy.git
 cd insights-proxy
-yarn install
+npm install
 ```
 
 (Optional) You can also clone jaxrs-util-mocks for having jax-rs mocks in order to be able to develop locally without any need of having a running backend
@@ -52,14 +51,15 @@ sudo bash scripts/patch-etc-hosts.sh
 ### xavier-ui
 ```shell
 cd xavier-ui
-yarn start
+npm ci # Always execute this when package.json changed
+npm run start
 ```
 
 ### insights-chrome
 
 ```shell
 cd insights-chrome
-yarn start
+npm run start
 ```
 
 ### insights-chrome
