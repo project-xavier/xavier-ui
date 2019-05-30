@@ -4,10 +4,12 @@ exports[`EmptyDashboard expect to render  1`] = `
 <Card
   className=""
   component="article"
+  isHoverable={false}
 >
   <CardBody
     className=""
     component="div"
+    isFilled={true}
   >
     <Bullseye
       className=""
@@ -15,14 +17,13 @@ exports[`EmptyDashboard expect to render  1`] = `
     >
       <EmptyState
         className=""
+        variant="large"
       >
         <EmptyStateIcon
           className=""
           icon={[Function]}
         />
         <Title
-          className=""
-          headingLevel="h1"
           size="lg"
         >
           No Uploads
@@ -45,6 +46,7 @@ exports[`EmptyDashboard expect to render  1`] = `
             isDisabled={false}
             isFocus={false}
             isHover={false}
+            isInline={false}
             type="button"
             variant="primary"
           >

@@ -8,13 +8,15 @@ exports[`UploadFiles expect to render Dropzone 1`] = `
   <Card
     className=""
     component="article"
+    isHoverable={false}
   >
     <CardBody
       className=""
       component="div"
+      isFilled={true}
     >
       <div>
-        <ForwardRef
+        <Dropzone
           accept={
             Array [
               "application/zip",
@@ -27,7 +29,7 @@ exports[`UploadFiles expect to render Dropzone 1`] = `
           onDrop={[Function]}
         >
           <Component />
-        </ForwardRef>
+        </Dropzone>
         <br />
         <Form
           className="pf-l-level"
@@ -72,6 +74,7 @@ exports[`UploadFiles expect to render Dropzone 1`] = `
         isDisabled={false}
         isFocus={false}
         isHover={false}
+        isInline={false}
         to="/reports"
         type="button"
         variant="tertiary"
@@ -91,10 +94,12 @@ exports[`UploadFiles expect to render progress bar 1`] = `
   <Card
     className=""
     component="article"
+    isHoverable={false}
   >
     <CardBody
       className=""
       component="div"
+      isFilled={true}
     >
       <Stack
         className=""
@@ -103,6 +108,7 @@ exports[`UploadFiles expect to render progress bar 1`] = `
       >
         <StackItem
           className=""
+          isFilled={false}
           isMain={true}
           key="myFile1.zip"
         >
@@ -121,6 +127,7 @@ exports[`UploadFiles expect to render progress bar 1`] = `
         </StackItem>
         <StackItem
           className=""
+          isFilled={false}
           isMain={true}
           key="myFile2.zip"
         >
@@ -139,6 +146,7 @@ exports[`UploadFiles expect to render progress bar 1`] = `
         </StackItem>
         <StackItem
           className=""
+          isFilled={false}
           isMain={true}
           key="myFile3.zip"
         >
@@ -170,6 +178,7 @@ exports[`UploadFiles expect to render progress bar 1`] = `
         isDisabled={false}
         isFocus={false}
         isHover={false}
+        isInline={false}
         to="/reports"
         type="button"
         variant="tertiary"
