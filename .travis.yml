@@ -15,9 +15,7 @@ jobs:
   # - stage: Deploy
   #   script: npm run build && curl -sSL https://raw.githubusercontent.com/RedHatInsights/insights-frontend-builder-common/master/src/bootstrap.sh | bash -s
   - stage: Store
-    script:
-      - chmod ugo+x ./deploy.sh
-      - ./deploy.sh
+    script: ./deploy.sh
 env:
     global:
     - REPO="git@github.com:RedHatInsights/xavier-ui-deploy"
