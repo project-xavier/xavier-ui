@@ -14,6 +14,10 @@ jobs:
     script: npm run test --coverage --maxWorkers=4 && npx codecov
   # - stage: Deploy
   #   script: npm run build && curl -sSL https://raw.githubusercontent.com/RedHatInsights/insights-frontend-builder-common/master/src/bootstrap.sh | bash -s
+  - stage: Store
+    script:
+      - chmod ugo+x ./deploy.sh
+      - ./deploy.sh
 env:
     global:
     - REPO="git@github.com:RedHatInsights/xavier-ui-deploy"
