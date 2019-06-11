@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 import { Routes } from './Routes';
 import './App.scss';
 import '@patternfly/patternfly/patternfly-addons.css';
-import { GlobalProps } from './models/GlobalProps';
+import { RouterGlobalProps } from './models/router';
 
 declare var insights: any;
 
-interface Props extends GlobalProps { };
+interface Props extends RouterGlobalProps { };
 interface State { }
 
 class App extends Component<Props, State> {

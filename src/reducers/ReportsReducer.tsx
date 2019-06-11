@@ -5,58 +5,85 @@ import {
 import {
     pendingMessage,
     successMessage,
-    failureMessage,
-    initialStateFor
+    failureMessage
 } from './reducerHelper';
+import { ReportState } from '../models/state';
+import { GenericAction } from '../models/action';
 
-export const reportsReducer = function (state = initialStateFor('reports', []), action) {
+export const initialState: ReportState = {
+    error: null,
+    total: 0,
+    report: null,
+    reports: [],
+    loading: false
+};
+
+export const reportsReducer = function (
+    state: ReportState = initialState,
+    action: GenericAction
+) {
     switch (action.type) {
-        case pendingMessage(FETCH_REPORTS):
-            return {
+        case pendingMessage(FETCH_REPORTS): {
+            const nextState: ReportState = {
                 ...state,
+                total: 0,
                 reports: [],
                 loading: true,
                 error: null
             };
+            return nextState;
+        }
 
-        case successMessage(FETCH_REPORTS):
-            return {
+        case successMessage(FETCH_REPORTS): {
+            const nextState: ReportState = {
                 ...state,
+                total: action.payload.data.length,
                 reports: action.payload.data,
-                loading: false,
-                error: null,
-                total: action.payload.data.length
+                loading: false
             };
+            return nextState;
+        }
 
-        case failureMessage(FETCH_REPORTS):
-            return {
+        case failureMessage(FETCH_REPORTS): {
+            const nextState: ReportState = {
                 ...state,
+                total: 0,
                 reports: [],
                 loading: false,
                 error: action.payload.message
             };
+            return nextState;
+        }
 
-        case pendingMessage(FETCH_REPORT):
-            return {
+        case pendingMessage(FETCH_REPORT): {
+            const nextState: ReportState = {
                 ...state,
+                report: null,
                 loading: true,
                 error: null
             };
 
-        case successMessage(FETCH_REPORT):
-            return {
-                ...state,
-                loading: false,
-                error: null,
-                report: action.payload.data
-            };
+            return nextState;
+        }
 
-        case failureMessage(FETCH_REPORT):
-            return {
+        case successMessage(FETCH_REPORT): {
+            const nextState: ReportState = {
                 ...state,
+                report: action.payload.data,
+                loading: false
+            };
+            return nextState;
+        }
+
+        case failureMessage(FETCH_REPORT): {
+            const nextState: ReportState = {
+                ...state,
+                report: null,
                 loading: false,
                 error: action.payload.message
             };
+            return nextState;
+        }
 
         default:
             return state;

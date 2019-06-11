@@ -2,7 +2,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import React from 'react';
 import asyncComponent from './Utilities/asyncComponent';
 import some from 'lodash/some';
-import { GlobalProps } from './models/GlobalProps';
+import { RouterGlobalProps } from './models/router';
 
 /**
  * Aysnc imports of components
@@ -51,7 +51,7 @@ const InsightsRoute = ({ component: Component, rootClass, ...rest } : InsightsRo
 };
 
 interface RoutesProps {
-    childProps: GlobalProps;
+    childProps: RouterGlobalProps;
 }
 
 /**

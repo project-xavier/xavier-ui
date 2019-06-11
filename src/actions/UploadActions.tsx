@@ -1,4 +1,5 @@
 import { uploadFile } from '../api/upload';
+import { GenericAction } from '../models/action';
 
 export const ActionTypes = {
     UPLOAD_REQUEST: 'UPLOAD_REQUEST',
@@ -6,7 +7,11 @@ export const ActionTypes = {
     UPLOAD_CLEAR: 'UPLOAD_CLEAR'
 };
 
-export const uploadRequest = (customerId: string, file: File, config = {}) => {
+export const uploadRequest = (
+    customerId: string,
+    file: File,
+    config = {}
+): GenericAction => {
     const formData = new FormData();
     formData.append('file', file, file.name);
     return {
@@ -24,7 +29,11 @@ export const uploadRequest = (customerId: string, file: File, config = {}) => {
     };
 };
 
-export const uploadProgress = (file: File, progress: number) => ({
+export const uploadProgress = (
+    file: File,
+    progress:
+    number
+): GenericAction => ({
     type: ActionTypes.UPLOAD_PROGRESS,
     payload: {
         file,
@@ -32,7 +41,7 @@ export const uploadProgress = (file: File, progress: number) => ({
     }
 });
 
-export const uploadClear = () => ({
+export const uploadClear = (): GenericAction => ({
     type: ActionTypes.UPLOAD_CLEAR
 });
 

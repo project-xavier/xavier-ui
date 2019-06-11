@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DashboardPage expect to render  1`] = `
+<Fragment>
+  <PageHeader>
+    <PageHeaderTitle
+      title="Dashboard"
+    />
+  </PageHeader>
+  <Connect(Main)>
+    <EmptyDashboard />
+  </Connect(Main)>
+</Fragment>
+`;

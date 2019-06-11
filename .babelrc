@@ -2,7 +2,8 @@
     "presets": [
         "@babel/env",
         "@babel/react",
-        "@babel/flow"
+        "@babel/flow",
+        "@babel/typescript"
     ],
     "plugins": [
         "@babel/plugin-transform-runtime",

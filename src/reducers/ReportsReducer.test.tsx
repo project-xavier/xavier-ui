@@ -1,4 +1,7 @@
-import { reportsReducer } from './ReportsReducer';
+import {
+    reportsReducer,
+    initialState as systemInitialState
+} from './ReportsReducer';
 import {
     FETCH_REPORTS,
     FETCH_REPORT
@@ -9,11 +12,39 @@ import {
     pendingMessage
 } from './reducerHelper';
 
-import reportsMock, { reportMock } from '../__fixtures__/reports';
+import reportsMock, { reportMock } from './__fixtures__/reports';
+import { GenericAction } from '../models/action';
+import { ReportState } from '../models/state';
+import { Report } from '../models';
 
 const initialState = {
     error: null,
     loading: false
+};
+
+const reportInitialState: ReportState = {
+    ...initialState,
+    total: 1,
+    reports: [
+        {
+            id: 36,
+            customerId: '123456',
+            fileName: 'file1.json',
+            numberOfHosts: 254,
+            totalDiskSpace: 5871365,
+            totalPrice: 1200,
+            creationDate: 546785214
+        }
+    ],
+    report: {
+        id: 37,
+        customerId: '654321',
+        fileName: 'file2.json',
+        numberOfHosts: 257,
+        totalDiskSpace: 6546531,
+        totalPrice: 100,
+        creationDate: 546425465
+    }
 };
 
 const fromRequest = (type: string, payload: any, meta = {}) => ({
@@ -23,94 +54,106 @@ const fromRequest = (type: string, payload: any, meta = {}) => ({
 });
 
 describe('report reducer', () => {
-    const reportInitialState = {
-        ...initialState,
-        reports: []
-    };
 
     it('should return the initial state', () => {
-        expect(reportsReducer(undefined, {})).toEqual(reportInitialState);
+        const initialState = undefined;
+        const action = {} as GenericAction;
+        
+        expect(
+            reportsReducer(initialState, action)
+        ).toEqual(systemInitialState);
     });
 
     it('should handle FETCH_REPORTS_PENDING', () => {
-        const expectation = {
+        const expectedNewState: ReportState = {
             ...reportInitialState,
+            total: 0,
+            reports: [],
             loading: true,
             error: null
         };
-        const newState = reportsReducer(
+        const newState: ReportState = reportsReducer(
             reportInitialState,
             fromRequest(pendingMessage(FETCH_REPORTS), {})
         );
-        expect(newState).toEqual(expectation);
+        expect(newState).toEqual(expectedNewState);
     });
 
     it('should handle FETCH_REPORT_PENDING', () => {
-        const expectation = {
+        const expectedNewState: ReportState = {
             ...reportInitialState,
+            report: null,
             loading: true,
             error: null
         };
-        const newState = reportsReducer(
+        const newState: ReportState = reportsReducer(
             reportInitialState,
             fromRequest(pendingMessage(FETCH_REPORT), {})
         );
-        expect(newState).toEqual(expectation);
+        expect(newState).toEqual(expectedNewState);
     });
 
     it('should handle FETCH_REPORTS_SUCCESS', () => {
-        const expectation = {
+        const expectedNewState: ReportState = {
             ...reportInitialState,
             loading: false,
             reports: reportsMock.data,
             total: 3
         };
-        const newState = reportsReducer(
+        const newState: ReportState = reportsReducer(
             reportInitialState,
             fromRequest(successMessage(FETCH_REPORTS), reportsMock)
         );
-        expect(newState).toEqual(expectation);
+        expect(newState).toEqual(expectedNewState);
     });
 
     it('should handle FETCH_REPORT_SUCCESS', () => {
-        let testReport = reportMock.data;
+        let testReport: Report = reportMock.data;
 
-        const expectation = {
+        const expectedNewState: ReportState = {
             ...reportInitialState,
             loading: false,
             report: testReport
         };
-        const newState = reportsReducer(
+        const newState: ReportState = reportsReducer(
             reportInitialState,
             fromRequest(successMessage(FETCH_REPORT), reportMock)
         );
-        expect(newState).toEqual(expectation);
+        expect(newState).toEqual(expectedNewState);
     });
 
     it('should handle FETCH_REPORTS_FAILURE', () => {
         const error = 'It broke';
-        const newState = reportsReducer(
+        
+        const expectedNewState: ReportState = {
+            ...reportInitialState,
+            total: 0,
+            reports: [],
+            loading: false,
+            error
+        };
+        const newState: ReportState = reportsReducer(
             reportInitialState,
             fromRequest(failureMessage(FETCH_REPORTS), { message: error })
         );
-        expect(newState).toEqual({
-            ...reportInitialState,
-            loading: false,
-            error
-        });
+
+        expect(newState).toEqual(expectedNewState);
     });
 
     it('should handle FETCH_REPORT_FAILURE', () => {
         const error = 'It broke';
-        const newState = reportsReducer(
+
+        const expectedNewState: ReportState = {
+            ...reportInitialState,
+            report: null,
+            loading: false,
+            error
+        };
+        const newState: ReportState = reportsReducer(
             reportInitialState,
             fromRequest(failureMessage(FETCH_REPORT), { message: error })
         );
-        expect(newState).toEqual({
-            ...reportInitialState,
-            loading: false,
-            error
-        });
+        expect(newState).toEqual(expectedNewState);
     });
 
 });
