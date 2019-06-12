@@ -14,21 +14,28 @@ import { ReportListPage } from '../../PresentationalComponents/ReportListPage/Re
 import LoadingState from '../../PresentationalComponents/LoadingState/LoadingState';
 import { fetchReport } from '../../actions/ReportActions';
 import { formatValue } from '../../Utilities/formatValue';
-import { GlobalProps } from '../../models/GlobalProps';
-import { Report } from '../../models/Report';
-import { GlobalState } from '../../models/GlobalState';
+import { RouterGlobalProps } from '../../models/router';
+import { Report } from '../../models';
+import { GlobalState } from '../../models/state';
 
-interface Props extends GlobalProps {
-    report: Report;
+interface StateToProps extends RouterGlobalProps {
+    error: string | null;
+    report: Report | null;
     loading: boolean;
+}
+
+interface DispatchToProps {
     fetchReport: (reportId: number) => void;
+}
+
+interface Props extends StateToProps, DispatchToProps {
 };
 
 interface State {
     reportId: number;
 };
 
-class ReportView extends React.Component<Props, State> {
+export class ReportView extends React.Component<Props, State> {
 
     constructor(props: Props) {
         super(props);
@@ -49,22 +56,26 @@ class ReportView extends React.Component<Props, State> {
     }
 
     render() {
-        const { report } = this.props;
-        let action = this.props.match.params.reportId && report ? report.id : 'Unknown report';
+        const { report, error } = this.props;
+        const { reportId } = this.state;
 
-        if (report && !this.props.match.params.reportId) {
-            return <Redirect to={ `/reports/${ report.id }` } />;
+        if (!reportId || error) {
+            return <Redirect to={ `/reports` } />;
         }
 
+        let action = !this.props.loading && report ? report.id : '';
+
         return (
-            <ReportListPage title={ `Report ${action}` } showBreadcrumb={ false }>
+            <ReportListPage
+                title={ `Report ${action}` }
+                showBreadcrumb={ false }>
                 <LoadingState
                     loading={ this.props.loading }
                     placeholder={ <Spinner centered/> }>
                     <Card>
                         <CardBody>
                             {
-                                report ? <div className="pf-c-content">
+                                report ? (<div className="pf-c-content">
                                     <dl>
                                         <dt>Customer id:</dt>
                                         <dd>{ report.customerId }</dd>
@@ -77,11 +88,13 @@ class ReportView extends React.Component<Props, State> {
                                         <dt>Total price:</dt>
                                         <dd>{ formatValue(report.totalPrice, 'usd') }</dd>
                                         <dt>Creation date:</dt>
-                                        <dd>{ new Date(report.creationDate).toString() }</dd>
+                                        <dd>{ new Date(report.creationDate).toUTCString() }</dd>
                                     </dl>
                                     <Button variant="secondary" component= { Link } to="/reports">Back</Button>
                                 </div>
-                                    : ''
+                                ) : (
+                                    ''
+                                )
                             }
                         </CardBody>
                     </Card>
@@ -92,10 +105,11 @@ class ReportView extends React.Component<Props, State> {
 }
 
 const mapStateToProps = (state: GlobalState)  => {
-    let { report, loading } = state.reports;
+    let { report, loading, error } = state.reports;
     return {
         report,
-        loading
+        loading,
+        error
     };
 };
 

@@ -3,7 +3,7 @@ export const defaultIntialState = {
     error: null
 };
 
-export const initialStateFor = function (reducerName: string, initialObject = []) {
+export const initialStateFor = function (reducerName: string, initialObject: any = []) {
     let initState: any = Object.assign({}, defaultIntialState);
     initState[reducerName] = initialObject;
     return initState;

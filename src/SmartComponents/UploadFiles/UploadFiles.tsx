@@ -27,11 +27,11 @@ import {
     uploadProgress,
     uploadClear
 } from '../../actions/UploadActions';
-import { GlobalProps } from '../../models/GlobalProps';
-import { GlobalState } from '../../models/GlobalState';
+import { RouterGlobalProps } from '../../models/router';
+import { GlobalState } from '../../models/state';
 import { Upload } from '../../models/Upload';
 
-interface Props extends GlobalProps {
+interface Props extends RouterGlobalProps {
     uploadProgress: (file: File, progress: number) => void;
     uploadRequest: (customerId: string, file: File, config: {}) => void;
     uploadClear: () => void;
@@ -42,7 +42,7 @@ interface State {
     customerId: string;
 };
 
-class UploadFiles extends Component<Props, State> {
+export class UploadFiles extends Component<Props, State> {
 
     constructor(props: Props) {
         super(props);
@@ -82,7 +82,7 @@ class UploadFiles extends Component<Props, State> {
 
     render() {
         const showDropZone: boolean = this.props.uploads.length === 0;
-        const uploading: boolean = this.props.uploads.some((element) => element.success === null);
+        const uploading: boolean = this.props.uploads.some((element) => element.uploading);
 
         const dropzoneRef: any = createRef();
         const openDialog = () => {

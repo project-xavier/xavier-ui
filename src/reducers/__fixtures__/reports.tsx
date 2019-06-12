@@ -1,4 +1,14 @@
-const reportsMock = {
+import { Report } from "../../models";
+
+interface ListReponse {
+    data: Report[]
+}
+
+interface ObjectReponse {
+    data: Report
+}
+
+const reportsMock: ListReponse = {
     data: [
         {
             id: 36,
@@ -7,7 +17,7 @@ const reportsMock = {
             numberOfHosts: 254,
             totalDiskSpace: 5871365,
             totalPrice: 1200,
-            creationDate: new Date()
+            creationDate: 45654654456
         },
         {
             id: 37,
@@ -16,7 +26,7 @@ const reportsMock = {
             numberOfHosts: 574,
             totalDiskSpace: 5412584,
             totalPrice: 1800,
-            creationDate: new Date()
+            creationDate: 1768876117
         },
         {
             id: 38,
@@ -25,13 +35,13 @@ const reportsMock = {
             numberOfHosts: 100,
             totalDiskSpace: 2563145,
             totalPrice: 1700,
-            creationDate: new Date()
+            creationDate: 17353543154
         }
     ]
 };
 
-export const reportMock = {
-    data: [ reportsMock.data[0] ]
+export const reportMock: ObjectReponse = {
+    data: reportsMock.data[0]
 };
 
 export default reportsMock;

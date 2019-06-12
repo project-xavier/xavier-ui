@@ -10,12 +10,12 @@ import {
     Breadcrumb,
     BreadcrumbItem
 } from '@patternfly/react-core';
-import { GlobalProps } from '../../models/GlobalProps';
+import { RouterGlobalProps } from '../../models/router';
 
-interface Props extends GlobalProps {
+interface Props extends RouterGlobalProps {
     title: string;
     mainStyle?: any;
-    showBreadcrumb: boolean;
+    showBreadcrumb?: boolean;
 };
 
 interface State {
@@ -25,12 +25,12 @@ export class UploadFilesPage extends Component<Props, State> {
 
     toIndex(event: any): void {
         event.preventDefault();
-        this.props.history.push('/reports');
+        this.props.history.push('/upload');
     }
 
     showRootLink() {
         return (
-            this.props.history && this.props.history.location.pathname !== '/reports' ?
+            this.props.history && this.props.history.location.pathname !== '/upload' ?
                 <BreadcrumbItem to='#' onClick={ this.toIndex }>Reports</BreadcrumbItem>
                 : ''
         );
