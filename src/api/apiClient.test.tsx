@@ -9,18 +9,11 @@ describe('request', () => {
     const fetchSpy: any = jest.fn(() => mockFetchPromise);
 
     beforeAll(() => {
-        // window.insights = {
-        //     chrome: { auth: { getUser: jest.fn(() => objectResolver) }}
-        // };
         window.fetch = fetchSpy;
     });
 
     it('calls fetch', () => {
         expect(ApiClient.request('/path', {}, 'get')).toEqual(objectResolver);
-        // Oddly this does not give the expected result, even though it has to call the
-        // spy in order to get objectResolver as an expected result above.
-        //
-        //  expect(window.fetch).toHaveBeenCalledWith('/api/hooks/path');
     });
 
     afterAll(() => {

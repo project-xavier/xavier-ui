@@ -1,26 +1,41 @@
-import axios from 'axios';
+import axios, { AxiosPromise } from 'axios';
 //export const NOTIFICATIONS_API_ROOT = '/api/xavier/camel';
 export const NOTIFICATIONS_API_ROOT = '/camel';
 
 class BackendAPIClient {
-    static request(path: string, body: any = null, method = 'get', config = {}) {
-        return axios.request(Object.assign({}, {
+    static request<T>(
+        path: string,
+        body: any = null,
+        method = 'get',
+        config = {}
+    ): AxiosPromise<T> {
+        return axios.request<T>(Object.assign({}, {
             url: NOTIFICATIONS_API_ROOT.concat(path),
             method,
             data: body
         }, config));
     }
 
-    static post(path: string, body: any, config = {}) {
-        return this.request(path, body, 'post', config);
+    static post<T>(
+        path: string,
+        body: any,
+        config = {}
+    ): AxiosPromise<T> {
+        return this.request<T>(path, body, 'post', config);
     }
 
-    static put(path: string, body: any, config = {}) {
-        return this.request(path, body, 'put', config);
+    static put<T>(
+        path: string,
+        body: any,
+        config = {}
+    ): AxiosPromise<T> {
+        return this.request<T>(path, body, 'put', config);
     }
 
-    static get(path: string) {
-        return this.request(path);
+    static get<T>(
+        path: string
+    ): AxiosPromise<T> {
+        return this.request<T>(path);
     }
 
     static delete(path: string, config = {}) {
