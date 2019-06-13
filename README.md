@@ -4,8 +4,8 @@
 
 
 ## Pre requirements
-- Install Nodejs
-- Install npm (avoid using yarn)
+- Install Nodejs (v10.16.0 or later)
+- Install npm (6.9.0 or later)
 
 Global npm packages needed:
 ```shell
