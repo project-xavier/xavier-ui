@@ -13,6 +13,7 @@ import {
     EmptyState,
     EmptyStateIcon,
     EmptyStateBody,
+    EmptyStateVariant,
     Title,
     ToolbarGroup,
     ToolbarItem
@@ -105,15 +106,22 @@ export class ReportList extends React.Component<Props, State> {
     noResults() {
         return (
             <Bullseye>
-                <EmptyState>
+                <EmptyState variant={ EmptyStateVariant.full }>
                     <p>
                         <EmptyStateIcon icon={ CubesIcon } />
                     </p>
-                    <Title size="lg">No reports found</Title>
+                    <Title size="lg">Let Red Hat Migration Analytics suggest ways to optimize your environment</Title>
                     <EmptyStateBody>
-                        There are no reports processed yet.
+                                See how you can optimize your virtual environment by
+                                uploading a Red Hat CloudForms generated inventory file
+                                and then letting Red Hat Migration Analytics create
+                                reports showing how you can save money and optimize
+                                workloads - whether by migrating virtual machines or
+                                migrating application to RHEL.
                     </EmptyStateBody>
-                    <Button variant="primary" component={ Link } to={ '/upload' }>Upload</Button>
+                    <Button variant="primary" component={ Link } to={ '/upload' }>
+                        Upload
+                    </Button>
                 </EmptyState>
             </Bullseye>
         );
