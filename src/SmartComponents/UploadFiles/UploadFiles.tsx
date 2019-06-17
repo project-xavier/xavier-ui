@@ -178,7 +178,7 @@ export class UploadFiles extends Component<Props, State> {
 }
 
 const mapStateToProps = (state: GlobalState)  => {
-    let { uploads: { uploads }} = state;
+    let { uploadState: { uploads }} = state;
     return {
         uploads
     };

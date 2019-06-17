@@ -3,8 +3,7 @@ import {
     initialState as systemInitialState
 } from './ReportsReducer';
 import {
-    FETCH_REPORTS,
-    FETCH_REPORT
+    ActionTypes
 } from '../actions/ReportActions';
 import {
     successMessage,
@@ -74,7 +73,7 @@ describe('report reducer', () => {
         };
         const newState: ReportState = reportsReducer(
             reportInitialState,
-            fromRequest(pendingMessage(FETCH_REPORTS), {})
+            fromRequest(pendingMessage(ActionTypes.FETCH_REPORTS), {})
         );
         expect(newState).toEqual(expectedNewState);
     });
@@ -88,7 +87,7 @@ describe('report reducer', () => {
         };
         const newState: ReportState = reportsReducer(
             reportInitialState,
-            fromRequest(pendingMessage(FETCH_REPORT), {})
+            fromRequest(pendingMessage(ActionTypes.FETCH_REPORT), {})
         );
         expect(newState).toEqual(expectedNewState);
     });
@@ -102,7 +101,7 @@ describe('report reducer', () => {
         };
         const newState: ReportState = reportsReducer(
             reportInitialState,
-            fromRequest(successMessage(FETCH_REPORTS), reportsMock)
+            fromRequest(successMessage(ActionTypes.FETCH_REPORTS), reportsMock)
         );
         expect(newState).toEqual(expectedNewState);
     });
@@ -117,7 +116,7 @@ describe('report reducer', () => {
         };
         const newState: ReportState = reportsReducer(
             reportInitialState,
-            fromRequest(successMessage(FETCH_REPORT), reportMock)
+            fromRequest(successMessage(ActionTypes.FETCH_REPORT), reportMock)
         );
         expect(newState).toEqual(expectedNewState);
     });
@@ -134,7 +133,7 @@ describe('report reducer', () => {
         };
         const newState: ReportState = reportsReducer(
             reportInitialState,
-            fromRequest(failureMessage(FETCH_REPORTS), { message: error })
+            fromRequest(failureMessage(ActionTypes.FETCH_REPORTS), { message: error })
         );
 
         expect(newState).toEqual(expectedNewState);
@@ -151,7 +150,7 @@ describe('report reducer', () => {
         };
         const newState: ReportState = reportsReducer(
             reportInitialState,
-            fromRequest(failureMessage(FETCH_REPORT), { message: error })
+            fromRequest(failureMessage(ActionTypes.FETCH_REPORT), { message: error })
         );
         expect(newState).toEqual(expectedNewState);
     });

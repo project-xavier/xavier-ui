@@ -105,7 +105,7 @@ export class ReportView extends React.Component<Props, State> {
 }
 
 const mapStateToProps = (state: GlobalState)  => {
-    let { report, loading, error } = state.reports;
+    let { report, loading, error } = state.reportState;
     return {
         report,
         loading,

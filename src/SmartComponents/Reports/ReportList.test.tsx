@@ -1,5 +1,5 @@
 import { shallow } from "enzyme";
-import { ReportList } from "./ReportList";
+import { Reports } from ".";
 
 const props = {
   total: 2,
@@ -43,7 +43,7 @@ describe("ReportList", () => {
       total: 0,
       reports: []
     });
-    const wrapper = shallow(<ReportList {...emptyProps} />);
+    const wrapper = shallow(<Reports {...emptyProps} />);
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -51,13 +51,13 @@ describe("ReportList", () => {
     const loadingProps = Object.assign({}, props, {
       loading: true
     });
-    const wrapper = shallow(<ReportList {...loadingProps} />);
+    const wrapper = shallow(<Reports {...loadingProps} />);
     expect(wrapper).toMatchSnapshot();
   });
 
   it("expect to render list", () => {
     const listProps = Object.assign({}, props);
-    const wrapper = shallow(<ReportList {...listProps} />);
+    const wrapper = shallow(<Reports {...listProps} />);
     expect(wrapper).toMatchSnapshot();
   });
 });

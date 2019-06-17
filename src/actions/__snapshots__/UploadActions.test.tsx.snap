@@ -1,11 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`uploadClear returns a state object 1`] = `
-Object {
-  "type": "UPLOAD_CLEAR",
-}
-`;
-
 exports[`uploadProgress returns a state object 1`] = `
 Object {
   "payload": Object {
@@ -19,10 +13,9 @@ Object {
 exports[`uploadRequest returns a state object 1`] = `
 Object {
   "meta": Object {
-    "file": File {},
     "notifications": Object {
       "rejected": Object {
-        "title": "Failed to upload file myFile.zip",
+        "title": "Failed to upload file",
         "variant": "danger",
       },
     },

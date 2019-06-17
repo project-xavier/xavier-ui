@@ -6,21 +6,22 @@ jest.mock('../api/apiClient', () => ({
 }));
 
 import * as actionGenerator from './UploadActions';
+import { Upload } from '../models';
 
 describe('uploadRequest', () => {
     it('returns a state object', () => {
-        expect(actionGenerator.uploadRequest('myCustomerId', new File([ '' ], 'myFile.zip'), {})).toMatchSnapshot();
+        const upload: Upload = {
+            file: new File([ '' ], 'myFile.zip'),
+            name: 'myReport',
+            customerId: 'myCustomerId',
+            percentageYearOverYearGrowthRate: 5
+        };
+        expect(actionGenerator.uploadRequest(upload, {})).toMatchSnapshot();
     });
 });
 
 describe('uploadProgress', () => {
     it('returns a state object', () => {
         expect(actionGenerator.uploadProgress(new File([ '' ], 'myFile.zip'), 60)).toMatchSnapshot();
-    });
-});
-
-describe('uploadClear', () => {
-    it('returns a state object', () => {
-        expect(actionGenerator.uploadClear()).toMatchSnapshot();
     });
 });

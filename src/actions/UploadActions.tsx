@@ -1,47 +1,63 @@
 import { uploadFile } from '../api/upload';
 import { GenericAction } from '../models/action';
+import { Upload } from '../models';
 
 export const ActionTypes = {
     UPLOAD_REQUEST: 'UPLOAD_REQUEST',
     UPLOAD_PROGRESS: 'UPLOAD_PROGRESS',
-    UPLOAD_CLEAR: 'UPLOAD_CLEAR'
+    SELECT_UPLOAD_FILE: 'SELECT_UPLOAD_FILE'
 };
 
-export const uploadRequest = (
-    customerId: string,
-    file: File,
-    config = {}
-): GenericAction => {
+export const uploadRequest = (upload: Upload, config = {}): GenericAction => {
     const formData = new FormData();
-    formData.append('file', file, file.name);
+    formData.append('file', upload.file, upload.file.name);
+    formData.append('reportName', upload.reportName);
+
+    if (upload.reportDescription) {
+        formData.append('reportDescription', upload.reportDescription);
+    }
+
+    if (upload.yearOverYearGrowthRatePercentage) {
+        formData.append('reportDesyearOverYearGrowthRatePercentagecription', upload.yearOverYearGrowthRatePercentage.toString());
+    }
+
+    if (upload.percentageOfHypervisorsMigratedOnYear1) {
+        formData.append('percentageOfHypervisorsMigratedOnYear1', upload.percentageOfHypervisorsMigratedOnYear1.toString());
+    }
+
+    if (upload.percentageOfHypervisorsMigratedOnYear2) {
+        formData.append('percentageOfHypervisorsMigratedOnYear2', upload.percentageOfHypervisorsMigratedOnYear2.toString());
+    }
+
+    if (upload.percentageOfHypervisorsMigratedOnYear1) {
+        formData.append('percentageOfHypervisorsMigratedOnYear3', upload.percentageOfHypervisorsMigratedOnYear3.toString());
+    }
+
     return {
         type: ActionTypes.UPLOAD_REQUEST,
-        payload: uploadFile(customerId, formData, config),
+        payload: uploadFile(formData, config),
         meta: {
-            file,
+            file: upload.file,
             notifications: {
                 rejected: {
                     variant: 'danger',
-                    title: `Failed to upload file ${file.name}`
+                    title: `Failed to upload file`
                 }
             }
         }
     };
 };
 
-export const uploadProgress = (
-    file: File,
-    progress:
-    number
-): GenericAction => ({
+export const uploadProgress = (progress: number): GenericAction => ({
     type: ActionTypes.UPLOAD_PROGRESS,
     payload: {
-        file,
         progress
     }
 });
 
-export const uploadClear = (): GenericAction => ({
-    type: ActionTypes.UPLOAD_CLEAR
+export const selectUploadFile = (file: File): GenericAction => ({
+    type: ActionTypes.SELECT_UPLOAD_FILE,
+    payload: {
+        file
+    }
 });
-

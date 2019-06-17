@@ -1,22 +1,20 @@
-import React from 'react';
+import React, { createRef } from 'react';
 import { bindActionCreators } from 'redux';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
-    Skeleton,
-    SkeletonSize,
     TableToolbar
 } from '@redhat-cloud-services/frontend-components';
 import {
     Button,
+    ToolbarGroup,
+    ToolbarItem,
     Bullseye,
-    EmptyState,
     EmptyStateIcon,
     EmptyStateBody,
     EmptyStateVariant,
-    Title,
-    ToolbarGroup,
-    ToolbarItem
+    EmptyState,
+    Title
 } from '@patternfly/react-core';
 import {
     Table,
@@ -26,26 +24,32 @@ import {
     IRow,
     ICell
 } from '@patternfly/react-table';
-import { CubesIcon } from '@patternfly/react-icons';
 import ReportListPage from '../../PresentationalComponents/ReportListPage/ReportListPage';
 import LoadingState from '../../PresentationalComponents/LoadingState/LoadingState';
-import * as actionCreators from '../../actions/ReportActions';
+import  * as reportActions from '../../actions/ReportActions';
+import * as uploadActions from '../../actions/UploadActions';
 import { Report } from '../../models';
 import { GlobalState } from '../../models/state';
 import { RouterGlobalProps } from '../../models/router';
+import './ReportList.scss';
+import Dropzone from 'react-dropzone';
+import { CubesIcon } from '@patternfly/react-icons';
 
-interface StateToProps extends RouterGlobalProps {
+interface StateToProps {
     total: number;
     error: string | null;
     loading: boolean;
     reports: Report[];
+
+    file: File | null
 }
 
 interface DispatchToProps {
     fetchReports: () => any;
+    selectUploadFile: (file: File) => any;
 }
 
-interface Props extends StateToProps, DispatchToProps {
+interface Props extends StateToProps, DispatchToProps, RouterGlobalProps {
 };
 
 interface State {
@@ -53,7 +57,7 @@ interface State {
     rows: Array<IRow | Array<String>>
 };
 
-export class ReportList extends React.Component<Props, State> {
+export class Reports extends React.Component<Props, State> {
 
     constructor(props: Props) {
         super(props);
@@ -71,6 +75,7 @@ export class ReportList extends React.Component<Props, State> {
             ],
             rows: []
         };
+        this.onFileSelected = this.onFileSelected.bind(this);
     }
 
     componentDidMount(): void {
@@ -103,7 +108,19 @@ export class ReportList extends React.Component<Props, State> {
         this.setState({ rows });
     }
 
+    onFileSelected(files: File[]): void {
+        this.props.selectUploadFile(files[0]);
+        this.props.history.push('/reports/upload');
+    };
+
     noResults() {
+        const dropzoneRef: any = createRef();
+        const openFileDialog = () => {
+            if (dropzoneRef.current) {
+                dropzoneRef.current.open();
+            }
+        };
+
         return (
             <Bullseye>
                 <EmptyState variant={ EmptyStateVariant.full }>
@@ -119,9 +136,27 @@ export class ReportList extends React.Component<Props, State> {
                                 workloads - whether by migrating virtual machines or
                                 migrating application to RHEL.
                     </EmptyStateBody>
-                    <Button variant="primary" component={ Link } to={ '/upload' }>
-                        Upload
-                    </Button>
+                    <Dropzone
+                        onDrop={ this.onFileSelected }
+                        ref={ dropzoneRef }
+                        noClick noKeyboard
+                        multiple={ false }
+                        accept={ [ 'application/zip', 'application/json' ] }
+                    >
+                        { ({ getRootProps, getInputProps }) => {
+                            return (
+                                <div { ...getRootProps({ className: 'dropzone' }) }>
+                                    <input { ...getInputProps() } />
+                                    <Button
+                                        type="button"
+                                        variant="primary"
+                                        onClick={ openFileDialog }>
+                                        Upload
+                                    </Button>
+                                </div>
+                            );
+                        } }
+                    </Dropzone>
                 </EmptyState>
             </Bullseye>
         );
@@ -151,7 +186,6 @@ export class ReportList extends React.Component<Props, State> {
     }
 
     render() {
-        const placeholder = <Skeleton size={ SkeletonSize.lg } />;
         const { loading, total } = this.props;
 
         return (
@@ -160,7 +194,7 @@ export class ReportList extends React.Component<Props, State> {
                 showBreadcrumb={ false }>
                 <LoadingState
                     loading={ loading }
-                    placeholder={ placeholder } >
+                    placeholder={ '' } >
                     { total > 0 ? this.resultsTable() : this.noResults() }
                 </LoadingState>
             </ReportListPage>
@@ -169,18 +203,30 @@ export class ReportList extends React.Component<Props, State> {
 }
 
 const mapStateToProps = (state: GlobalState)  => {
-    let { reports: { reports, loading, error, total }} = state;
+    let {
+        reportState: {
+            reports,
+            loading,
+            error,
+            total
+        },
+        uploadState: {
+            file
+        }
+    } = state;
     return {
         reports,
         loading,
         error,
-        total
+        total,
+        file
     };
 };
 
 const mapDispatchToProps = (dispatch: any) =>
     bindActionCreators({
-        fetchReports: actionCreators.fetchReports
+        fetchReports: reportActions.fetchReports,
+        selectUploadFile: uploadActions.selectUploadFile
     }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ReportList));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Reports));

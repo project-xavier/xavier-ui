@@ -18,19 +18,14 @@ import { RouterGlobalProps } from './models/router';
  *         see the difference with DashboardMap and InventoryDeployments.
  *
  */
-const DashboardPage = asyncComponent(() =>
-    import(/* webpackChunkName: "DashboardPage" */ './PresentationalComponents/DashboardPage/DashboardPage'));
-const UploadFiles = asyncComponent(() =>
-    import(/* webpackChunkName: "UploadFiles" */ './SmartComponents/UploadFiles/UploadFiles'));
-const ReportList = asyncComponent(() =>
-    import(/* webpackChunkName: "ReportList" */ './SmartComponents/ReportList/ReportList'));
-const ReportView = asyncComponent(() =>
-    import(/* webpackChunkName: "ReportView" */ './SmartComponents/ReportView/ReportView'));
+const Reports = asyncComponent(() =>
+    import(/* webpackChunkName: "Reports" */ './SmartComponents/Reports'));
+const NewReport = asyncComponent(() =>
+    import(/* webpackChunkName: "NewReport" */ './SmartComponents/ReportsUpload'));
 
 const paths = {
-    dashboard: '/dashboard',
-    upload: '/upload',
     reports: '/reports',
+    reportsUpload: '/reports/upload',
     reportView: '/reports/:reportId'
 };
 
@@ -67,13 +62,11 @@ export const Routes = (props: RoutesProps) => {
 
     return (
         <Switch>
-            <InsightsRoute component={ DashboardPage } rootClass='dashboard' path={ paths.dashboard } />
-            <InsightsRoute component={ UploadFiles } rootClass='upload' path={ paths.upload } />
-            <InsightsRoute component={ ReportList } rootClass='reports' path={ paths.reports } exact />
-            <InsightsRoute component={ ReportView } rootClass='report' path={ paths.reportView } exact />
+            <InsightsRoute component={ Reports } rootClass='reports' path={ paths.reports } exact />
+            <InsightsRoute component={ NewReport } rootClass='reports' path={ paths.reportsUpload } exact />
 
             { /* Finally, catch all unmatched routes */ }
-            <Route render={ () => some(paths, p => p === path) ? null : (<Redirect to={ paths.dashboard } />) } />
+            <Route render={ () => some(paths, p => p === path) ? null : (<Redirect to={ paths.reports } />) } />
         </Switch>
     );
 };

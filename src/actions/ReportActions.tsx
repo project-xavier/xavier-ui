@@ -1,11 +1,16 @@
 import { getAllReports, getReportById } from '../api/report';
 import { GenericAction } from '../models/action';
 
-export const FETCH_REPORTS = 'FETCH_REPORTS';
-export const FETCH_REPORT = 'FETCH_REPORT';
+export const ActionTypes = {
+    FETCH_REPORTS: 'FETCH_REPORTS',
+    FETCH_REPORT: 'FETCH_REPORT'
+};
 
+/**
+ * Fetchs reports
+ */
 export const fetchReports = (): GenericAction  => ({
-    type: FETCH_REPORTS,
+    type: ActionTypes.FETCH_REPORTS,
     payload: getAllReports(),
     meta: {
         notifications: {
@@ -17,8 +22,12 @@ export const fetchReports = (): GenericAction  => ({
     }
 });
 
+/**
+ * Fetchs a single report
+ * @param id report ID
+ */
 export const fetchReport = (id: number): GenericAction => ({
-    type: FETCH_REPORT,
+    type: ActionTypes.FETCH_REPORT,
     payload: getReportById(id),
     meta: {
         notifications: {
