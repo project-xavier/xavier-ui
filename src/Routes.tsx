@@ -19,9 +19,11 @@ import { RouterGlobalProps } from './models/router';
  *
  */
 const Reports = asyncComponent(() =>
-    import(/* webpackChunkName: "Reports" */ './SmartComponents/Reports'));
-const NewReport = asyncComponent(() =>
-    import(/* webpackChunkName: "NewReport" */ './SmartComponents/ReportsUpload'));
+    import(/* webpackChunkName: "Reports" */ './pages/Reports'));
+const ReportsUpload = asyncComponent(() =>
+    import(/* webpackChunkName: "ReportsUpload" */ './pages/ReportsUpload'));
+const ReportView = asyncComponent(() =>
+    import(/* webpackChunkName: "ReportView" */ './pages/ReportView'));
 
 const paths = {
     reports: '/reports',
@@ -63,7 +65,8 @@ export const Routes = (props: RoutesProps) => {
     return (
         <Switch>
             <InsightsRoute component={ Reports } rootClass='reports' path={ paths.reports } exact />
-            <InsightsRoute component={ NewReport } rootClass='reports' path={ paths.reportsUpload } exact />
+            <InsightsRoute component={ ReportsUpload } rootClass='reports' path={ paths.reportsUpload } />
+            <InsightsRoute component={ ReportView } rootClass='report' path={ paths.reportView } />
 
             { /* Finally, catch all unmatched routes */ }
             <Route render={ () => some(paths, p => p === path) ? null : (<Redirect to={ paths.reports } />) } />

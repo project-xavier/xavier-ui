@@ -1,5 +1,5 @@
 import { shallow } from "enzyme";
-import { ReportListPage } from "./ReportListPage";
+import { ReportsPage } from ".";
 
 describe("ReportListPage", () => {
   const routerProps = {
@@ -10,9 +10,9 @@ describe("ReportListPage", () => {
 
   it("expect to render without breadcrumb", () => {
     const wrapper = shallow(
-      <ReportListPage title="My title" {...routerProps}>
+      <ReportsPage title="My title" {...routerProps}>
         children
-      </ReportListPage>
+      </ReportsPage>
     );
     expect(wrapper).toMatchSnapshot();
   });
@@ -27,9 +27,9 @@ describe("ReportListPage", () => {
     });
 
     const wrapper = shallow(
-      <ReportListPage title="My title" showBreadcrumb={true} {...props}>
+      <ReportsPage title="My title" showBreadcrumb={true} {...props}>
         children
-      </ReportListPage>
+      </ReportsPage>
     );
     expect(wrapper).toMatchSnapshot();
   });
@@ -44,9 +44,9 @@ describe("ReportListPage", () => {
     });
 
     const wrapper = shallow(
-      <ReportListPage title="My title" showBreadcrumb={true} {...props}>
+      <ReportsPage title="My title" showBreadcrumb={true} {...props}>
         children
-      </ReportListPage>
+      </ReportsPage>
     );
     expect(wrapper).toMatchSnapshot();
   });

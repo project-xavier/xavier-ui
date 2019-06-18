@@ -1,5 +1,5 @@
 import { shallow } from "enzyme";
-import { ReportView } from "./ReportView";
+import { ReportView } from ".";
 
 const props = {
   error: '',

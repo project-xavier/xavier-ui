@@ -30,7 +30,7 @@ import {
     ProgressVariant,
     EmptyStateSecondaryActions
 } from '@patternfly/react-core';
-import { EditIcon, CubesIcon } from '@patternfly/react-icons';
+import { CubesIcon } from '@patternfly/react-icons';
 import * as uploadActions from '../../actions/UploadActions';
 import { GlobalState } from '../../models/state';
 import { RouterGlobalProps } from '../../models/router';
@@ -72,8 +72,6 @@ interface State {
 
 export class ReportsUpload extends React.Component<Props, State> {
 
-    selectFileButtonRef: any;
-
     constructor(props: Props) {
         super(props);
         this.state = {
@@ -87,17 +85,13 @@ export class ReportsUpload extends React.Component<Props, State> {
             percentageOfHypervisorsMigratedOnYear2: 30,
             percentageOfHypervisorsMigratedOnYear3: 10
         };
-        this.handleModalToggle = this.handleModalToggle.bind(this);
-        this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.onDrop = this.onDrop.bind(this);
     }
 
-    handleModalToggle () {
+    handleModalToggle = () => {
         this.props.history.push('/reports');
     };
 
-    handleInputChange(value: string, event: any) {
+    handleInputChange = (value: string, event: any) => {
         const target = event.target;
         const name = target.name;
 
@@ -106,7 +100,7 @@ export class ReportsUpload extends React.Component<Props, State> {
         });
     }
 
-    handleSubmit(event: any) {
+    handleSubmit = (event: any) => {
         event.preventDefault();
         this.setState({
             submitted: true
@@ -129,13 +123,20 @@ export class ReportsUpload extends React.Component<Props, State> {
         this.props.uploadRequest(upload, config);
     }
 
+    onDrop = (files: File[]): void => {
+        this.setState({
+            file: files[0],
+            reportName: files[0].name
+        });
+    };
+
     progress() {
         return (
             <Bullseye>
                 <EmptyState variant={ EmptyStateVariant.full }>
                     <EmptyStateIcon icon={ CubesIcon } />
                     <Title headingLevel={ TitleLevel.h5 } size="lg">
-                        Empty State
+                        Upload
                     </Title>
                     <div className="pf-c-empty-state__body">
                         <Progress
@@ -162,13 +163,6 @@ export class ReportsUpload extends React.Component<Props, State> {
         );
     }
 
-    onDrop(files: File[]): void {
-        this.setState({
-            file: files[0],
-            reportName: files[0].name
-        });
-    };
-
     form() {
         const dropzoneRef: any = createRef();
         const openDialog = () => {
@@ -180,8 +174,9 @@ export class ReportsUpload extends React.Component<Props, State> {
         return (
             <Form onSubmit={ this.handleSubmit }>
                 <FormGroup
+                    isRequired
                     fieldId="file"
-                    label=""
+                    label="Inventory data file"
                 >
                     <Dropzone
                         onDrop={ this.onDrop }
@@ -203,11 +198,11 @@ export class ReportsUpload extends React.Component<Props, State> {
                                                 aria-label="Select a File"
                                                 value={ this.state.file ? this.state.file.name : '' } />
                                             <Button
-                                                variant={ ButtonVariant.tertiary }
+                                                variant={ ButtonVariant.secondary }
                                                 aria-label="search button for search input"
                                                 onClick={ openDialog }
                                             >
-                                                <EditIcon />
+                                                Browse
                                             </Button>
                                         </InputGroup>
                                     </div>
@@ -342,7 +337,7 @@ export class ReportsUpload extends React.Component<Props, State> {
                         isLarge
                         isOpen={ true }
                         onClose={ this.handleModalToggle }
-                        ariaDescribedById="no-header-example"
+                        ariaDescribedById="Report options"
                         actions={ [] }
                     >
                         { this.state.submitted ? this.progress() : this.form() }
