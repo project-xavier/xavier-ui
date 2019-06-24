@@ -16,13 +16,9 @@ import { GenericAction } from '../models/action';
 import { ReportState } from '../models/state';
 import { Report } from '../models';
 
-const initialState = {
-    error: null,
-    loading: false
-};
-
 const reportInitialState: ReportState = {
-    ...initialState,
+    error: 'my error',
+    loading: false,
     total: 1,
     reports: [
         {
@@ -54,13 +50,28 @@ const fromRequest = (type: string, payload: any, meta = {}) => ({
 
 describe('report reducer', () => {
 
-    it('should return the initial state', () => {
-        const initialState = undefined;
+    it('should return the default state', () => {
+        const initialState: ReportState = undefined;
         const action = {} as GenericAction;
         
         expect(
             reportsReducer(initialState, action)
         ).toEqual(systemInitialState);
+    });
+
+    it('should return the previous state', () => {
+        const initialState: ReportState = {
+            error: 'my error',
+            total: 90,
+            report: null,
+            reports: [],
+            loading: true
+        };
+        const action = {} as GenericAction;
+        
+        expect(
+            reportsReducer(initialState, action)
+        ).toEqual(initialState);
     });
 
     it('should handle FETCH_REPORTS_PENDING', () => {
