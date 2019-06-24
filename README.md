@@ -23,7 +23,7 @@ git clone https://github.com/project-xavier/xavier-ui.git
 cd xavier-ui
 npm ci
 
-git clone https://github.com/carlosthe19916/insights-chrome.git
+git clone https://github.com/RedHatInsights/insights-chrome
 cd insights-chrome
 npm install
 
