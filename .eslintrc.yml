@@ -26,6 +26,7 @@ globals:
   shallow: true
   React: true
 rules:
+  no-console: off
   array-bracket-spacing:
     - error
     - always

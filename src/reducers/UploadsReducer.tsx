@@ -33,6 +33,10 @@ export const uploadsReducer = function (
         case ActionTypes.SELECT_UPLOAD_FILE: {
             const nextState: UploadState = {
                 ...state,
+                error: null,
+                success: null,
+                progress: 0,
+                uploading: false,
                 file: action.payload.file
             };
             return nextState;

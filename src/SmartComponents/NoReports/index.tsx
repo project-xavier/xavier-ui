@@ -6,18 +6,18 @@ import Dropzone from 'react-dropzone';
 import {
     Button,
     Bullseye,
-    EmptyStateIcon,
     EmptyStateBody,
     EmptyStateVariant,
     EmptyState,
     Title
 } from '@patternfly/react-core';
-import {
-    CubesIcon
-} from '@patternfly/react-icons';
+// import {
+//     CubesIcon
+// } from '@patternfly/react-icons';
 import * as uploadActions from '../../actions/UploadActions';
 import { GlobalState } from '../../models/state';
 import { RouterGlobalProps } from '../../models/router';
+import ProcessImprovementSvg from '../../PresentationalComponents/Icons/process-improvement.svg';
 import './Reports.scss';
 
 interface StateToProps {
@@ -56,9 +56,9 @@ export class NoReports extends React.Component<Props, State> {
         return (
             <Bullseye>
                 <EmptyState variant={ EmptyStateVariant.full }>
-                    <p>
-                        <EmptyStateIcon icon={ CubesIcon } />
-                    </p>
+                    <div className="pf-c-empty-state__icon" style={ { opacity: 0.6 } }>
+                        <ProcessImprovementSvg height="80px" />
+                    </div>
                     <Title size="lg">Let Red Hat Migration Analytics suggest ways to optimize your environment</Title>
                     <EmptyStateBody>
                                 See how you can optimize your virtual environment by
