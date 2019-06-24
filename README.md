@@ -23,7 +23,7 @@ git clone https://github.com/project-xavier/xavier-ui.git
 cd xavier-ui
 npm ci
 
-git clone https://github.com/carlosthe19916/insights-chrome.git
+git clone https://github.com/RedHatInsights/insights-chrome
 cd insights-chrome
 npm install
 
@@ -76,4 +76,4 @@ cd jaxrs-util-mocks
 ```
 
 # Open you browser
-open your browser - [https://ci.foo.redhat.com:1337/analytics/xavier/reports](https://ci.foo.redhat.com:1337/analytics/xavier/reports)
+open your browser - [https://ci.foo.redhat.com:1337/apps/migration-analytics/reports](https://ci.foo.redhat.com:1337/apps/migration-analytics/reports)
