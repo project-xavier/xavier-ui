@@ -1,85 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ReportList expect to render empty list 1`] = `
-<withRouter(ReportListPage)
-  showBreadcrumb={false}
-  title="Reports"
->
+<withRouter(ReportsPage)>
   <LoadingState
     loading={false}
-    placeholder={
-      <Skeleton
-        size="lg"
-      />
-    }
+    placeholder=""
   >
-    <Bullseye
-      className=""
-      component="div"
-    >
-      <EmptyState
-        className=""
-        variant="large"
-      >
-        <p>
-          <EmptyStateIcon
-            className=""
-            icon={[Function]}
-          />
-        </p>
-        <Title
-          size="lg"
-        >
-          No reports found
-        </Title>
-        <EmptyStateBody
-          className=""
-        >
-          There are no reports processed yet.
-        </EmptyStateBody>
-        <Button
-          aria-label={null}
-          className=""
-          component={[Function]}
-          isActive={false}
-          isBlock={false}
-          isDisabled={false}
-          isFocus={false}
-          isHover={false}
-          isInline={false}
-          to="/upload"
-          type="button"
-          variant="primary"
-        >
-          Upload
-        </Button>
-      </EmptyState>
-    </Bullseye>
+    <withRouter(Connect(NoReports)) />
   </LoadingState>
-</withRouter(ReportListPage)>
+</withRouter(ReportsPage)>
 `;
 
 exports[`ReportList expect to render list 1`] = `
-<withRouter(ReportListPage)
-  showBreadcrumb={false}
-  title="Reports"
->
+<withRouter(ReportsPage)>
   <LoadingState
     loading={false}
-    placeholder={
-      <Skeleton
-        size="lg"
-      />
-    }
+    placeholder=""
   >
     <TableToolbar
+      className="pf-u-justify-content-space-between"
       isFooter={false}
     >
       <ToolbarGroup
         className={null}
       >
         <ToolbarItem
-          className={null}
+          className="pf-u-mr-md"
         >
           <Button
             aria-label={null}
@@ -91,11 +37,11 @@ exports[`ReportList expect to render list 1`] = `
             isFocus={false}
             isHover={false}
             isInline={false}
-            to="/upload"
+            to="/reports/upload"
             type="button"
             variant="primary"
           >
-            Upload
+            Create
           </Button>
         </ToolbarItem>
       </ToolbarGroup>
@@ -205,30 +151,24 @@ exports[`ReportList expect to render list 1`] = `
       />
     </Table>
   </LoadingState>
-</withRouter(ReportListPage)>
+</withRouter(ReportsPage)>
 `;
 
 exports[`ReportList expect to render loading list 1`] = `
-<withRouter(ReportListPage)
-  showBreadcrumb={false}
-  title="Reports"
->
+<withRouter(ReportsPage)>
   <LoadingState
     loading={true}
-    placeholder={
-      <Skeleton
-        size="lg"
-      />
-    }
+    placeholder=""
   >
     <TableToolbar
+      className="pf-u-justify-content-space-between"
       isFooter={false}
     >
       <ToolbarGroup
         className={null}
       >
         <ToolbarItem
-          className={null}
+          className="pf-u-mr-md"
         >
           <Button
             aria-label={null}
@@ -240,11 +180,11 @@ exports[`ReportList expect to render loading list 1`] = `
             isFocus={false}
             isHover={false}
             isInline={false}
-            to="/upload"
+            to="/reports/upload"
             type="button"
             variant="primary"
           >
-            Upload
+            Create
           </Button>
         </ToolbarItem>
       </ToolbarGroup>
@@ -354,5 +294,5 @@ exports[`ReportList expect to render loading list 1`] = `
       />
     </Table>
   </LoadingState>
-</withRouter(ReportListPage)>
+</withRouter(ReportsPage)>
 `;

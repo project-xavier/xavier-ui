@@ -1,9 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`uploadProgress returns a state object 1`] = `
+exports[`selectFile returns a state object 1`] = `
 Object {
   "payload": Object {
     "file": File {},
+  },
+  "type": "SELECT_UPLOAD_FILE",
+}
+`;
+
+exports[`uploadProgress returns a state object 1`] = `
+Object {
+  "payload": Object {
     "progress": 60,
   },
   "type": "UPLOAD_PROGRESS",
@@ -13,6 +21,7 @@ Object {
 exports[`uploadRequest returns a state object 1`] = `
 Object {
   "meta": Object {
+    "file": File {},
     "notifications": Object {
       "rejected": Object {
         "title": "Failed to upload file",

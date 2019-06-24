@@ -12,16 +12,27 @@ describe('uploadRequest', () => {
     it('returns a state object', () => {
         const upload: Upload = {
             file: new File([ '' ], 'myFile.zip'),
-            name: 'myReport',
-            customerId: 'myCustomerId',
-            percentageYearOverYearGrowthRate: 5
+            reportName: 'myReportName',
+            reportDescription: 'myReportDescription',
+            yearOverYearGrowthRatePercentage: 5,
+            percentageOfHypervisorsMigratedOnYear1: 50,
+            percentageOfHypervisorsMigratedOnYear2: 30,
+            percentageOfHypervisorsMigratedOnYear3: 10
         };
-        expect(actionGenerator.uploadRequest(upload, {})).toMatchSnapshot();
+
+        expect(actionGenerator.uploadRequest(upload)).toMatchSnapshot();
     });
 });
 
 describe('uploadProgress', () => {
     it('returns a state object', () => {
-        expect(actionGenerator.uploadProgress(new File([ '' ], 'myFile.zip'), 60)).toMatchSnapshot();
+        expect(actionGenerator.uploadProgress(60)).toMatchSnapshot();
+    });
+});
+
+describe('selectFile', () => {
+    it('returns a state object', () => {
+        const file = new File([ '' ], 'myFile.zip');
+        expect(actionGenerator.selectUploadFile(file)).toMatchSnapshot();
     });
 });

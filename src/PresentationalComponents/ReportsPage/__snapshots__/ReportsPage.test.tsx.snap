@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReportListPage expect to render with breadcrumb and showing rootLink 1`] = `
+<Fragment>
+  <PageHeader>
+    <PageHeaderTitle
+      title="Reports"
+    />
+  </PageHeader>
+  <Connect(Main)>
+    children
+  </Connect(Main)>
+</Fragment>
+`;
+
+exports[`ReportListPage expect to render with breadcrumb and without showing rootLink 1`] = `
+<Fragment>
+  <PageHeader>
+    <PageHeaderTitle
+      title="Reports"
+    />
+  </PageHeader>
+  <Connect(Main)>
+    children
+  </Connect(Main)>
+</Fragment>
+`;
+
+exports[`ReportListPage expect to render without breadcrumb 1`] = `
+<Fragment>
+  <PageHeader>
+    <PageHeaderTitle
+      title="Reports"
+    />
+  </PageHeader>
+  <Connect(Main)>
+    children
+  </Connect(Main)>
+</Fragment>
+`;

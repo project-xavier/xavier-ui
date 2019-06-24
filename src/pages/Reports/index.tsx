@@ -9,10 +9,7 @@ import {
     Button,
     ToolbarGroup,
     ToolbarItem,
-    TextInput,
-    Pagination,
-    ButtonVariant,
-    InputGroup
+    ButtonVariant
 } from '@patternfly/react-core';
 import {
     Table,
@@ -22,11 +19,6 @@ import {
     IRow,
     ICell
 } from '@patternfly/react-table';
-import {
-    SearchIcon,
-    OkIcon,
-    ErrorCircleOIcon
-} from '@patternfly/react-icons';
 
 import './Reports.scss';
 import  * as reportActions from '../../actions/ReportActions';
@@ -62,10 +54,10 @@ export class Reports extends React.Component<Props, State> {
         super(props);
         this.state = {
             columns: [
-                { title: 'Name', props: {}},
-                { title: 'Status', props: {}},
+                { title: 'Report Id', props: {}},
+                { title: 'Customer Id', props: {}},
                 {
-                    title: '',
+                    title: 'File name',
                     props: {
                         className: 'pf-u-text-align-center'
                     }
@@ -91,19 +83,13 @@ export class Reports extends React.Component<Props, State> {
 
         let rows: any[][] = [];
         if (reports.length > 0) {
-            rows = reports.map(({ id, fileName }, index) => (
+            rows = reports.map(({ id, customerId, fileName }) => (
                 [
+                    { title: id },
+                    { title: customerId },
+                    { title: fileName },
                     {
-                        title: <Link to={ `/reports/${id}` }>{ fileName }</Link>
-                    },
-                    {
-                        title:
-                        <p>{ index % 2 === 0 ?
-                            <OkIcon className="success" /> : <ErrorCircleOIcon className="error" /> } Report created - 5/31/2019, 5:27pm
-                        </p>
-                    },
-                    {
-                        title: <Button variant={ ButtonVariant.secondary } component={ Link } to={ `/reports/${id}` }>Delete</Button>
+                        title: <Button variant='primary' component={ Link } to={ `/reports/${id}` }>View</Button>
                     }
                 ]
             ));
@@ -118,17 +104,6 @@ export class Reports extends React.Component<Props, State> {
         );
     }
 
-    buildSearchBox = () => {
-        return (
-            <InputGroup>
-                <TextInput type="search" aria-label="search text input" />
-                <Button variant={ ButtonVariant.tertiary } aria-label="search button for search input">
-                    <SearchIcon />
-                </Button>
-            </InputGroup>
-        );
-    };
-
     resultsTable() {
         const { rows, columns } = this.state;
 
@@ -136,21 +111,8 @@ export class Reports extends React.Component<Props, State> {
             <React.Fragment>
                 { <TableToolbar className="pf-u-justify-content-space-between">
                     <ToolbarGroup>
-                        <ToolbarItem className="pf-u-mr-xl">{ this.buildSearchBox() }</ToolbarItem>
                         <ToolbarItem className="pf-u-mr-md">
-                            <Button type="button" variant={ ButtonVariant.primary } component={ Link } to={ '/reports/upload' }>Upload</Button>
-                        </ToolbarItem>
-                    </ToolbarGroup>
-                    <ToolbarGroup>
-                        <ToolbarItem>
-                            <Pagination
-                                itemCount={ 523 }
-                                perPage={ 1 }
-                                page={ 3 }
-                                onSetPage={ undefined }
-                                widgetId="pagination-options-menu-top"
-                                onPerPageSelect={ undefined }
-                            />
+                            <Button type="button" variant={ ButtonVariant.primary } component={ Link } to={ '/reports/upload' }>Create</Button>
                         </ToolbarItem>
                     </ToolbarGroup>
                 </TableToolbar> }

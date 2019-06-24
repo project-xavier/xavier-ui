@@ -64,7 +64,7 @@ export class ReportViewPage extends Component<Props, State> {
         return (
             <Fragment>
                 { <PageHeader>
-                    <PageHeaderTitle title={ this.tabs() } />
+                    <PageHeaderTitle title={ 'Reports' } />
                 </PageHeader> }
                 <Main style={ this.props.mainStyle }>
                     { children }
