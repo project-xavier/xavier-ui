@@ -1,7 +1,7 @@
 /*global module*/
 
 const SECTION = 'analytics';
-const APP_ID = 'xavier';
+const APP_ID = 'migration-analytics';
 const FRONTEND_PORT = 8002;
 const routes = {};
 
