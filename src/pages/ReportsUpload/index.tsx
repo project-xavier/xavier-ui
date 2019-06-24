@@ -219,11 +219,11 @@ export class ReportsUpload extends React.Component<Props, State> {
             .min(0, 'Value must be greater than or equal to 0')
             .max(100, 'Value must be less than or equal to 100')
             .required('Percentage of hypervisors migrated is mandatory'),
-            percentageOasfHypervisorsMigratedOnYear2: Yup.number()
+            percentageOfHypervisorsMigratedOnYear2: Yup.number()
             .min(0, 'Vaaslue must be greater than or equal to 0')
             .max(100, 'Value must be less than or equal to 100')
             .required('Percentage of hypervisors migrated is mandatory'),
-            percentageOasfHypervisorsMigratedOnYear3: Yup.number()
+            percentageOfHypervisorsMigratedOnYear3: Yup.number()
             .min(0, 'Value must be greater than or equal to 0')
             .max(100, 'Value must be less than or equal to 100')
             .required('Percentage of hypervisors migrated is mandatory'),
