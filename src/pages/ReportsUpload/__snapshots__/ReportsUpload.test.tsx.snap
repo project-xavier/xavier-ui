@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ReportList expect to render empty list 1`] = `
+exports[`ReportsUpload expect to render form 1`] = `
 <Fragment>
   <PageHeader>
     <PageHeaderTitle
