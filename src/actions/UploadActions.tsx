@@ -18,7 +18,7 @@ export const uploadRequest = (upload: Upload, config = {}): GenericAction => {
     }
 
     if (upload.yearOverYearGrowthRatePercentage) {
-        formData.append('reportDesyearOverYearGrowthRatePercentagecription', upload.yearOverYearGrowthRatePercentage.toString());
+        formData.append('yearOverYearGrowthRatePercentage', upload.yearOverYearGrowthRatePercentage.toString());
     }
 
     if (upload.percentageOfHypervisorsMigratedOnYear1) {
