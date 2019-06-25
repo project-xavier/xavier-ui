@@ -16,7 +16,8 @@ import {
     Progress,
     TitleLevel,
     ProgressVariant,
-    EmptyStateSecondaryActions} from '@patternfly/react-core';
+    EmptyStateSecondaryActions
+} from '@patternfly/react-core';
 import { VolumeIcon } from '@patternfly/react-icons';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
