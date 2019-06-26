@@ -19,7 +19,7 @@ class App extends Component<Props, State> {
         insights.chrome.init();
         // TODO change this to your appname
         // TODO should the sample app webpack just rewrite this automatically?
-        insights.chrome.identifyApp('dashboard');
+        insights.chrome.identifyApp('migration-analytics');
         insights.chrome.navigation(buildNavigation());
 
         this.appNav = insights.chrome.on('APP_NAVIGATION', (event: any) => this.props.history.push(`/${event.navId}`));
