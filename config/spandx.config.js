@@ -9,6 +9,6 @@ const localhost = (process.env.PLATFORM === 'linux') ? 'localhost' : 'host.docke
 module.exports = {
     routes: {
         '/apps/migration-analytics': { host: `http://${localhost}:8002` },
-        '/analytics/migration-analytics': { host: `http://${localhost}:8002` }
+        '/staging/migration-analytics': { host: `http://${localhost}:8002` }
     }
 };
