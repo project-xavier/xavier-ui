@@ -10,29 +10,7 @@ export const ActionTypes = {
 
 export const uploadRequest = (upload: Upload, config = {}): GenericAction => {
     const formData = new FormData();
-    formData.append('file', upload.file, upload.file.name);
-    formData.append('reportName', upload.reportName);
-
-    if (upload.reportDescription) {
-        formData.append('reportDescription', upload.reportDescription);
-    }
-
-    if (upload.yearOverYearGrowthRatePercentage) {
-        formData.append('yearOverYearGrowthRatePercentage', upload.yearOverYearGrowthRatePercentage.toString());
-    }
-
-    if (upload.percentageOfHypervisorsMigratedOnYear1) {
-        formData.append('percentageOfHypervisorsMigratedOnYear1', upload.percentageOfHypervisorsMigratedOnYear1.toString());
-    }
-
-    if (upload.percentageOfHypervisorsMigratedOnYear2) {
-        formData.append('percentageOfHypervisorsMigratedOnYear2', upload.percentageOfHypervisorsMigratedOnYear2.toString());
-    }
-
-    if (upload.percentageOfHypervisorsMigratedOnYear1) {
-        formData.append('percentageOfHypervisorsMigratedOnYear3', upload.percentageOfHypervisorsMigratedOnYear3.toString());
-    }
-
+    Object.keys(upload).forEach(key => formData.append(key, upload[key].toString()));
     return {
         type: ActionTypes.UPLOAD_REQUEST,
         payload: uploadFile(formData, config),

@@ -1,5 +1,5 @@
 import { shallow } from "enzyme";
-import { ReportsUpload } from ".";
+import ReportsUpload from "./ReportsUpload";
 
 const props = {
   file: null,

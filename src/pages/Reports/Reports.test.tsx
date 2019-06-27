@@ -1,5 +1,5 @@
-import { shallow } from "enzyme";
-import { Reports } from ".";
+import { shallow } from 'enzyme';
+import Reports from './Reports';
 
 const props = {
   total: 2,

@@ -1,5 +1,5 @@
 import { shallow } from "enzyme";
-import { UploadForm } from "./UploadForm";
+import UploadForm from "./UploadForm";
 
 const props = {
   errors: {},

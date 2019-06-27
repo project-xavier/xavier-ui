@@ -1,5 +1,5 @@
 import { shallow } from "enzyme";
-import { ReportsPage } from ".";
+import ReportsPage from "./ReportsPage";
 
 describe("ReportListPage", () => {
   const routerProps = {

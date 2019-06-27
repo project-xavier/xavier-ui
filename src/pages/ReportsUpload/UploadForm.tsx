@@ -27,7 +27,7 @@ interface UploadFormProps extends FormikState<FormikValues>, FormikActions<Formi
     handleCancel: (e: any) => any;
 }
 
-export class UploadForm extends React.Component<UploadFormProps, { }> {
+class UploadForm extends React.Component<UploadFormProps, { }> {
 
     constructor(props: UploadFormProps) {
         super(props);
@@ -311,3 +311,5 @@ export class UploadForm extends React.Component<UploadFormProps, { }> {
         );
     }
 }
+
+export default UploadForm;

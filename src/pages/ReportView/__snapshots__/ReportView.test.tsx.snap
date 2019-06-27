@@ -15,7 +15,7 @@ exports[`ReportView expect to redirect because no reportId 1`] = `
 `;
 
 exports[`ReportView expect to render loading object 1`] = `
-<ReportViewPage
+<withRouter(ReportViewPage)
   showBreadcrumb={false}
   title="Report "
 >
@@ -99,11 +99,11 @@ exports[`ReportView expect to render loading object 1`] = `
       </CardBody>
     </Card>
   </LoadingState>
-</ReportViewPage>
+</withRouter(ReportViewPage)>
 `;
 
 exports[`ReportView expect to render object 1`] = `
-<ReportViewPage
+<withRouter(ReportViewPage)
   showBreadcrumb={false}
   title="Report 36"
 >
@@ -187,5 +187,5 @@ exports[`ReportView expect to render object 1`] = `
       </CardBody>
     </Card>
   </LoadingState>
-</ReportViewPage>
+</withRouter(ReportViewPage)>
 `;
