@@ -1,11 +1,38 @@
 import { AxiosPromise } from 'axios';
 import ApiClient from './apiClient';
-import { Report } from '../models';
+import {
+    Report,
+    ReportWorkloadMigrationSummary,
+    ReportInitialSavingEstimation
+} from '../models';
 
-export function getAllReports(): AxiosPromise<Report[]> {
-    return ApiClient.get<Report[]>('/report');
+export function getAllReports(page: number, perPage: number, filterText: string): AxiosPromise<Report[]> {
+    const params = { page, limit: perPage, filterText };
+    let query: string[] = [];
+
+    Object.keys(params).map(function(key) {
+        const value = params[key];
+        if (value !== undefined) {
+            query.push(`${ key }=${ value }`);
+        }
+    });
+
+    const url = `/report?${ query.join('&') }`;
+    return ApiClient.get<Report[]>(url);
 }
 
 export function getReportById(id: number): AxiosPromise<Report> {
     return ApiClient.get<Report>(`/report/${id}`);
+}
+
+export function deleteReport(id: number): AxiosPromise {
+    return ApiClient.delete(`/report/${id}`);
+}
+
+export function getReportWokloadMigrationSummary(id: number): AxiosPromise<ReportWorkloadMigrationSummary> {
+    return ApiClient.get<ReportWorkloadMigrationSummary>(`/report/${id}/workload-migration-summary`);
+}
+
+export function getReportInitialSavingestimation(id: number): AxiosPromise<ReportInitialSavingEstimation> {
+    return ApiClient.get<ReportInitialSavingEstimation>(`/report/${id}/initial-saving-estimation`);
 }

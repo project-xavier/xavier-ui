@@ -5,9 +5,8 @@ import {
     PageHeader,
     PageHeaderTitle
 } from '@redhat-cloud-services/frontend-components';
-import { RouterGlobalProps } from '../../models/router';
 
-interface Props extends RouterGlobalProps {
+interface Props {
     mainStyle?: any;
 };
 
@@ -25,9 +24,9 @@ class ReportsPage extends Component<Props, State> {
 
         return (
             <Fragment>
-                { <PageHeader>
+                <PageHeader>
                     <PageHeaderTitle title={ 'Reports' } />
-                </PageHeader> }
+                </PageHeader>
                 <Main style={ this.props.mainStyle }>
                     { children }
                 </Main>

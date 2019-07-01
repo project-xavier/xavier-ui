@@ -7,12 +7,12 @@ import { withRouter } from 'react-router';
 
 const mapStateToProps = (state: GlobalState)  => {
     let {
-        uploadState: {
-            file
+        userState: {
+            user
         }
     } = state;
     return {
-        file
+        user
     };
 };
 

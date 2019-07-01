@@ -1,13 +1,11 @@
 import React from 'react';
-import { Redirect, Link } from 'react-router-dom';
-import {
-    Spinner
-} from '@redhat-cloud-services/frontend-components';
+import { Redirect, Switch, Route } from 'react-router-dom';
 import { RouterGlobalProps } from '../../models/router';
 import { Report } from '../../models';
 import ReportViewPage from '../../PresentationalComponents/ReportViewPage';
-import LoadingState from '../../PresentationalComponents/LoadingState';
-import { Card, CardBody, Button } from '@patternfly/react-core';
+import WorkloadMigrationSummary from './WorkloadMigrationSummary';
+import InitialSavingsEstimation from './InitialSavingsEstimation';
+import WorkloadInventory from './WorkloadInventory';
 
 interface StateToProps {
     error: string | null;
@@ -50,42 +48,14 @@ class ReportView extends React.Component<Props, State> {
             return <Redirect to={ `/reports` } />;
         }
 
-        let action = !this.props.loading && report ? report.id : '';
-
         return (
-            <ReportViewPage
-                title={ `Report ${action}` }
-                showBreadcrumb={ false }>
-                <LoadingState
-                    loading={ this.props.loading }
-                    placeholder={ <Spinner centered/> }>
-                    <Card>
-                        <CardBody>
-                            {
-                                report ? (<div className="pf-c-content">
-                                    <dl>
-                                        <dt>Customer id:</dt>
-                                        <dd>{ report.customerId }</dd>
-                                        <dt>File name:</dt>
-                                        <dd>{ report.fileName }</dd>
-                                        <dt>Number of hosts:</dt>
-                                        <dd>{ report.numberOfHosts.toLocaleString() }</dd>
-                                        <dt>Total disk space:</dt>
-                                        <dd>{ report.totalDiskSpace.toLocaleString() } B</dd>
-                                        <dt>Total price:</dt>
-                                        <dd>{ report.totalPrice }</dd>
-                                        <dt>Creation date:</dt>
-                                        <dd>{ new Date(report.creationDate).toUTCString() }</dd>
-                                    </dl>
-                                    <Button variant="secondary" component= { Link } to="/reports">Back</Button>
-                                </div>
-                                ) : (
-                                    ''
-                                )
-                            }
-                        </CardBody>
-                    </Card>
-                </LoadingState>
+            <ReportViewPage report={ report }>
+                <Switch>
+                    <Route path={ `${this.props.match.url}/workloadMigrationSummary` } component={ WorkloadMigrationSummary } />
+                    <Route path={ `${this.props.match.url}/initialSavingsEstimation` } component={ InitialSavingsEstimation } />
+                    <Route path={ `${this.props.match.url}/workloadInventory` } component={ WorkloadInventory } />
+                    <Redirect from={ `${this.props.match.url}` } to={ `${this.props.match.url}/workloadMigrationSummary` } />
+                </Switch>
             </ReportViewPage>
         );
     }

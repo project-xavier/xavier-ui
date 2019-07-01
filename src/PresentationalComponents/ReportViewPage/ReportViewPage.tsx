@@ -7,12 +7,18 @@ import {
 } from '@redhat-cloud-services/frontend-components';
 import {
     Tabs,
-    Tab
+    Tab,
+    Breadcrumb,
+    BreadcrumbItem
 } from '@patternfly/react-core';
+import { Report } from '../../models';
+import { Link } from 'react-router-dom';
 
 interface Props {
     mainStyle?: any;
-    reportId: number;
+    report: Report;
+    loading: boolean;
+    error: string;
 
     match: any;
     history: any;
@@ -51,26 +57,37 @@ class ReportViewPage extends Component<Props, State> {
         }
     };
 
-    tabs = () => {
+    renderTabs = () => {
+        const { report } = this.props;
+        const currentBreadcrumb = report ? report.fileName : '';
+
         return (
-            <Tabs isFilled activeKey={ this.state.activeTabKey } onSelect={ this.handleTabClick }>
-                <Tab eventKey={ 0 } title="Workload Migration Summary"></Tab>
-                <Tab eventKey={ 1 } title="Initials Savings Estimation"></Tab>
-                <Tab eventKey={ 2 } title="Workload Inventory"></Tab>
-            </Tabs>
+            <React.Fragment>
+                <Breadcrumb>
+                    <BreadcrumbItem>
+                        <Link to="/reports">Reports</Link>
+                    </BreadcrumbItem>
+                    <BreadcrumbItem isActive>{ currentBreadcrumb }</BreadcrumbItem>
+                </Breadcrumb>
+                <Tabs isFilled activeKey={ this.state.activeTabKey } onSelect={ this.handleTabClick }>
+                    <Tab eventKey={ 0 } title="Workload Migration Summary"></Tab>
+                    <Tab eventKey={ 1 } title="Initials Savings Estimation"></Tab>
+                    <Tab eventKey={ 2 } title="Workload Inventory"></Tab>
+                </Tabs>
+            </React.Fragment>
         );
     }
 
     render() {
-        const { children } = this.props;
+        const { report, children } = this.props;
 
         return (
             <Fragment>
                 <PageHeader>
-                    <PageHeaderTitle title={ 'Reports' } />
+                    <PageHeaderTitle title={ report ? this.renderTabs() : '' } />
                 </PageHeader>
                 <Main style={ this.props.mainStyle }>
-                    { children }
+                    { report ? children : '' }
                 </Main>
             </Fragment>
         );

@@ -4,6 +4,7 @@ import { withRouter } from 'react-router';
 import { GlobalState } from '../../models/state';
 import { bindActionCreators } from 'redux';
 import  * as reportActions from '../../actions/ReportActions';
+import  * as dialogDeleteActions from '../../actions/DialogDeleteActions';
 
 const mapStateToProps = (state: GlobalState)  => {
     let {
@@ -24,7 +25,10 @@ const mapStateToProps = (state: GlobalState)  => {
 
 const mapDispatchToProps = (dispatch: any) =>
     bindActionCreators({
-        fetchReports: reportActions.fetchReports
+        fetchReports: reportActions.fetchReports,
+        deleteReport: reportActions.deleteReport,
+        showDeleteDialog: dialogDeleteActions.openModal,
+        closeDeleteDialog: dialogDeleteActions.closeModal
     }, dispatch);
 
 export default withRouter(

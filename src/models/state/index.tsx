@@ -1,11 +1,14 @@
-import { Report } from '../Report';
+import { Report, ReportWorkloadMigrationSummary, ReportInitialSavingEstimation } from '../Report';
+import { User } from '../User';
 
 /**
  * The fields of this interface should match the /store/index.js
  */
 export interface GlobalState {
     reportState: ReportState,
-    uploadState: UploadState
+    uploadState: UploadState,
+    userState: UserState,
+    dialogDeleteState: DialogDeleteState
 }
 
 export interface ReportState {
@@ -23,6 +26,8 @@ export interface ReportState {
      * A Single report
      */
     report: Report | null;
+    reportMigrationSummary: ReportWorkloadMigrationSummary | null;
+    reportInitialSavingEstimation: ReportInitialSavingEstimation | null;
 
     /**
      * List of reports
@@ -61,3 +66,19 @@ export interface UploadState {
      */
     uploading: boolean
 }
+
+export interface UserState {
+    user: User | null;
+    error: string | null;
+    loading: boolean;
+}
+
+export interface DialogDeleteState {
+    isOpen: boolean;
+    isProcessing: boolean;
+    isError: boolean;
+    name: string;
+    type: string;
+    onDelete: () => any;
+    onCancel: () => any;
+  };

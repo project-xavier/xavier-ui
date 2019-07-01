@@ -24,7 +24,7 @@ import {
     PageHeader,
     PageHeaderTitle
 } from '@redhat-cloud-services/frontend-components';
-import { Upload } from '../../models';
+import { Upload, User } from '../../models';
 import './ReportsUpload.scss';
 import UploadForm from './UploadForm';
 
@@ -40,6 +40,7 @@ interface FormValues {
 }
 
 interface StateToProps {
+    user: User;
     file: File;
     success: boolean | null;
     error: string | null;
@@ -51,6 +52,7 @@ interface DispatchToProps {
     uploadProgress: (progress: number) => void;
     uploadRequest: (upload: Upload, config: {}) => void;
     selectUploadFile: (file: File) => void;
+    updateUser: (user: User) => void;
 }
 
 interface Props extends StateToProps, DispatchToProps, RouterGlobalProps {
@@ -109,8 +111,14 @@ class ReportsUpload extends React.Component<Props, State> {
      * Called by "Close modal" or by the "Cancel button"
      */
     handleCloseModel = () => {
-        if (!this.props.uploading) {
-            this.props.history.push('/reports');
+        const { uploading, user } = this.props;
+
+        if (!uploading) {
+            if (user.firstTimeCreatingReports) {
+                this.props.history.push('/getting-started');
+            } else {
+                this.props.history.push('/reports');
+            }
         }
     };
 
@@ -285,6 +293,12 @@ class ReportsUpload extends React.Component<Props, State> {
     }
 
     render() {
+        const { success, user } = this.props;
+        if (success && user.firstTimeCreatingReports) {
+            const { updateUser } = this.props;
+            updateUser({ firstTimeCreatingReports: false });
+        }
+
         return (
             <React.Fragment>
                 <PageHeader>

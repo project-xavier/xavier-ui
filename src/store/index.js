@@ -1,7 +1,10 @@
 import ReducerRegistry from '@redhat-cloud-services/frontend-components-utilities/files/ReducerRegistry';
 import promiseMiddleware from 'redux-promise-middleware';
+import { notifications, notificationsMiddleware } from '@redhat-cloud-services/frontend-components-notifications';
 import { reportsReducer } from '../reducers/ReportsReducer';
 import { uploadsReducer } from '../reducers/UploadsReducer';
+import { userReducer } from '../reducers/UserReducer';
+import { dialogDeleteReducer } from '../reducers/DialogDeleteReducer';
 
 let registry;
 
@@ -12,12 +15,16 @@ export function init(...middleware) {
 
     registry = new ReducerRegistry({}, [
         promiseMiddleware(),
+        notificationsMiddleware(),
         ...middleware
     ]);
 
     registry.register({
+        notifications,
         reportState: reportsReducer,
-        uploadState: uploadsReducer
+        uploadState: uploadsReducer,
+        userState: userReducer,
+        dialogDeleteState: dialogDeleteReducer
     });
 
     return registry;

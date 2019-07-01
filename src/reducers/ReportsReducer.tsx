@@ -26,7 +26,6 @@ export const reportsReducer = function (
         case pendingMessage(ActionTypes.FETCH_REPORTS): {
             const nextState: ReportState = {
                 ...state,
-                total: 0,
                 reports: [],
                 loading: true,
                 error: null
@@ -37,7 +36,7 @@ export const reportsReducer = function (
         case successMessage(ActionTypes.FETCH_REPORTS): {
             const nextState: ReportState = {
                 ...state,
-                total: action.payload.data.length,
+                total: parseInt(action.payload.headers['x-total-count']),
                 reports: action.payload.data,
                 loading: false
             };
@@ -80,6 +79,86 @@ export const reportsReducer = function (
             const nextState: ReportState = {
                 ...state,
                 report: null,
+                loading: false,
+                error: action.payload.message
+            };
+            return nextState;
+        }
+
+        // DELETE_REPORT single report
+        case successMessage(ActionTypes.DELETE_REPORT): {
+            const nextState: ReportState = {
+                ...state,
+                reports: state.reports.filter(r => r.id !== action.payload.id),
+                total: state.total - 1
+            };
+            return nextState;
+        }
+
+        case failureMessage(ActionTypes.DELETE_REPORT): {
+            const nextState: ReportState = {
+                ...state,
+                error: action.payload.message
+            };
+            return nextState;
+        }
+
+        // FETCH_REPORT_WORKLOAD_MIGRATION_SUMMARY single report
+        case pendingMessage(ActionTypes.FETCH_REPORT_WORKLOAD_MIGRATION_SUMMARY): {
+            const nextState: ReportState = {
+                ...state,
+                reportMigrationSummary: null,
+                loading: true,
+                error: null
+            };
+
+            return nextState;
+        }
+
+        case successMessage(ActionTypes.FETCH_REPORT_WORKLOAD_MIGRATION_SUMMARY): {
+            const nextState: ReportState = {
+                ...state,
+                reportMigrationSummary: action.payload.data,
+                loading: false
+            };
+            return nextState;
+        }
+
+        case failureMessage(ActionTypes.FETCH_REPORT_WORKLOAD_MIGRATION_SUMMARY): {
+            const nextState: ReportState = {
+                ...state,
+                reportMigrationSummary: null,
+                loading: false,
+                error: action.payload.message
+            };
+            return nextState;
+        }
+
+        // FETCH_REPORT_INITIAL_SAVING_ESTIMATION single report
+        case pendingMessage(ActionTypes.FETCH_REPORT_INITIAL_SAVING_ESTIMATION): {
+            const nextState: ReportState = {
+                ...state,
+                reportInitialSavingEstimation: null,
+                loading: true,
+                error: null
+            };
+
+            return nextState;
+        }
+
+        case successMessage(ActionTypes.FETCH_REPORT_INITIAL_SAVING_ESTIMATION): {
+            const nextState: ReportState = {
+                ...state,
+                reportInitialSavingEstimation: action.payload.data,
+                loading: false
+            };
+            return nextState;
+        }
+
+        case failureMessage(ActionTypes.FETCH_REPORT_INITIAL_SAVING_ESTIMATION): {
+            const nextState: ReportState = {
+                ...state,
+                reportInitialSavingEstimation: null,
                 loading: false,
                 error: action.payload.message
             };

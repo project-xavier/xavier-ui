@@ -3,6 +3,7 @@ import React from 'react';
 import asyncComponent from './Utilities/asyncComponent';
 import some from 'lodash/some';
 import { RouterGlobalProps } from './models/router';
+import UserRoute from './SmartComponents/UserRoute';
 
 /**
  * Aysnc imports of components
@@ -18,25 +19,35 @@ import { RouterGlobalProps } from './models/router';
  *         see the difference with DashboardMap and InventoryDeployments.
  *
  */
+const GettingStarted = asyncComponent(() =>
+    import(/* webpackChunkName: "GettingStarted" */ './pages/GettingStarted'));
 const Reports = asyncComponent(() =>
     import(/* webpackChunkName: "Reports" */ './pages/Reports'));
+const NoReports = asyncComponent(() =>
+    import(/* webpackChunkName: "NoReports" */ './pages/NoReports'));
 const ReportsUpload = asyncComponent(() =>
     import(/* webpackChunkName: "ReportsUpload" */ './pages/ReportsUpload'));
 const ReportView = asyncComponent(() =>
     import(/* webpackChunkName: "ReportView" */ './pages/ReportView'));
+const ErrorPage = asyncComponent(() =>
+    import(/* webpackChunkName: "ErrorPage" */ './pages/ErrorPage'));
 
 const paths = {
+    gettingStarted: '/getting-started',
     reports: '/reports',
+    noReports: '/no-reports',
     reportsUpload: '/reports/upload',
-    reportView: '/reports/:reportId'
+    reportView: '/reports/:reportId',
+    error: '/error'
 };
 
 interface InsightsRouteProps {
     component: any;
     rootClass: string;
+    skipLoadUser: boolean;
 }
 
-const InsightsRoute = ({ component: Component, rootClass, ...rest } : InsightsRouteProps) => {
+const InsightsRoute = ({ component: Component, rootClass, skipLoadUser, ...rest } : InsightsRouteProps) => {
     const root = document.getElementById('root');
     if (root) {
         root.removeAttribute('class');
@@ -44,7 +55,11 @@ const InsightsRoute = ({ component: Component, rootClass, ...rest } : InsightsRo
         root.setAttribute('role', 'main');
     }
 
-    return (<Route { ...rest } component={ Component } />);
+    if (skipLoadUser) {
+        return (<Route { ...rest } component={ Component } />);
+    } else {
+        return (<UserRoute { ...rest } component={ Component } />);
+    }
 };
 
 interface RoutesProps {
@@ -64,12 +79,15 @@ export const Routes = (props: RoutesProps) => {
 
     return (
         <Switch>
+            <InsightsRoute component={ GettingStarted } rootClass='getting-started' path={ paths.gettingStarted } exact />
             <InsightsRoute component={ Reports } rootClass='reports' path={ paths.reports } exact />
-            <InsightsRoute component={ ReportsUpload } rootClass='reports' path={ paths.reportsUpload } />
-            <InsightsRoute component={ ReportView } rootClass='report' path={ paths.reportView } />
+            <InsightsRoute component={ NoReports } rootClass='no-reports' path={ paths.noReports } />
+            <InsightsRoute component={ ReportsUpload } rootClass='reports-upload' path={ paths.reportsUpload } />
+            <InsightsRoute component={ ReportView } rootClass='report-view' path={ paths.reportView } />
+            <InsightsRoute component={ ErrorPage } rootClass='error' path={ paths.error } skipLoadUser={ true }/>
 
             { /* Finally, catch all unmatched routes */ }
-            <Route render={ () => some(paths, p => p === path) ? null : (<Redirect to={ paths.reports } />) } />
+            <Route render={ () => some(paths, p => p === path) ? null : (<Redirect to={ paths.gettingStarted } />) } />
         </Switch>
     );
 };
