@@ -15,7 +15,7 @@ export function init(...middleware) {
 
     registry = new ReducerRegistry({}, [
         promiseMiddleware(),
-        notificationsMiddleware(),
+        notificationsMiddleware({ autoDismiss: true }),
         ...middleware
     ]);
 

@@ -66,11 +66,10 @@ interface State {
     perPage: number;
     columns: Array<ICell | String>;
     rows: Array<IRow | Array<String>>,
-
-    isFirstTimeFechReports: boolean
+    isFirstFetchReportsCall: boolean
 };
 
-const PULL_TIME = 10000;
+const PULL_INTERVAL_TIME = 5000;
 
 class Reports extends React.Component<Props, State> {
 
@@ -93,8 +92,7 @@ class Reports extends React.Component<Props, State> {
                 }
             ],
             rows: [],
-
-            isFirstTimeFechReports: true
+            isFirstFetchReportsCall: true
         };
     }
 
@@ -111,7 +109,7 @@ class Reports extends React.Component<Props, State> {
         if (!this.redirectTimer) {
             this.redirectTimer = setInterval(() => {
                 this.refreshData();
-            }, PULL_TIME);
+            }, PULL_INTERVAL_TIME);
         }
     }
 
@@ -124,6 +122,7 @@ class Reports extends React.Component<Props, State> {
             () => {
                 this.props.deleteReport(report.id, report.fileName).then(() => {
                     this.props.closeDeleteDialog();
+                    this.refreshData();
                 });
             },
             () => {
@@ -178,14 +177,20 @@ class Reports extends React.Component<Props, State> {
             ));
         }
 
-        this.setState({ rows, isFirstTimeFechReports: false });
+        this.setState({ rows });
     }
 
     refreshData(page: number = this.state.page, perPage: number = this.state.perPage, filterText: string = this.state.filterText): void {
         this.props.fetchReports(page, perPage, filterText).then(() => {
-            if (this.state.isFirstTimeFechReports && this.props.total === 0) {
+            // If it is the first time fetching reports and there are no reports
+            // thenn redirect to. Otherwise show empty table.
+            const { total } = this.props;
+            const { isFirstFetchReportsCall } = this.state;
+            if (total === 0 && isFirstFetchReportsCall) {
                 this.props.history.push('/no-reports');
             }
+
+            this.setState({ isFirstFetchReportsCall: false });
 
             this.filtersInRowsAndCells();
         });
@@ -304,10 +309,10 @@ class Reports extends React.Component<Props, State> {
     };
 
     render() {
-        const { isFirstTimeFechReports, page, perPage } = this.state;
+        const { isFirstFetchReportsCall, page, perPage } = this.state;
         const { total } = this.props;
 
-        if (isFirstTimeFechReports) {
+        if (isFirstFetchReportsCall) {
             return (
                 <ReportsPage>{ '' }</ReportsPage>
             );
