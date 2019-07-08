@@ -50,7 +50,7 @@ class ReportView extends React.Component<Props, State> {
             return <Redirect to={ `/reports` } />;
         }
 
-        let action = !this.props.loading && report ? report.id : '';
+        const action = !this.props.loading && report ? report.id : '';
 
         return (
             <ReportViewPage

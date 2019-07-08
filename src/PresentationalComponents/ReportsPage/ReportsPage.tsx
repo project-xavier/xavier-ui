@@ -25,9 +25,9 @@ class ReportsPage extends Component<Props, State> {
 
         return (
             <Fragment>
-                { <PageHeader>
+                <PageHeader>
                     <PageHeaderTitle title={ 'Reports' } />
-                </PageHeader> }
+                </PageHeader>
                 <Main style={ this.props.mainStyle }>
                     { children }
                 </Main>

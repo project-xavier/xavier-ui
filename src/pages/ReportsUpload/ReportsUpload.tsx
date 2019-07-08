@@ -61,12 +61,21 @@ interface State {
     timeoutToRedirect: number;
 }
 
+const initialFormValue: FormValues = {
+    file: '',
+    reportName: '',
+    reportDescription: '',
+    yearOverYearGrowthRatePercentage: 5,
+    percentageOfHypervisorsMigratedOnYear1: 50,
+    percentageOfHypervisorsMigratedOnYear2: 30,
+    percentageOfHypervisorsMigratedOnYear3: 10,
+    percentageOfHypervisorsMigratedSum: 90
+};
+
 class ReportsUpload extends React.Component<Props, State> {
 
     redirectTimer: any;
     beforeUnloadHandler: any;
-
-    initialFormValue: FormValues;
 
     constructor(props: Props) {
         super(props);
@@ -74,17 +83,6 @@ class ReportsUpload extends React.Component<Props, State> {
         this.state = {
             showForm: true,
             timeoutToRedirect: 3
-        };
-
-        this.initialFormValue = {
-            file: '',
-            reportName: '',
-            reportDescription: '',
-            yearOverYearGrowthRatePercentage: 5,
-            percentageOfHypervisorsMigratedOnYear1: 50,
-            percentageOfHypervisorsMigratedOnYear2: 30,
-            percentageOfHypervisorsMigratedOnYear3: 10,
-            percentageOfHypervisorsMigratedSum: 90
         };
 
         this.redirectTimer = null;
@@ -102,7 +100,7 @@ class ReportsUpload extends React.Component<Props, State> {
     }
 
     componentWillUnmount() {
-        removeEventListener('beforeunload', this.beforeUnloadHandler);
+        window.removeEventListener('beforeunload', this.beforeUnloadHandler);
     }
 
     /**
@@ -269,7 +267,7 @@ class ReportsUpload extends React.Component<Props, State> {
     renderForm() {
         return (
             <Formik
-                initialValues={ this.initialFormValue }
+                initialValues={ initialFormValue }
                 validate={  this.validateForm }
                 onSubmit={ this.handleFormSubmit }
             >

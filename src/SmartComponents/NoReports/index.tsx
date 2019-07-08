@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
 const mapStateToProps = (state: GlobalState)  => {
-    let {
+    const {
         uploadState: {
             file
         }

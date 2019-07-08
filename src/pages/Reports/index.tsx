@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import  * as reportActions from '../../actions/ReportActions';
 
 const mapStateToProps = (state: GlobalState)  => {
-    let {
+    const {
         reportState: {
             reports,
             loading,

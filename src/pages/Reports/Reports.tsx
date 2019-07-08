@@ -105,13 +105,13 @@ class Reports extends React.Component<Props, State> {
 
         return (
             <React.Fragment>
-                { <TableToolbar className="pf-u-justify-content-space-between">
+                <TableToolbar className="pf-u-justify-content-space-between">
                     <ToolbarGroup>
                         <ToolbarItem className="pf-u-mr-md">
                             <Button type="button" variant={ ButtonVariant.primary } component={ Link } to={ '/reports/upload' }>Create</Button>
                         </ToolbarItem>
                     </ToolbarGroup>
-                </TableToolbar> }
+                </TableToolbar>
                 <Table aria-label='Reports list'
                     rows={ rows }
                     cells={ columns }

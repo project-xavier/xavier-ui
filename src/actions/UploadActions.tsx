@@ -11,6 +11,8 @@ export const ActionTypes = {
 export const uploadRequest = (upload: Upload, config = {}): GenericAction => {
     const formData = new FormData();
     Object.keys(upload).forEach(key => formData.append(key, upload[key].toString()));
+
+    formData.set('file', upload.file, upload.file.name);
     return {
         type: ActionTypes.UPLOAD_REQUEST,
         payload: uploadFile(formData, config),

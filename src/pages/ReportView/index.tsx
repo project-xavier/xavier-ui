@@ -6,7 +6,7 @@ import { fetchReport } from '../../actions/ReportActions';
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state: GlobalState)  => {
-    let { report, loading, error } = state.reportState;
+    const { report, loading, error } = state.reportState;
     return {
         report,
         loading,
