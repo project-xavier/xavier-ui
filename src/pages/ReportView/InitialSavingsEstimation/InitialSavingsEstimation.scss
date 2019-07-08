@@ -1,5 +1,14 @@
+.pf-m-2xl-override {
+    font-size: var(--pf-c-title--m-2xl--FontSize) !important;
+    font-weight: var(--pf-c-title--m-2xl--FontWeight) !important;
+    line-height: var(--pf-c-title--m-2xl--LineHeight) !important;
+}
+
 .stack-item-border {
-    border: 1px solid var(--pf-global--secondary-color--100);
-    padding: 24px;
-    font-size: var(--pf-global--FontSize--2xl);
+    padding: 12px;
+    border: 1px solid #dedede;
+}
+
+.no-margin-bottom {
+    margin-bottom: 0px !important;
 }

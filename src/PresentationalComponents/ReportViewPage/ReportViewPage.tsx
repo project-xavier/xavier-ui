@@ -13,8 +13,9 @@ import {
 } from '@patternfly/react-core';
 import { Report } from '../../models';
 import { Link } from 'react-router-dom';
+import { RouterGlobalProps } from '../../models/router';
 
-interface Props {
+interface Props extends RouterGlobalProps {
     mainStyle?: any;
     report: Report;
     loading: boolean;
@@ -32,8 +33,19 @@ class ReportViewPage extends Component<Props, State> {
 
     constructor(props: Props) {
         super(props);
+
+        let activeTabKey = 0;
+
+        if (props.location.pathname.endsWith('workloadMigrationSummary')) {
+            activeTabKey = 0;
+        } else if (props.location.pathname.endsWith('initialSavingsEstimation')) {
+            activeTabKey = 1;
+        } else if (props.location.pathname.endsWith('workloadInventory')) {
+            activeTabKey = 2;
+        }
+
         this.state = {
-            activeTabKey: 0
+            activeTabKey
         };
     }
 
@@ -63,13 +75,17 @@ class ReportViewPage extends Component<Props, State> {
 
         return (
             <React.Fragment>
-                <Breadcrumb>
+                <Breadcrumb style={ { marginBottom: '25px' } }>
                     <BreadcrumbItem>
                         <Link to="/reports">Reports</Link>
                     </BreadcrumbItem>
                     <BreadcrumbItem isActive>{ currentBreadcrumb }</BreadcrumbItem>
                 </Breadcrumb>
-                <Tabs isFilled activeKey={ this.state.activeTabKey } onSelect={ this.handleTabClick }>
+                <Tabs
+                    isFilled
+                    activeKey={ this.state.activeTabKey }
+                    onSelect={ this.handleTabClick }
+                >
                     <Tab eventKey={ 0 } title="Workload Migration Summary"></Tab>
                     <Tab eventKey={ 1 } title="Initials Savings Estimation"></Tab>
                     <Tab eventKey={ 2 } title="Workload Inventory"></Tab>

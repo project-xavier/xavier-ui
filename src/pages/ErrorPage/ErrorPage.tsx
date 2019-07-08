@@ -13,9 +13,7 @@ import {
     EmptyStateIcon,
     Title,
     TitleLevel,
-    EmptyStateBody,
-    Button,
-    ButtonVariant
+    EmptyStateBody
 } from '@patternfly/react-core';
 import { ErrorCircleOIcon } from '@patternfly/react-icons';
 import { Link } from 'react-router-dom';
@@ -53,7 +51,7 @@ class GettingStarted extends React.Component<Props, State> {
                             <EmptyStateBody>
                                 Something unexpected happend, please try again!
                             </EmptyStateBody>
-                            <Button variant={ ButtonVariant.primary } component={ Link } to="/reports">Home</Button>
+                            <Link to={ '/reports' } className="pf-c-button pf-m-primary">Home</Link>
                         </EmptyState>
                     </Bullseye>
                 </Main>

@@ -73,12 +73,12 @@ export interface UserState {
     loading: boolean;
 }
 
-export interface DialogDeleteState {
+export type DialogDeleteState = Readonly<{
     isOpen: boolean;
     isProcessing: boolean;
     isError: boolean;
     name: string;
     type: string;
-    onDelete: () => any;
-    onCancel: () => any;
-  };
+    onDelete: () => void;
+    onCancel: () => void;
+}>;

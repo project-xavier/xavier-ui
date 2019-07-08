@@ -16,176 +16,72 @@ exports[`ReportView expect to redirect because no reportId 1`] = `
 
 exports[`ReportView expect to render loading object 1`] = `
 <withRouter(ReportViewPage)
-  showBreadcrumb={false}
-  title="Report "
->
-  <LoadingState
-    loading={true}
-    placeholder={
-      <Spinner
-        centered={true}
-      />
+  report={
+    Object {
+      "creationDate": 254112,
+      "customerId": "123456",
+      "fileName": "file1.json",
+      "id": 36,
+      "numberOfHosts": 254,
+      "totalDiskSpace": 5871365,
+      "totalPrice": 1200,
     }
-  >
-    <Card
-      className=""
-      component="article"
-      isHoverable={false}
-    >
-      <CardBody
-        className=""
-        component="div"
-        isFilled={true}
-      >
-        <div
-          className="pf-c-content"
-        >
-          <dl>
-            <dt>
-              Customer id:
-            </dt>
-            <dd>
-              123456
-            </dd>
-            <dt>
-              File name:
-            </dt>
-            <dd>
-              file1.json
-            </dd>
-            <dt>
-              Number of hosts:
-            </dt>
-            <dd>
-              254
-            </dd>
-            <dt>
-              Total disk space:
-            </dt>
-            <dd>
-              5,871,365
-               B
-            </dd>
-            <dt>
-              Total price:
-            </dt>
-            <dd>
-              1200
-            </dd>
-            <dt>
-              Creation date:
-            </dt>
-            <dd>
-              Thu, 01 Jan 1970 00:04:14 GMT
-            </dd>
-          </dl>
-          <Button
-            aria-label={null}
-            className=""
-            component={[Function]}
-            isActive={false}
-            isBlock={false}
-            isDisabled={false}
-            isFocus={false}
-            isHover={false}
-            isInline={false}
-            to="/reports"
-            type="button"
-            variant="secondary"
-          >
-            Back
-          </Button>
-        </div>
-      </CardBody>
-    </Card>
-  </LoadingState>
+  }
+>
+  <Switch>
+    <Route
+      component={[Function]}
+      path="undefined/workloadMigrationSummary"
+    />
+    <Route
+      component={[Function]}
+      path="undefined/initialSavingsEstimation"
+    />
+    <Route
+      component={[Function]}
+      path="undefined/workloadInventory"
+    />
+    <Redirect
+      from="undefined"
+      push={false}
+      to="undefined/workloadMigrationSummary"
+    />
+  </Switch>
 </withRouter(ReportViewPage)>
 `;
 
 exports[`ReportView expect to render object 1`] = `
 <withRouter(ReportViewPage)
-  showBreadcrumb={false}
-  title="Report 36"
->
-  <LoadingState
-    loading={false}
-    placeholder={
-      <Spinner
-        centered={true}
-      />
+  report={
+    Object {
+      "creationDate": 254112,
+      "customerId": "123456",
+      "fileName": "file1.json",
+      "id": 36,
+      "numberOfHosts": 254,
+      "totalDiskSpace": 5871365,
+      "totalPrice": 1200,
     }
-  >
-    <Card
-      className=""
-      component="article"
-      isHoverable={false}
-    >
-      <CardBody
-        className=""
-        component="div"
-        isFilled={true}
-      >
-        <div
-          className="pf-c-content"
-        >
-          <dl>
-            <dt>
-              Customer id:
-            </dt>
-            <dd>
-              123456
-            </dd>
-            <dt>
-              File name:
-            </dt>
-            <dd>
-              file1.json
-            </dd>
-            <dt>
-              Number of hosts:
-            </dt>
-            <dd>
-              254
-            </dd>
-            <dt>
-              Total disk space:
-            </dt>
-            <dd>
-              5,871,365
-               B
-            </dd>
-            <dt>
-              Total price:
-            </dt>
-            <dd>
-              1200
-            </dd>
-            <dt>
-              Creation date:
-            </dt>
-            <dd>
-              Thu, 01 Jan 1970 00:04:14 GMT
-            </dd>
-          </dl>
-          <Button
-            aria-label={null}
-            className=""
-            component={[Function]}
-            isActive={false}
-            isBlock={false}
-            isDisabled={false}
-            isFocus={false}
-            isHover={false}
-            isInline={false}
-            to="/reports"
-            type="button"
-            variant="secondary"
-          >
-            Back
-          </Button>
-        </div>
-      </CardBody>
-    </Card>
-  </LoadingState>
+  }
+>
+  <Switch>
+    <Route
+      component={[Function]}
+      path="undefined/workloadMigrationSummary"
+    />
+    <Route
+      component={[Function]}
+      path="undefined/initialSavingsEstimation"
+    />
+    <Route
+      component={[Function]}
+      path="undefined/workloadInventory"
+    />
+    <Redirect
+      from="undefined"
+      push={false}
+      to="undefined/workloadMigrationSummary"
+    />
+  </Switch>
 </withRouter(ReportViewPage)>
 `;

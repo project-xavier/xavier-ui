@@ -1,10 +1,10 @@
-import {
-    ActionTypes
-} from '../actions/DialogDeleteActions';
+import { ActionType, getType } from 'typesafe-actions';
 import { DialogDeleteState } from '../models/state';
-import { GenericAction } from '../models/action';
+import { closeModal, error, openModal, processing } from '../actions/DialogDeleteActions';
 
-export const initialState: DialogDeleteState = {
+export const stateKey = 'deleteDialog';
+
+export const defaultState: DialogDeleteState = {
     isOpen: false,
     isProcessing: false,
     isError: false,
@@ -14,43 +14,36 @@ export const initialState: DialogDeleteState = {
     onCancel: null
 };
 
-export const dialogDeleteReducer = function (
-    state: DialogDeleteState = initialState,
-    action: GenericAction
-): GenericAction {
+export type DeleteDialogAction = ActionType<
+    | typeof openModal
+    | typeof closeModal
+    | typeof processing
+    | typeof error
+>;
+
+export const dialogDeleteReducer = (
+    state: DialogDeleteState = defaultState,
+    action: DeleteDialogAction
+): DialogDeleteState => {
     switch (action.type) {
-        case ActionTypes.DIALOG_DELETE_OPEN: {
-            const nextState: DialogDeleteState = {
+        case getType(openModal):
+            return {
                 ...state,
                 ...action.payload,
                 isOpen: true
             };
-            return nextState;
-        }
-
-        case ActionTypes.DIALOG_DELETE_PROCESSING: {
-            const nextState: DialogDeleteState = {
+        case getType(processing):
+            return {
                 ...state,
                 isProcessing: true
             };
-
-            return nextState;
-        }
-
-        case ActionTypes.DIALOG_DELETE_CLOSE: {
-            const nextState: DialogDeleteState = initialState;
-            return nextState;
-        }
-
-        case ActionTypes.DIALOG_DELETE_ERROR: {
-            const nextState: DialogDeleteState = {
+        case getType(closeModal):
+            return defaultState;
+        case getType(error):
+            return {
                 ...state,
                 isError: true
             };
-
-            return nextState;
-        }
-
         default:
             return state;
     }

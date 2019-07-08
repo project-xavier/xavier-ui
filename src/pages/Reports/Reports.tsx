@@ -33,6 +33,7 @@ import './Reports.scss';
 import { Report } from '../../models';
 import { RouterGlobalProps } from '../../models/router';
 import ReportsPage from '../../PresentationalComponents/ReportsPage';
+import * as deleteActions from '../../actions/DialogDeleteActions';
 import {
     SearchIcon,
     OkIcon,
@@ -53,8 +54,8 @@ interface StateToProps {
 interface DispatchToProps {
     fetchReports: (page: number, perPage: number, filterText: string) => any;
     deleteReport: (id: number, name: string) => any;
-    showDeleteDialog: (name: string, type: string, onDelete: () => void, onCancel: () => void) => any;
-    closeDeleteDialog: () => any;
+    showDeleteDialog: typeof deleteActions.openModal;
+    closeDeleteDialog: typeof deleteActions.closeModal;
 }
 
 interface Props extends StateToProps, DispatchToProps, RouterGlobalProps {
@@ -118,17 +119,19 @@ class Reports extends React.Component<Props, State> {
     }
 
     handleDelete = (report: Report) => {
-        this.props.showDeleteDialog(report.fileName, 'report',
-            () => {
+        this.props.showDeleteDialog({
+            name: report.fileName,
+            type: 'report',
+            onDelete: () => {
                 this.props.deleteReport(report.id, report.fileName).then(() => {
                     this.props.closeDeleteDialog();
                     this.refreshData();
                 });
             },
-            () => {
+            onCancel: () => {
                 this.props.closeDeleteDialog();
             }
-        );
+        });
     }
 
     renderStatus = (report: Report) => {
@@ -241,7 +244,7 @@ class Reports extends React.Component<Props, State> {
                             <EmptyStateBody>
                                 Reports are created from inventory data files that are uploaded to Red Hat
                             </EmptyStateBody>
-                            <Button variant={ ButtonVariant.primary } component={ Link } to={ '/reports/upload' }>Create Report</Button>
+                            <Link to={ '/reports/upload' } className="pf-c-button pf-m-primary">Create Report</Link>
                         </EmptyState>
                     </CardBody>
                 </Card>
@@ -324,7 +327,7 @@ class Reports extends React.Component<Props, State> {
                     <ToolbarGroup>
                         <ToolbarItem className="pf-u-mr-xl">{ this.renderSearchBox() }</ToolbarItem>
                         <ToolbarItem className="pf-u-mr-md">
-                            <Button type="button" variant={ ButtonVariant.secondary } component={ Link } to={ '/reports/upload' }>Create</Button>
+                            <Link to={ '/reports/upload' } className="pf-c-button pf-m-secondary">Create</Link>
                         </ToolbarItem>
                     </ToolbarGroup>
                     <ToolbarGroup>

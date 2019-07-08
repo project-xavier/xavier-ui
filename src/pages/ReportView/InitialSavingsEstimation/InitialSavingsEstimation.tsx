@@ -5,28 +5,25 @@ import {
     CardBody,
     CardHeader,
     Stack,
-    StackItem,
-    Bullseye
+    StackItem
 } from '@patternfly/react-core';
 import { Report, ReportInitialSavingEstimation } from '../../../models';
 import {
-    Table,
-    TableHeader,
-    TableBody,
-    textCenter
-} from '@patternfly/react-table';
-import {
-    ChartThemeColor,
-    ChartThemeVariant,
-    Chart,
-    ChartGroup,
-    ChartBar
-} from '@patternfly/react-charts';
-import {
-    Skeleton
-    // SkeletonTable
+    Skeleton,
+    SkeletonTable
 } from '@redhat-cloud-services/frontend-components';
 import './InitialSavingsEstimation.scss';
+import { formatValue } from '../../../Utilities/formatValue';
+import Environment from '../../../PresentationalComponents/Reports/Environment';
+import RenewalEstimation from '../../../PresentationalComponents/Reports/RenewalEstimation';
+import FancyChartDonut from '../../../PresentationalComponents/FancyChartDonut';
+import FancyBarChart from '../../../PresentationalComponents/FancyBarChart';
+import { FancyGroupedBarChartData } from '../../../PresentationalComponents/FancyGroupedBarChart/FancyGroupedBarChart';
+import FancyGroupedBarChart from '../../../PresentationalComponents/FancyGroupedBarChart';
+import ReportCard from '../../../PresentationalComponents/ReportCard';
+import ProjectCostBreakdownTable from '../../../PresentationalComponents/Reports/ProjectCostBreakdownTable';
+import ProjectCostBreakdownInYear4 from '../../../PresentationalComponents/Reports/ProjectCostBreakdownInYear4';
+import ProjectCostBreakdownInYear4PerVM from '../../../PresentationalComponents/Reports/ProjectCostBreakdownInYear4PerVM';
 
 interface StateToProps {
     report: Report;
@@ -41,48 +38,12 @@ interface Props extends StateToProps, DispatchToProps, RouterGlobalProps {
 };
 
 interface State {
-    columns: any;
-    rows: any;
 };
 
 class InitialSavingsEstimation extends React.Component<Props, State> {
 
     constructor(props: Props) {
         super(props);
-        this.state = {
-            columns: [
-                { title: 'Repositories' },
-                'Branches',
-                { title: 'Pull requests' },
-                'Workspaces',
-                {
-                    title: 'Last Commit',
-                    transforms: [ textCenter ],
-                    cellTransforms: [ textCenter ]
-                }
-            ],
-            rows: [
-                [ 'one', 'two', 'three', 'four', 'five' ],
-                [
-                    {
-                        title: <div>one - 2</div>,
-                        props: { title: 'hover title', colSpan: 3 }
-                    },
-                    'four - 2',
-                    'five - 2'
-                ],
-                [
-                    'one - 3',
-                    'two - 3',
-                    'three - 3',
-                    'four - 3',
-                    {
-                        title: 'five - 3 (not centered)',
-                        props: { textCenter: false }
-                    }
-                ]
-            ]
-        };
     }
 
     componentDidMount() {
@@ -91,96 +52,334 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
 
     refreshData() {
         const { report, fetchReportInitialSavingEstimation } = this.props;
-        fetchReportInitialSavingEstimation(report.id).then(() => {
-            this.filtersInRowsAndCells();
-        });;
-    }
-
-    filtersInRowsAndCells(): void {
+        fetchReportInitialSavingEstimation(report.id);
     }
 
     renderInfo = () => {
+        const { report, reportInitialSavingEstimation } = this.props;
+
+        const skeleton = (
+            <Stack gutter="md">
+                <StackItem isFilled={ false }>
+                    <Skeleton size="sm" />
+                    <br />
+                    <Skeleton size="sm" style={ { height: '60px' } } />
+                    <br />
+                    <Skeleton size="sm" />
+                </StackItem>
+                <StackItem isFilled={ false } className="stack-item-border">
+                    <Skeleton size="lg"/>
+                </StackItem>
+            </Stack>
+        );
+
         return (
-            <React.Fragment>
-                <Stack gutter="md">
-                    <StackItem isFilled={ false }>
-                        <p>Report build for a 3 year insfraestructure Migration for Acme Inc.</p>
-                        <br />
-                        <p>Source: Vmware Vsphere Enterprise Plus * Oracle Web Logic</p>
-                        <p>Target: Red Hat Virtualization + JBoss Enterprise Application Platform</p>
-                        <p>Date: 2019-04-25</p>
-                        <br />
-                        <p>Over 3 year(s) with Red Hat Virtualization, your initial savings estimation could be as much as</p>
-                    </StackItem>
-                    <StackItem isFilled={ false } className="pf-u-text-align-center stack-item-border">
-                        <p>$1,403,500.00</p>
-                    </StackItem>
-                </Stack>
-            </React.Fragment>
+            <ReportCard
+                title={ `Initial Savings Estimation (${ report ? report.fileName : '' })` }
+                loading={ reportInitialSavingEstimation ? false : true }
+                loadingSkeleton={ skeleton }
+                headerClass="pf-m-2xl-override"
+                bodyClass="pf-c-content no-margin-bottom"
+                skipBullseye={ true }
+            >
+                <p>
+                    Report build for a 3 year insfraestructure Migration for Acme Inc.
+                </p>
+                <p>
+                    <span>Source:</span>&nbsp;
+                    <span>Vmware Vsphere Enterprise Plus + Oracle Web Logic</span><br />
+                    <span>Target:</span>&nbsp;
+                    <span>Red Hat Virtualization + JBoss Enterprise Application Platform</span><br />
+                    <span>Date:</span>&nbsp;
+                    <span>{ new Date(report.creationDate).toUTCString() }</span>
+                </p>
+                <p>
+                    <span>Over 3 year(s) with Red Hat Virtualization, your initial savings estimation could be as much as</span>
+                </p>
+                <p className="pf-c-title pf-m-2xl pf-u-text-align-center stack-item-border">
+                    <span>
+                        { formatValue(reportInitialSavingEstimation ? reportInitialSavingEstimation.rhvSavingsModel.rhvSaveHighValue : 0, 'usd') }
+                    </span>
+                </p>
+            </ReportCard>
         );
     }
 
     renderCostExpenditureComparison = () => {
-        const dataVMware = [{ x: 'Year1', y: 1000 }, { x: 'Year2', y: 2000 }, { x: 'Year3', y: 3000 }];
-        const dataRHV = [{ x: 'Year1', y: 2500 }, { x: 'Year2', y: 2000 }, { x: 'Year3', y: 2200 }];
+        const { reportInitialSavingEstimation } = this.props;
+
+        // TODO change values
+        const data: FancyGroupedBarChartData = {
+            labels: [ 'VMware Costs', 'RHV Costs' ],
+            colors: [ '#0066CC', '#C9190B' ],
+            values: [
+                [{ x: '1', y: 1000000 }, { x: '2', y: 2000000 }, { x: '3', y: 3000000 }],
+                [{ x: '1', y: 4000000 }, { x: '2', y: 5000000 }, { x: '3', y: 6500000 }]
+                // [{ x: '1', y: 100 }, { x: '2', y: 200 }, { x: '3', y: 300 }],
+                // [{ x: '1', y: 400 }, { x: '2', y: 500 }, { x: '3', y: 600 }]
+            ]
+        };
+
+        const chartProps = {
+            width: 650,
+            height: 300,
+            domainPadding: {
+                x: 110,
+                y: 60
+            },
+            padding: { left: 150, right: 20, bottom: 30, top: 0 }
+        };
+
+        const footer = (
+            <div className="pf-u-text-align-center">
+                <span style={ { marginLeft: 130 } }>Year</span>
+            </div>
+        );
 
         return (
-            <div>
-                <div className="bar-chart-container">
-                    <Chart
-                        domainPadding={ { x: [ 30, 25 ]} }
-                        themeColor={ ChartThemeColor.multi }
-                        themeVariant={ ChartThemeVariant.light }
-                    >
-                        <ChartGroup offset={ 11 }>
-                            <ChartBar data={ dataVMware } />
-                            <ChartBar data={ dataRHV } />
-                        </ChartGroup>
-                    </Chart>
-                </div>
-            </div>
+            <ReportCard
+                title="Cost expenditure comparison during the 3 year migration"
+                loading={ reportInitialSavingEstimation ? false : true }
+                loadingSkeleton={ <Skeleton size="sm" style={ { height: '300px' } }/> }
+            >
+                <FancyGroupedBarChart
+                    data={ data }
+                    legendProps={ { height: 20, x: 130 } }
+                    chartProps={ chartProps }
+                    chartGroupProps={ { offset: 50 } }
+                    chartBarProps={ { barWidth: 50 } }
+                    tickFormat={ { y: (tick: any) => `${formatValue(tick, 'usd')}` } }
+                    footer={ footer }
+                />
+            </ReportCard>
         );
     };
 
-    migrationComplexity = () => {
-        const { columns, rows } = this.state;
+    renderEnvironment = () => {
+        const { reportInitialSavingEstimation } = this.props;
+
         return (
-            <Table caption='Simple Table' cells={ columns } rows={ rows }>
-                <TableHeader />
-                <TableBody />
-            </Table>
+            <ReportCard
+                title="Environment"
+                loading={ reportInitialSavingEstimation ? false : true }
+                loadingSkeleton={ <SkeletonTable colSize={ 3 } rowSize={ 3 }/> }
+            >
+                {
+                    reportInitialSavingEstimation &&
+                    <Environment
+                        data={ reportInitialSavingEstimation.environmentModel }
+                    />
+                }
+            </ReportCard>
+        );
+    }
+
+    renderRenewalEstimation = () => {
+        const { reportInitialSavingEstimation } = this.props;
+
+        return (
+            <ReportCard
+                title="VMware ELA renewal estimation"
+                loading={ reportInitialSavingEstimation ? false : true }
+                loadingSkeleton={ <SkeletonTable colSize={ 2 } rowSize={ 2 }/> }
+            >
+                {
+                    reportInitialSavingEstimation &&
+                    <RenewalEstimation
+                        data={ reportInitialSavingEstimation.sourceCostsModel }
+                    />
+                }
+            </ReportCard>
+        );
+    }
+
+    renderCostBreakdown = () => {
+        const { reportInitialSavingEstimation } = this.props;
+
+        const data = [
+            { label: 'Support', value: 32.6, color: '#004B95' },
+            { label: 'vSphere Plus Lic.', value: 67.4, color: '#519DE9' }
+        ];
+
+        return (
+            <FancyChartDonut
+                title='Cost breakdown for VMware ELA (using "most likely" estimation)'
+                total = { reportInitialSavingEstimation.sourceCostsModel.sourceRenewLikelyValue }
+                data={ data }
+                suffix = "%"
+            />
+        );
+    }
+
+    renderTotalMaintenance = () => {
+        const { reportInitialSavingEstimation } = this.props;
+        const {
+            rhvSwitchTAndEValue,
+            rhvSwitchConsultValue,
+            rhvSwitchLearningSubsValue
+        } = reportInitialSavingEstimation.rhvRampUpCostsModel;
+
+        const data = [
+            { label: 'Travel and Lodging', value: rhvSwitchTAndEValue, color: '#5C969D' },
+            { label: 'Red Hat Consulting', value: rhvSwitchConsultValue, color: '#F0AB00' },
+            { label: 'Red Hat Training', value: rhvSwitchLearningSubsValue, color: '#509149' },
+            { label: 'RHV Growth', value: 2.4, color: '#C58C00' },
+            { label: 'RHV Hypervisors', value: 18.1, color: '#C9190B' },
+            { label: 'VMware', value: 68, color: '#519DE9' }
+        ];
+
+        return (
+            <FancyChartDonut
+                title='Cost breakdown for VMware ELA (using "most likely" estimation)'
+                data={ data }
+                suffix = "%"
+            />
+        );
+    }
+
+    renderProjectCostBreakdown = () => {
+        const { reportInitialSavingEstimation } = this.props;
+
+        // TODO change values
+        const data: FancyGroupedBarChartData = {
+            colors: [ '#0066CC', '#C9190B', '#C58C00', '#509149', '#EF9234', '#5C969D' ],
+            values: [
+                [{ x: 'VMware', y: 1000000 }],
+                [{ x: 'RVH Hypervisors', y: 400000 }],
+                [{ x: 'RHV Growth', y: 40000 }],
+                [{ x: 'Red Hat Training', y: 40000 }],
+                [{ x: 'Red Hat', y: 40000 }],
+                [{ x: 'Travel and lodging', y: 40000 }]
+            ]
+        };
+
+        const chartProps = {
+            width: 650,
+            height: 300,
+            domainPadding: {
+                x: 50,
+                y: 60
+            },
+            padding: { left: 150, right: 0, bottom: 100, top: 0 }
+        };
+
+        const footer = (
+            <div className="pf-u-text-align-center">
+                <span style={ { marginLeft: 130 } }>Migration Cost Breakdown</span>
+            </div>
+        );
+
+        return (
+            <ReportCard
+                title="Project cost breakdown"
+                loading={ reportInitialSavingEstimation ? false : true }
+                loadingSkeleton={ <Skeleton size="sm" style={ { height: '300px' } }/> }
+            >
+                <FancyBarChart
+                    data={ data }
+                    chartProps={ chartProps }
+                    chartGroupProps={ { offset: 0 } }
+                    chartBarProps={ { barWidth: 50 } }
+                    tickFormat={ { y: (tick: any) => `${formatValue(tick, 'usd')}` } }
+                    footer={ footer }
+                />
+            </ReportCard>
+        );
+    }
+
+    renderProjectCostBreakdownTable = () => {
+        const { reportInitialSavingEstimation } = this.props;
+
+        return (
+            <ReportCard
+                title="Project cost breakdown"
+                loading={ reportInitialSavingEstimation ? false : true }
+                loadingSkeleton={ <SkeletonTable colSize={ 2 } rowSize={ 2 }/> }
+            >
+                {
+                    reportInitialSavingEstimation &&
+                    <ProjectCostBreakdownTable
+                        rhvRampUpCostsModel={ reportInitialSavingEstimation.rhvRampUpCostsModel }
+                        sourceRampDownCostsModel={ reportInitialSavingEstimation.sourceRampDownCostsModel }
+                    />
+                }
+            </ReportCard>
+        );
+    }
+
+    renderProjectCostBreakdownInYear4 = () => {
+        const { reportInitialSavingEstimation } = this.props;
+
+        return (
+            <ReportCard
+                title="Project cost breakdown in year 4"
+                loading={ reportInitialSavingEstimation ? false : true }
+                loadingSkeleton={ <SkeletonTable colSize={ 2 } rowSize={ 2 }/> }
+            >
+                <ProjectCostBreakdownInYear4
+                />
+            </ReportCard>
+        );
+    }
+
+    renderProjectCostBreakdownInYear4PerVM = () => {
+        const { reportInitialSavingEstimation } = this.props;
+
+        return (
+            <ReportCard
+                title="Project cost breakdown in year 4, Per VM"
+                loading={ reportInitialSavingEstimation ? false : true }
+                loadingSkeleton={ <SkeletonTable colSize={ 2 } rowSize={ 2 }/> }
+            >
+                <ProjectCostBreakdownInYear4PerVM
+                />
+            </ReportCard>
         );
     }
 
     render() {
-        const { report, reportInitialSavingEstimation } = this.props;
-
         return (
             <React.Fragment>
                 <Stack gutter='md'>
                     <StackItem isFilled={ false }>
-                        <Card>
-                            <CardHeader>Initial Savings Estimation ({ report ? report.fileName : '' })</CardHeader>
-                            <CardBody>
-                                { reportInitialSavingEstimation ? this.renderInfo() : <Skeleton size="lg"/> }
-                            </CardBody>
-                        </Card>
+                        { this.renderInfo() }
+                    </StackItem>
+                    <StackItem isFilled={ false }>
+                        { this.renderCostExpenditureComparison() }
+                    </StackItem>
+                    <StackItem isFilled={ false }>
+                        { this.renderEnvironment() }
+                    </StackItem>
+                    <StackItem isFilled={ false }>
+                        { this.renderRenewalEstimation() }
+                    </StackItem>
+                    { /* <StackItem isFilled={ false }>
+                        { reportInitialSavingEstimation ? this.renderCostBreakdown() : <Skeleton size="sm"/> }
+                    </StackItem> */ }
+                    { /* <StackItem isFilled={ false }>
+                        { this.renderTotalMaintenance() }
+                    </StackItem> */ }
+                    <StackItem isFilled={ false }>
+                        { this.renderProjectCostBreakdown() }
+                    </StackItem>
+                    <StackItem isFilled={ false }>
+                        { this.renderProjectCostBreakdownTable() }
+                    </StackItem>
+                    <StackItem isFilled={ false }>
+                        { this.renderProjectCostBreakdownInYear4() }
+                    </StackItem>
+                    <StackItem isFilled={ false }>
+                        { this.renderProjectCostBreakdownInYear4PerVM() }
                     </StackItem>
                     <StackItem isFilled={ false }>
                         <Card>
-                            <CardHeader>Cost expenditure comparison during the 3 year migration</CardHeader>
+                            <CardHeader>Disclaimer</CardHeader>
                             <CardBody>
-                                <Bullseye>
-                                    { reportInitialSavingEstimation ? this.renderCostExpenditureComparison() : <Skeleton size="sm"/> }
-                                </Bullseye>
-                            </CardBody>
-                        </Card>
-                    </StackItem>
-                    <StackItem isFilled={ false }>
-                        <Card>
-                            <CardHeader>Environment variables</CardHeader>
-                            <CardBody>
-                                { this.migrationComplexity() }
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                                    labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                                    laboris nisi ut aliquip ex ea commodo consequat. Learn more about this in the documentation.
+                                </p>
                             </CardBody>
                         </Card>
                     </StackItem>

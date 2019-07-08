@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import {
-    Button,
-    ButtonVariant,
     EmptyState,
     EmptyStateVariant,
     EmptyStateIcon,
@@ -53,7 +51,7 @@ class NoReports extends React.Component<Props, State> {
                         <EmptyStateBody>
                             Reports are created from inventory data files that are uploaded to Red Hat Migration Analytics.
                         </EmptyStateBody>
-                        <Button variant={ ButtonVariant.primary } component={ Link } to="/reports/upload">Create report</Button>
+                        <Link to={ '/reports/upload' } className="pf-c-button pf-m-primary">Create report</Link>
                     </EmptyState>
                 </Bullseye>
             </ReportsPage>

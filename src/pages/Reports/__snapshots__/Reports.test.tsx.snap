@@ -13,286 +13,378 @@ exports[`ReportList expect to render empty list 1`] = `
 
 exports[`ReportList expect to render list 1`] = `
 <withRouter(ReportsPage)>
-  <LoadingState
-    loading={false}
-    placeholder=""
+  <TableToolbar
+    className="pf-u-justify-content-space-between"
+    isFooter={false}
   >
-    <TableToolbar
-      className="pf-u-justify-content-space-between"
-      isFooter={false}
+    <ToolbarGroup
+      className={null}
     >
-      <ToolbarGroup
+      <ToolbarItem
+        className="pf-u-mr-xl"
+      >
+        <Formik
+          enableReinitialize={false}
+          initialValues={
+            Object {
+              "filterText": "",
+            }
+          }
+          isInitialValid={false}
+          onSubmit={[Function]}
+          validate={[Function]}
+          validateOnBlur={true}
+          validateOnChange={true}
+        >
+          <Component />
+        </Formik>
+      </ToolbarItem>
+      <ToolbarItem
+        className="pf-u-mr-md"
+      >
+        <Button
+          aria-label={null}
+          className=""
+          component={[Function]}
+          isActive={false}
+          isBlock={false}
+          isDisabled={false}
+          isFocus={false}
+          isHover={false}
+          isInline={false}
+          to="/reports/upload"
+          type="button"
+          variant="secondary"
+        >
+          Create
+        </Button>
+      </ToolbarItem>
+    </ToolbarGroup>
+    <ToolbarGroup
+      className={null}
+    >
+      <ToolbarItem
         className={null}
       >
-        <ToolbarItem
-          className="pf-u-mr-md"
-        >
-          <Button
-            aria-label={null}
-            className=""
-            component={[Function]}
-            isActive={false}
-            isBlock={false}
-            isDisabled={false}
-            isFocus={false}
-            isHover={false}
-            isInline={false}
-            to="/reports/upload"
-            type="button"
-            variant="primary"
-          >
-            Create
-          </Button>
-        </ToolbarItem>
-      </ToolbarGroup>
-    </TableToolbar>
-    <Table
-      aria-label="Reports list"
-      borders={true}
-      cells={
+        <Pagination
+          dropDirection="down"
+          itemCount={2}
+          onFirstClick={[Function]}
+          onLastClick={[Function]}
+          onNextClick={[Function]}
+          onPageInput={[Function]}
+          onPerPageSelect={[Function]}
+          onPreviousClick={[Function]}
+          onSetPage={[Function]}
+          page={1}
+          perPage={10}
+          perPageOptions={
+            Array [
+              Object {
+                "title": "10",
+                "value": 10,
+              },
+              Object {
+                "title": "20",
+                "value": 20,
+              },
+              Object {
+                "title": "50",
+                "value": 50,
+              },
+              Object {
+                "title": "100",
+                "value": 100,
+              },
+            ]
+          }
+          titles={
+            Object {
+              "currPage": "Current page",
+              "items": "items",
+              "itemsPerPage": "Items per page",
+              "optionsToggle": "Select",
+              "pages": "pages",
+              "paginationTitle": "Pagination",
+              "perPageSuffix": "per page",
+              "toFirstPage": "Go to first page",
+              "toLastPage": "Go to last page",
+              "toNextPage": "Go to next page",
+              "toPreviousPage": "Go to previous page",
+            }
+          }
+          toggleTemplate={[Function]}
+          variant="top"
+          widgetId="pagination-options-menu"
+        />
+      </ToolbarItem>
+    </ToolbarGroup>
+  </TableToolbar>
+  <Table
+    aria-label="Reports list"
+    borders={true}
+    cells={
+      Array [
+        Object {
+          "props": Object {},
+          "title": "Name",
+        },
+        Object {
+          "props": Object {},
+          "title": "Status",
+        },
+        Object {
+          "props": Object {
+            "className": "pf-u-text-align-center",
+          },
+          "title": "",
+        },
+      ]
+    }
+    className=""
+    contentId="expanded-content"
+    dropdownDirection="down"
+    dropdownPosition="right"
+    expandId="expandable-toggle"
+    gridBreakPoint="grid-md"
+    onCollapse={null}
+    onExpand={null}
+    rowLabeledBy="simple-node"
+    rows={
+      Array [
         Array [
           Object {
-            "props": Object {},
-            "title": "Report Id",
+            "title": <Link
+              replace={false}
+              to="/reports/36"
+            >
+              file1.json
+            </Link>,
           },
           Object {
-            "props": Object {},
-            "title": "Customer Id",
+            "title": null,
           },
           Object {
-            "props": Object {
-              "className": "pf-u-text-align-center",
-            },
-            "title": "File name",
+            "title": null,
           },
-          "",
-        ]
-      }
+        ],
+        Array [
+          Object {
+            "title": <Link
+              replace={false}
+              to="/reports/37"
+            >
+              file2.json
+            </Link>,
+          },
+          Object {
+            "title": null,
+          },
+          Object {
+            "title": null,
+          },
+        ],
+      ]
+    }
+    variant={null}
+  >
+    <TableHeader
       className=""
-      contentId="expanded-content"
-      dropdownDirection="down"
-      dropdownPosition="right"
-      expandId="expandable-toggle"
-      gridBreakPoint="grid-md"
-      onCollapse={null}
-      onExpand={null}
-      rowLabeledBy="simple-node"
-      rows={
-        Array [
-          Array [
-            Object {
-              "title": 36,
-            },
-            Object {
-              "title": "123456",
-            },
-            Object {
-              "title": "file1.json",
-            },
-            Object {
-              "title": <Button
-                aria-label={null}
-                className=""
-                component={[Function]}
-                isActive={false}
-                isBlock={false}
-                isDisabled={false}
-                isFocus={false}
-                isHover={false}
-                isInline={false}
-                to="/reports/36"
-                type="button"
-                variant="primary"
-              >
-                View
-              </Button>,
-            },
-          ],
-          Array [
-            Object {
-              "title": 37,
-            },
-            Object {
-              "title": "654321",
-            },
-            Object {
-              "title": "file2.json",
-            },
-            Object {
-              "title": <Button
-                aria-label={null}
-                className=""
-                component={[Function]}
-                isActive={false}
-                isBlock={false}
-                isDisabled={false}
-                isFocus={false}
-                isHover={false}
-                isInline={false}
-                to="/reports/37"
-                type="button"
-                variant="primary"
-              >
-                View
-              </Button>,
-            },
-          ],
-        ]
-      }
-      variant={null}
-    >
-      <TableHeader
-        className=""
-      />
-      <TableBody
-        className=""
-        onRowClick={[Function]}
-        rowKey="id"
-      />
-    </Table>
-  </LoadingState>
+    />
+    <TableBody
+      className=""
+      onRowClick={[Function]}
+      rowKey="id"
+    />
+  </Table>
 </withRouter(ReportsPage)>
 `;
 
 exports[`ReportList expect to render loading list 1`] = `
 <withRouter(ReportsPage)>
-  <LoadingState
-    loading={true}
-    placeholder=""
+  <TableToolbar
+    className="pf-u-justify-content-space-between"
+    isFooter={false}
   >
-    <TableToolbar
-      className="pf-u-justify-content-space-between"
-      isFooter={false}
+    <ToolbarGroup
+      className={null}
     >
-      <ToolbarGroup
+      <ToolbarItem
+        className="pf-u-mr-xl"
+      >
+        <Formik
+          enableReinitialize={false}
+          initialValues={
+            Object {
+              "filterText": "",
+            }
+          }
+          isInitialValid={false}
+          onSubmit={[Function]}
+          validate={[Function]}
+          validateOnBlur={true}
+          validateOnChange={true}
+        >
+          <Component />
+        </Formik>
+      </ToolbarItem>
+      <ToolbarItem
+        className="pf-u-mr-md"
+      >
+        <Button
+          aria-label={null}
+          className=""
+          component={[Function]}
+          isActive={false}
+          isBlock={false}
+          isDisabled={false}
+          isFocus={false}
+          isHover={false}
+          isInline={false}
+          to="/reports/upload"
+          type="button"
+          variant="secondary"
+        >
+          Create
+        </Button>
+      </ToolbarItem>
+    </ToolbarGroup>
+    <ToolbarGroup
+      className={null}
+    >
+      <ToolbarItem
         className={null}
       >
-        <ToolbarItem
-          className="pf-u-mr-md"
-        >
-          <Button
-            aria-label={null}
-            className=""
-            component={[Function]}
-            isActive={false}
-            isBlock={false}
-            isDisabled={false}
-            isFocus={false}
-            isHover={false}
-            isInline={false}
-            to="/reports/upload"
-            type="button"
-            variant="primary"
-          >
-            Create
-          </Button>
-        </ToolbarItem>
-      </ToolbarGroup>
-    </TableToolbar>
-    <Table
-      aria-label="Reports list"
-      borders={true}
-      cells={
+        <Pagination
+          dropDirection="down"
+          itemCount={2}
+          onFirstClick={[Function]}
+          onLastClick={[Function]}
+          onNextClick={[Function]}
+          onPageInput={[Function]}
+          onPerPageSelect={[Function]}
+          onPreviousClick={[Function]}
+          onSetPage={[Function]}
+          page={1}
+          perPage={10}
+          perPageOptions={
+            Array [
+              Object {
+                "title": "10",
+                "value": 10,
+              },
+              Object {
+                "title": "20",
+                "value": 20,
+              },
+              Object {
+                "title": "50",
+                "value": 50,
+              },
+              Object {
+                "title": "100",
+                "value": 100,
+              },
+            ]
+          }
+          titles={
+            Object {
+              "currPage": "Current page",
+              "items": "items",
+              "itemsPerPage": "Items per page",
+              "optionsToggle": "Select",
+              "pages": "pages",
+              "paginationTitle": "Pagination",
+              "perPageSuffix": "per page",
+              "toFirstPage": "Go to first page",
+              "toLastPage": "Go to last page",
+              "toNextPage": "Go to next page",
+              "toPreviousPage": "Go to previous page",
+            }
+          }
+          toggleTemplate={[Function]}
+          variant="top"
+          widgetId="pagination-options-menu"
+        />
+      </ToolbarItem>
+    </ToolbarGroup>
+  </TableToolbar>
+  <Table
+    aria-label="Reports list"
+    borders={true}
+    cells={
+      Array [
+        Object {
+          "props": Object {},
+          "title": "Name",
+        },
+        Object {
+          "props": Object {},
+          "title": "Status",
+        },
+        Object {
+          "props": Object {
+            "className": "pf-u-text-align-center",
+          },
+          "title": "",
+        },
+      ]
+    }
+    className=""
+    contentId="expanded-content"
+    dropdownDirection="down"
+    dropdownPosition="right"
+    expandId="expandable-toggle"
+    gridBreakPoint="grid-md"
+    onCollapse={null}
+    onExpand={null}
+    rowLabeledBy="simple-node"
+    rows={
+      Array [
         Array [
           Object {
-            "props": Object {},
-            "title": "Report Id",
+            "title": <Link
+              replace={false}
+              to="/reports/36"
+            >
+              file1.json
+            </Link>,
           },
           Object {
-            "props": Object {},
-            "title": "Customer Id",
+            "title": null,
           },
           Object {
-            "props": Object {
-              "className": "pf-u-text-align-center",
-            },
-            "title": "File name",
+            "title": null,
           },
-          "",
-        ]
-      }
+        ],
+        Array [
+          Object {
+            "title": <Link
+              replace={false}
+              to="/reports/37"
+            >
+              file2.json
+            </Link>,
+          },
+          Object {
+            "title": null,
+          },
+          Object {
+            "title": null,
+          },
+        ],
+      ]
+    }
+    variant={null}
+  >
+    <TableHeader
       className=""
-      contentId="expanded-content"
-      dropdownDirection="down"
-      dropdownPosition="right"
-      expandId="expandable-toggle"
-      gridBreakPoint="grid-md"
-      onCollapse={null}
-      onExpand={null}
-      rowLabeledBy="simple-node"
-      rows={
-        Array [
-          Array [
-            Object {
-              "title": 36,
-            },
-            Object {
-              "title": "123456",
-            },
-            Object {
-              "title": "file1.json",
-            },
-            Object {
-              "title": <Button
-                aria-label={null}
-                className=""
-                component={[Function]}
-                isActive={false}
-                isBlock={false}
-                isDisabled={false}
-                isFocus={false}
-                isHover={false}
-                isInline={false}
-                to="/reports/36"
-                type="button"
-                variant="primary"
-              >
-                View
-              </Button>,
-            },
-          ],
-          Array [
-            Object {
-              "title": 37,
-            },
-            Object {
-              "title": "654321",
-            },
-            Object {
-              "title": "file2.json",
-            },
-            Object {
-              "title": <Button
-                aria-label={null}
-                className=""
-                component={[Function]}
-                isActive={false}
-                isBlock={false}
-                isDisabled={false}
-                isFocus={false}
-                isHover={false}
-                isInline={false}
-                to="/reports/37"
-                type="button"
-                variant="primary"
-              >
-                View
-              </Button>,
-            },
-          ],
-        ]
-      }
-      variant={null}
-    >
-      <TableHeader
-        className=""
-      />
-      <TableBody
-        className=""
-        onRowClick={[Function]}
-        rowKey="id"
-      />
-    </Table>
-  </LoadingState>
+    />
+    <TableBody
+      className=""
+      onRowClick={[Function]}
+      rowKey="id"
+    />
+  </Table>
 </withRouter(ReportsPage)>
 `;
