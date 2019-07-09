@@ -99,6 +99,12 @@ class ReportsUpload extends React.Component<Props, State> {
         });
     }
 
+    componentDidUpdate(_prevProps: Props, prevState: State) {
+        if (this.props.success && prevState.timeoutToRedirect !== 0 && this.state.timeoutToRedirect === 0) {
+            this.props.history.push('/reports');
+        }
+    }
+
     componentWillUnmount() {
         window.removeEventListener('beforeunload', this.beforeUnloadHandler);
     }
@@ -116,10 +122,6 @@ class ReportsUpload extends React.Component<Props, State> {
         const { timeoutToRedirect } = this.state;
 
         this.startRedirectTimer();
-
-        if (this.state.timeoutToRedirect === 0) {
-            this.props.history.push('/reports');
-        }
 
         return (
             <Button type="button" variant={ ButtonVariant.primary } onClick={ this.handleCloseModel }> Closing in { timeoutToRedirect } </Button>
