@@ -52,6 +52,7 @@ interface DispatchToProps {
     uploadProgress: (progress: number) => void;
     uploadRequest: (upload: Upload, config: {}) => void;
     selectUploadFile: (file: File) => void;
+    resetUploadFile: () => void;
 }
 
 interface Props extends StateToProps, DispatchToProps, RouterGlobalProps {
@@ -149,7 +150,16 @@ class ReportsUpload extends React.Component<Props, State> {
     }
 
     componentWillUnmount() {
+        // Remove handler
         window.removeEventListener('beforeunload', this.beforeUnloadHandler);
+
+        // Clear timer
+        if (this.redirectTimer) {
+            clearInterval(this.redirectTimer);
+        }
+
+        // Reset upload file redux stage
+        this.props.resetUploadFile();
     }
 
     /**
@@ -182,10 +192,6 @@ class ReportsUpload extends React.Component<Props, State> {
         this.setState({
             timeoutToRedirect
         });
-
-        if (timeoutToRedirect === 0) {
-            clearInterval(this.redirectTimer);
-        }
     }
 
     handleFormSubmit = (values: FormValues) => {

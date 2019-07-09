@@ -5,7 +5,8 @@ import { Upload } from '../models';
 export const ActionTypes = {
     UPLOAD_REQUEST: 'UPLOAD_REQUEST',
     UPLOAD_PROGRESS: 'UPLOAD_PROGRESS',
-    SELECT_UPLOAD_FILE: 'SELECT_UPLOAD_FILE'
+    SELECT_UPLOAD_FILE: 'SELECT_UPLOAD_FILE',
+    RESET_UPLOAD_FILE: 'RESET_UPLOAD_FILE'
 };
 
 export const uploadRequest = (upload: Upload, config = {}): GenericAction => {
@@ -40,4 +41,9 @@ export const selectUploadFile = (file: File): GenericAction => ({
     payload: {
         file
     }
+});
+
+export const resetUploadFile = (): GenericAction => ({
+    type: ActionTypes.RESET_UPLOAD_FILE,
+    payload: { }
 });

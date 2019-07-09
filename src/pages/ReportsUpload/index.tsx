@@ -26,7 +26,8 @@ const mapStateToProps = (state: GlobalState)  => {
 const mapDispatchToProps = {
     uploadRequest: uploadActions.uploadRequest,
     uploadProgress: uploadActions.uploadProgress,
-    selectUploadFile: uploadActions.selectUploadFile
+    selectUploadFile: uploadActions.selectUploadFile,
+    resetUploadFile: uploadActions.resetUploadFile
 };
 
 export default withRouter(
