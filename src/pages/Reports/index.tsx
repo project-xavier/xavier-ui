@@ -2,7 +2,6 @@ import { connect } from 'react-redux';
 import Reports from './Reports';
 import { withRouter } from 'react-router';
 import { GlobalState } from '../../models/state';
-import { bindActionCreators } from 'redux';
 import  * as reportActions from '../../actions/ReportActions';
 
 const mapStateToProps = (state: GlobalState)  => {
@@ -22,10 +21,9 @@ const mapStateToProps = (state: GlobalState)  => {
     };
 };
 
-const mapDispatchToProps = (dispatch: any) =>
-    bindActionCreators({
-        fetchReports: reportActions.fetchReports
-    }, dispatch);
+const mapDispatchToProps = {
+    fetchReports: reportActions.fetchReports
+};
 
 export default withRouter(
     connect(

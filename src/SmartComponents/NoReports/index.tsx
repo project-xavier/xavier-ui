@@ -1,5 +1,4 @@
 import { GlobalState } from '../../models/state';
-import { bindActionCreators } from 'redux';
 import * as uploadActions from '../../actions/UploadActions';
 import NoReports from './NoReports';
 import { connect } from 'react-redux';
@@ -16,10 +15,9 @@ const mapStateToProps = (state: GlobalState)  => {
     };
 };
 
-const mapDispatchToProps = (dispatch: any) =>
-    bindActionCreators({
-        selectUploadFile: uploadActions.selectUploadFile
-    }, dispatch);
+const mapDispatchToProps = {
+    selectUploadFile: uploadActions.selectUploadFile
+};
 
 export default withRouter(
     connect(

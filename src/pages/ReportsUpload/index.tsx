@@ -1,4 +1,3 @@
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import ReportsUpload from './ReportsUpload';
@@ -24,12 +23,11 @@ const mapStateToProps = (state: GlobalState)  => {
     };
 };
 
-const mapDispatchToProps = (dispatch: any) =>
-    bindActionCreators({
-        uploadRequest: uploadActions.uploadRequest,
-        uploadProgress: uploadActions.uploadProgress,
-        selectUploadFile: uploadActions.selectUploadFile
-    }, dispatch);
+const mapDispatchToProps = {
+    uploadRequest: uploadActions.uploadRequest,
+    uploadProgress: uploadActions.uploadProgress,
+    selectUploadFile: uploadActions.selectUploadFile
+};
 
 export default withRouter(
     connect(
