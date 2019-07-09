@@ -78,7 +78,7 @@ const formValidationSchema = (values: FormValues) => {
         file: Yup.string()
         .required('File is mandatory'),
         reportName: Yup.string()
-        .min(3, 'Report name must contain at least 3 characters ')//reproduce
+        .min(3, 'Report name must contain at least 3 characters ')
         .max(250, 'Report name must contain fewer than 250 characters')
         .required('Report name is mandatory'),
         reportDescription: Yup.string()
