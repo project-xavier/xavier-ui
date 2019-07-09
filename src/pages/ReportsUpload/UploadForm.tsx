@@ -1,4 +1,4 @@
-import React, { createRef } from 'react';
+import React from 'react';
 import {
     FormikState,
     FormikValues,
@@ -66,13 +66,6 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
             isSubmitting
         } = this.props;
 
-        const dropzoneRef: any = createRef();
-        const openFileDialog = () => {
-            if (dropzoneRef.current) {
-                dropzoneRef.current.open();
-            }
-        };
-
         return (
             <Form onSubmit={ handleSubmit }>
                 <FormGroup
@@ -88,12 +81,11 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                         onDrop={ (files: File[]) => {
                             this.props.onFileSelected(files);
                         } }
-                        ref={ dropzoneRef }
                         noClick noKeyboard
                         multiple={ false }
                         accept={ [ 'application/zip', 'application/json' ] }
                     >
-                        { ({ getRootProps, getInputProps }) => {
+                        { ({ getRootProps, getInputProps, open }) => {
                             return (
                                 <div className="container">
                                     <div { ...getRootProps({ className: 'dropzone' }) }>
@@ -111,7 +103,7 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                                             <Button
                                                 variant={ ButtonVariant.secondary }
                                                 aria-label="Browse a file to upload"
-                                                onClick={ openFileDialog }
+                                                onClick={ open }
                                             >
                                                 Browse
                                             </Button>

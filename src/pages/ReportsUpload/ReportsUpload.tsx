@@ -73,7 +73,7 @@ const initialFormValue: FormValues = {
     percentageOfHypervisorsMigratedSum: 90
 };
 
-const getValidationSchema = (values: FormValues) => {
+const formValidationSchema = (values: FormValues) => {
     return Yup.object().shape({
         file: Yup.string()
         .required('File is mandatory'),
@@ -251,7 +251,7 @@ class ReportsUpload extends React.Component<Props, State> {
         return (
             <Formik
                 initialValues={ initialFormValue }
-                validate={ (values: FormValues) => validateForm(values, getValidationSchema(values)) }
+                validate={ (values) => validateForm(values, formValidationSchema) }
                 onSubmit={ this.handleFormSubmit }
             >
                 {

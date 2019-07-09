@@ -1,4 +1,4 @@
-import React, { createRef } from 'react';
+import React from 'react';
 import Dropzone from 'react-dropzone';
 import {
     Button,
@@ -38,13 +38,6 @@ class NoReports extends React.Component<Props, State> {
     };
 
     render() {
-        const dropzoneRef: any = createRef();
-        const openFileDialog = () => {
-            if (dropzoneRef.current) {
-                dropzoneRef.current.open();
-            }
-        };
-
         return (
             <Bullseye>
                 <EmptyState variant={ EmptyStateVariant.full }>
@@ -62,19 +55,18 @@ class NoReports extends React.Component<Props, State> {
                     </EmptyStateBody>
                     <Dropzone
                         onDrop={ this.onDrop }
-                        ref={ dropzoneRef }
                         noClick noKeyboard
                         multiple={ false }
                         accept={ [ 'application/zip', 'application/json' ] }
                     >
-                        { ({ getRootProps, getInputProps }) => {
+                        { ({ getRootProps, getInputProps, open }) => {
                             return (
                                 <div { ...getRootProps({ className: 'dropzone' }) }>
                                     <input { ...getInputProps() } />
                                     <Button
                                         type="button"
                                         variant="primary"
-                                        onClick={ openFileDialog }>
+                                        onClick={ open }>
                                         Get Started
                                     </Button>
                                 </div>
