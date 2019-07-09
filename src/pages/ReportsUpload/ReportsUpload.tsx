@@ -27,6 +27,7 @@ import {
 import { Upload } from '../../models';
 import './ReportsUpload.scss';
 import UploadForm from './UploadForm';
+import { validateForm } from '../../Utilities/formUtils';
 
 interface FormValues {
     file: string;
@@ -70,6 +71,43 @@ const initialFormValue: FormValues = {
     percentageOfHypervisorsMigratedOnYear2: 30,
     percentageOfHypervisorsMigratedOnYear3: 10,
     percentageOfHypervisorsMigratedSum: 90
+};
+
+const getValidationSchema = (values: FormValues) => {
+    return Yup.object().shape({
+        file: Yup.string()
+        .required('File is mandatory'),
+        reportName: Yup.string()
+        .min(3, 'Report name must contain at least 3 characters ')//reproduce
+        .max(250, 'Report name must contain fewer than 250 characters')
+        .required('Report name is mandatory'),
+        reportDescription: Yup.string()
+        .max(250, 'Report description must contain fewer than 250 characters'),
+        yearOverYearGrowthRatePercentage: Yup.number()
+        .min(0, 'Value must be greater than or equal to 0')
+        .required('Growth rate percentage is mandatory'),
+        percentageOfHypervisorsMigratedOnYear1: Yup.number()
+        .min(0, 'Value must be greater than or equal to 0')
+        .max(100, 'Value must be less than or equal to 100')
+        .required('Percentage of hypervisors migrated is mandatory'),
+        percentageOfHypervisorsMigratedOnYear2: Yup.number()
+        .min(0, 'Vaaslue must be greater than or equal to 0')
+        .max(100, 'Value must be less than or equal to 100')
+        .required('Percentage of hypervisors migrated is mandatory'),
+        percentageOfHypervisorsMigratedOnYear3: Yup.number()
+        .min(0, 'Value must be greater than or equal to 0')
+        .max(100, 'Value must be less than or equal to 100')
+        .required('Percentage of hypervisors migrated is mandatory'),
+        percentageOfHypervisorsMigratedSum: Yup.number()
+        .min(0, 'Value must be greater than or equal to 0')
+        .max(100, 'Value must be less than or equal to 100')
+        .test('validSum', 'The total percentage must not exceed 100', () => {
+            const sum = values.percentageOfHypervisorsMigratedOnYear1 +
+                values.percentageOfHypervisorsMigratedOnYear2 +
+                values.percentageOfHypervisorsMigratedOnYear3;
+            return sum >= 0 && sum <= 100;
+        })
+    });
 };
 
 class ReportsUpload extends React.Component<Props, State> {
@@ -177,63 +215,6 @@ class ReportsUpload extends React.Component<Props, State> {
         this.props.selectUploadFile(files[0]);
     };
 
-    validateForm = (values: FormValues) => {
-        const validationSchema = this.getValidationSchema(values);
-        try {
-            validationSchema.validateSync(values, { abortEarly: false });
-            return {};
-        } catch (error) {
-            return this.getErrorsFromValidationError(error);
-        }
-    }
-
-    getValidationSchema = (values: FormValues) => {
-        return Yup.object().shape({
-            file: Yup.string()
-            .required('File is mandatory'),
-            reportName: Yup.string()
-            .min(3, 'Report name must contain at least 3 characters ')//reproduce
-            .max(250, 'Report name must contain fewer than 250 characters')
-            .required('Report name is mandatory'),
-            reportDescription: Yup.string()
-            .max(250, 'Report description must contain fewer than 250 characters'),
-            yearOverYearGrowthRatePercentage: Yup.number()
-            .min(0, 'Value must be greater than or equal to 0')
-            .required('Growth rate percentage is mandatory'),
-            percentageOfHypervisorsMigratedOnYear1: Yup.number()
-            .min(0, 'Value must be greater than or equal to 0')
-            .max(100, 'Value must be less than or equal to 100')
-            .required('Percentage of hypervisors migrated is mandatory'),
-            percentageOfHypervisorsMigratedOnYear2: Yup.number()
-            .min(0, 'Vaaslue must be greater than or equal to 0')
-            .max(100, 'Value must be less than or equal to 100')
-            .required('Percentage of hypervisors migrated is mandatory'),
-            percentageOfHypervisorsMigratedOnYear3: Yup.number()
-            .min(0, 'Value must be greater than or equal to 0')
-            .max(100, 'Value must be less than or equal to 100')
-            .required('Percentage of hypervisors migrated is mandatory'),
-            percentageOfHypervisorsMigratedSum: Yup.number()
-            .min(0, 'Value must be greater than or equal to 0')
-            .max(100, 'Value must be less than or equal to 100')
-            .test('validSum', 'The total percentage must not exceed 100', () => {
-                const sum = values.percentageOfHypervisorsMigratedOnYear1 +
-                    values.percentageOfHypervisorsMigratedOnYear2 +
-                    values.percentageOfHypervisorsMigratedOnYear3;
-                return sum >= 0 && sum <= 100;
-            })
-        });
-    }
-
-    getErrorsFromValidationError = (validationError: any) => {
-        const FIRST_ERROR = 0;
-        return validationError.inner.reduce((errors: any, error: any) => {
-            return {
-                ...errors,
-                [error.path]: error.errors[FIRST_ERROR]
-            };
-        }, {});
-    }
-
     renderProgress() {
         return (
             <Bullseye>
@@ -270,7 +251,7 @@ class ReportsUpload extends React.Component<Props, State> {
         return (
             <Formik
                 initialValues={ initialFormValue }
-                validate={  this.validateForm }
+                validate={ (values: FormValues) => validateForm(values, getValidationSchema(values)) }
                 onSubmit={ this.handleFormSubmit }
             >
                 {
