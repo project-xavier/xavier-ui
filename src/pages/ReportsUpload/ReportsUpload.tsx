@@ -227,6 +227,17 @@ class ReportsUpload extends React.Component<Props, State> {
     };
 
     renderProgress() {
+        let message: string;
+        if (this.props.error) {
+            message = 'An error occured during the upload process. Please, try again.';
+        } else {
+            if (this.props.success) {
+                message = 'Finished successfully. We will redirect you to the next page.';
+            } else {
+                message = 'Your file is been uploaded, the process can take some time.';
+            }
+        }
+
         return (
             <Bullseye>
                 <EmptyState variant={ EmptyStateVariant.full }>
@@ -241,13 +252,7 @@ class ReportsUpload extends React.Component<Props, State> {
                             variant={ this.props.error ? ProgressVariant.danger : ProgressVariant.info }
                         />
                     </div>
-                    <EmptyStateBody>
-                        {
-                            this.props.success ?
-                                'Finished successfully. We will redirect you to the next page.' :
-                                'Your file is been uploaded, the process can take some time.'
-                        }
-                    </EmptyStateBody>
+                    <EmptyStateBody>{ message }</EmptyStateBody>
                     <EmptyStateSecondaryActions>
                         {
                             this.props.success ? this.actionsOnUploadSuccess() : ''
