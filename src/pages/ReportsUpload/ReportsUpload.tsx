@@ -84,21 +84,26 @@ const formValidationSchema = (values: FormValues) => {
         reportDescription: Yup.string()
         .max(250, 'Report description must contain fewer than 250 characters'),
         yearOverYearGrowthRatePercentage: Yup.number()
+        .typeError('Invalid number')
         .min(0, 'Value must be greater than or equal to 0')
         .required('Growth rate percentage is mandatory'),
         percentageOfHypervisorsMigratedOnYear1: Yup.number()
+        .typeError('Invalid number')
         .min(0, 'Value must be greater than or equal to 0')
         .max(100, 'Value must be less than or equal to 100')
         .required('Percentage of hypervisors migrated is mandatory'),
         percentageOfHypervisorsMigratedOnYear2: Yup.number()
+        .typeError('Invalid number')
         .min(0, 'Vaaslue must be greater than or equal to 0')
         .max(100, 'Value must be less than or equal to 100')
         .required('Percentage of hypervisors migrated is mandatory'),
         percentageOfHypervisorsMigratedOnYear3: Yup.number()
+        .typeError('Invalid number')
         .min(0, 'Value must be greater than or equal to 0')
         .max(100, 'Value must be less than or equal to 100')
         .required('Percentage of hypervisors migrated is mandatory'),
         percentageOfHypervisorsMigratedSum: Yup.number()
+        .typeError('Invalid number')
         .min(0, 'Value must be greater than or equal to 0')
         .max(100, 'Value must be less than or equal to 100')
         .test('validSum', 'The total percentage must not exceed 100', () => {
