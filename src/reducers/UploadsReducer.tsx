@@ -42,6 +42,12 @@ export const uploadsReducer = function (
             return nextState;
         }
 
+        case ActionTypes.RESET_UPLOAD_FILE: {
+            return {
+                ...initialState
+            };
+        }
+
         //
         case pendingMessage(ActionTypes.UPLOAD_REQUEST): {
             const nextState: UploadState = {

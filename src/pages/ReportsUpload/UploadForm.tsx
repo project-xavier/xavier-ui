@@ -1,4 +1,4 @@
-import React, { createRef } from 'react';
+import React from 'react';
 import {
     FormikState,
     FormikValues,
@@ -20,6 +20,7 @@ import {
     ActionGroup
 } from '@patternfly/react-core';
 import Dropzone from 'react-dropzone';
+import './UploadForm.scss';
 
 interface UploadFormProps extends FormikState<FormikValues>, FormikActions<FormikValues>, FormikHandlers {
     file: File;
@@ -66,13 +67,6 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
             isSubmitting
         } = this.props;
 
-        const dropzoneRef: any = createRef();
-        const openFileDialog = () => {
-            if (dropzoneRef.current) {
-                dropzoneRef.current.open();
-            }
-        };
-
         return (
             <Form onSubmit={ handleSubmit }>
                 <FormGroup
@@ -88,12 +82,11 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                         onDrop={ (files: File[]) => {
                             this.props.onFileSelected(files);
                         } }
-                        ref={ dropzoneRef }
                         noClick noKeyboard
                         multiple={ false }
                         accept={ [ 'application/zip', 'application/json' ] }
                     >
-                        { ({ getRootProps, getInputProps }) => {
+                        { ({ getRootProps, getInputProps, open }) => {
                             return (
                                 <div className="container">
                                     <div { ...getRootProps({ className: 'dropzone' }) }>
@@ -111,7 +104,7 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                                             <Button
                                                 variant={ ButtonVariant.secondary }
                                                 aria-label="Browse a file to upload"
-                                                onClick={ openFileDialog }
+                                                onClick={ open }
                                             >
                                                 Browse
                                             </Button>
@@ -190,7 +183,7 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                                         (errors.yearOverYearGrowthRatePercentage && touched.yearOverYearGrowthRatePercentage) ? false : true
                                     }
                                 />
-                                <InputGroupText>%</InputGroupText>
+                                <InputGroupText className="percentage-box">%</InputGroupText>
                             </InputGroup>
                         </GalleryItem>
                     </Gallery>
@@ -209,7 +202,7 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                             <Gallery>
                                 <GalleryItem>
                                     <InputGroup>
-                                        <InputGroupText>Year 1</InputGroupText>
+                                        <InputGroupText className="year-box">Year 1</InputGroupText>
                                         <TextInput
                                             isRequired
                                             id="percentageOfHypervisorsMigratedOnYear1"
@@ -225,7 +218,7 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                                                     && touched.percentageOfHypervisorsMigratedOnYear1) ? false : true
                                             }
                                         />
-                                        <InputGroupText>%</InputGroupText>
+                                        <InputGroupText className="percentage-box">%</InputGroupText>
                                     </InputGroup>
                                 </GalleryItem>
                             </Gallery>
@@ -244,7 +237,7 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                             <Gallery>
                                 <GalleryItem>
                                     <InputGroup>
-                                        <InputGroupText>Year 2</InputGroupText>
+                                        <InputGroupText className="year-box">Year 2</InputGroupText>
                                         <TextInput
                                             isRequired
                                             id="percentageOfHypervisorsMigratedOnYear2"
@@ -260,7 +253,7 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                                                     && touched.percentageOfHypervisorsMigratedOnYear2) ? false : true
                                             }
                                         />
-                                        <InputGroupText>%</InputGroupText>
+                                        <InputGroupText className="percentage-box">%</InputGroupText>
                                     </InputGroup>
                                 </GalleryItem>
                             </Gallery>
@@ -279,7 +272,7 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                             <Gallery>
                                 <GalleryItem>
                                     <InputGroup>
-                                        <InputGroupText>Year 3</InputGroupText>
+                                        <InputGroupText className="year-box">Year 3</InputGroupText>
                                         <TextInput
                                             isRequired
                                             id="percentageOfHypervisorsMigratedOnYear3"
@@ -295,7 +288,7 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                                                     && touched.percentageOfHypervisorsMigratedOnYear3) ? false : true
                                             }
                                         />
-                                        <InputGroupText>%</InputGroupText>
+                                        <InputGroupText className="percentage-box">%</InputGroupText>
                                     </InputGroup>
                                 </GalleryItem>
                             </Gallery>

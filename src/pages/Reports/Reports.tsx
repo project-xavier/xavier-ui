@@ -112,11 +112,11 @@ class Reports extends React.Component<Props, State> {
                 this.refreshData();
             }, PULL_INTERVAL_TIME);
         }
-    }
+    };
 
     stopPullScheduler = () => {
         clearInterval(this.redirectTimer);
-    }
+    };
 
     handleDelete = (report: Report) => {
         this.props.showDeleteDialog({
@@ -132,7 +132,7 @@ class Reports extends React.Component<Props, State> {
                 this.props.closeDeleteDialog();
             }
         });
-    }
+    };
 
     renderStatus = (report: Report) => {
         switch (report.analysisStatus) {
@@ -145,7 +145,7 @@ class Reports extends React.Component<Props, State> {
             default:
                 return null;
         }
-    }
+    };
 
     renderAction = (report: Report) => {
         switch (report.analysisStatus) {
@@ -158,7 +158,7 @@ class Reports extends React.Component<Props, State> {
             default:
                 return null;
         }
-    }
+    };
 
     filtersInRowsAndCells(): void {
         const reports: Report[] = Object.values(this.props.reports);
@@ -210,15 +210,15 @@ class Reports extends React.Component<Props, State> {
         } else {
             this.refreshData(page);
         }
-    }
+    };
 
     onSetPage = (event: any, page: number) => {
         return event.target.className === 'pf-c-form-control' || this.onPageChange(event, page, false);
-    }
+    };
 
     onPageInput = (event: any, page: number) => {
         return this.onPageChange(event, page, true);
-    }
+    };
 
     onPerPageSelect = (_event: any, perPage: number) => {
         let page = this.state.page;
@@ -231,7 +231,7 @@ class Reports extends React.Component<Props, State> {
 
         this.setState({ page, perPage });
         this.refreshData(page, perPage);
-    }
+    };
 
     renderNoResults() {
         return (
@@ -272,7 +272,7 @@ class Reports extends React.Component<Props, State> {
             filterText: filterText.trim()
         });
         this.refreshData();
-    }
+    };
 
     renderSearchBox = () => {
         return (

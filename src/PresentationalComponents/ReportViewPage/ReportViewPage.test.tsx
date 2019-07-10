@@ -1,13 +1,13 @@
 import { shallow } from "enzyme";
-import ReportsPage from "./ReportsPage";
+import ReportViewPage from "./ReportViewPage";
 
-describe("ReportPage", () => {
+describe("ReportViewPage", () => {
 
   it("expect to render", () => {
     const wrapper = shallow(
-      <ReportsPage mainStyle={ { color: 'red' } } >
+      <ReportViewPage mainStyle={ { color: 'red' } } >
         children
-      </ReportsPage>
+      </ReportViewPage>
     );
     expect(wrapper).toMatchSnapshot();
   });

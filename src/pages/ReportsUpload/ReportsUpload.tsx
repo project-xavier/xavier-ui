@@ -27,6 +27,7 @@ import {
 import { Upload, User } from '../../models';
 import './ReportsUpload.scss';
 import UploadForm from './UploadForm';
+import { validateForm } from '../../Utilities/formUtils';
 
 interface FormValues {
     file: string;
@@ -52,6 +53,7 @@ interface DispatchToProps {
     uploadProgress: (progress: number) => void;
     uploadRequest: (upload: Upload, config: {}) => void;
     selectUploadFile: (file: File) => void;
+    resetUploadFile: () => void;
     updateUser: (user: User) => void;
 }
 
@@ -62,6 +64,59 @@ interface State {
     showForm: boolean;
     timeoutToRedirect: number;
 }
+
+const initialFormValue: FormValues = {
+    file: '',
+    reportName: '',
+    reportDescription: '',
+    yearOverYearGrowthRatePercentage: 5,
+    percentageOfHypervisorsMigratedOnYear1: 50,
+    percentageOfHypervisorsMigratedOnYear2: 30,
+    percentageOfHypervisorsMigratedOnYear3: 10,
+    percentageOfHypervisorsMigratedSum: 90
+};
+
+const formValidationSchema = (values: FormValues) => {
+    return Yup.object().shape({
+        file: Yup.string()
+        .required('File is mandatory'),
+        reportName: Yup.string()
+        .min(3, 'Report name must contain at least 3 characters ')
+        .max(250, 'Report name must contain fewer than 250 characters')
+        .required('Report name is mandatory'),
+        reportDescription: Yup.string()
+        .max(250, 'Report description must contain fewer than 250 characters'),
+        yearOverYearGrowthRatePercentage: Yup.number()
+        .typeError('Invalid number')
+        .min(0, 'Value must be greater than or equal to 0')
+        .required('Growth rate percentage is mandatory'),
+        percentageOfHypervisorsMigratedOnYear1: Yup.number()
+        .typeError('Invalid number')
+        .min(0, 'Value must be greater than or equal to 0')
+        .max(100, 'Value must be less than or equal to 100')
+        .required('Percentage of hypervisors migrated is mandatory'),
+        percentageOfHypervisorsMigratedOnYear2: Yup.number()
+        .typeError('Invalid number')
+        .min(0, 'Vaaslue must be greater than or equal to 0')
+        .max(100, 'Value must be less than or equal to 100')
+        .required('Percentage of hypervisors migrated is mandatory'),
+        percentageOfHypervisorsMigratedOnYear3: Yup.number()
+        .typeError('Invalid number')
+        .min(0, 'Value must be greater than or equal to 0')
+        .max(100, 'Value must be less than or equal to 100')
+        .required('Percentage of hypervisors migrated is mandatory'),
+        percentageOfHypervisorsMigratedSum: Yup.number()
+        .typeError('Invalid number')
+        .min(0, 'Value must be greater than or equal to 0')
+        .max(100, 'Value must be less than or equal to 100')
+        .test('validSum', 'The total percentage must not exceed 100', () => {
+            const sum = values.percentageOfHypervisorsMigratedOnYear1 +
+                values.percentageOfHypervisorsMigratedOnYear2 +
+                values.percentageOfHypervisorsMigratedOnYear3;
+            return sum >= 0 && sum <= 100;
+        })
+    });
+};
 
 class ReportsUpload extends React.Component<Props, State> {
 
@@ -103,8 +158,23 @@ class ReportsUpload extends React.Component<Props, State> {
         });
     }
 
+    componentDidUpdate(_prevProps: Props, prevState: State) {
+        if (this.props.success && prevState.timeoutToRedirect !== 0 && this.state.timeoutToRedirect === 0) {
+            this.props.history.push('/reports');
+        }
+    }
+
     componentWillUnmount() {
-        removeEventListener('beforeunload', this.beforeUnloadHandler);
+        // Remove handler
+        window.removeEventListener('beforeunload', this.beforeUnloadHandler);
+
+        // Clear timer
+        if (this.redirectTimer) {
+            clearInterval(this.redirectTimer);
+        }
+
+        // Reset upload file redux stage
+        this.props.resetUploadFile();
     }
 
     /**
@@ -127,31 +197,23 @@ class ReportsUpload extends React.Component<Props, State> {
 
         this.startRedirectTimer();
 
-        if (this.state.timeoutToRedirect === 0) {
-            this.props.history.push('/reports');
-        }
-
         return (
             <Button type="button" variant={ ButtonVariant.primary } onClick={ this.handleCloseModel }> Closing in { timeoutToRedirect } </Button>
         );
-    }
+    };
 
     startRedirectTimer = () => {
         if (this.redirectTimer === null && this.state.timeoutToRedirect > 0) {
             this.redirectTimer = setInterval(this.redirectCountDown, 1000);
         }
-    }
+    };
 
     redirectCountDown = () => {
         let timeoutToRedirect = this.state.timeoutToRedirect - 1;
         this.setState({
             timeoutToRedirect
         });
-
-        if (timeoutToRedirect === 0) {
-            clearInterval(this.redirectTimer);
-        }
-    }
+    };
 
     handleFormSubmit = (values: FormValues) => {
         this.setState({
@@ -185,64 +247,18 @@ class ReportsUpload extends React.Component<Props, State> {
         this.props.selectUploadFile(files[0]);
     };
 
-    validateForm = (values: FormValues) => {
-        const validationSchema = this.getValidationSchema(values);
-        try {
-            validationSchema.validateSync(values, { abortEarly: false });
-            return {};
-        } catch (error) {
-            return this.getErrorsFromValidationError(error);
-        }
-    }
-
-    getValidationSchema = (values: FormValues) => {
-        return Yup.object().shape({
-            file: Yup.string()
-            .required('File is mandatory'),
-            reportName: Yup.string()
-            .min(3, 'Report name must contain at least 3 characters ')//reproduce
-            .max(250, 'Report name must contain fewer than 250 characters')
-            .required('Report name is mandatory'),
-            reportDescription: Yup.string()
-            .max(250, 'Report description must contain fewer than 250 characters'),
-            yearOverYearGrowthRatePercentage: Yup.number()
-            .min(0, 'Value must be greater than or equal to 0')
-            .required('Growth rate percentage is mandatory'),
-            percentageOfHypervisorsMigratedOnYear1: Yup.number()
-            .min(0, 'Value must be greater than or equal to 0')
-            .max(100, 'Value must be less than or equal to 100')
-            .required('Percentage of hypervisors migrated is mandatory'),
-            percentageOfHypervisorsMigratedOnYear2: Yup.number()
-            .min(0, 'Vaaslue must be greater than or equal to 0')
-            .max(100, 'Value must be less than or equal to 100')
-            .required('Percentage of hypervisors migrated is mandatory'),
-            percentageOfHypervisorsMigratedOnYear3: Yup.number()
-            .min(0, 'Value must be greater than or equal to 0')
-            .max(100, 'Value must be less than or equal to 100')
-            .required('Percentage of hypervisors migrated is mandatory'),
-            percentageOfHypervisorsMigratedSum: Yup.number()
-            .min(0, 'Value must be greater than or equal to 0')
-            .max(100, 'Value must be less than or equal to 100')
-            .test('validSum', 'The total percentage must not exceed 100', () => {
-                const sum = values.percentageOfHypervisorsMigratedOnYear1 +
-                    values.percentageOfHypervisorsMigratedOnYear2 +
-                    values.percentageOfHypervisorsMigratedOnYear3;
-                return sum >= 0 && sum <= 100;
-            })
-        });
-    }
-
-    getErrorsFromValidationError = (validationError: any) => {
-        const FIRST_ERROR = 0;
-        return validationError.inner.reduce((errors: any, error: any) => {
-            return {
-                ...errors,
-                [error.path]: error.errors[FIRST_ERROR]
-            };
-        }, {});
-    }
-
     renderProgress() {
+        let message: string;
+        if (this.props.error) {
+            message = 'An error occured during the upload process. Please, try again.';
+        } else {
+            if (this.props.success) {
+                message = 'Finished successfully. We will redirect you to the next page.';
+            } else {
+                message = 'Your file is been uploaded, the process can take some time.';
+            }
+        }
+
         return (
             <Bullseye>
                 <EmptyState variant={ EmptyStateVariant.full }>
@@ -257,13 +273,7 @@ class ReportsUpload extends React.Component<Props, State> {
                             variant={ this.props.error ? ProgressVariant.danger : ProgressVariant.info }
                         />
                     </div>
-                    <EmptyStateBody>
-                        {
-                            this.props.success ?
-                                'Finished successfully. We will redirect you to the next page.' :
-                                'Your file is been uploaded, the process can take some time.'
-                        }
-                    </EmptyStateBody>
+                    <EmptyStateBody>{ message }</EmptyStateBody>
                     <EmptyStateSecondaryActions>
                         {
                             this.props.success ? this.actionsOnUploadSuccess() : ''
@@ -277,8 +287,8 @@ class ReportsUpload extends React.Component<Props, State> {
     renderForm() {
         return (
             <Formik
-                initialValues={ this.initialFormValue }
-                validate={  this.validateForm }
+                initialValues={ initialFormValue }
+                validate={ (values) => validateForm(values, formValidationSchema) }
                 onSubmit={ this.handleFormSubmit }
             >
                 {
