@@ -54,7 +54,9 @@ class ReportView extends React.Component<Props, State> {
                     <Route path={ `${this.props.match.url}/workloadMigrationSummary` } component={ WorkloadMigrationSummary } />
                     <Route path={ `${this.props.match.url}/initialSavingsEstimation` } component={ InitialSavingsEstimation } />
                     <Route path={ `${this.props.match.url}/workloadInventory` } component={ WorkloadInventory } />
-                    <Redirect from={ `${this.props.match.url}` } to={ `${this.props.match.url}/workloadMigrationSummary` } />
+
+                    { /* // TODO Change this when other tabs are implemented */ }
+                    <Redirect from={ `${this.props.match.url}` } to={ `${this.props.match.url}/initialSavingsEstimation` } />
                 </Switch>
             </ReportViewPage>
         );

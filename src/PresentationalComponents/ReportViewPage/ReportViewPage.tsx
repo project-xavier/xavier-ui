@@ -34,7 +34,7 @@ class ReportViewPage extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
 
-        let activeTabKey = 0;
+        let activeTabKey = 1; // TODO Change this when other tabs are implemented
 
         if (props.location.pathname.endsWith('workloadMigrationSummary')) {
             activeTabKey = 0;

@@ -1,5 +1,8 @@
 import React from 'react';
-import { RouterGlobalProps } from '../../../models/router';
+import {
+    Skeleton,
+    SkeletonTable
+} from '@redhat-cloud-services/frontend-components';
 import {
     Card,
     CardBody,
@@ -7,23 +10,21 @@ import {
     Stack,
     StackItem
 } from '@patternfly/react-core';
+
 import { Report, ReportInitialSavingEstimation } from '../../../models';
-import {
-    Skeleton,
-    SkeletonTable
-} from '@redhat-cloud-services/frontend-components';
-import './InitialSavingsEstimation.scss';
 import { formatValue } from '../../../Utilities/formatValue';
+import { FancyGroupedBarChartData } from '../../../PresentationalComponents/FancyGroupedBarChart/FancyGroupedBarChart';
+
 import Environment from '../../../PresentationalComponents/Reports/Environment';
 import RenewalEstimation from '../../../PresentationalComponents/Reports/RenewalEstimation';
 import FancyChartDonut from '../../../PresentationalComponents/FancyChartDonut';
 import FancyBarChart from '../../../PresentationalComponents/FancyBarChart';
-import { FancyGroupedBarChartData } from '../../../PresentationalComponents/FancyGroupedBarChart/FancyGroupedBarChart';
 import FancyGroupedBarChart from '../../../PresentationalComponents/FancyGroupedBarChart';
 import ReportCard from '../../../PresentationalComponents/ReportCard';
 import ProjectCostBreakdownTable from '../../../PresentationalComponents/Reports/ProjectCostBreakdownTable';
 import ProjectCostBreakdownInYear4 from '../../../PresentationalComponents/Reports/ProjectCostBreakdownInYear4';
 import ProjectCostBreakdownInYear4PerVM from '../../../PresentationalComponents/Reports/ProjectCostBreakdownInYear4PerVM';
+import './InitialSavingsEstimation.scss';
 
 interface StateToProps {
     report: Report;
@@ -34,7 +35,7 @@ interface DispatchToProps {
     fetchReportInitialSavingEstimation: (reportId: number) => any;
 }
 
-interface Props extends StateToProps, DispatchToProps, RouterGlobalProps {
+interface Props extends StateToProps, DispatchToProps {
 };
 
 interface State {
