@@ -1,6 +1,5 @@
 import React from 'react';
 import { RouterGlobalProps } from '../../models/router';
-import './ErrorPage.scss';
 import {
     Main,
     PageHeader,
