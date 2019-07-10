@@ -193,47 +193,44 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
         );
     }
 
-    renderCostBreakdown = () => {
-        const { reportInitialSavingEstimation } = this.props;
-
-        const data = [
-            { label: 'Support', value: 32.6, color: '#004B95' },
-            { label: 'vSphere Plus Lic.', value: 67.4, color: '#519DE9' }
-        ];
-
-        return (
-            <FancyChartDonut
-                title='Cost breakdown for VMware ELA (using "most likely" estimation)'
-                total = { reportInitialSavingEstimation.sourceCostsModel.sourceRenewLikelyValue }
-                data={ data }
-                suffix = "%"
-            />
-        );
-    }
-
     renderTotalMaintenance = () => {
         const { reportInitialSavingEstimation } = this.props;
-        const {
-            rhvSwitchTAndEValue,
-            rhvSwitchConsultValue,
-            rhvSwitchLearningSubsValue
-        } = reportInitialSavingEstimation.rhvRampUpCostsModel;
 
         const data = [
-            { label: 'Travel and Lodging', value: rhvSwitchTAndEValue, color: '#5C969D' },
-            { label: 'Red Hat Consulting', value: rhvSwitchConsultValue, color: '#F0AB00' },
-            { label: 'Red Hat Training', value: rhvSwitchLearningSubsValue, color: '#509149' },
-            { label: 'RHV Growth', value: 2.4, color: '#C58C00' },
-            { label: 'RHV Hypervisors', value: 18.1, color: '#C9190B' },
-            { label: 'VMware', value: 68, color: '#519DE9' }
+            { label: 'Travel and Lodging', value: 20, color: '#5C969D' },
+            { label: 'Red Hat Consulting', value: 10, color: '#F0AB00' },
+            { label: 'Red Hat Training', value: 10, color: '#509149' },
+            { label: 'RHV Growth', value: 10, color: '#C58C00' },
+            { label: 'RHV Hypervisors', value: 10, color: '#C9190B' },
+            { label: 'VMware', value: 30, color: '#519DE9' }
         ];
 
+        const chartProps = {
+            title: '123456',
+            height: 230
+        };
+        const chartLegendProps = {
+            height: 230,
+            width: 210,
+            responsive: false,
+            y: 20
+        };
+
         return (
-            <FancyChartDonut
+            <ReportCard
                 title='Cost breakdown for VMware ELA (using "most likely" estimation)'
-                data={ data }
-                suffix = "%"
-            />
+                loading={ reportInitialSavingEstimation ? false : true }
+                loadingSkeleton={ <SkeletonTable colSize={ 2 } rowSize={ 2 }/> }
+            >
+                {
+                    reportInitialSavingEstimation &&
+                    <FancyChartDonut
+                        data={ data }
+                        chartProps={ chartProps }
+                        chartLegendProps={ chartLegendProps }
+                    />
+                }
+            </ReportCard>
         );
     }
 
@@ -353,12 +350,9 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
                     <StackItem isFilled={ false }>
                         { this.renderRenewalEstimation() }
                     </StackItem>
-                    { /* <StackItem isFilled={ false }>
-                        { reportInitialSavingEstimation ? this.renderCostBreakdown() : <Skeleton size="sm"/> }
-                    </StackItem> */ }
-                    { /* <StackItem isFilled={ false }>
+                    <StackItem isFilled={ false }>
                         { this.renderTotalMaintenance() }
-                    </StackItem> */ }
+                    </StackItem>
                     <StackItem isFilled={ false }>
                         { this.renderProjectCostBreakdown() }
                     </StackItem>

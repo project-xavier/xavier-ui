@@ -4,7 +4,7 @@ import NoReports from './NoReports';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
-const mapStateToProps = (state: GlobalState)  => {
+const mapStateToProps = (state: GlobalState) => {
     const {
         userState: {
             user

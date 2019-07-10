@@ -1,25 +1,19 @@
 import React, { Component } from 'react';
 import {
-    Card,
-    CardHeader,
-    CardBody,
-    Bullseye
-} from '@patternfly/react-core';
-import {
     ChartDonut,
-    ChartLegend
+    ChartDonutProps,
+    ChartLegend,
+    ChartLegendProps
 } from '@patternfly/react-charts';
-import { formatValue } from '../../Utilities/formatValue';
 
 interface Props {
-    title: string;
-    total: number;
     data: {
         label: string;
         value: number;
         color: string;
     }[];
-    suffix?: string;
+    chartProps?: ChartDonutProps;
+    chartLegendProps?: ChartLegendProps;
 }
 
 interface State {
@@ -32,7 +26,7 @@ class FancyChartDonut extends Component<Props, State> {
     }
 
     render() {
-        const { title, total, data, suffix, ...rest } = this.props;
+        const { data, chartProps, chartLegendProps } = this.props;
 
         const chartData = data.map((val) => {
             return {
@@ -43,7 +37,7 @@ class FancyChartDonut extends Component<Props, State> {
 
         const legendData = data.map((val) => {
             return {
-                name: val.label
+                name: `${val.label}: ${val.value}%`
             };
         });
 
@@ -51,35 +45,22 @@ class FancyChartDonut extends Component<Props, State> {
 
         return (
             <React.Fragment>
-                <Card>
-                    <CardHeader>{ title }</CardHeader>
-                    <CardBody>
-                        <Bullseye>
-                            <div>
-                                <div className="donut-chart-container">
-                                    <ChartDonut
-                                        title={ formatValue(total, 'usd') }
-                                        subTitle=""
-                                        data={ chartData }
-                                        labels={ datum => `${datum.x}: ${datum.y}${ suffix }` }
-                                        colorScale={ colorScale }
-                                        height= { 200 }
-                                        innerRadius= { 75 }
-                                        { ...rest }
-                                    />
-                                </div>
-                                <ChartLegend
-                                    data={ legendData }
-                                    height={ 35 }
-                                    orientation={ 'horizontal' }
-                                    colorScale={ colorScale }
-                                    x={ 110 }
-                                    { ...rest }
-                                />
-                            </div>
-                        </Bullseye>
-                    </CardBody>
-                </Card>
+                <div className="pf-u-display-flex">
+                    <div className="donut-chart-container">
+                        <ChartDonut
+                            data={ chartData }
+                            colorScale={ colorScale }
+                            labels={ datum => `${datum.x}: ${datum.y}%` }
+                            { ...chartProps }
+                        />
+                    </div>
+                    <ChartLegend
+                        data={ legendData }
+                        colorScale={ colorScale }
+                        orientation="vertical"
+                        { ...chartLegendProps }
+                    />
+                </div>
             </React.Fragment>
         );
     }

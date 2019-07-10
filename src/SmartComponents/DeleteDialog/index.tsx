@@ -1,11 +1,9 @@
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { GlobalState } from '../../models/state';
-// import * as dialogDeleteActions from '../../actions/DialogDeleteActions';
 import DeleteDialogBase from './DeleteDialog';
 
-const mapStateToProps = (state: GlobalState)  => {
-    let {
+const mapStateToProps = (state: GlobalState) => {
+    const {
         dialogDeleteState: {
             isOpen,
             isProcessing,
@@ -27,12 +25,7 @@ const mapStateToProps = (state: GlobalState)  => {
     };
 };
 
-const mapDispatchToProps = (dispatch: any) =>
-    bindActionCreators({
-        // openModal: dialogDeleteActions.openModal,
-        // closeModal: dialogDeleteActions.closeModal,
-        // processingModal: dialogDeleteActions.processingModal,
-        // errorModal: dialogDeleteActions.errorModal
-    }, dispatch);
+const mapDispatchToProps = {
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeleteDialogBase);
