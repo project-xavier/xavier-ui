@@ -27,6 +27,7 @@ export const reportsReducer = function (
             const nextState: ReportState = {
                 ...state,
                 reports: [],
+                total: 0,
                 loading: true,
                 error: null
             };

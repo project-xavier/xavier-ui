@@ -1,14 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`UploadForm expect to render 1`] = `
-<Form
-  className=""
-  isHorizontal={false}
->
+<Form>
   <FormGroup
-    className=""
     fieldId="file"
-    isInline={false}
     isRequired={true}
     isValid={true}
     label="Inventory data file"
@@ -29,9 +24,7 @@ exports[`UploadForm expect to render 1`] = `
     </Dropzone>
   </FormGroup>
   <FormGroup
-    className=""
     fieldId="reportName"
-    isInline={false}
     isRequired={true}
     isValid={true}
     label="Report name"
@@ -51,10 +44,7 @@ exports[`UploadForm expect to render 1`] = `
     />
   </FormGroup>
   <FormGroup
-    className=""
     fieldId="reportDescription"
-    isInline={false}
-    isRequired={false}
     isValid={true}
     label="Report description"
   >
@@ -73,9 +63,7 @@ exports[`UploadForm expect to render 1`] = `
     />
   </FormGroup>
   <FormGroup
-    className=""
     fieldId="yearOverYearGrowthRatePercentage"
-    isInline={false}
     isRequired={true}
     isValid={true}
     label="Year-over-year growth rate for new hypervisors"
@@ -85,9 +73,7 @@ exports[`UploadForm expect to render 1`] = `
       gutter={null}
     >
       <GalleryItem>
-        <InputGroup
-          className=""
-        >
+        <InputGroup>
           <TextInput
             aria-describedby="Year-over-year growth rate for new hypervisors"
             aria-label={null}
@@ -103,7 +89,6 @@ exports[`UploadForm expect to render 1`] = `
           />
           <InputGroupText
             className="percentage-box"
-            component="span"
           >
             %
           </InputGroupText>
@@ -121,10 +106,7 @@ exports[`UploadForm expect to render 1`] = `
       isFilled={false}
     >
       <FormGroup
-        className=""
         fieldId="percentageOfHypervisorsMigratedOnYear1"
-        isInline={false}
-        isRequired={false}
         isValid={true}
         label="Percentage of hypervisors migrated each year"
       >
@@ -133,12 +115,9 @@ exports[`UploadForm expect to render 1`] = `
           gutter={null}
         >
           <GalleryItem>
-            <InputGroup
-              className=""
-            >
+            <InputGroup>
               <InputGroupText
                 className="year-box"
-                component="span"
               >
                 Year 1
               </InputGroupText>
@@ -156,7 +135,6 @@ exports[`UploadForm expect to render 1`] = `
               />
               <InputGroupText
                 className="percentage-box"
-                component="span"
               >
                 %
               </InputGroupText>
@@ -170,10 +148,7 @@ exports[`UploadForm expect to render 1`] = `
       isFilled={false}
     >
       <FormGroup
-        className=""
         fieldId=""
-        isInline={false}
-        isRequired={false}
         isValid={true}
         label=""
       >
@@ -182,12 +157,9 @@ exports[`UploadForm expect to render 1`] = `
           gutter={null}
         >
           <GalleryItem>
-            <InputGroup
-              className=""
-            >
+            <InputGroup>
               <InputGroupText
                 className="year-box"
-                component="span"
               >
                 Year 2
               </InputGroupText>
@@ -205,7 +177,6 @@ exports[`UploadForm expect to render 1`] = `
               />
               <InputGroupText
                 className="percentage-box"
-                component="span"
               >
                 %
               </InputGroupText>
@@ -219,10 +190,7 @@ exports[`UploadForm expect to render 1`] = `
       isFilled={false}
     >
       <FormGroup
-        className=""
         fieldId=""
-        isInline={false}
-        isRequired={false}
         isValid={true}
         label=""
       >
@@ -231,12 +199,9 @@ exports[`UploadForm expect to render 1`] = `
           gutter={null}
         >
           <GalleryItem>
-            <InputGroup
-              className=""
-            >
+            <InputGroup>
               <InputGroupText
                 className="year-box"
-                component="span"
               >
                 Year 3
               </InputGroupText>
@@ -254,7 +219,6 @@ exports[`UploadForm expect to render 1`] = `
               />
               <InputGroupText
                 className="percentage-box"
-                component="span"
               >
                 %
               </InputGroupText>
@@ -264,34 +228,14 @@ exports[`UploadForm expect to render 1`] = `
       </FormGroup>
     </StackItem>
   </Stack>
-  <ActionGroup
-    className=""
-  >
+  <ActionGroup>
     <Button
-      aria-label={null}
-      className=""
-      component="button"
-      isActive={false}
-      isBlock={false}
-      isDisabled={false}
-      isFocus={false}
-      isHover={false}
-      isInline={false}
       type="submit"
       variant="primary"
     >
       Create report
     </Button>
     <Button
-      aria-label={null}
-      className=""
-      component="button"
-      isActive={false}
-      isBlock={false}
-      isDisabled={false}
-      isFocus={false}
-      isHover={false}
-      isInline={false}
       type="button"
       variant="secondary"
     >
@@ -302,15 +246,10 @@ exports[`UploadForm expect to render 1`] = `
 `;
 
 exports[`UploadForm expect to render errors 1`] = `
-<Form
-  className=""
-  isHorizontal={false}
->
+<Form>
   <FormGroup
-    className=""
     fieldId="file"
     helperTextInvalid="Field value invalid"
-    isInline={false}
     isRequired={true}
     isValid={false}
     label="Inventory data file"
@@ -331,10 +270,8 @@ exports[`UploadForm expect to render errors 1`] = `
     </Dropzone>
   </FormGroup>
   <FormGroup
-    className=""
     fieldId="reportName"
     helperTextInvalid="Field value invalid"
-    isInline={false}
     isRequired={true}
     isValid={false}
     label="Report name"
@@ -354,11 +291,8 @@ exports[`UploadForm expect to render errors 1`] = `
     />
   </FormGroup>
   <FormGroup
-    className=""
     fieldId="reportDescription"
     helperTextInvalid="Field value invalid"
-    isInline={false}
-    isRequired={false}
     isValid={false}
     label="Report description"
   >
@@ -377,10 +311,8 @@ exports[`UploadForm expect to render errors 1`] = `
     />
   </FormGroup>
   <FormGroup
-    className=""
     fieldId="yearOverYearGrowthRatePercentage"
     helperTextInvalid="Field value invalid"
-    isInline={false}
     isRequired={true}
     isValid={false}
     label="Year-over-year growth rate for new hypervisors"
@@ -390,9 +322,7 @@ exports[`UploadForm expect to render errors 1`] = `
       gutter={null}
     >
       <GalleryItem>
-        <InputGroup
-          className=""
-        >
+        <InputGroup>
           <TextInput
             aria-describedby="Year-over-year growth rate for new hypervisors"
             aria-label={null}
@@ -408,7 +338,6 @@ exports[`UploadForm expect to render errors 1`] = `
           />
           <InputGroupText
             className="percentage-box"
-            component="span"
           >
             %
           </InputGroupText>
@@ -426,11 +355,8 @@ exports[`UploadForm expect to render errors 1`] = `
       isFilled={false}
     >
       <FormGroup
-        className=""
         fieldId="percentageOfHypervisorsMigratedOnYear1"
         helperTextInvalid="Field value invalid"
-        isInline={false}
-        isRequired={false}
         isValid={false}
         label="Percentage of hypervisors migrated each year"
       >
@@ -439,12 +365,9 @@ exports[`UploadForm expect to render errors 1`] = `
           gutter={null}
         >
           <GalleryItem>
-            <InputGroup
-              className=""
-            >
+            <InputGroup>
               <InputGroupText
                 className="year-box"
-                component="span"
               >
                 Year 1
               </InputGroupText>
@@ -462,7 +385,6 @@ exports[`UploadForm expect to render errors 1`] = `
               />
               <InputGroupText
                 className="percentage-box"
-                component="span"
               >
                 %
               </InputGroupText>
@@ -476,11 +398,8 @@ exports[`UploadForm expect to render errors 1`] = `
       isFilled={false}
     >
       <FormGroup
-        className=""
         fieldId=""
         helperTextInvalid="Field value invalid"
-        isInline={false}
-        isRequired={false}
         isValid={false}
         label=""
       >
@@ -489,12 +408,9 @@ exports[`UploadForm expect to render errors 1`] = `
           gutter={null}
         >
           <GalleryItem>
-            <InputGroup
-              className=""
-            >
+            <InputGroup>
               <InputGroupText
                 className="year-box"
-                component="span"
               >
                 Year 2
               </InputGroupText>
@@ -512,7 +428,6 @@ exports[`UploadForm expect to render errors 1`] = `
               />
               <InputGroupText
                 className="percentage-box"
-                component="span"
               >
                 %
               </InputGroupText>
@@ -526,11 +441,8 @@ exports[`UploadForm expect to render errors 1`] = `
       isFilled={false}
     >
       <FormGroup
-        className=""
         fieldId=""
         helperTextInvalid="Field value invalid"
-        isInline={false}
-        isRequired={false}
         isValid={false}
         label=""
       >
@@ -539,12 +451,9 @@ exports[`UploadForm expect to render errors 1`] = `
           gutter={null}
         >
           <GalleryItem>
-            <InputGroup
-              className=""
-            >
+            <InputGroup>
               <InputGroupText
                 className="year-box"
-                component="span"
               >
                 Year 3
               </InputGroupText>
@@ -562,7 +471,6 @@ exports[`UploadForm expect to render errors 1`] = `
               />
               <InputGroupText
                 className="percentage-box"
-                component="span"
               >
                 %
               </InputGroupText>
@@ -572,34 +480,14 @@ exports[`UploadForm expect to render errors 1`] = `
       </FormGroup>
     </StackItem>
   </Stack>
-  <ActionGroup
-    className=""
-  >
+  <ActionGroup>
     <Button
-      aria-label={null}
-      className=""
-      component="button"
-      isActive={false}
-      isBlock={false}
-      isDisabled={false}
-      isFocus={false}
-      isHover={false}
-      isInline={false}
       type="submit"
       variant="primary"
     >
       Create report
     </Button>
     <Button
-      aria-label={null}
-      className=""
-      component="button"
-      isActive={false}
-      isBlock={false}
-      isDisabled={false}
-      isFocus={false}
-      isHover={false}
-      isInline={false}
       type="button"
       variant="secondary"
     >

@@ -4,7 +4,7 @@ exports[`ReportViewPage expect to render 1`] = `
 <Fragment>
   <PageHeader>
     <PageHeaderTitle
-      title="Reports"
+      title=""
     />
   </PageHeader>
   <Connect(Main)
@@ -13,8 +13,6 @@ exports[`ReportViewPage expect to render 1`] = `
         "color": "red",
       }
     }
-  >
-    children
-  </Connect(Main)>
+  />
 </Fragment>
 `;

@@ -1,22 +1,25 @@
 import { shallow } from "enzyme";
-import NoReports from "./NoReports";
+import GettingStarted from "./GettingStarted";
 import Dropzone from "react-dropzone";
 
 const props = {
   file: null,
   selectUploadFile: jest.fn(),
+  user: {
+    firstTimeCreatingReports: true
+  },
   match: null,
   history: {
     push: jest.fn()
   },
-  location: null,
+  location: null
 };
 
-describe("NoReports", () => {
+describe("GettingStarted", () => {
 
   it("expect to render", () => {
     const wrapper = shallow(
-      <NoReports { ...props } />
+      <GettingStarted { ...props } />
     );
     expect(wrapper).toMatchSnapshot();
   });
@@ -26,7 +29,7 @@ describe("NoReports", () => {
     const file = new Blob([fileContents], { type: "text/plain" });
 
     const wrapper = shallow(
-      <NoReports { ...props } />
+      <GettingStarted { ...props } />
     );
 
     wrapper.find(Dropzone).simulate("drop", { dataTransfer: { files: [file] } });

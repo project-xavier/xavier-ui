@@ -108,11 +108,16 @@ describe('report reducer', () => {
             ...reportInitialState,
             loading: false,
             reports: reportsMock.data,
-            total: 3
+            total: 100
         };
         const newState: ReportState = reportsReducer(
             reportInitialState,
-            fromRequest(successMessage(ActionTypes.FETCH_REPORTS), reportsMock)
+            fromRequest(successMessage(ActionTypes.FETCH_REPORTS), {
+                ...reportsMock,
+                headers: {
+                    'x-total-count': 100
+                }
+            })
         );
         expect(newState).toEqual(expectedNewState);
     });
