@@ -26,8 +26,8 @@ export const reportsReducer = function (
         case pendingMessage(ActionTypes.FETCH_REPORTS): {
             const nextState: ReportState = {
                 ...state,
-                reports: [],
-                total: 0,
+                // reports: [],
+                // total: 0, // To avoid causing flash render in reportList page
                 loading: true,
                 error: null
             };

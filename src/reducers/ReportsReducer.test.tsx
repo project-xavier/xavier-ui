@@ -77,8 +77,6 @@ describe('report reducer', () => {
     it('should handle FETCH_REPORTS_PENDING', () => {
         const expectedNewState: ReportState = {
             ...reportInitialState,
-            total: 0,
-            reports: [],
             loading: true,
             error: null
         };
