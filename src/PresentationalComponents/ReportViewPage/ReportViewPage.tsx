@@ -8,10 +8,6 @@ import {
 
 interface Props {
     mainStyle?: any;
-    reportId: number;
-
-    match: any;
-    history: any;
 };
 
 interface State {

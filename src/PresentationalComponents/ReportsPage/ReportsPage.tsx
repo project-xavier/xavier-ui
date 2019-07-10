@@ -5,9 +5,8 @@ import {
     PageHeader,
     PageHeaderTitle
 } from '@redhat-cloud-services/frontend-components';
-import { RouterGlobalProps } from '../../models/router';
 
-interface Props extends RouterGlobalProps {
+interface Props {
     mainStyle?: any;
 };
 
