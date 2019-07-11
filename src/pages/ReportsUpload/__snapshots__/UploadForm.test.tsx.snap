@@ -73,7 +73,9 @@ exports[`UploadForm expect to render 1`] = `
       gutter={null}
     >
       <GalleryItem>
-        <InputGroup>
+        <InputGroup
+          className=""
+        >
           <TextInput
             aria-describedby="Year-over-year growth rate for new hypervisors"
             aria-label={null}
@@ -89,6 +91,7 @@ exports[`UploadForm expect to render 1`] = `
           />
           <InputGroupText
             className="percentage-box"
+            component="span"
           >
             %
           </InputGroupText>
@@ -115,9 +118,12 @@ exports[`UploadForm expect to render 1`] = `
           gutter={null}
         >
           <GalleryItem>
-            <InputGroup>
+            <InputGroup
+              className=""
+            >
               <InputGroupText
                 className="year-box"
+                component="span"
               >
                 Year 1
               </InputGroupText>
@@ -135,6 +141,7 @@ exports[`UploadForm expect to render 1`] = `
               />
               <InputGroupText
                 className="percentage-box"
+                component="span"
               >
                 %
               </InputGroupText>
@@ -157,9 +164,12 @@ exports[`UploadForm expect to render 1`] = `
           gutter={null}
         >
           <GalleryItem>
-            <InputGroup>
+            <InputGroup
+              className=""
+            >
               <InputGroupText
                 className="year-box"
+                component="span"
               >
                 Year 2
               </InputGroupText>
@@ -177,6 +187,7 @@ exports[`UploadForm expect to render 1`] = `
               />
               <InputGroupText
                 className="percentage-box"
+                component="span"
               >
                 %
               </InputGroupText>
@@ -199,9 +210,12 @@ exports[`UploadForm expect to render 1`] = `
           gutter={null}
         >
           <GalleryItem>
-            <InputGroup>
+            <InputGroup
+              className=""
+            >
               <InputGroupText
                 className="year-box"
+                component="span"
               >
                 Year 3
               </InputGroupText>
@@ -219,6 +233,7 @@ exports[`UploadForm expect to render 1`] = `
               />
               <InputGroupText
                 className="percentage-box"
+                component="span"
               >
                 %
               </InputGroupText>
@@ -322,7 +337,9 @@ exports[`UploadForm expect to render errors 1`] = `
       gutter={null}
     >
       <GalleryItem>
-        <InputGroup>
+        <InputGroup
+          className=""
+        >
           <TextInput
             aria-describedby="Year-over-year growth rate for new hypervisors"
             aria-label={null}
@@ -338,6 +355,7 @@ exports[`UploadForm expect to render errors 1`] = `
           />
           <InputGroupText
             className="percentage-box"
+            component="span"
           >
             %
           </InputGroupText>
@@ -365,9 +383,12 @@ exports[`UploadForm expect to render errors 1`] = `
           gutter={null}
         >
           <GalleryItem>
-            <InputGroup>
+            <InputGroup
+              className=""
+            >
               <InputGroupText
                 className="year-box"
+                component="span"
               >
                 Year 1
               </InputGroupText>
@@ -385,6 +406,7 @@ exports[`UploadForm expect to render errors 1`] = `
               />
               <InputGroupText
                 className="percentage-box"
+                component="span"
               >
                 %
               </InputGroupText>
@@ -408,9 +430,12 @@ exports[`UploadForm expect to render errors 1`] = `
           gutter={null}
         >
           <GalleryItem>
-            <InputGroup>
+            <InputGroup
+              className=""
+            >
               <InputGroupText
                 className="year-box"
+                component="span"
               >
                 Year 2
               </InputGroupText>
@@ -428,6 +453,7 @@ exports[`UploadForm expect to render errors 1`] = `
               />
               <InputGroupText
                 className="percentage-box"
+                component="span"
               >
                 %
               </InputGroupText>
@@ -451,9 +477,12 @@ exports[`UploadForm expect to render errors 1`] = `
           gutter={null}
         >
           <GalleryItem>
-            <InputGroup>
+            <InputGroup
+              className=""
+            >
               <InputGroupText
                 className="year-box"
+                component="span"
               >
                 Year 3
               </InputGroupText>
@@ -471,6 +500,7 @@ exports[`UploadForm expect to render errors 1`] = `
               />
               <InputGroupText
                 className="percentage-box"
+                component="span"
               >
                 %
               </InputGroupText>
