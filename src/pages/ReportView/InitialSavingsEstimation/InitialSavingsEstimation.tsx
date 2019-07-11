@@ -22,9 +22,15 @@ import FancyBarChart from '../../../PresentationalComponents/FancyBarChart';
 import FancyGroupedBarChart from '../../../PresentationalComponents/FancyGroupedBarChart';
 import ReportCard from '../../../PresentationalComponents/ReportCard';
 import ProjectCostBreakdownTable from '../../../PresentationalComponents/Reports/ProjectCostBreakdownTable';
-import ProjectCostBreakdownInYear4 from '../../../PresentationalComponents/Reports/ProjectCostBreakdownInYear4';
-import ProjectCostBreakdownInYear4PerVM from '../../../PresentationalComponents/Reports/ProjectCostBreakdownInYear4PerVM';
 import './InitialSavingsEstimation.scss';
+import {
+    VMwareColor,
+    RHVHypervisorsColor,
+    RHVGrowthColor,
+    RHTrainingColor,
+    RHConsultingColor,
+    RHTravelAndLodgingColor
+} from '../../../Utilities/constants';
 
 interface StateToProps {
     report: Report;
@@ -197,29 +203,71 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
     renderTotalMaintenance = () => {
         const { reportInitialSavingEstimation } = this.props;
 
-        const data = [
-            { label: 'Travel and Lodging', value: 20, color: '#5C969D' },
-            { label: 'Red Hat Consulting', value: 10, color: '#F0AB00' },
-            { label: 'Red Hat Training', value: 10, color: '#509149' },
-            { label: 'RHV Growth', value: 10, color: '#C58C00' },
-            { label: 'RHV Hypervisors', value: 10, color: '#C9190B' },
-            { label: 'VMware', value: 30, color: '#519DE9' }
-        ];
-
         const chartProps = {
-            title: '123456',
-            height: 230
+            title: '',
+            height: 300,
+            width: 300
         };
         const chartLegendProps = {
-            height: 230,
+            height: 300,
             width: 210,
             responsive: false,
-            y: 20
+            y: 60
         };
+
+        let data;
+        if (reportInitialSavingEstimation) {
+            const sourceRampDownCostsModel = reportInitialSavingEstimation.sourceRampDownCostsModel;
+            const rhvRampUpCostsModel = reportInitialSavingEstimation.rhvRampUpCostsModel;
+
+            const vmwareTotal = [
+                sourceRampDownCostsModel.year1SourceMaintenanceTotalValue,
+                sourceRampDownCostsModel.year2SourceMaintenanceTotalValue,
+                sourceRampDownCostsModel.year3SourceMaintenanceTotalValue
+            ].reduce((a, b) => a + b, 0);
+
+            const rhvHypervisorsTotal = [
+                rhvRampUpCostsModel.year1RhvTotalValue,
+                rhvRampUpCostsModel.year2RhvTotalValue,
+                rhvRampUpCostsModel.year3RhvTotalValue
+            ].reduce((a, b) => a + b, 0);
+
+            const rhvGrowthTotal = [
+                rhvRampUpCostsModel.year1RhvTotalGrowthValue,
+                rhvRampUpCostsModel.year2RhvTotalGrowthValue,
+                rhvRampUpCostsModel.year3RhvTotalGrowthValue
+            ].reduce((a, b) => a + b, 0);
+
+            const rhTrainingTotal = rhvRampUpCostsModel.rhvSwitchLearningSubsValue;
+            const rhConsultingTotal = rhvRampUpCostsModel.rhvSwitchConsultValue;
+            const rhTravelAndLodgingTotal = rhvRampUpCostsModel.rhvSwitchTAndEValue;
+
+            //
+            const pieValues = [
+                vmwareTotal,
+                rhvHypervisorsTotal,
+                rhvGrowthTotal,
+                rhTrainingTotal,
+                rhConsultingTotal,
+                rhTravelAndLodgingTotal
+            ];
+            const total = pieValues.reduce((a, b) => a + b, 0);
+            const percentages = pieValues.map((val) => ((val / total) * 100));
+
+            chartProps.title = formatValue(total, 'usd');
+            data = [
+                { label: 'VMware', value: percentages[0], color: VMwareColor },
+                { label: 'RHV Hypervisors', value: percentages[1], color: RHVHypervisorsColor },
+                { label: 'RHV Growth', value: percentages[2], color: RHVGrowthColor },
+                { label: 'Red Hat Training', value: percentages[3], color: RHTrainingColor },
+                { label: 'Red Hat Consulting', value: percentages[4], color: RHConsultingColor },
+                { label: 'Travel and Lodging', value: percentages[5], color: RHTravelAndLodgingColor }
+            ];
+        }
 
         return (
             <ReportCard
-                title='Cost breakdown for VMware ELA (using "most likely" estimation)'
+                title='Total VMware maintenance, Red Hat Virtualization, training and services costs during a 3 year migration)'
                 loading={ reportInitialSavingEstimation ? false : true }
                 loadingSkeleton={ <SkeletonTable colSize={ 2 } rowSize={ 2 }/> }
             >
@@ -238,22 +286,50 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
     renderProjectCostBreakdown = () => {
         const { reportInitialSavingEstimation } = this.props;
 
-        // TODO change values
-        const data: FancyGroupedBarChartData = {
-            colors: [ '#0066CC', '#C9190B', '#C58C00', '#509149', '#EF9234', '#5C969D' ],
-            values: [
-                [{ x: 'VMware', y: 1000000 }],
-                [{ x: 'RVH Hypervisors', y: 400000 }],
-                [{ x: 'RHV Growth', y: 40000 }],
-                [{ x: 'Red Hat Training', y: 40000 }],
-                [{ x: 'Red Hat', y: 40000 }],
-                [{ x: 'Travel and lodging', y: 40000 }]
-            ]
-        };
+        let data: FancyGroupedBarChartData;
+
+        if (reportInitialSavingEstimation) {
+            const sourceRampDownCostsModel = reportInitialSavingEstimation.sourceRampDownCostsModel;
+            const rhvRampUpCostsModel = reportInitialSavingEstimation.rhvRampUpCostsModel;
+
+            const vmwareTotal = [
+                sourceRampDownCostsModel.year1SourceMaintenanceTotalValue,
+                sourceRampDownCostsModel.year2SourceMaintenanceTotalValue,
+                sourceRampDownCostsModel.year3SourceMaintenanceTotalValue
+            ].reduce((a, b) => a + b, 0);
+
+            const rhvHypervisorsTotal = [
+                rhvRampUpCostsModel.year1RhvTotalValue,
+                rhvRampUpCostsModel.year2RhvTotalValue,
+                rhvRampUpCostsModel.year3RhvTotalValue
+            ].reduce((a, b) => a + b, 0);
+
+            const rhvGrowthTotal = [
+                rhvRampUpCostsModel.year1RhvTotalGrowthValue,
+                rhvRampUpCostsModel.year2RhvTotalGrowthValue,
+                rhvRampUpCostsModel.year3RhvTotalGrowthValue
+            ].reduce((a, b) => a + b, 0);
+
+            const rhTrainingTotal = rhvRampUpCostsModel.rhvSwitchLearningSubsValue;
+            const rhConsultingTotal = rhvRampUpCostsModel.rhvSwitchConsultValue;
+            const rhTravelAndLodgingTotal = rhvRampUpCostsModel.rhvSwitchTAndEValue;
+
+            data = {
+                colors: [ VMwareColor, RHVHypervisorsColor, RHVGrowthColor, RHTrainingColor, RHConsultingColor, RHTravelAndLodgingColor ],
+                values: [
+                    [{ x: 'VMware', y: vmwareTotal }],
+                    [{ x: 'RVH Hypervisors', y: rhvHypervisorsTotal }],
+                    [{ x: 'RHV Growth', y: rhvGrowthTotal }],
+                    [{ x: 'Red Hat Training', y: rhTrainingTotal }],
+                    [{ x: 'Red Hat Consulting', y: rhConsultingTotal }],
+                    [{ x: 'Travel and lodging', y: rhTravelAndLodgingTotal }]
+                ]
+            };
+        }
 
         const chartProps = {
             width: 650,
-            height: 300,
+            height: 350,
             domainPadding: {
                 x: 50,
                 y: 60
@@ -305,35 +381,35 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
         );
     }
 
-    renderProjectCostBreakdownInYear4 = () => {
-        const { reportInitialSavingEstimation } = this.props;
+    // renderProjectCostBreakdownInYear4 = () => {
+    //     const { reportInitialSavingEstimation } = this.props;
 
-        return (
-            <ReportCard
-                title="Project cost breakdown in year 4"
-                loading={ reportInitialSavingEstimation ? false : true }
-                loadingSkeleton={ <SkeletonTable colSize={ 2 } rowSize={ 2 }/> }
-            >
-                <ProjectCostBreakdownInYear4
-                />
-            </ReportCard>
-        );
-    }
+    //     return (
+    //         <ReportCard
+    //             title="Project cost breakdown in year 4"
+    //             loading={ reportInitialSavingEstimation ? false : true }
+    //             loadingSkeleton={ <SkeletonTable colSize={ 2 } rowSize={ 2 }/> }
+    //         >
+    //             <ProjectCostBreakdownInYear4
+    //             />
+    //         </ReportCard>
+    //     );
+    // }
 
-    renderProjectCostBreakdownInYear4PerVM = () => {
-        const { reportInitialSavingEstimation } = this.props;
+    // renderProjectCostBreakdownInYear4PerVM = () => {
+    //     const { reportInitialSavingEstimation } = this.props;
 
-        return (
-            <ReportCard
-                title="Project cost breakdown in year 4, Per VM"
-                loading={ reportInitialSavingEstimation ? false : true }
-                loadingSkeleton={ <SkeletonTable colSize={ 2 } rowSize={ 2 }/> }
-            >
-                <ProjectCostBreakdownInYear4PerVM
-                />
-            </ReportCard>
-        );
-    }
+    //     return (
+    //         <ReportCard
+    //             title="Project cost breakdown in year 4, Per VM"
+    //             loading={ reportInitialSavingEstimation ? false : true }
+    //             loadingSkeleton={ <SkeletonTable colSize={ 2 } rowSize={ 2 }/> }
+    //         >
+    //             <ProjectCostBreakdownInYear4PerVM
+    //             />
+    //         </ReportCard>
+    //     );
+    // }
 
     render() {
         return (
@@ -359,12 +435,6 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
                     </StackItem>
                     <StackItem isFilled={ false }>
                         { this.renderProjectCostBreakdownTable() }
-                    </StackItem>
-                    <StackItem isFilled={ false }>
-                        { this.renderProjectCostBreakdownInYear4() }
-                    </StackItem>
-                    <StackItem isFilled={ false }>
-                        { this.renderProjectCostBreakdownInYear4PerVM() }
                     </StackItem>
                     <StackItem isFilled={ false }>
                         <Card>

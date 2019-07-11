@@ -3,7 +3,8 @@ import React, { Fragment, Component } from 'react';
 import {
     Main,
     PageHeader,
-    PageHeaderTitle
+    PageHeaderTitle,
+    Skeleton
 } from '@redhat-cloud-services/frontend-components';
 import {
     Tabs,
@@ -100,7 +101,7 @@ class ReportViewPage extends Component<Props, State> {
         return (
             <Fragment>
                 <PageHeader>
-                    <PageHeaderTitle title={ report ? this.renderTabs() : '' } />
+                    <PageHeaderTitle title={ report ? this.renderTabs() : <Skeleton size="sm" /> } />
                 </PageHeader>
                 <Main style={ this.props.mainStyle }>
                     { report ? children : '' }

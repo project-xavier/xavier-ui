@@ -37,7 +37,7 @@ class FancyChartDonut extends Component<Props, State> {
 
         const legendData = data.map((val) => {
             return {
-                name: `${val.label}: ${val.value}%`
+                name: `${val.label}: ${val.value.toFixed(2)}%`
             };
         });
 
@@ -50,7 +50,7 @@ class FancyChartDonut extends Component<Props, State> {
                         <ChartDonut
                             data={ chartData }
                             colorScale={ colorScale }
-                            labels={ datum => `${datum.x}: ${datum.y}%` }
+                            labels={ datum => `${datum.x}: ${datum.y.toFixed(2)}%` }
                             { ...chartProps }
                         />
                     </div>
