@@ -6,7 +6,7 @@ exports[`ReportList expect to render empty list 1`] = `
     loading={false}
     placeholder=""
   >
-    <withRouter(Connect(NoReports)) />
+    <withRouter(NoReports) />
   </LoadingState>
 </withRouter(ReportsPage)>
 `;

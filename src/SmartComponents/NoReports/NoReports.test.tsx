@@ -21,18 +21,4 @@ describe("NoReports", () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it("expect to render drop", () => {
-    const fileContents = "file contents";
-    const file = new Blob([fileContents], { type: "text/plain" });
-
-    const wrapper = shallow(
-      <NoReports { ...props } />
-    );
-
-    wrapper.find(Dropzone).simulate("drop", { dataTransfer: { files: [file] } });
-    
-    expect(props.selectUploadFile).toHaveBeenCalledTimes(1);
-    expect(props.history.push).toHaveBeenCalledTimes(1);
-  });
-
 });
