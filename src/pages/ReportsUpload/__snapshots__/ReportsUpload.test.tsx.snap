@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReportsUpload expect to render form 1`] = `
+<Fragment>
+  <PageHeader>
+    <PageHeaderTitle
+      title="Reports"
+    />
+  </PageHeader>
+  <Connect(Main)>
+    <Modal
+      actions={Array []}
+      ariaDescribedById="Report options"
+      className=""
+      hideTitle={false}
+      isLarge={true}
+      isOpen={true}
+      isSmall={false}
+      onClose={[Function]}
+      title="Report options"
+      width={null}
+    >
+      <Formik
+        enableReinitialize={false}
+        initialValues={
+          Object {
+            "file": "",
+            "percentageOfHypervisorsMigratedOnYear1": 50,
+            "percentageOfHypervisorsMigratedOnYear2": 30,
+            "percentageOfHypervisorsMigratedOnYear3": 10,
+            "percentageOfHypervisorsMigratedSum": 90,
+            "reportDescription": "",
+            "reportName": "",
+            "yearOverYearGrowthRatePercentage": 5,
+          }
+        }
+        isInitialValid={false}
+        onSubmit={[Function]}
+        validate={[Function]}
+        validateOnBlur={true}
+        validateOnChange={true}
+      >
+        <Component />
+      </Formik>
+    </Modal>
+  </Connect(Main)>
+</Fragment>
+`;

@@ -1,6 +1,5 @@
 import {
-    FETCH_REPORT,
-    FETCH_REPORTS
+    ActionTypes
 } from '../actions/ReportActions';
 import {
     pendingMessage,
@@ -23,7 +22,8 @@ export const reportsReducer = function (
     action: GenericAction
 ) {
     switch (action.type) {
-        case pendingMessage(FETCH_REPORTS): {
+        // FETCH_REPORTS list of reports
+        case pendingMessage(ActionTypes.FETCH_REPORTS): {
             const nextState: ReportState = {
                 ...state,
                 total: 0,
@@ -34,7 +34,7 @@ export const reportsReducer = function (
             return nextState;
         }
 
-        case successMessage(FETCH_REPORTS): {
+        case successMessage(ActionTypes.FETCH_REPORTS): {
             const nextState: ReportState = {
                 ...state,
                 total: action.payload.data.length,
@@ -44,7 +44,7 @@ export const reportsReducer = function (
             return nextState;
         }
 
-        case failureMessage(FETCH_REPORTS): {
+        case failureMessage(ActionTypes.FETCH_REPORTS): {
             const nextState: ReportState = {
                 ...state,
                 total: 0,
@@ -55,7 +55,8 @@ export const reportsReducer = function (
             return nextState;
         }
 
-        case pendingMessage(FETCH_REPORT): {
+        // FETCH_REPORT single report
+        case pendingMessage(ActionTypes.FETCH_REPORT): {
             const nextState: ReportState = {
                 ...state,
                 report: null,
@@ -66,7 +67,7 @@ export const reportsReducer = function (
             return nextState;
         }
 
-        case successMessage(FETCH_REPORT): {
+        case successMessage(ActionTypes.FETCH_REPORT): {
             const nextState: ReportState = {
                 ...state,
                 report: action.payload.data,
@@ -75,7 +76,7 @@ export const reportsReducer = function (
             return nextState;
         }
 
-        case failureMessage(FETCH_REPORT): {
+        case failureMessage(ActionTypes.FETCH_REPORT): {
             const nextState: ReportState = {
                 ...state,
                 report: null,

@@ -11,28 +11,15 @@ import {
     pendingMessage
 } from './reducerHelper';
 
-import uploadsMock, { uploadMock } from './__fixtures__/uploads';
 import { GenericAction } from '../models/action';
-import { Upload } from '../models';
 import { UploadState } from '../models/state';
 
-const uploadInitialState = {
-    uploads: [
-        {
-            file: new File([ '' ], 'myFile1.zip'),
-            success: null,
-            error: null,
-            progress: 0,
-            uploading: false
-        },
-        {
-            file: new File([ '' ], 'myFile2.zip'),
-            success: null,
-            error: null,
-            progress: 0,
-            uploading: false
-        }
-    ]
+const uploadInitialState: UploadState = {
+    file: new File([ '' ], 'myFile1.zip'),
+    success: null,
+    error: null,
+    progress: 0,
+    uploading: false
 };
 
 const fromRequest = (type: string, payload: any, meta = {}) => ({
@@ -42,8 +29,8 @@ const fromRequest = (type: string, payload: any, meta = {}) => ({
 });
 
 describe('report reducer', () => {
-    it('should return the initial state', () => {
-        const initialState = undefined;
+    it('should return the default state', () => {
+        const initialState: UploadState = undefined;
         const action = {} as GenericAction;
         
         expect(
@@ -51,119 +38,113 @@ describe('report reducer', () => {
         ).toEqual(systemInitialState);
     });
 
-    it('should handle UPLOAD_PROGRESS', () => {
-        const update: Upload = uploadMock.data;
-        const uploads: Upload[] = uploadsMock.data;
-
-        const expectedUpload: Upload = { ...update, progress: 20 };
-        const expectedUploads: Upload[] = [ ...uploads ].map(e => {
-            return e.file === update.file ? expectedUpload : e;
-        });
-
-        const expectedNewState: UploadState = {
-            ...uploadInitialState,
-            uploads: expectedUploads
+    it('should return the previous state', () => {
+        const initialState: UploadState = {
+            file: new File([ '' ], 'myFile.zip'),
+            success: false,
+            error: 'my custom error',
+            progress: 90,
+            uploading: true
         };
-        const newState: UploadState = uploadsReducer(
-            {
-                ...uploadInitialState,
-                uploads
-            },
-            fromRequest(ActionTypes.UPLOAD_PROGRESS, { file: update.file, progress: 20 })
-        );
-        expect(newState).toEqual(expectedNewState);
+        const action = {} as GenericAction;
+        
+        expect(
+            uploadsReducer(initialState, action)
+        ).toEqual(initialState);
     });
 
-    it('should handle UPLOAD_CLEAR', () => {
+    it('should handle SELECT_UPLOAD_FILE', () => {
+        const payload = {
+            file: new File([ '' ], 'myFile.zip')
+        };
+
         const expectedNewState: UploadState = {
             ...uploadInitialState,
-            uploads: []
+            file: payload.file,
+            success: null,
+            error: null,
+            progress: 0,
+            uploading: false
         };
         const newState: UploadState = uploadsReducer(
             uploadInitialState,
-            fromRequest(ActionTypes.UPLOAD_CLEAR, {})
+            fromRequest(ActionTypes.SELECT_UPLOAD_FILE, payload)
+        );
+        
+        expect(newState).toEqual(expectedNewState);
+    });
+
+    it('should handle UPLOAD_PROGRESS', () => {
+        const payload = {
+            progress: 20
+        };
+
+        const expectedNewState: UploadState = {
+            ...uploadInitialState,
+            progress: payload.progress
+        };
+
+        const newState: UploadState = uploadsReducer(
+            uploadInitialState,
+            fromRequest(ActionTypes.UPLOAD_PROGRESS, payload)
         );
         expect(newState).toEqual(expectedNewState);
     });
 
     it('should handle UPLOAD_REQUEST_PENDING', () => {
-        const file = new File([ '' ], 'myFile1.zip');
+        const payload = {};
+        const meta = {
+            file: new File([ '' ], 'myFile.zip')
+        };
 
-        const upload: Upload = {
-            file,
+        const expectedNewState: UploadState = {
+            ...uploadInitialState,
             error: null,
             success: null,
             progress: 0,
-            uploading: true
+            uploading: true,
+            file: meta.file
         };
 
-        const expectedNewState: UploadState = {
-            ...uploadInitialState,
-            uploads: [
-                ...uploadInitialState.uploads,
-                upload
-            ]
-        };
         const newState: UploadState = uploadsReducer(
             uploadInitialState,
-            fromRequest(pendingMessage(ActionTypes.UPLOAD_REQUEST), {}, { file })
+            fromRequest(pendingMessage(ActionTypes.UPLOAD_REQUEST), payload, meta)
         );
         expect(newState).toEqual(expectedNewState);
     });
 
-    it('should handle UPLOAD_REQUEST_SUCCESS', () => {
-        const update: Upload = uploadMock.data;
-        const uploads: Upload[] = uploadsMock.data;
-
-        const expectedUpload: Upload = { ...update, success: true };
-        const expectedUploads: Upload[] = [ ...uploads ].map(e => {
-            return e.file === update.file ? expectedUpload : e;
-        });
+    it('should handle UPLOAD_REQUEST_FULFILLED', () => {
+        const payload = {};
 
         const expectedNewState: UploadState = {
             ...uploadInitialState,
-            uploads: expectedUploads
+            success: true,
+            uploading: false
         };
 
-        const mockPayload = { };
-        const mockMeta = { file: update.file };
         const newState: UploadState = uploadsReducer(
-            {
-                ...uploadInitialState,
-                uploads
-            },
-            fromRequest(successMessage(ActionTypes.UPLOAD_REQUEST), mockPayload, mockMeta)
+            uploadInitialState,
+            fromRequest(successMessage(ActionTypes.UPLOAD_REQUEST), payload)
         );
         expect(newState).toEqual(expectedNewState);
     });
 
-    it('should handle UPLOAD_REQUEST_FAILURE', () => {
-        const error = 'It broke';
-
-        const update: Upload = uploadMock.data;
-        const uploads: Upload[] = uploadsMock.data;
-
-        const expectedUpload: Upload = { ...update, error, success: false };
-        const expectedUploads: Upload[] = [ ...uploadsMock.data ].map(e => {
-            return e.file === update.file ? expectedUpload : e;
-        });
-
+    it('should handle UPLOAD_REQUEST_REJECTED', () => {
+        const payload = {
+            message: 'my custom error message'
+        };
 
         const expectedNewState: UploadState = {
             ...uploadInitialState,
-            uploads: expectedUploads
+            error: payload.message,
+            success: false,
+            uploading: false
         };
 
-        const mockPayload = { message: error };
-        const mockMeta = { file: update.file };
         const newState: UploadState = uploadsReducer(
-            {
-                ...uploadInitialState,
-                uploads
-            },
-            fromRequest(failureMessage(ActionTypes.UPLOAD_REQUEST), mockPayload, mockMeta)
+            uploadInitialState,
+            fromRequest(failureMessage(ActionTypes.UPLOAD_REQUEST), payload)
         );
         expect(newState).toEqual(expectedNewState);
     });
-
 });

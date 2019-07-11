@@ -8,10 +8,13 @@ import {
 } from '../actions/UploadActions';
 import { GenericAction } from '../models/action';
 import { UploadState } from '../models/state';
-import { Upload } from '../models';
 
 export const initialState: UploadState = {
-    uploads: []
+    file: null,
+    success: null,
+    error: null,
+    progress: 0,
+    uploading: false
 };
 
 export const uploadsReducer = function (
@@ -20,96 +23,59 @@ export const uploadsReducer = function (
 ) {
     switch (action.type) {
         case ActionTypes.UPLOAD_PROGRESS: {
-            const uploads: Upload[] = state.uploads.map((upload: Upload) => {
-                const newState: Upload = {
-                    ...upload,
-                    progress: upload.file === action.payload.file ? action.payload.progress : upload.progress
-                };
-
-                return newState;
-            });
-
             const nextState: UploadState = {
                 ...state,
-                uploads
+                progress: action.payload.progress
             };
             return nextState;
         }
 
-        case ActionTypes.UPLOAD_CLEAR: {
-            return {
+        case ActionTypes.SELECT_UPLOAD_FILE: {
+            const nextState: UploadState = {
                 ...state,
-                uploads: []
+                error: null,
+                success: null,
+                progress: 0,
+                uploading: false,
+                file: action.payload.file
+            };
+            return nextState;
+        }
+
+        case ActionTypes.RESET_UPLOAD_FILE: {
+            return {
+                ...initialState
             };
         }
 
+        //
         case pendingMessage(ActionTypes.UPLOAD_REQUEST): {
-            const upload: Upload = {
+            const nextState: UploadState = {
+                ...state,
                 error: null,
                 success: null,
                 progress: 0,
                 uploading: true,
                 file: action.meta.file
             };
-
-            const nextState: UploadState = {
-                ...state,
-                uploads: [
-                    ...state.uploads,
-                    upload
-                ]
-            };
             return nextState;
         }
 
         case successMessage(ActionTypes.UPLOAD_REQUEST): {
-            const uploads: Upload[] = state.uploads.map((upload: Upload) => {
-                let newUpload: Upload;
-                if (upload.file === action.meta.file) {
-                    newUpload = {
-                        ...upload,
-                        error: null,
-                        success: true,
-                        uploading: false
-                    };
-                } else {
-                    newUpload = {
-                        ...upload
-                    };
-                }
-
-                return newUpload;
-            });
-
             const nextState: UploadState = {
                 ...state,
-                uploads
+                success: true,
+                uploading: false
             };
             return nextState;
         }
 
         case failureMessage(ActionTypes.UPLOAD_REQUEST): {
-            const uploads: Upload[] = state.uploads.map((upload: Upload) => {
-                let newUpload: Upload;
-                if (upload.file === action.meta.file) {
-                    newUpload = {
-                        ...upload,
-                        error: action.payload.message,
-                        success: false,
-                        uploading: false
-                    };
-                } else {
-                    newUpload = {
-                        ...upload
-                    };
-                }
-
-                return newUpload;
-            });
-
             const nextState: UploadState = {
                 ...state,
-                uploads
+                error: action.payload.message,
+                success: false,
+                uploading: false
             };
             return nextState;
         }

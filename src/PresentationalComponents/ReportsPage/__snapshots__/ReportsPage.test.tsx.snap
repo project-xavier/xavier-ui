@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReportPage expect to render 1`] = `
+<Fragment>
+  <PageHeader>
+    <PageHeaderTitle
+      title="Reports"
+    />
+  </PageHeader>
+  <Connect(Main)
+    style={
+      Object {
+        "color": "red",
+      }
+    }
+  >
+    children
+  </Connect(Main)>
+</Fragment>
+`;

@@ -16,8 +16,8 @@ export function init(...middleware) {
     ]);
 
     registry.register({
-        reports: reportsReducer,
-        uploads: uploadsReducer
+        reportState: reportsReducer,
+        uploadState: uploadsReducer
     });
 
     return registry;

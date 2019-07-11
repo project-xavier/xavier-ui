@@ -1,15 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`uploadClear returns a state object 1`] = `
+exports[`selectFile returns a state object 1`] = `
 Object {
-  "type": "UPLOAD_CLEAR",
+  "payload": Object {
+    "file": File {},
+  },
+  "type": "SELECT_UPLOAD_FILE",
 }
 `;
 
 exports[`uploadProgress returns a state object 1`] = `
 Object {
   "payload": Object {
-    "file": File {},
     "progress": 60,
   },
   "type": "UPLOAD_PROGRESS",
@@ -22,7 +24,7 @@ Object {
     "file": File {},
     "notifications": Object {
       "rejected": Object {
-        "title": "Failed to upload file myFile.zip",
+        "title": "Failed to upload file",
         "variant": "danger",
       },
     },

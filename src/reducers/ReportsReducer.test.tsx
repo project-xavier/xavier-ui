@@ -3,8 +3,7 @@ import {
     initialState as systemInitialState
 } from './ReportsReducer';
 import {
-    FETCH_REPORTS,
-    FETCH_REPORT
+    ActionTypes
 } from '../actions/ReportActions';
 import {
     successMessage,
@@ -17,13 +16,9 @@ import { GenericAction } from '../models/action';
 import { ReportState } from '../models/state';
 import { Report } from '../models';
 
-const initialState = {
-    error: null,
-    loading: false
-};
-
 const reportInitialState: ReportState = {
-    ...initialState,
+    error: 'my error',
+    loading: false,
     total: 1,
     reports: [
         {
@@ -55,13 +50,28 @@ const fromRequest = (type: string, payload: any, meta = {}) => ({
 
 describe('report reducer', () => {
 
-    it('should return the initial state', () => {
-        const initialState = undefined;
+    it('should return the default state', () => {
+        const initialState: ReportState = undefined;
         const action = {} as GenericAction;
         
         expect(
             reportsReducer(initialState, action)
         ).toEqual(systemInitialState);
+    });
+
+    it('should return the previous state', () => {
+        const initialState: ReportState = {
+            error: 'my error',
+            total: 90,
+            report: null,
+            reports: [],
+            loading: true
+        };
+        const action = {} as GenericAction;
+        
+        expect(
+            reportsReducer(initialState, action)
+        ).toEqual(initialState);
     });
 
     it('should handle FETCH_REPORTS_PENDING', () => {
@@ -74,7 +84,7 @@ describe('report reducer', () => {
         };
         const newState: ReportState = reportsReducer(
             reportInitialState,
-            fromRequest(pendingMessage(FETCH_REPORTS), {})
+            fromRequest(pendingMessage(ActionTypes.FETCH_REPORTS), {})
         );
         expect(newState).toEqual(expectedNewState);
     });
@@ -88,7 +98,7 @@ describe('report reducer', () => {
         };
         const newState: ReportState = reportsReducer(
             reportInitialState,
-            fromRequest(pendingMessage(FETCH_REPORT), {})
+            fromRequest(pendingMessage(ActionTypes.FETCH_REPORT), {})
         );
         expect(newState).toEqual(expectedNewState);
     });
@@ -102,7 +112,7 @@ describe('report reducer', () => {
         };
         const newState: ReportState = reportsReducer(
             reportInitialState,
-            fromRequest(successMessage(FETCH_REPORTS), reportsMock)
+            fromRequest(successMessage(ActionTypes.FETCH_REPORTS), reportsMock)
         );
         expect(newState).toEqual(expectedNewState);
     });
@@ -117,7 +127,7 @@ describe('report reducer', () => {
         };
         const newState: ReportState = reportsReducer(
             reportInitialState,
-            fromRequest(successMessage(FETCH_REPORT), reportMock)
+            fromRequest(successMessage(ActionTypes.FETCH_REPORT), reportMock)
         );
         expect(newState).toEqual(expectedNewState);
     });
@@ -134,7 +144,7 @@ describe('report reducer', () => {
         };
         const newState: ReportState = reportsReducer(
             reportInitialState,
-            fromRequest(failureMessage(FETCH_REPORTS), { message: error })
+            fromRequest(failureMessage(ActionTypes.FETCH_REPORTS), { message: error })
         );
 
         expect(newState).toEqual(expectedNewState);
@@ -151,7 +161,7 @@ describe('report reducer', () => {
         };
         const newState: ReportState = reportsReducer(
             reportInitialState,
-            fromRequest(failureMessage(FETCH_REPORT), { message: error })
+            fromRequest(failureMessage(ActionTypes.FETCH_REPORT), { message: error })
         );
         expect(newState).toEqual(expectedNewState);
     });

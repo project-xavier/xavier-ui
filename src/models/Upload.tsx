@@ -1,7 +1,10 @@
 export interface Upload {
+    id?: number;
     file: File,
-    success: boolean | null,
-    error: string | null,
-    progress: number,
-    uploading: boolean
+    reportName: string,
+    reportDescription?: string | null,
+    yearOverYearGrowthRatePercentage: number,
+    percentageOfHypervisorsMigratedOnYear1: number,
+    percentageOfHypervisorsMigratedOnYear2: number,
+    percentageOfHypervisorsMigratedOnYear3: number
 }

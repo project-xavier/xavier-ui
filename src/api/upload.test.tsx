@@ -9,13 +9,13 @@ import * as actionGenerator from './upload';
 
 describe('uploadFile', () => {
     it('returns a state object', () => {
-        const customerId = 'myCustomerId';
         const file = new File([ '' ], 'myFile.zip');
-        const config = {};
-
+    
         const formData = new FormData();
         formData.append('file', file, file.name);
-        
-        expect(actionGenerator.uploadFile(customerId, formData, config)).toMatchSnapshot();
+        formData.append('customerId', 'myCustomerId');
+    
+        const config = {};
+        expect(actionGenerator.uploadFile(formData, config)).toMatchSnapshot();
     });
 });
