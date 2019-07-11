@@ -32,7 +32,9 @@ const props = {
     }
   }),
 
-  history: null,
+  history: {
+    push: jest.fn()
+  },
   location: null,
   match: null
 };

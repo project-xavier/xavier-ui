@@ -44,7 +44,7 @@ exports[`ReportView expect to render loading object 1`] = `
     <Redirect
       from="undefined"
       push={false}
-      to="undefined/workloadMigrationSummary"
+      to="undefined/initialSavingsEstimation"
     />
   </Switch>
 </withRouter(ReportViewPage)>
@@ -80,7 +80,7 @@ exports[`ReportView expect to render object 1`] = `
     <Redirect
       from="undefined"
       push={false}
-      to="undefined/workloadMigrationSummary"
+      to="undefined/initialSavingsEstimation"
     />
   </Switch>
 </withRouter(ReportViewPage)>

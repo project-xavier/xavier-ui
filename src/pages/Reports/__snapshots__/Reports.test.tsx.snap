@@ -2,12 +2,134 @@
 
 exports[`ReportList expect to render empty list 1`] = `
 <withRouter(ReportsPage)>
-  <LoadingState
-    loading={false}
-    placeholder=""
+  <TableToolbar
+    className="pf-u-justify-content-space-between"
+    isFooter={false}
   >
-    <withRouter(Connect(NoReports)) />
-  </LoadingState>
+    <ToolbarGroup
+      className={null}
+    >
+      <ToolbarItem
+        className="pf-u-mr-xl"
+      >
+        <Formik
+          enableReinitialize={false}
+          initialValues={
+            Object {
+              "filterText": "",
+            }
+          }
+          isInitialValid={false}
+          onSubmit={[Function]}
+          validate={[Function]}
+          validateOnBlur={true}
+          validateOnChange={true}
+        >
+          <Component />
+        </Formik>
+      </ToolbarItem>
+      <ToolbarItem
+        className="pf-u-mr-md"
+      >
+        <Link
+          className="pf-c-button pf-m-secondary"
+          replace={false}
+          to="/reports/upload"
+        >
+          Create
+        </Link>
+      </ToolbarItem>
+    </ToolbarGroup>
+    <ToolbarGroup
+      className={null}
+    >
+      <ToolbarItem
+        className={null}
+      >
+        <Pagination
+          className=""
+          dropDirection="down"
+          itemCount={0}
+          itemsEnd={null}
+          itemsStart={null}
+          onFirstClick={[Function]}
+          onLastClick={[Function]}
+          onNextClick={[Function]}
+          onPageInput={[Function]}
+          onPerPageSelect={[Function]}
+          onPreviousClick={[Function]}
+          onSetPage={[Function]}
+          page={1}
+          perPage={10}
+          perPageOptions={
+            Array [
+              Object {
+                "title": "10",
+                "value": 10,
+              },
+              Object {
+                "title": "20",
+                "value": 20,
+              },
+              Object {
+                "title": "50",
+                "value": 50,
+              },
+              Object {
+                "title": "100",
+                "value": 100,
+              },
+            ]
+          }
+          titles={
+            Object {
+              "currPage": "Current page",
+              "items": "items",
+              "itemsPerPage": "Items per page",
+              "optionsToggle": "Select",
+              "pages": "pages",
+              "paginationTitle": "Pagination",
+              "perPageSuffix": "per page",
+              "toFirstPage": "Go to first page",
+              "toLastPage": "Go to last page",
+              "toNextPage": "Go to next page",
+              "toPreviousPage": "Go to previous page",
+            }
+          }
+          toggleTemplate={[Function]}
+          variant="top"
+          widgetId="pagination-options-menu"
+        />
+      </ToolbarItem>
+    </ToolbarGroup>
+  </TableToolbar>
+  <Card>
+    <CardBody>
+      <EmptyState
+        variant="full"
+      >
+        <EmptyStateIcon
+          icon={[Function]}
+        />
+        <Title
+          headingLevel="h5"
+          size="lg"
+        >
+          No reports found
+        </Title>
+        <EmptyStateBody>
+          Reports are created from inventory data files that are uploaded to Red Hat
+        </EmptyStateBody>
+        <Link
+          className="pf-c-button pf-m-primary"
+          replace={false}
+          to="/reports/upload"
+        >
+          Create Report
+        </Link>
+      </EmptyState>
+    </CardBody>
+  </Card>
 </withRouter(ReportsPage)>
 `;
 
@@ -42,22 +164,13 @@ exports[`ReportList expect to render list 1`] = `
       <ToolbarItem
         className="pf-u-mr-md"
       >
-        <Button
-          aria-label={null}
-          className=""
-          component={[Function]}
-          isActive={false}
-          isBlock={false}
-          isDisabled={false}
-          isFocus={false}
-          isHover={false}
-          isInline={false}
+        <Link
+          className="pf-c-button pf-m-secondary"
+          replace={false}
           to="/reports/upload"
-          type="button"
-          variant="secondary"
         >
           Create
-        </Button>
+        </Link>
       </ToolbarItem>
     </ToolbarGroup>
     <ToolbarGroup
@@ -67,8 +180,11 @@ exports[`ReportList expect to render list 1`] = `
         className={null}
       >
         <Pagination
+          className=""
           dropDirection="down"
           itemCount={2}
+          itemsEnd={null}
+          itemsStart={null}
           onFirstClick={[Function]}
           onLastClick={[Function]}
           onNextClick={[Function]}
@@ -149,6 +265,7 @@ exports[`ReportList expect to render list 1`] = `
     gridBreakPoint="grid-md"
     onCollapse={null}
     onExpand={null}
+    role="grid"
     rowLabeledBy="simple-node"
     rows={
       Array [
@@ -231,22 +348,13 @@ exports[`ReportList expect to render loading list 1`] = `
       <ToolbarItem
         className="pf-u-mr-md"
       >
-        <Button
-          aria-label={null}
-          className=""
-          component={[Function]}
-          isActive={false}
-          isBlock={false}
-          isDisabled={false}
-          isFocus={false}
-          isHover={false}
-          isInline={false}
+        <Link
+          className="pf-c-button pf-m-secondary"
+          replace={false}
           to="/reports/upload"
-          type="button"
-          variant="secondary"
         >
           Create
-        </Button>
+        </Link>
       </ToolbarItem>
     </ToolbarGroup>
     <ToolbarGroup
@@ -256,8 +364,11 @@ exports[`ReportList expect to render loading list 1`] = `
         className={null}
       >
         <Pagination
+          className=""
           dropDirection="down"
           itemCount={2}
+          itemsEnd={null}
+          itemsStart={null}
           onFirstClick={[Function]}
           onLastClick={[Function]}
           onNextClick={[Function]}
@@ -338,6 +449,7 @@ exports[`ReportList expect to render loading list 1`] = `
     gridBreakPoint="grid-md"
     onCollapse={null}
     onExpand={null}
+    role="grid"
     rowLabeledBy="simple-node"
     rows={
       Array [
