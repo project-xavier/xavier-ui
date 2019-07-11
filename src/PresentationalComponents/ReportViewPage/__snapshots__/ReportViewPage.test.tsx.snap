@@ -4,7 +4,11 @@ exports[`ReportViewPage expect to render 1`] = `
 <Fragment>
   <PageHeader>
     <PageHeaderTitle
-      title=""
+      title={
+        <Skeleton
+          size="sm"
+        />
+      }
     />
   </PageHeader>
   <Connect(Main)
