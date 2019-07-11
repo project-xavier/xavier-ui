@@ -3,7 +3,8 @@ import {
     FormikState,
     FormikValues,
     FormikActions,
-    FormikHandlers
+    FormikHandlers,
+    FormikComputedProps
 } from 'formik';
 import {
     Form,
@@ -22,7 +23,7 @@ import {
 import Dropzone from 'react-dropzone';
 import './UploadForm.scss';
 
-interface UploadFormProps extends FormikState<FormikValues>, FormikActions<FormikValues>, FormikHandlers {
+interface UploadFormProps extends FormikComputedProps<FormikValues>, FormikState<FormikValues>, FormikActions<FormikValues>, FormikHandlers {
     file: File;
     onFileSelected: Function;
     handleCancel: (e: any) => any;
@@ -64,7 +65,8 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
             handleChange,
             handleBlur,
             handleSubmit,
-            isSubmitting
+            isSubmitting,
+            isValid
         } = this.props;
 
         return (
@@ -297,7 +299,9 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                 </Stack>
 
                 <ActionGroup>
-                    <Button variant="primary" type="submit" isDisabled={ isSubmitting } disabled={ isSubmitting }>Create report</Button>
+                    <Button variant="primary" type="submit" isDisabled={ !isValid || isSubmitting } disabled={ !isValid || isSubmitting }>
+                        Create report
+                    </Button>
                     <Button variant="secondary" type="button" onClick={ this.props.handleCancel }>Cancel</Button>
                 </ActionGroup>
             </Form>
