@@ -1,7 +1,6 @@
 import React from 'react';
-import Dropzone from 'react-dropzone';
+import { Link } from 'react-router-dom';
 import {
-    Button,
     Bullseye,
     EmptyStateBody,
     EmptyStateVariant,
@@ -13,11 +12,9 @@ import ProcessImprovementSvg from '../../PresentationalComponents/Icons/process-
 import './Reports.scss';
 
 interface StateToProps {
-    file: File | null
 }
 
 interface DispatchToProps {
-    selectUploadFile: (file: File) => any;
 }
 
 interface Props extends StateToProps, DispatchToProps, RouterGlobalProps {
@@ -31,11 +28,6 @@ class NoReports extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
     }
-
-    onDrop = (files: File[]) => {
-        this.props.selectUploadFile(files[0]);
-        this.props.history.push('/reports/upload');
-    };
 
     render() {
         return (
@@ -53,26 +45,7 @@ class NoReports extends React.Component<Props, State> {
                                 workloads - whether by migrating virtual machines or
                                 migrating application to RHEL.
                     </EmptyStateBody>
-                    <Dropzone
-                        onDrop={ this.onDrop }
-                        noClick noKeyboard
-                        multiple={ false }
-                        accept={ [ 'application/zip', 'application/json' ] }
-                    >
-                        { ({ getRootProps, getInputProps, open }) => {
-                            return (
-                                <div { ...getRootProps({ className: 'dropzone' }) }>
-                                    <input { ...getInputProps() } />
-                                    <Button
-                                        type="button"
-                                        variant="primary"
-                                        onClick={ open }>
-                                        Get Started
-                                    </Button>
-                                </div>
-                            );
-                        } }
-                    </Dropzone>
+                    <Link to={ '/reports/upload' } className="pf-c-button pf-m-primary">Get Started</Link>
                 </EmptyState>
             </Bullseye>
         );
