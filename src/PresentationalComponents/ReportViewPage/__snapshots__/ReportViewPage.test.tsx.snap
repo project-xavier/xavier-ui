@@ -1,13 +1,59 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ReportViewPage expect to render 1`] = `
+exports[`ReportViewPage expect to redirect on fetchReport error 1`] = `
+<Redirect
+  push={false}
+  to="/reports"
+/>
+`;
+
+exports[`ReportViewPage expect to render skeleton 1`] = `
 <Fragment>
   <PageHeader>
     <PageHeaderTitle
       title={
-        <Skeleton
-          size="sm"
-        />
+        <React.Fragment>
+          <div
+            className="pf-l-stack pf-m-gutter"
+          >
+            <div
+              className="pf-l-stack__item"
+            >
+              <Skeleton
+                size="sm"
+              />
+            </div>
+            <div
+              className="pf-l-stack__item"
+            >
+              <div
+                className="pf-l-grid"
+              >
+                <div
+                  className="pf-l-grid__item pf-m-4-col"
+                >
+                  <Skeleton
+                    size="md"
+                  />
+                </div>
+                <div
+                  className="pf-l-grid__item pf-m-4-col"
+                >
+                  <Skeleton
+                    size="md"
+                  />
+                </div>
+                <div
+                  className="pf-l-grid__item pf-m-4-col"
+                >
+                  <Skeleton
+                    size="md"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </React.Fragment>
       }
     />
   </PageHeader>
@@ -18,5 +64,137 @@ exports[`ReportViewPage expect to render 1`] = `
       }
     }
   />
+</Fragment>
+`;
+
+exports[`ReportViewPage expect to render tabs when fetch status is complete 1`] = `
+<Fragment>
+  <PageHeader>
+    <PageHeaderTitle
+      title={
+        <React.Fragment>
+          <Breadcrumb
+            style={
+              Object {
+                "marginBottom": "25px",
+              }
+            }
+          >
+            <BreadcrumbItem>
+              <Link
+                replace={false}
+                to="/reports"
+              >
+                Reports
+              </Link>
+            </BreadcrumbItem>
+            <BreadcrumbItem
+              isActive={true}
+            >
+              123.zip
+            </BreadcrumbItem>
+          </Breadcrumb>
+          <Tabs
+            activeKey={1}
+            className=""
+            isFilled={true}
+            isSecondary={false}
+            leftScrollAriaLabel="Scroll left"
+            onSelect={[Function]}
+            rightScrollAriaLabel="Scroll Right"
+            variant="div"
+          >
+            <ForwardRef
+              eventKey={0}
+              title="Workload Migration Summary"
+            />
+            <ForwardRef
+              eventKey={1}
+              title="Initials Savings Estimation"
+            />
+            <ForwardRef
+              eventKey={2}
+              title="Workload Inventory"
+            />
+          </Tabs>
+        </React.Fragment>
+      }
+    />
+  </PageHeader>
+  <Connect(Main)
+    style={
+      Object {
+        "color": "red",
+      }
+    }
+  >
+    children
+  </Connect(Main)>
+</Fragment>
+`;
+
+exports[`ReportViewPage expect to render tabs when fetch status is complete and report is null 1`] = `
+<Fragment>
+  <PageHeader>
+    <PageHeaderTitle
+      title={
+        <React.Fragment>
+          <Breadcrumb
+            style={
+              Object {
+                "marginBottom": "25px",
+              }
+            }
+          >
+            <BreadcrumbItem>
+              <Link
+                replace={false}
+                to="/reports"
+              >
+                Reports
+              </Link>
+            </BreadcrumbItem>
+            <BreadcrumbItem
+              isActive={true}
+            >
+              
+            </BreadcrumbItem>
+          </Breadcrumb>
+          <Tabs
+            activeKey={1}
+            className=""
+            isFilled={true}
+            isSecondary={false}
+            leftScrollAriaLabel="Scroll left"
+            onSelect={[Function]}
+            rightScrollAriaLabel="Scroll Right"
+            variant="div"
+          >
+            <ForwardRef
+              eventKey={0}
+              title="Workload Migration Summary"
+            />
+            <ForwardRef
+              eventKey={1}
+              title="Initials Savings Estimation"
+            />
+            <ForwardRef
+              eventKey={2}
+              title="Workload Inventory"
+            />
+          </Tabs>
+        </React.Fragment>
+      }
+    />
+  </PageHeader>
+  <Connect(Main)
+    style={
+      Object {
+        "color": "red",
+      }
+    }
+  >
+    children
+  </Connect(Main)>
 </Fragment>
 `;

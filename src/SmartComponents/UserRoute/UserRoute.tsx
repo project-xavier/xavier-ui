@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { User } from '../../models';
+import { ObjectFetchStatus } from '../../models/state';
 
 interface StateToProps {
-    loading: boolean;
     user: User | null;
-    error: string;
+    userFetchStatus: ObjectFetchStatus;
 }
 
 interface DispatchToProps {
@@ -29,19 +29,18 @@ class UserRoute extends React.Component<Props, State> {
     }
 
     render() {
-        const { component: Component, ...rest } = this.props;
-        const { user } = this.props;
+        const { user, userFetchStatus, component: Component, ...rest } = this.props;
 
-        if (this.props.loading) {
-            return <Route { ...rest } render={ () => null } />;
-        } else if (this.props.error) {
-            return <Route { ...rest } render={ () => <Redirect to="/error" /> } />;
-        } else if (user !== null && user !== undefined && user) {
-            return <Route { ...rest } component={ Component } />;
-        } else if (user !== null && user !== undefined && !user) {
-            return <Route { ...rest } render={ () => <Redirect to="/error" /> } />;
-        } else {
-            return <Route { ...rest } render={ () => null } />;
+        switch (userFetchStatus.status) {
+            case 'complete':
+                if (user) {
+                    return <Route { ...rest } component={ Component } />;
+                } else {
+                    return <Route { ...rest } render={ () => <Redirect to="/error" /> } />;
+                }
+
+            default:
+                return <Route { ...rest } render={ () => null } />;
         }
     }
 }

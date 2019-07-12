@@ -10,9 +10,11 @@ import { UserState } from '../models/state';
 import { GenericAction } from '../models/action';
 
 export const initialState: UserState = {
-    error: null,
     user: null,
-    loading: false
+    userFetchStatus: {
+        error: null,
+        status: 'none'
+    }
 };
 
 export const userReducer = function (
@@ -25,6 +27,7 @@ export const userReducer = function (
                 ...state,
                 user: Object.assign({}, state.user, action.payload.user)
             };
+
             return nextState;
         }
 
@@ -32,8 +35,10 @@ export const userReducer = function (
             const nextState: UserState = {
                 ...state,
                 user: null,
-                loading: true,
-                error: null
+                userFetchStatus: {
+                    error: null,
+                    status: 'inProgress'
+                }
             };
 
             return nextState;
@@ -43,7 +48,10 @@ export const userReducer = function (
             const nextState: UserState = {
                 ...state,
                 user: action.payload.data,
-                loading: false
+                userFetchStatus: {
+                    error: null,
+                    status: 'complete'
+                }
             };
 
             return nextState;
@@ -53,8 +61,10 @@ export const userReducer = function (
             const nextState: UserState = {
                 ...state,
                 user: null,
-                loading: false,
-                error: action.payload.message
+                userFetchStatus: {
+                    error: action.payload.message,
+                    status: 'complete'
+                }
             };
 
             return nextState;

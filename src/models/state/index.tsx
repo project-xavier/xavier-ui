@@ -11,33 +11,26 @@ export interface GlobalState {
     dialogDeleteState: DialogDeleteState
 }
 
-export interface ReportState {
-    /**
-     * The error when fetch report/reports fails
-     */
+export interface ObjectFetchStatus {
     error: string | null;
+    status: 'none' | 'inProgress' | 'complete';
+}
 
-    /**
-     * True when loading a list of reports or a single one
-     */
-    loading: boolean;
-
-    /**
-     * A Single report
-     */
+export interface ReportState {
     report: Report | null;
+    reportFetchStatus: ObjectFetchStatus;
+
+    reports: {
+        total: number;
+        items: Report[];
+    };
+    reportsFetchStatus: ObjectFetchStatus;
+
     reportMigrationSummary: ReportWorkloadMigrationSummary | null;
+    reportMigrationSummaryFetchStatus: ObjectFetchStatus;
+
     reportInitialSavingEstimation: ReportInitialSavingEstimation | null;
-
-    /**
-     * List of reports
-     */
-    reports: Report[];
-
-    /**
-     * Total number of elements of reports
-     */
-    total: number;
+    reportInitialSavingEstimationFetchStatus: ObjectFetchStatus;
 }
 
 export interface UploadState {
@@ -69,8 +62,7 @@ export interface UploadState {
 
 export interface UserState {
     user: User | null;
-    error: string | null;
-    loading: boolean;
+    userFetchStatus: ObjectFetchStatus;
 }
 
 export type DialogDeleteState = Readonly<{

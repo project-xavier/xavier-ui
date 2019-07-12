@@ -55,7 +55,6 @@ export const deleteReport = (id: number, name: string): GenericAction => ({
     type: ActionTypes.DELETE_REPORT,
     payload: destroyReport(id).then(() => ({ id })),
     meta: {
-        noError: true, // turns of automatic notification
         notifications: {
             rejected: {
                 variant: 'danger',

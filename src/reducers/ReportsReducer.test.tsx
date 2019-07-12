@@ -13,24 +13,32 @@ import {
 
 import reportsMock, { reportMock } from './__fixtures__/reports';
 import { GenericAction } from '../models/action';
-import { ReportState } from '../models/state';
+import { ReportState, ObjectFetchStatus } from '../models/state';
 import { Report } from '../models';
 
-const reportInitialState: ReportState = {
-    error: 'my error',
-    loading: false,
-    total: 1,
-    reports: [
-        {
-            id: 36,
-            customerId: '123456',
-            fileName: 'file1.json',
-            numberOfHosts: 254,
-            totalDiskSpace: 5871365,
-            totalPrice: 1200,
-            creationDate: 546785214
-        }
-    ],
+const defaultFetchStatus: ObjectFetchStatus = {
+    error: null,
+    status: "none"
+};
+
+const reportTestInitialState: ReportState = {
+    reports: {
+        total: 1,
+        items: [
+            {
+                id: 36,
+                customerId: '123456',
+                fileName: 'file1.json',
+                numberOfHosts: 254,
+                totalDiskSpace: 5871365,
+                totalPrice: 1200,
+                creationDate: 546785214,
+                analysisStatus: 'progress'
+            }
+        ]
+    },
+    reportsFetchStatus: { ...defaultFetchStatus },
+
     report: {
         id: 37,
         customerId: '654321',
@@ -38,8 +46,16 @@ const reportInitialState: ReportState = {
         numberOfHosts: 257,
         totalDiskSpace: 6546531,
         totalPrice: 100,
-        creationDate: 546425465
-    }
+        creationDate: 546425465,
+        analysisStatus: 'progress'
+    },
+    reportFetchStatus: { ...defaultFetchStatus },
+
+    reportMigrationSummary: null,
+    reportMigrationSummaryFetchStatus: { ...defaultFetchStatus },
+
+    reportInitialSavingEstimation: null,
+    reportInitialSavingEstimationFetchStatus: { ...defaultFetchStatus }
 };
 
 const fromRequest = (type: string, payload: any, meta = {}) => ({
@@ -50,8 +66,8 @@ const fromRequest = (type: string, payload: any, meta = {}) => ({
 
 describe('report reducer', () => {
 
-    it('should return the default state', () => {
-        const initialState: ReportState = undefined;
+    it('should return the default system state', () => {
+        const initialState = undefined;
         const action = {} as GenericAction;
         
         expect(
@@ -59,64 +75,66 @@ describe('report reducer', () => {
         ).toEqual(systemInitialState);
     });
 
-    it('should return the previous state', () => {
-        const initialState: ReportState = {
-            error: 'my error',
-            total: 90,
-            report: null,
-            reports: [],
-            loading: true
-        };
-        const action = {} as GenericAction;
-        
-        expect(
-            reportsReducer(initialState, action)
-        ).toEqual(initialState);
-    });
-
     it('should handle FETCH_REPORTS_PENDING', () => {
         const expectedNewState: ReportState = {
-            ...reportInitialState,
-            loading: true,
-            error: null
+            ...reportTestInitialState,
+            reportsFetchStatus: {
+                error: null,
+                status: "inProgress"
+            }
         };
+
         const newState: ReportState = reportsReducer(
-            reportInitialState,
+            reportTestInitialState,
             fromRequest(pendingMessage(ActionTypes.FETCH_REPORTS), {})
         );
+
         expect(newState).toEqual(expectedNewState);
     });
 
     it('should handle FETCH_REPORT_PENDING', () => {
         const expectedNewState: ReportState = {
-            ...reportInitialState,
+            ...reportTestInitialState,
             report: null,
-            loading: true,
-            error: null
+            reportFetchStatus: {
+                error: null,
+                status: "inProgress"
+            }
         };
+
         const newState: ReportState = reportsReducer(
-            reportInitialState,
+            reportTestInitialState,
             fromRequest(pendingMessage(ActionTypes.FETCH_REPORT), {})
         );
+
         expect(newState).toEqual(expectedNewState);
     });
 
     it('should handle FETCH_REPORTS_SUCCESS', () => {
-        const expectedNewState: ReportState = {
-            ...reportInitialState,
-            loading: false,
-            reports: reportsMock.data,
-            total: 100
+        const headers = {
+            'x-total-count': 100
         };
+
+        const expectedNewState: ReportState = {
+            ...reportTestInitialState,
+            reports: {
+                total: headers["x-total-count"],
+                items: reportsMock.data
+            },
+            reportsFetchStatus: {
+                error: null,
+                status: "complete"
+            }
+        };
+
         const newState: ReportState = reportsReducer(
-            reportInitialState,
+            reportTestInitialState,
             fromRequest(successMessage(ActionTypes.FETCH_REPORTS), {
                 ...reportsMock,
-                headers: {
-                    'x-total-count': 100
-                }
+                headers
             })
         );
+
         expect(newState).toEqual(expectedNewState);
     });
 
@@ -124,29 +142,38 @@ describe('report reducer', () => {
         let testReport: Report = reportMock.data;
 
         const expectedNewState: ReportState = {
-            ...reportInitialState,
-            loading: false,
-            report: testReport
+            ...reportTestInitialState,
+            report: testReport,
+            reportFetchStatus: {
+                error: null,
+                status: "complete"
+            }
         };
+
         const newState: ReportState = reportsReducer(
-            reportInitialState,
+            reportTestInitialState,
             fromRequest(successMessage(ActionTypes.FETCH_REPORT), reportMock)
         );
+
         expect(newState).toEqual(expectedNewState);
     });
 
     it('should handle FETCH_REPORTS_FAILURE', () => {
-        const error = 'It broke';
+        const error = 'my error message';
         
         const expectedNewState: ReportState = {
-            ...reportInitialState,
-            total: 0,
-            reports: [],
-            loading: false,
-            error
+            ...reportTestInitialState,
+            reports: {
+                items: [],
+                total: 0
+            },
+            reportsFetchStatus: {
+                error,
+                status: "complete"
+            }
         };
         const newState: ReportState = reportsReducer(
-            reportInitialState,
+            reportTestInitialState,
             fromRequest(failureMessage(ActionTypes.FETCH_REPORTS), { message: error })
         );
 
@@ -154,18 +181,22 @@ describe('report reducer', () => {
     });
 
     it('should handle FETCH_REPORT_FAILURE', () => {
-        const error = 'It broke';
+        const error = 'my error message';
 
         const expectedNewState: ReportState = {
-            ...reportInitialState,
+            ...reportTestInitialState,
             report: null,
-            loading: false,
-            error
+            reportFetchStatus: {
+                error,
+                status: "complete"
+            }
         };
+
         const newState: ReportState = reportsReducer(
-            reportInitialState,
+            reportTestInitialState,
             fromRequest(failureMessage(ActionTypes.FETCH_REPORT), { message: error })
         );
+
         expect(newState).toEqual(expectedNewState);
     });
 

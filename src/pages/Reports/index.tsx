@@ -9,16 +9,12 @@ const mapStateToProps = (state: GlobalState)  => {
     const {
         reportState: {
             reports,
-            loading,
-            error,
-            total
+            reportsFetchStatus
         }
     } = state;
     return {
         reports,
-        loading,
-        error,
-        total
+        reportsFetchStatus
     };
 };
 

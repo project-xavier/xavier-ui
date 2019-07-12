@@ -7,11 +7,13 @@ import * as reportActions from '../../../actions/ReportActions';
 const mapStateToProps = (state: GlobalState) => {
     const {
         report,
-        reportInitialSavingEstimation
+        reportInitialSavingEstimation,
+        reportInitialSavingEstimationFetchStatus
     } = state.reportState;
     return {
         report,
-        reportInitialSavingEstimation
+        reportInitialSavingEstimation,
+        reportInitialSavingEstimationFetchStatus
     };
 };
 

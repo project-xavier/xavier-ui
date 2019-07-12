@@ -6,15 +6,37 @@ import {
     successMessage,
     failureMessage
 } from './reducerHelper';
-import { ReportState } from '../models/state';
+import { ReportState, ObjectFetchStatus } from '../models/state';
 import { GenericAction } from '../models/action';
 
-export const initialState: ReportState = {
+export const defaultFetchStatus: ObjectFetchStatus = {
     error: null,
-    total: 0,
+    status: 'none'
+};
+
+export const initialState: ReportState = {
     report: null,
-    reports: [],
-    loading: false
+    reportFetchStatus: {
+        ...defaultFetchStatus
+    },
+
+    reports: {
+        total: 0,
+        items: []
+    },
+    reportsFetchStatus: {
+        ...defaultFetchStatus
+    },
+
+    reportMigrationSummary: null,
+    reportMigrationSummaryFetchStatus: {
+        ...defaultFetchStatus
+    },
+
+    reportInitialSavingEstimation: null,
+    reportInitialSavingEstimationFetchStatus: {
+        ...defaultFetchStatus
+    }
 };
 
 export const reportsReducer = function (
@@ -26,10 +48,11 @@ export const reportsReducer = function (
         case pendingMessage(ActionTypes.FETCH_REPORTS): {
             const nextState: ReportState = {
                 ...state,
-                // reports: [],
-                // total: 0, // To avoid causing flash render in reportList page
-                loading: true,
-                error: null
+                reportsFetchStatus: {
+                    ...state.reportsFetchStatus,
+                    error: null,
+                    status: 'inProgress'
+                }
             };
             return nextState;
         }
@@ -37,9 +60,16 @@ export const reportsReducer = function (
         case successMessage(ActionTypes.FETCH_REPORTS): {
             const nextState: ReportState = {
                 ...state,
-                total: parseInt(action.payload.headers['x-total-count']),
-                reports: action.payload.data,
-                loading: false
+                reports: {
+                    ...state.reports,
+                    items: action.payload.data,
+                    total: parseInt(action.payload.headers['x-total-count'])
+                },
+                reportsFetchStatus: {
+                    ...state.reportsFetchStatus,
+                    error: null,
+                    status: 'complete'
+                }
             };
             return nextState;
         }
@@ -47,10 +77,16 @@ export const reportsReducer = function (
         case failureMessage(ActionTypes.FETCH_REPORTS): {
             const nextState: ReportState = {
                 ...state,
-                total: 0,
-                reports: [],
-                loading: false,
-                error: action.payload.message
+                reports: {
+                    ...state.reports,
+                    items: [],
+                    total: 0
+                },
+                reportsFetchStatus: {
+                    ...state.reportsFetchStatus,
+                    error: action.payload.message,
+                    status: 'complete'
+                }
             };
             return nextState;
         }
@@ -60,8 +96,11 @@ export const reportsReducer = function (
             const nextState: ReportState = {
                 ...state,
                 report: null,
-                loading: true,
-                error: null
+                reportFetchStatus: {
+                    ...state.reportFetchStatus,
+                    error: null,
+                    status: 'inProgress'
+                }
             };
 
             return nextState;
@@ -71,7 +110,11 @@ export const reportsReducer = function (
             const nextState: ReportState = {
                 ...state,
                 report: action.payload.data,
-                loading: false
+                reportFetchStatus: {
+                    ...state.reportFetchStatus,
+                    error: null,
+                    status: 'complete'
+                }
             };
             return nextState;
         }
@@ -80,8 +123,11 @@ export const reportsReducer = function (
             const nextState: ReportState = {
                 ...state,
                 report: null,
-                loading: false,
-                error: action.payload.message
+                reportFetchStatus: {
+                    ...state.reportFetchStatus,
+                    error: action.payload.message,
+                    status: 'complete'
+                }
             };
             return nextState;
         }
@@ -90,16 +136,18 @@ export const reportsReducer = function (
         case successMessage(ActionTypes.DELETE_REPORT): {
             const nextState: ReportState = {
                 ...state,
-                reports: state.reports.filter(r => r.id !== action.payload.id),
-                total: state.total - 1
+                reports: {
+                    ...state.reports,
+                    total: state.reports.total - 1,
+                    items: state.reports.items.filter(r => r.id !== action.payload.id)
+                }
             };
             return nextState;
         }
 
         case failureMessage(ActionTypes.DELETE_REPORT): {
             const nextState: ReportState = {
-                ...state,
-                error: action.payload.message
+                ...state
             };
             return nextState;
         }
@@ -109,8 +157,11 @@ export const reportsReducer = function (
             const nextState: ReportState = {
                 ...state,
                 reportMigrationSummary: null,
-                loading: true,
-                error: null
+                reportMigrationSummaryFetchStatus: {
+                    ...state.reportMigrationSummaryFetchStatus,
+                    error: null,
+                    status: 'inProgress'
+                }
             };
 
             return nextState;
@@ -120,7 +171,11 @@ export const reportsReducer = function (
             const nextState: ReportState = {
                 ...state,
                 reportMigrationSummary: action.payload.data,
-                loading: false
+                reportMigrationSummaryFetchStatus: {
+                    ...state.reportMigrationSummaryFetchStatus,
+                    error: null,
+                    status: 'complete'
+                }
             };
             return nextState;
         }
@@ -129,8 +184,11 @@ export const reportsReducer = function (
             const nextState: ReportState = {
                 ...state,
                 reportMigrationSummary: null,
-                loading: false,
-                error: action.payload.message
+                reportMigrationSummaryFetchStatus: {
+                    ...state.reportMigrationSummaryFetchStatus,
+                    error: action.payload.message,
+                    status: 'complete'
+                }
             };
             return nextState;
         }
@@ -140,8 +198,11 @@ export const reportsReducer = function (
             const nextState: ReportState = {
                 ...state,
                 reportInitialSavingEstimation: null,
-                loading: true,
-                error: null
+                reportInitialSavingEstimationFetchStatus: {
+                    ...state.reportInitialSavingEstimationFetchStatus,
+                    error: null,
+                    status: 'inProgress'
+                }
             };
 
             return nextState;
@@ -151,7 +212,11 @@ export const reportsReducer = function (
             const nextState: ReportState = {
                 ...state,
                 reportInitialSavingEstimation: action.payload.data,
-                loading: false
+                reportInitialSavingEstimationFetchStatus: {
+                    ...state.reportInitialSavingEstimationFetchStatus,
+                    error: null,
+                    status: 'complete'
+                }
             };
             return nextState;
         }
@@ -160,8 +225,11 @@ export const reportsReducer = function (
             const nextState: ReportState = {
                 ...state,
                 reportInitialSavingEstimation: null,
-                loading: false,
-                error: action.payload.message
+                reportInitialSavingEstimationFetchStatus: {
+                    ...state.reportInitialSavingEstimationFetchStatus,
+                    error: action.payload.message,
+                    status: 'complete'
+                }
             };
             return nextState;
         }

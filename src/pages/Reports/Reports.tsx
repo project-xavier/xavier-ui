@@ -43,12 +43,14 @@ import {
 } from '@patternfly/react-icons';
 import debounce from 'lodash/debounce';
 import { Formik } from 'formik';
+import { ObjectFetchStatus } from '../../models/state';
 
 interface StateToProps {
-    total: number;
-    error: string | null;
-    loading: boolean;
-    reports: Report[];
+    reports: {
+        total: number;
+        items: Report[];
+    };
+    reportsFetchStatus: ObjectFetchStatus;
 }
 
 interface DispatchToProps {
@@ -58,10 +60,10 @@ interface DispatchToProps {
     closeDeleteDialog: typeof deleteActions.closeModal;
 }
 
-interface Props extends StateToProps, DispatchToProps, RouterGlobalProps {
+export interface Props extends StateToProps, DispatchToProps, RouterGlobalProps {
 };
 
-interface State {
+export interface State {
     filterText: string;
     page: number;
     perPage: number;
@@ -161,7 +163,7 @@ class Reports extends React.Component<Props, State> {
     };
 
     filtersInRowsAndCells(): void {
-        const reports: Report[] = Object.values(this.props.reports);
+        const reports: Report[] = Object.values(this.props.reports.items);
 
         let rows: any[][] = [];
         if (reports.length > 0) {
@@ -187,7 +189,7 @@ class Reports extends React.Component<Props, State> {
         this.props.fetchReports(page, perPage, filterText).then(() => {
             // If it is the first time fetching reports and there are no reports
             // thenn redirect to. Otherwise show empty table.
-            const { total } = this.props;
+            const { total } = this.props.reports;
             const { isFirstFetchReportsCall } = this.state;
             if (total === 0 && isFirstFetchReportsCall) {
                 this.props.history.push('/no-reports');
@@ -222,7 +224,7 @@ class Reports extends React.Component<Props, State> {
 
     onPerPageSelect = (_event: any, perPage: number) => {
         let page = this.state.page;
-        const total = this.props.total;
+        const total = this.props.reports.total;
 
         // If current page and perPage would request data beyond total, show last available page
         if (page * perPage > total) {
@@ -313,7 +315,7 @@ class Reports extends React.Component<Props, State> {
 
     render() {
         const { isFirstFetchReportsCall, page, perPage } = this.state;
-        const { total } = this.props;
+        const { total } = this.props.reports;
 
         if (isFirstFetchReportsCall) {
             return (

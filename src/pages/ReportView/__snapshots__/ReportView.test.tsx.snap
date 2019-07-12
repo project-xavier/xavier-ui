@@ -1,17 +1,75 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ReportView expect to redirect because error 1`] = `
-<Redirect
-  push={false}
-  to="/reports"
-/>
+<withRouter(ReportViewPage)
+  report={
+    Object {
+      "creationDate": 254112,
+      "customerId": "123456",
+      "fileName": "file1.json",
+      "id": 36,
+      "numberOfHosts": 254,
+      "totalDiskSpace": 5871365,
+      "totalPrice": 1200,
+    }
+  }
+>
+  <Switch>
+    <Route
+      component={[Function]}
+      path="undefined/workloadMigrationSummary"
+    />
+    <Route
+      component={[Function]}
+      path="undefined/initialSavingsEstimation"
+    />
+    <Route
+      component={[Function]}
+      path="undefined/workloadInventory"
+    />
+    <Redirect
+      from="undefined"
+      push={false}
+      to="undefined/initialSavingsEstimation"
+    />
+  </Switch>
+</withRouter(ReportViewPage)>
 `;
 
 exports[`ReportView expect to redirect because no reportId 1`] = `
-<Redirect
-  push={false}
-  to="/reports"
-/>
+<withRouter(ReportViewPage)
+  report={
+    Object {
+      "creationDate": 254112,
+      "customerId": "123456",
+      "fileName": "file1.json",
+      "id": 36,
+      "numberOfHosts": 254,
+      "totalDiskSpace": 5871365,
+      "totalPrice": 1200,
+    }
+  }
+>
+  <Switch>
+    <Route
+      component={[Function]}
+      path="undefined/workloadMigrationSummary"
+    />
+    <Route
+      component={[Function]}
+      path="undefined/initialSavingsEstimation"
+    />
+    <Route
+      component={[Function]}
+      path="undefined/workloadInventory"
+    />
+    <Redirect
+      from="undefined"
+      push={false}
+      to="undefined/initialSavingsEstimation"
+    />
+  </Switch>
+</withRouter(ReportViewPage)>
 `;
 
 exports[`ReportView expect to render loading object 1`] = `

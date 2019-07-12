@@ -1,5 +1,5 @@
 import React, { Fragment, Component } from 'react';
-
+import { Redirect } from 'react-router-dom';
 import {
     Main,
     PageHeader,
@@ -15,15 +15,13 @@ import {
 import { Report } from '../../models';
 import { Link } from 'react-router-dom';
 import { RouterGlobalProps } from '../../models/router';
+import { ReportViewPaths } from '../../pages/ReportView/ReportViewConstants';
+import { ObjectFetchStatus } from '../../models/state';
 
-interface Props extends RouterGlobalProps {
+export interface Props extends RouterGlobalProps {
     mainStyle?: any;
-    report: Report;
-    loading: boolean;
-    error: string;
-
-    match: any;
-    history: any;
+    report: Report | null;
+    reportFetchStatus: ObjectFetchStatus;
 };
 
 interface State {
@@ -35,13 +33,13 @@ class ReportViewPage extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
 
-        let activeTabKey = 1; // TODO Change this when other tabs are implemented
+        let activeTabKey = 1;
 
-        if (props.location.pathname.endsWith('workloadMigrationSummary')) {
+        if (props.location.pathname.endsWith(ReportViewPaths.workloadMigrationSummary)) {
             activeTabKey = 0;
-        } else if (props.location.pathname.endsWith('initialSavingsEstimation')) {
+        } else if (props.location.pathname.endsWith(ReportViewPaths.workloadMigrationSummary)) {
             activeTabKey = 1;
-        } else if (props.location.pathname.endsWith('workloadInventory')) {
+        } else if (props.location.pathname.endsWith(ReportViewPaths.workloadInventory)) {
             activeTabKey = 2;
         }
 
@@ -50,7 +48,7 @@ class ReportViewPage extends Component<Props, State> {
         };
     }
 
-    handleTabClick = (event: any, tabIndex: number) => {
+    handleTabClick = (_event: any, tabIndex: number) => {
         this.setState({
             activeTabKey: tabIndex
         });
@@ -59,13 +57,13 @@ class ReportViewPage extends Component<Props, State> {
 
         switch (tabIndex) {
             case 0:
-                history.push(`${match.url}/workloadMigrationSummary`);
+                history.push(`${match.url}/${ReportViewPaths.workloadMigrationSummary}`);
                 break;
             case 1:
-                history.push(`${match.url}/initialSavingsEstimation`);
+                history.push(`${match.url}/${ReportViewPaths.workloadMigrationSummary}`);
                 break;
             case 2:
-                history.push(`${match.url}/workloadInventory`);
+                history.push(`${match.url}/${ReportViewPaths.workloadInventory}`);
                 break;
         }
     };
@@ -84,8 +82,8 @@ class ReportViewPage extends Component<Props, State> {
                 </Breadcrumb>
                 <Tabs
                     isFilled
-                    activeKey={ this.state.activeTabKey }
                     onSelect={ this.handleTabClick }
+                    activeKey={ this.state.activeTabKey }
                 >
                     <Tab eventKey={ 0 } title="Workload Migration Summary"></Tab>
                     <Tab eventKey={ 1 } title="Initials Savings Estimation"></Tab>
@@ -95,16 +93,47 @@ class ReportViewPage extends Component<Props, State> {
         );
     }
 
+    renderTabsSkeleton = () => {
+        return (
+            <React.Fragment>
+                <div className="pf-l-stack pf-m-gutter">
+                    <div className="pf-l-stack__item">
+                        <Skeleton size="sm" />
+                    </div>
+                    <div className="pf-l-stack__item">
+                        <div className="pf-l-grid">
+                            <div className="pf-l-grid__item pf-m-4-col">
+                                <Skeleton size="md" />
+                            </div>
+                            <div className="pf-l-grid__item pf-m-4-col">
+                                <Skeleton size="md" />
+                            </div>
+                            <div className="pf-l-grid__item pf-m-4-col">
+                                <Skeleton size="md" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </React.Fragment>
+        );
+    };
+
     render() {
-        const { report, children } = this.props;
+        const { reportFetchStatus, children } = this.props;
+
+        if (reportFetchStatus.error) {
+            return <Redirect to={ `/reports` } />;
+        }
+
+        const isFetchComplete: boolean = reportFetchStatus.status === 'complete';
 
         return (
             <Fragment>
                 <PageHeader>
-                    <PageHeaderTitle title={ report ? this.renderTabs() : <Skeleton size="sm" /> } />
+                    <PageHeaderTitle title={ isFetchComplete ? this.renderTabs() : this.renderTabsSkeleton() } />
                 </PageHeader>
                 <Main style={ this.props.mainStyle }>
-                    { report ? children : '' }
+                    { isFetchComplete ? children : '' }
                 </Main>
             </Fragment>
         );

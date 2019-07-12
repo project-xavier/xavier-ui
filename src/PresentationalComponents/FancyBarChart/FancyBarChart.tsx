@@ -6,8 +6,10 @@ import {
     ChartProps,
     ChartBarProps,
     ChartGroup,
-    ChartGroupProps
+    ChartGroupProps,
+    ChartTooltip
 } from '@patternfly/react-charts';
+import './FancyBarChart.scss';
 
 export interface FancyGroupedBarChartData {
     colors: string[];
@@ -79,13 +81,19 @@ class FancyBarChart extends Component<Props, State> {
                                     <ChartBar
                                         key={ index }
                                         data={ value }
+                                        labelComponent={ <ChartTooltip style={ { color: 'white' } }/> }
                                         { ...chartBarProps }
                                     />
                                 );
                             }) }
                         </ChartGroup>
                     </Chart>
-                    { footer }
+                    {
+                        footer &&
+                        <div className="chart-footer">
+                            { footer }
+                        </div>
+                    }
                 </div>
             </React.Fragment>
         );

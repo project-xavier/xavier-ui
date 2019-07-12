@@ -5,14 +5,9 @@ import {
     CardBody,
     Bullseye
 } from '@patternfly/react-core';
-import {
-    Skeleton
-} from '@redhat-cloud-services/frontend-components';
 
 interface Props {
-    title: string;
-    loading: boolean;
-    loadingSkeleton: any;
+    title: any;
     children: any;
     skipBullseye?: boolean;
     cardClass?: any;
@@ -32,8 +27,6 @@ class ReportCard extends Component<Props, State> {
     render() {
         const {
             title,
-            loading,
-            loadingSkeleton,
             children,
             skipBullseye,
             cardClass,
@@ -45,19 +38,19 @@ class ReportCard extends Component<Props, State> {
             <React.Fragment>
                 <Card className={ cardClass }>
                     <CardHeader className={ headerClass }>
-                        { loading ? <Skeleton size="md"/> : title }
+                        { title }
                     </CardHeader>
                     <CardBody className={ bodyClass }>
                         {
                             skipBullseye ?
                                 (
                                     <React.Fragment>
-                                        { loading ? loadingSkeleton : children }
+                                        { children }
                                     </React.Fragment>
                                 ) :
                                 (
                                     <Bullseye>
-                                        { loading ? loadingSkeleton : children }
+                                        { children }
                                     </Bullseye>
                                 )
                         }
