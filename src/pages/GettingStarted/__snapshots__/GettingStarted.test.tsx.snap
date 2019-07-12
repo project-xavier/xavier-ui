@@ -22,7 +22,6 @@ exports[`GettingStarted expect to render 1`] = `
         />
       </div>
       <Title
-        headingLevel="h5"
         size="lg"
       >
         Let Red Hat Migration Analytics suggest ways to optimize your environment
@@ -30,20 +29,13 @@ exports[`GettingStarted expect to render 1`] = `
       <EmptyStateBody>
         See how you can optimize your virtual environment by uploading a Red Hat CloudForms generated inventory file and then letting Red Hat Migration Analytics create reports showing how you can save money and optimize workloads - whether by migrating virtual machines or migrating application to RHEL.
       </EmptyStateBody>
-      <Dropzone
-        accept={
-          Array [
-            "application/zip",
-            "application/json",
-          ]
-        }
-        multiple={false}
-        noClick={true}
-        noKeyboard={true}
-        onDrop={[Function]}
+      <Link
+        className="pf-c-button pf-m-primary"
+        replace={false}
+        to="/reports/upload"
       >
-        <Component />
-      </Dropzone>
+        Get Started
+      </Link>
     </EmptyState>
   </Bullseye>
 </ReportsPage>

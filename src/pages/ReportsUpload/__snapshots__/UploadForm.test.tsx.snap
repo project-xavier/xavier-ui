@@ -245,6 +245,8 @@ exports[`UploadForm expect to render 1`] = `
   </Stack>
   <ActionGroup>
     <Button
+      disabled={true}
+      isDisabled={true}
       type="submit"
       variant="primary"
     >
@@ -512,6 +514,8 @@ exports[`UploadForm expect to render errors 1`] = `
   </Stack>
   <ActionGroup>
     <Button
+      disabled={true}
+      isDisabled={true}
       type="submit"
       variant="primary"
     >
