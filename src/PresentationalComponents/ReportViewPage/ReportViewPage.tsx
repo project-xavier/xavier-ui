@@ -60,7 +60,7 @@ class ReportViewPage extends Component<Props, State> {
                 history.push(`${match.url}/${ReportViewPaths.workloadMigrationSummary}`);
                 break;
             case 1:
-                history.push(`${match.url}/${ReportViewPaths.workloadMigrationSummary}`);
+                history.push(`${match.url}/${ReportViewPaths.initialSavingsEstimation}`);
                 break;
             case 2:
                 history.push(`${match.url}/${ReportViewPaths.workloadInventory}`);

@@ -19,7 +19,7 @@ class WorkloadInventory extends React.Component<Props, State> {
 
     render() {
         return (
-            <p>inventory</p>
+            <p>WorkloadInventory...</p>
         );
     }
 }

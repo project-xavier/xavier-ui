@@ -21,7 +21,7 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
     render() {
         return (
             <React.Fragment>
-                <p>Work in progress...</p>
+                <p>WorkloadMigrationSummary...</p>
             </React.Fragment>
         );
     }
