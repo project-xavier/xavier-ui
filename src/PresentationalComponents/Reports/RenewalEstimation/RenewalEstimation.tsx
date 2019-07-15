@@ -36,15 +36,15 @@ class RenewalEstimation extends Component<Props, State> {
         const rows = [
             [
                 '-- As high as...',
-                formatValue(sourceRenewHighValue, 'usd')
+                formatValue(sourceRenewHighValue, 'usd', { fractionDigits: 0 })
             ],
             [
                 '-- Most likely...',
-                formatValue(sourceRenewLikelyValue, 'usd')
+                formatValue(sourceRenewLikelyValue, 'usd', { fractionDigits: 0 })
             ],
             [
                 '-- As low as...',
-                formatValue(sourceRenewLowValue, 'usd')
+                formatValue(sourceRenewLowValue, 'usd', { fractionDigits: 0 })
             ]
         ];
 

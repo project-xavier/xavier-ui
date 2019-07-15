@@ -107,7 +107,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
                 </p>
                 <p className="pf-c-title pf-m-2xl pf-u-text-align-center stack-item-border">
                     <span>
-                        { formatValue(reportInitialSavingEstimation ? reportInitialSavingEstimation.rhvSavingsModel.rhvSaveHighValue : 0, 'usd') }
+                        { formatValue(reportInitialSavingEstimation.rhvSavingsModel.rhvSaveHighValue, 'usd', { fractionDigits: 0 }) }
                     </span>
                 </p>
             </ReportCard>
@@ -148,20 +148,20 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
             colors: [ VMwareColor, RHVHypervisorsColor ],
             values: [
                 [
-                    { x: '1', y: vmwareCostsYear1, label: formatValue(vmwareCostsYear1, 'usd') },
-                    { x: '2', y: vmwareCostsYear2, label: formatValue(vmwareCostsYear2, 'usd') },
-                    { x: '3', y: vmwareCostsYear3, label: formatValue(vmwareCostsYear3, 'usd') }
+                    { x: '1', y: vmwareCostsYear1, label: formatValue(vmwareCostsYear1, 'usd', { fractionDigits: 0 }) },
+                    { x: '2', y: vmwareCostsYear2, label: formatValue(vmwareCostsYear2, 'usd', { fractionDigits: 0 }) },
+                    { x: '3', y: vmwareCostsYear3, label: formatValue(vmwareCostsYear3, 'usd', { fractionDigits: 0 }) }
                 ],
                 [
-                    { x: '1', y: rhvCostsYear1, label: formatValue(rhvCostsYear1, 'usd') },
-                    { x: '2', y: rhvCostsYear2, label: formatValue(rhvCostsYear2, 'usd') },
-                    { x: '3', y: rhvCostsYear3, label: formatValue(rhvCostsYear3, 'usd') }
+                    { x: '1', y: rhvCostsYear1, label: formatValue(rhvCostsYear1, 'usd', { fractionDigits: 0 }) },
+                    { x: '2', y: rhvCostsYear2, label: formatValue(rhvCostsYear2, 'usd', { fractionDigits: 0 }) },
+                    { x: '3', y: rhvCostsYear3, label: formatValue(rhvCostsYear3, 'usd', { fractionDigits: 0 }) }
                 ]
             ]
         };
 
         const dependentChartAxisProps: ChartAxisProps = {
-            tickFormat: (tick: any) =>  `${formatValue(tick, 'usd')}`
+            tickFormat: (tick: any) =>  `${formatValue(tick, 'usd', { fractionDigits: 0 })}`
         };
 
         const footer = (
@@ -248,7 +248,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
         const percentages = pieValues.map((val) => ((val / total) * 100));
 
         const chartProps = {
-            title: formatValue(total, 'usd'),
+            title: formatValue(total, 'usd', { fractionDigits: 0 }),
             height: 300,
             width: 300
         };
@@ -327,12 +327,12 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
             legends: undefined,
             colors: [ VMwareColor, RHVHypervisorsColor, RHVGrowthColor, RHTrainingColor, RHConsultingColor, RHTravelAndLodgingColor ],
             values: [
-                [{ x: 'VMware', y: vmwareTotal, label: formatValue(vmwareTotal, 'usd') }],
-                [{ x: 'RVH Hypervisors', y: rhvHypervisorsTotal, label: formatValue(rhvHypervisorsTotal, 'usd') }],
-                [{ x: 'RHV Growth', y: rhvGrowthTotal, label: formatValue(rhvGrowthTotal, 'usd') }],
-                [{ x: 'Red Hat Training', y: rhTrainingTotal, label: formatValue(rhTrainingTotal, 'usd') }],
-                [{ x: 'Red Hat Consulting', y: rhConsultingTotal, label: formatValue(rhConsultingTotal, 'usd') }],
-                [{ x: 'Travel and lodging', y: rhTravelAndLodgingTotal, label: formatValue(rhTravelAndLodgingTotal, 'usd') }]
+                [{ x: 'VMware', y: vmwareTotal, label: formatValue(vmwareTotal, 'usd', { fractionDigits: 0 }) }],
+                [{ x: 'RVH Hypervisors', y: rhvHypervisorsTotal, label: formatValue(rhvHypervisorsTotal, 'usd', { fractionDigits: 0 }) }],
+                [{ x: 'RHV Growth', y: rhvGrowthTotal, label: formatValue(rhvGrowthTotal, 'usd', { fractionDigits: 0 }) }],
+                [{ x: 'Red Hat Training', y: rhTrainingTotal, label: formatValue(rhTrainingTotal, 'usd', { fractionDigits: 0 }) }],
+                [{ x: 'Red Hat Consulting', y: rhConsultingTotal, label: formatValue(rhConsultingTotal, 'usd', { fractionDigits: 0 }) }],
+                [{ x: 'Travel and lodging', y: rhTravelAndLodgingTotal, label: formatValue(rhTravelAndLodgingTotal, 'usd', { fractionDigits: 0 }) }]
             ]
         };
 
@@ -346,7 +346,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
             }
         };
         const dependentChartAxisProps: ChartAxisProps = {
-            tickFormat: (tick: any) =>  `${formatValue(tick, 'usd')}`
+            tickFormat: (tick: any) =>  `${formatValue(tick, 'usd', { fractionDigits: 0 })}`
         };
 
         const footer = (

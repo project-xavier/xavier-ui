@@ -60,7 +60,7 @@ class ProjectCostBreakdownTable extends Component<Props, State> {
             [
                 'VMware maintenance',
                 'VMware support costs (during migration)',
-                formatValue(sourceMaintenanceTotal, 'usd')
+                formatValue(sourceMaintenanceTotal, 'usd', { fractionDigits: 0 })
             ],
             [
                 {
@@ -81,12 +81,12 @@ class ProjectCostBreakdownTable extends Component<Props, State> {
             [
                 '',
                 'RHV hypervisor subscriptions',
-                formatValue(hypervisorSubscriptions, 'usd')
+                formatValue(hypervisorSubscriptions, 'usd', { fractionDigits: 0 })
             ],
             [
                 '',
                 'RHV hypervisor growth subscriptions',
-                formatValue(hypervisorGrowthSubscriptions, 'usd')
+                formatValue(hypervisorGrowthSubscriptions, 'usd', { fractionDigits: 0 })
             ],
             [
                 'Red Hat training and services',
@@ -96,17 +96,17 @@ class ProjectCostBreakdownTable extends Component<Props, State> {
             [
                 '',
                 'Red Hat training',
-                formatValue(rhvSwitchLearningSubsValue, 'usd')
+                formatValue(rhvSwitchLearningSubsValue, 'usd', { fractionDigits: 0 })
             ],
             [
                 '',
                 'Red Hat consulting',
-                formatValue(rhvSwitchConsultValue, 'usd')
+                formatValue(rhvSwitchConsultValue, 'usd', { fractionDigits: 0 })
             ],
             [
                 '',
                 'Travel and lodging',
-                formatValue(rhvSwitchTAndEValue, 'usd')
+                formatValue(rhvSwitchTAndEValue, 'usd', { fractionDigits: 0 })
             ],
             [
                 {
@@ -114,7 +114,7 @@ class ProjectCostBreakdownTable extends Component<Props, State> {
                 },
                 '',
                 {
-                    title: <strong>{ formatValue(total, 'usd') }</strong>
+                    title: <strong>{ formatValue(total, 'usd', { fractionDigits: 0 }) }</strong>
                 }
             ]
         ];
