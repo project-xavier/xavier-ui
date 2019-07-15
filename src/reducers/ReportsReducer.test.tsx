@@ -33,7 +33,7 @@ const reportTestInitialState: ReportState = {
                 totalDiskSpace: 5871365,
                 totalPrice: 1200,
                 creationDate: 546785214,
-                analysisStatus: 'progress'
+                status: 'progress'
             }
         ]
     },
@@ -47,7 +47,7 @@ const reportTestInitialState: ReportState = {
         totalDiskSpace: 6546531,
         totalPrice: 100,
         creationDate: 546425465,
-        analysisStatus: 'progress'
+        status: 'progress'
     },
     reportFetchStatus: { ...defaultFetchStatus },
 

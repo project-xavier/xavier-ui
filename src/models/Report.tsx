@@ -6,7 +6,7 @@ export interface Report {
     totalDiskSpace: number;
     totalPrice: number;
     creationDate: number;
-    analysisStatus: string;
+    status: 'CREATED' | 'IN_PROGRESS' | 'FAILED';
 }
 
 export interface ReportWorkloadMigrationSummary {

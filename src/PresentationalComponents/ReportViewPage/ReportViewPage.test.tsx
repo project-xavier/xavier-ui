@@ -10,7 +10,7 @@ const baseProps: Props = {
     numberOfHosts: 123,
     totalDiskSpace: 123,
     totalPrice: 123,
-    analysisStatus: 'progress'
+    status: 'progress'
   },
   reportFetchStatus: {
     error: null,

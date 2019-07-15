@@ -137,12 +137,12 @@ class Reports extends React.Component<Props, State> {
     };
 
     renderStatus = (report: Report) => {
-        switch (report.analysisStatus) {
-            case 'FINISHED':
+        switch (report.status) {
+            case 'CREATED':
                 return <p><OkIcon className="success" /> Report created - { new Date(report.creationDate).toUTCString() }</p>;
             case 'FAILED':
                 return <p><ErrorCircleOIcon className="error" /> Report failed - { new Date(report.creationDate).toUTCString() }</p>;
-            case 'PROGRESS':
+            case 'IN_PROGRESS':
                 return <p><InProgressIcon className="progress" /> Analyzing the upload file</p>;
             default:
                 return null;
@@ -150,12 +150,12 @@ class Reports extends React.Component<Props, State> {
     };
 
     renderAction = (report: Report) => {
-        switch (report.analysisStatus) {
-            case 'FINISHED':
+        switch (report.status) {
+            case 'CREATED':
                 return <Button variant={ ButtonVariant.secondary } onClick={ () => this.handleDelete(report) }>Delete</Button>;
             case 'FAILED':
                 return <Button variant={ ButtonVariant.secondary } onClick={ () => this.handleDelete(report) }>Delete</Button>;;
-            case 'PROGRESS':
+            case 'IN_PROGRESS':
                 return '';
             default:
                 return null;

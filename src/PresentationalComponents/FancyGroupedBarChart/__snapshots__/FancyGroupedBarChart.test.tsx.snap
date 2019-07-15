@@ -1,0 +1,256 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FancyGroupedBarChart expect to render footer 1`] = `
+<Fragment>
+  <div
+    className="bar-chart-container"
+  >
+    <ChartLegend
+      colorScale={
+        Array [
+          "red",
+          "blue",
+        ]
+      }
+      data={
+        Array [
+          Object {
+            "name": "Legend1",
+          },
+          Object {
+            "name": "Legend2",
+          },
+        ]
+      }
+      orientation="horizontal"
+      style={
+        Object {
+          "labels": Object {
+            "fontSize": 12,
+          },
+        }
+      }
+    />
+    <Chart>
+      <ChartAxis
+        dependentAxis={false}
+        style={Object {}}
+      />
+      <ChartAxis
+        dependentAxis={true}
+        showGrid={true}
+        style={
+          Object {
+            "axis": Object {
+              "stroke": "none",
+            },
+          }
+        }
+        tickCount={6}
+      />
+      <ChartGroup
+        colorScale={
+          Array [
+            "red",
+            "blue",
+          ]
+        }
+      >
+        <ChartBar
+          data={
+            Array [
+              Object {
+                "label": "10 oranges",
+                "x": "Year1",
+                "y": 10,
+              },
+              Object {
+                "label": "20 oranges",
+                "x": "Year2",
+                "y": 20,
+              },
+              Object {
+                "label": "30 oranges",
+                "x": "Year3",
+                "y": 30,
+              },
+            ]
+          }
+          key="0"
+          labelComponent={
+            <ChartTooltip
+              style={
+                Object {
+                  "color": "white",
+                }
+              }
+            />
+          }
+        />
+        <ChartBar
+          data={
+            Array [
+              Object {
+                "label": "40 bananas",
+                "x": "Year1",
+                "y": 40,
+              },
+              Object {
+                "label": "50 bananas",
+                "x": "Year2",
+                "y": 50,
+              },
+              Object {
+                "label": "60 bananas",
+                "x": "Year3",
+                "y": 60,
+              },
+            ]
+          }
+          key="1"
+          labelComponent={
+            <ChartTooltip
+              style={
+                Object {
+                  "color": "white",
+                }
+              }
+            />
+          }
+        />
+      </ChartGroup>
+    </Chart>
+    <div
+      className="chart-footer"
+    >
+      <p>
+        this is a footer
+      </p>
+    </div>
+  </div>
+</Fragment>
+`;
+
+exports[`FancyGroupedBarChart expect to render with minimun props 1`] = `
+<Fragment>
+  <div
+    className="bar-chart-container"
+  >
+    <ChartLegend
+      colorScale={
+        Array [
+          "red",
+          "blue",
+        ]
+      }
+      data={
+        Array [
+          Object {
+            "name": "Legend1",
+          },
+          Object {
+            "name": "Legend2",
+          },
+        ]
+      }
+      orientation="horizontal"
+      style={
+        Object {
+          "labels": Object {
+            "fontSize": 12,
+          },
+        }
+      }
+    />
+    <Chart>
+      <ChartAxis
+        dependentAxis={false}
+        style={Object {}}
+      />
+      <ChartAxis
+        dependentAxis={true}
+        showGrid={true}
+        style={
+          Object {
+            "axis": Object {
+              "stroke": "none",
+            },
+          }
+        }
+        tickCount={6}
+      />
+      <ChartGroup
+        colorScale={
+          Array [
+            "red",
+            "blue",
+          ]
+        }
+      >
+        <ChartBar
+          data={
+            Array [
+              Object {
+                "label": "10 oranges",
+                "x": "Year1",
+                "y": 10,
+              },
+              Object {
+                "label": "20 oranges",
+                "x": "Year2",
+                "y": 20,
+              },
+              Object {
+                "label": "30 oranges",
+                "x": "Year3",
+                "y": 30,
+              },
+            ]
+          }
+          key="0"
+          labelComponent={
+            <ChartTooltip
+              style={
+                Object {
+                  "color": "white",
+                }
+              }
+            />
+          }
+        />
+        <ChartBar
+          data={
+            Array [
+              Object {
+                "label": "40 bananas",
+                "x": "Year1",
+                "y": 40,
+              },
+              Object {
+                "label": "50 bananas",
+                "x": "Year2",
+                "y": 50,
+              },
+              Object {
+                "label": "60 bananas",
+                "x": "Year3",
+                "y": 60,
+              },
+            ]
+          }
+          key="1"
+          labelComponent={
+            <ChartTooltip
+              style={
+                Object {
+                  "color": "white",
+                }
+              }
+            />
+          }
+        />
+      </ChartGroup>
+    </Chart>
+  </div>
+</Fragment>
+`;

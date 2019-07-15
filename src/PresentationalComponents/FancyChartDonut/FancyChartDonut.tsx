@@ -6,14 +6,17 @@ import {
     ChartLegendProps
 } from '@patternfly/react-charts';
 
+export interface FancyChartDonutData {
+    label: string;
+    value: number;
+    color: string;
+}
+
 interface Props {
-    data: {
-        label: string;
-        value: number;
-        color: string;
-    }[];
+    data: FancyChartDonutData[];
     chartProps?: ChartDonutProps;
     chartLegendProps?: ChartLegendProps;
+    tickFormat?: (label: string, value: number) => string;
 }
 
 interface State {
@@ -26,7 +29,7 @@ class FancyChartDonut extends Component<Props, State> {
     }
 
     render() {
-        const { data, chartProps, chartLegendProps } = this.props;
+        const { data, chartProps, chartLegendProps, tickFormat } = this.props;
 
         const chartData = data.map((val) => {
             return {
@@ -37,7 +40,7 @@ class FancyChartDonut extends Component<Props, State> {
 
         const legendData = data.map((val) => {
             return {
-                name: `${val.label}: ${val.value.toFixed(2)}%`
+                name: tickFormat ? tickFormat (val.label, val.value) : `${val.label}: ${val.value}`
             };
         });
 
@@ -50,7 +53,7 @@ class FancyChartDonut extends Component<Props, State> {
                         <ChartDonut
                             data={ chartData }
                             colorScale={ colorScale }
-                            labels={ datum => `${datum.x}: ${datum.y.toFixed(2)}%` }
+                            labels={ datum => tickFormat ? tickFormat(datum.x, datum.y) : `${datum.x}: ${datum.y}` }
                             { ...chartProps }
                         />
                     </div>

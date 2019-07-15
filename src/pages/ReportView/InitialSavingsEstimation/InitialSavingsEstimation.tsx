@@ -47,6 +47,7 @@ import {
     ChartGroupProps,
     ChartBarProps
 } from '@patternfly/react-charts';
+import { FancyChartDonutData } from '../../../PresentationalComponents/FancyChartDonut/FancyChartDonut';
 
 interface StateToProps {
     report: Report;
@@ -259,7 +260,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
             y: 60
         };
 
-        const chartData = [
+        const chartData: FancyChartDonutData[] = [
             { label: 'VMware', value: percentages[0], color: VMwareColor },
             { label: 'RHV Hypervisors', value: percentages[1], color: RHVHypervisorsColor },
             { label: 'RHV Growth', value: percentages[2], color: RHVGrowthColor },
@@ -268,6 +269,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
             { label: 'Travel and Lodging', value: percentages[5], color: RHTravelAndLodgingColor }
         ];
 
+        const tickFormat = (label: string, value: number) => `${label}: ${value.toFixed(2)}%`;
         return (
             <ReportCard
                 title='Total VMware maintenance, Red Hat Virtualization, training and services costs during a 3 year migration)'
@@ -276,6 +278,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
                     data={ chartData }
                     chartProps={ chartProps }
                     chartLegendProps={ chartLegendProps }
+                    tickFormat={ tickFormat }
                 />
             </ReportCard>
         );
