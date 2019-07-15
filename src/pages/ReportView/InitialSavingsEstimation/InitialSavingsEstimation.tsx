@@ -26,7 +26,6 @@ import { FancyGroupedBarChartData } from '../../../PresentationalComponents/Fanc
 import Environment from '../../../PresentationalComponents/Reports/Environment';
 import RenewalEstimation from '../../../PresentationalComponents/Reports/RenewalEstimation';
 import FancyChartDonut from '../../../PresentationalComponents/FancyChartDonut';
-import FancyBarChart from '../../../PresentationalComponents/FancyBarChart';
 import FancyGroupedBarChart from '../../../PresentationalComponents/FancyGroupedBarChart';
 import ReportCard from '../../../PresentationalComponents/ReportCard';
 import ProjectCostBreakdownTable from '../../../PresentationalComponents/Reports/ProjectCostBreakdownTable';
@@ -41,6 +40,13 @@ import {
 } from '../../../Utilities/constants';
 import { ObjectFetchStatus } from '../../../models/state';
 import { ErrorCircleOIcon } from '@patternfly/react-icons';
+import {
+    ChartAxisProps,
+    ChartLegendProps,
+    ChartProps,
+    ChartGroupProps,
+    ChartBarProps
+} from '@patternfly/react-charts';
 
 interface StateToProps {
     report: Report;
@@ -113,17 +119,33 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
         const sourceRampDownCostsModel = reportInitialSavingEstimation.sourceRampDownCostsModel;
         const rhvRampUpCostsModel = reportInitialSavingEstimation.rhvRampUpCostsModel;
 
+        // VMware values
         const vmwareCostsYear1 = sourceRampDownCostsModel.year1SourceMaintenanceTotalValue;
         const vmwareCostsYear2 = sourceRampDownCostsModel.year2SourceMaintenanceTotalValue;
         const vmwareCostsYear3 = sourceRampDownCostsModel.year3SourceMaintenanceTotalValue;
 
+        // RHV values
         const rhvCostsYear1 = rhvRampUpCostsModel.year1RhvGrandTotalGrowthValue + rhvRampUpCostsModel.rhvSwitchLearningSubsValue;
         const rhvCostsYear2 = rhvRampUpCostsModel.year2RhvGrandTotalGrowthValue;
         const rhvCostsYear3 = rhvRampUpCostsModel.year3RhvGrandTotalGrowthValue;
 
+        // Chart config
+        const legendProps: ChartLegendProps = { height: 20, x: 130 };
+        const chartProps: ChartProps = {
+            width: 650,
+            height: 300,
+            domainPadding: {
+                x: 110,
+                y: 60
+            },
+            padding: { left: 150, right: 20, bottom: 30, top: 0 }
+        };
+        const chartGroupProps: ChartGroupProps = { offset: 50 };
+        const chartBarProps: ChartBarProps = { barWidth: 50 };
+
         const barChartData: FancyGroupedBarChartData = {
-            labels: [ 'VMware Costs', 'RHV Costs' ],
-            colors: [ '#0066CC', '#C9190B' ],
+            legends: [ 'VMware Costs', 'RHV Costs' ],
+            colors: [ VMwareColor, RHVHypervisorsColor ],
             values: [
                 [
                     { x: '1', y: vmwareCostsYear1, label: formatValue(vmwareCostsYear1, 'usd') },
@@ -138,21 +160,9 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
             ]
         };
 
-        const chartProps = {
-            width: 650,
-            height: 300,
-            domainPadding: {
-                x: 110,
-                y: 60
-            },
-            padding: { left: 150, right: 20, bottom: 30, top: 0 }
+        const dependentChartAxisProps: ChartAxisProps = {
+            tickFormat: (tick: any) =>  `${formatValue(tick, 'usd')}`
         };
-
-        const legendProps = { height: 20, x: 130 };
-        const chartGroupProps = { offset: 50 };
-        const chartBarProps = { barWidth: 50 };
-
-        const tickFormat = { y: (tick: any) => `${formatValue(tick, 'usd')}` };
 
         const footer = (
             <div className="pf-u-text-align-center">
@@ -170,7 +180,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
                     chartProps={ chartProps }
                     chartGroupProps={ chartGroupProps }
                     chartBarProps={ chartBarProps }
-                    tickFormat={ tickFormat }
+                    dependentChartAxisProps={ dependentChartAxisProps }
                     footer={ footer }
                 />
             </ReportCard>
@@ -277,6 +287,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
         const sourceRampDownCostsModel = reportInitialSavingEstimation.sourceRampDownCostsModel;
         const rhvRampUpCostsModel = reportInitialSavingEstimation.rhvRampUpCostsModel;
 
+        // Bar chart values
         const vmwareTotal = [
             sourceRampDownCostsModel.year1SourceMaintenanceTotalValue,
             sourceRampDownCostsModel.year2SourceMaintenanceTotalValue,
@@ -299,7 +310,21 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
         const rhConsultingTotal = rhvRampUpCostsModel.rhvSwitchConsultValue;
         const rhTravelAndLodgingTotal = rhvRampUpCostsModel.rhvSwitchTAndEValue;
 
-        const data: FancyGroupedBarChartData = {
+        // Chart config
+        const chartProps: ChartProps = {
+            width: 650,
+            height: 350,
+            domainPadding: {
+                x: 50,
+                y: 60
+            },
+            padding: { left: 150, right: 0, bottom: 100, top: 0 }
+        };
+        const chartGroupProps: ChartGroupProps = { offset: 0 };
+        const chartBarProps: ChartBarProps = { barWidth: 50 };
+
+        const barChartData: FancyGroupedBarChartData = {
+            legends: undefined,
             colors: [ VMwareColor, RHVHypervisorsColor, RHVGrowthColor, RHTrainingColor, RHConsultingColor, RHTravelAndLodgingColor ],
             values: [
                 [{ x: 'VMware', y: vmwareTotal, label: formatValue(vmwareTotal, 'usd') }],
@@ -311,18 +336,18 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
             ]
         };
 
-        const chartProps = {
-            width: 650,
-            height: 350,
-            domainPadding: {
-                x: 50,
-                y: 60
-            },
-            padding: { left: 150, right: 0, bottom: 100, top: 0 }
+        const independentChartAxisProps: ChartAxisProps = {
+            style: {
+                tickLabels: {
+                    angle: -45,
+                    padding: 1,
+                    textAnchor: 'end'
+                }
+            }
         };
-        const chartGroupProps = { offset: 0 };
-        const chartBarProps = { barWidth: 50 };
-        const tickFormat = { y: (tick: any) => `${formatValue(tick, 'usd')}` };
+        const dependentChartAxisProps: ChartAxisProps = {
+            tickFormat: (tick: any) =>  `${formatValue(tick, 'usd')}`
+        };
 
         const footer = (
             <div className="pf-u-text-align-center">
@@ -334,12 +359,13 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
             <ReportCard
                 title="Project cost breakdown"
             >
-                <FancyBarChart
-                    data={ data }
+                <FancyGroupedBarChart
+                    data={ barChartData }
                     chartProps={ chartProps }
                     chartGroupProps={ chartGroupProps }
                     chartBarProps={ chartBarProps }
-                    tickFormat={ tickFormat }
+                    independentChartAxisProps={ independentChartAxisProps }
+                    dependentChartAxisProps={ dependentChartAxisProps }
                     footer={ footer }
                 />
             </ReportCard>

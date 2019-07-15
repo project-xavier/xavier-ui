@@ -9,13 +9,14 @@ import {
     ChartGroupProps,
     ChartBarProps,
     ChartAxis,
-    ChartTooltip
+    ChartTooltip,
+    ChartAxisProps
 } from '@patternfly/react-charts';
 import './FancyGroupedBarChart.scss';
 
 export interface FancyGroupedBarChartData {
     colors: string[];
-    labels?: string[];
+    legends?: string[];
     values: {
         x: string,
         y: number,
@@ -29,15 +30,26 @@ interface Props {
     legendProps?: ChartLegendProps;
     chartGroupProps?: ChartGroupProps;
     chartBarProps?: ChartBarProps;
-    tickFormat?: {
-        x?: any[] | ((tick: any, index: number, ticks: any[]) => string | number),
-        y?: any[] | ((tick: any, index: number, ticks: any[]) => string | number)
-    };
+    dependentChartAxisProps?: ChartAxisProps;
+    independentChartAxisProps?: ChartAxisProps;
     footer?: any;
 }
 
 interface State {
 }
+
+const baseLegendStyle = {
+    labels: {
+        fontSize: 12
+    }
+};
+
+const baseDependentAxisStyle = {
+    axis: { stroke: 'none' }
+};
+
+const baseIndependentAxisStyle = {
+};
 
 class FancyGroupedBarChart extends Component<Props, State> {
 
@@ -52,42 +64,40 @@ class FancyGroupedBarChart extends Component<Props, State> {
             legendProps,
             chartGroupProps,
             chartBarProps,
-            tickFormat,
+            dependentChartAxisProps,
+            independentChartAxisProps,
             footer
         } = this.props;
 
-        let legendData;
-        if (data.labels) {
-            legendData = data.labels.map((value) => ({ name: value }));
-        } else {
-            legendData = data.values.map((value) => ({ name: value[0].x }));
-        }
+        const { style: legendStyle, ...restLegendProps } = legendProps || { style: { }};
+        const { style: dependenAxisStyles, ...restDependentChartAxisProps } = dependentChartAxisProps || { style: { }};
+        const { style: independenAxisStyles, ...restIndependentChartAxisProps } = independentChartAxisProps || { style: { }};
 
         return (
             <React.Fragment>
                 <div className="bar-chart-container">
-                    <ChartLegend
-                        data={ legendData }
-                        colorScale={ data.colors }
-                        orientation={ 'horizontal' }
-                        style={ { labels: { fontSize: 12 }} }
-                        { ...legendProps }
-                    />
-                    <Chart
-                        { ...chartProps }
-                    >
+                    {
+                        data.legends &&
+                        <ChartLegend
+                            data={ data.legends.map((value) => ({ name: value })) }
+                            colorScale={ data.colors }
+                            orientation={ 'horizontal' }
+                            style={ Object.assign({ }, baseLegendStyle, legendStyle) }
+                            { ...restLegendProps }
+                        />
+                    }
+                    <Chart { ...chartProps }>
                         <ChartAxis
                             dependentAxis={ false }
-                            tickFormat={ tickFormat && tickFormat.x ? tickFormat.x : (tick: any) => tick }
+                            style={ Object.assign({ }, baseIndependentAxisStyle, independenAxisStyles) }
+                            { ...restIndependentChartAxisProps }
                         />
                         <ChartAxis
                             dependentAxis={ true }
                             showGrid={ true }
-                            tickFormat={ tickFormat && tickFormat.y ? tickFormat.y : (tick: any) => tick }
-                            style={ {
-                                axis: { stroke: 'none' }
-                            } }
                             tickCount={ 6 }
+                            style={ Object.assign({ }, baseDependentAxisStyle, dependenAxisStyles) }
+                            { ...restDependentChartAxisProps }
                         />
                         <ChartGroup
                             colorScale={ data.colors }
@@ -106,10 +116,7 @@ class FancyGroupedBarChart extends Component<Props, State> {
                         </ChartGroup>
                     </Chart>
                     {
-                        footer &&
-                        <div className="chart-footer">
-                            { footer }
-                        </div>
+                        footer && <div className="chart-footer">{ footer }</div>
                     }
                 </div>
             </React.Fragment>

@@ -17,7 +17,7 @@ import { User } from '../../models';
 import { RouterGlobalProps } from '../../models/router';
 
 interface StateToProps {
-    user: User
+    user: User | null;
 }
 
 interface DispatchToProps {
@@ -38,7 +38,7 @@ class NoReports extends React.Component<Props, State> {
     render() {
         const { user } = this.props;
 
-        if (user.firstTimeCreatingReports) {
+        if (user && user.firstTimeCreatingReports) {
             return <Redirect to="/getting-started" />;
         }
 
