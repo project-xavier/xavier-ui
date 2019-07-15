@@ -414,7 +414,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
                         { this.renderProjectCostBreakdownTable() }
                     </StackItem>
                     <StackItem isFilled={ false }>
-                        <Card>
+                        <Card className="disclaimer">
                             <CardHeader>Disclaimer</CardHeader>
                             <CardBody>
                                 <p>
