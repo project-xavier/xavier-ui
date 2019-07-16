@@ -9,7 +9,7 @@ import * as actionGenerator from './report';
 
 describe('getAllReports', () => {
     it('returns a state object', () => {
-        expect(actionGenerator.getAllReports()).toMatchSnapshot();
+        expect(actionGenerator.getAllReports(1, 10, '')).toMatchSnapshot();
     });
 });
 

@@ -26,7 +26,7 @@ interface Props extends StateToProps, DispatchToProps {
 interface State {
 };
 
-class GettingStarted extends React.Component<Props, State> {
+class ErrorPage extends React.Component<Props, State> {
 
     constructor(props: Props) {
         super(props);
@@ -46,9 +46,9 @@ class GettingStarted extends React.Component<Props, State> {
                                 Error
                             </Title>
                             <EmptyStateBody>
-                                Something unexpected happend, please try again!
+                                Something unexpected happened, please try again!
                             </EmptyStateBody>
-                            <Link to={ '/reports' } className="pf-c-button pf-m-primary">Home</Link>
+                            <Link to={ '/' } className="pf-c-button pf-m-primary">Home</Link>
                         </EmptyState>
                     </Bullseye>
                 </Main>
@@ -57,4 +57,4 @@ class GettingStarted extends React.Component<Props, State> {
     }
 }
 
-export default GettingStarted;
+export default ErrorPage;
