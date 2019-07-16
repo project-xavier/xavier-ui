@@ -5,6 +5,7 @@ import {
     TableVariant
 } from '@patternfly/react-table';
 import { EnvironmentModel } from '../../../models';
+import { isNotNullOrUndefined } from '../../../Utilities/formUtils';
 
 interface Props {
     data: EnvironmentModel
@@ -29,36 +30,36 @@ class Environment extends Component<Props, State> {
         }} = this.props;
 
         const columns = [
-            { title: '' },
-            { title: '' },
-            { title: '' }
+            '',
+            '',
+            ''
         ];
 
         const rows = [
             [
                 'ESXi hypervisors (2-socket servers)',
                 '',
-                hypervisors.toLocaleString()
+                isNotNullOrUndefined(hypervisors) ? 'Unknown' : hypervisors.toLocaleString()
             ],
             [
                 'ESXi hypervisors would be migrated to RH technologies',
                 'Year1 (incremental)',
-                year1Hypervisor.toLocaleString()
+                isNotNullOrUndefined(year1Hypervisor) ? 'Unknown' : year1Hypervisor.toLocaleString()
             ],
             [
                 '',
                 'Year2 (incremental)',
-                year2Hypervisor.toLocaleString()
+                isNotNullOrUndefined(year2Hypervisor) ? 'Unknown' : year2Hypervisor.toLocaleString()
             ],
             [
                 '',
                 'Year3 (incremental)',
-                year3Hypervisor.toLocaleString()
+                isNotNullOrUndefined(year3Hypervisor) ? 'Unknown' : year3Hypervisor.toLocaleString()
             ],
             [
                 'Year-over-year growth rate for new hypervisors',
                 '',
-                `${growthRatePercentage.toLocaleString()}%`
+                isNotNullOrUndefined(growthRatePercentage) ? 'Unknown' : `${growthRatePercentage.toLocaleString()}%`
             ]
         ];
 
