@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`GettingStarted expect to redirect 1`] = `
+<Redirect
+  push={false}
+  to="/reports"
+/>
+`;
+
 exports[`GettingStarted expect to render 1`] = `
 <ReportsPage>
   <Bullseye

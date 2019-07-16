@@ -1,26 +1,39 @@
 import { shallow } from "enzyme";
-import GettingStarted from "./GettingStarted";
-import Dropzone from "react-dropzone";
+import GettingStarted, { Props } from "./GettingStarted";
 
-const props = {
-  file: null,
-  selectUploadFile: jest.fn(),
+const baseProps: Props = {
   user: {
     firstTimeCreatingReports: true
-  },
-  match: null,
-  history: {
-    push: jest.fn()
-  },
-  location: null
+  }
 };
 
 describe("GettingStarted", () => {
 
   it("expect to render", () => {
+    const props = {
+      ...baseProps
+    };
+
     const wrapper = shallow(
       <GettingStarted { ...props } />
     );
+    
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it("expect to redirect", () => {
+    const props = {
+      ...baseProps,
+      user: {
+        ...baseProps.user,
+        firstTimeCreatingReports: false
+      }
+    };
+
+    const wrapper = shallow(
+      <GettingStarted { ...props } />
+    );
+
     expect(wrapper).toMatchSnapshot();
   });
 

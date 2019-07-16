@@ -7,7 +7,6 @@ import {
     Bullseye,
     EmptyStateVariant
 } from '@patternfly/react-core';
-import { RouterGlobalProps } from '../../models/router';
 import ProcessImprovementSvg from '../../PresentationalComponents/Icons/process-improvement.svg';
 import './GettingStarted.scss';
 import ReportsPage from '../../PresentationalComponents/ReportsPage/ReportsPage';
@@ -21,7 +20,7 @@ interface StateToProps {
 interface DispatchToProps {
 }
 
-interface Props extends StateToProps, DispatchToProps, RouterGlobalProps {
+export interface Props extends StateToProps, DispatchToProps {
 };
 
 interface State {

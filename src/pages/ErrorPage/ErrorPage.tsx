@@ -1,5 +1,4 @@
 import React from 'react';
-import { RouterGlobalProps } from '../../models/router';
 import {
     Main,
     PageHeader,
@@ -21,8 +20,7 @@ interface StateToProps {}
 
 interface DispatchToProps {}
 
-interface Props extends StateToProps, DispatchToProps, RouterGlobalProps {
-    mainStyle: string | null;
+interface Props extends StateToProps, DispatchToProps {
 };
 
 interface State {
@@ -40,7 +38,7 @@ class GettingStarted extends React.Component<Props, State> {
                 <PageHeader>
                     <PageHeaderTitle title={ 'Error' } />
                 </PageHeader>
-                <Main style={ this.props.mainStyle }>
+                <Main>
                     <Bullseye>
                         <EmptyState variant={ EmptyStateVariant.large }>
                             <EmptyStateIcon icon={ ErrorCircleOIcon } />
