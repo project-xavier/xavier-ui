@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReportCard expect to render with bullseye 1`] = `
+<Fragment>
+  <Card>
+    <CardHeader>
+      This is the title
+    </CardHeader>
+    <CardBody>
+      <Bullseye
+        className=""
+        component="div"
+      >
+        children
+      </Bullseye>
+    </CardBody>
+  </Card>
+</Fragment>
+`;
+
+exports[`ReportCard expect to render with custom classes 1`] = `
+<Fragment>
+  <Card
+    className="customCardClass"
+  >
+    <CardHeader
+      className="customHeaderClass"
+    >
+      This is the title
+    </CardHeader>
+    <CardBody
+      className="customBodyClass"
+    >
+      <Bullseye
+        className=""
+        component="div"
+      >
+        loaded
+      </Bullseye>
+    </CardBody>
+  </Card>
+</Fragment>
+`;
+
+exports[`ReportCard expect to render without bullseye 1`] = `
+<Fragment>
+  <Card>
+    <CardHeader>
+      This is the title
+    </CardHeader>
+    <CardBody>
+      children
+    </CardBody>
+  </Card>
+</Fragment>
+`;
