@@ -68,15 +68,15 @@ export interface State {
     page: number;
     perPage: number;
     columns: Array<ICell | String>;
-    rows: Array<IRow | Array<String>>,
-    isFirstFetchReportsCall: boolean
+    rows: Array<IRow | Array<String>>;
+    isFirstFetchReportsCall: boolean;
 };
 
 const PULL_INTERVAL_TIME = 5000;
 
 class Reports extends React.Component<Props, State> {
 
-    redirectTimer: any;
+    pullTimer: any;
 
     constructor(props: Props) {
         super(props);
@@ -85,8 +85,8 @@ class Reports extends React.Component<Props, State> {
             page: 1,
             perPage: 10,
             columns: [
-                { title: 'Name', props: {}},
-                { title: 'Status', props: {}},
+                'Name',
+                'Status',
                 {
                     title: '',
                     props: {
@@ -99,44 +99,62 @@ class Reports extends React.Component<Props, State> {
         };
     }
 
+    // React lyfe cycle methods
+
     componentDidMount() {
         this.refreshData();
-        this.startPullScheduler();
+        this.startTimer(this.refreshData);
+    }
+
+    componentDidUpdate(prevProps: Props, prevState: State) {
+        // If it is the first time fetching reports and there are no reports
+        // then redirect to /no-reports page.
+        const { total } = prevProps.reports;
+        const { isFirstFetchReportsCall } = prevState;
+        if (total === 0 && isFirstFetchReportsCall && prevProps.reportsFetchStatus.status === 'complete') {
+            this.props.history.push('/no-reports');
+        }
     }
 
     componentWillUnmount() {
-        this.stopPullScheduler();
+        this.stopTimer();
     }
 
-    startPullScheduler = () => {
-        if (!this.redirectTimer) {
-            this.redirectTimer = setInterval(() => {
-                this.refreshData();
-            }, PULL_INTERVAL_TIME);
+    // Pull timer config
+
+    startTimer = (callback: (...args: any[]) => void) => {
+        if (this.pullTimer) {
+            clearInterval(this.pullTimer);
         }
+
+        this.pullTimer = setInterval(callback, PULL_INTERVAL_TIME);
     };
 
-    stopPullScheduler = () => {
-        clearInterval(this.redirectTimer);
+    stopTimer = () => {
+        clearInterval(this.pullTimer);
     };
 
-    handleDelete = (report: Report) => {
-        this.props.showDeleteDialog({
+    //
+
+    handleDeleteReport = (report: Report) => {
+        const { deleteReport, showDeleteDialog, closeDeleteDialog } = this.props;
+
+        showDeleteDialog({
             name: report.fileName,
             type: 'report',
             onDelete: () => {
-                this.props.deleteReport(report.id, report.fileName).then(() => {
-                    this.props.closeDeleteDialog();
+                deleteReport(report.id, report.fileName).then(() => {
+                    closeDeleteDialog();
                     this.refreshData();
                 });
             },
             onCancel: () => {
-                this.props.closeDeleteDialog();
+                closeDeleteDialog();
             }
         });
     };
 
-    renderStatus = (report: Report) => {
+    renderReportStatus = (report: Report) => {
         switch (report.status) {
             case 'CREATED':
                 return <p><OkIcon className="success" /> Report created - { new Date(report.creationDate).toUTCString() }</p>;
@@ -149,12 +167,12 @@ class Reports extends React.Component<Props, State> {
         }
     };
 
-    renderAction = (report: Report) => {
+    renderReportActions = (report: Report) => {
         switch (report.status) {
             case 'CREATED':
-                return <Button variant={ ButtonVariant.secondary } onClick={ () => this.handleDelete(report) }>Delete</Button>;
+                return <Button variant={ ButtonVariant.secondary } onClick={ () => this.handleDeleteReport(report) }>Delete</Button>;
             case 'FAILED':
-                return <Button variant={ ButtonVariant.secondary } onClick={ () => this.handleDelete(report) }>Delete</Button>;;
+                return <Button variant={ ButtonVariant.secondary } onClick={ () => this.handleDeleteReport(report) }>Delete</Button>;;
             case 'IN_PROGRESS':
                 return '';
             default:
@@ -173,10 +191,10 @@ class Reports extends React.Component<Props, State> {
                         title: <Link to={ `/reports/${report.id}` }>{ report.fileName }</Link>
                     },
                     {
-                        title: this.renderStatus(report)
+                        title: this.renderReportStatus(report)
                     },
                     {
-                        title: this.renderAction(report)
+                        title: this.renderReportActions(report)
                     }
                 ]
             ));
@@ -185,19 +203,15 @@ class Reports extends React.Component<Props, State> {
         this.setState({ rows });
     }
 
-    refreshData(page: number = this.state.page, perPage: number = this.state.perPage, filterText: string = this.state.filterText): void {
+    refreshData = (page: number = this.state.page, perPage: number = this.state.perPage, filterText: string = this.state.filterText) => {
         this.props.fetchReports(page, perPage, filterText).then(() => {
-            // If it is the first time fetching reports and there are no reports
-            // thenn redirect to. Otherwise show empty table.
-            const { total } = this.props.reports;
-            const { isFirstFetchReportsCall } = this.state;
-            if (total === 0 && isFirstFetchReportsCall) {
-                this.props.history.push('/no-reports');
-            }
-
-            this.setState({ isFirstFetchReportsCall: false });
-
             this.filtersInRowsAndCells();
+
+            // Change to false to indicate that
+            const { isFirstFetchReportsCall } = this.state;
+            if (isFirstFetchReportsCall) {
+                this.setState({ isFirstFetchReportsCall: false });
+            }
         });
     }
 

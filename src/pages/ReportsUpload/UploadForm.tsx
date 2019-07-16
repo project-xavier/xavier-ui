@@ -86,7 +86,7 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                         } }
                         noClick noKeyboard
                         multiple={ false }
-                        accept={ [ 'application/zip', 'application/json' ] }
+                        accept={ [ 'application/zip', 'application/json', 'application/tar', 'application/tar+gzip' ] }
                     >
                         { ({ getRootProps, getInputProps, open }) => {
                             return (

@@ -241,14 +241,8 @@ exports[`Reports should render list depending of TOTAL value expect to render li
     borders={true}
     cells={
       Array [
-        Object {
-          "props": Object {},
-          "title": "Name",
-        },
-        Object {
-          "props": Object {},
-          "title": "Status",
-        },
+        "Name",
+        "Status",
         Object {
           "props": Object {
             "className": "pf-u-text-align-center",
@@ -279,10 +273,19 @@ exports[`Reports should render list depending of TOTAL value expect to render li
             </Link>,
           },
           Object {
-            "title": null,
+            "title": <p>
+              <InProgressIcon
+                className="progress"
+                color="currentColor"
+                noVerticalAlign={false}
+                size="sm"
+                title={null}
+              />
+               Analyzing the upload file
+            </p>,
           },
           Object {
-            "title": null,
+            "title": "",
           },
         ],
         Array [
@@ -295,10 +298,19 @@ exports[`Reports should render list depending of TOTAL value expect to render li
             </Link>,
           },
           Object {
-            "title": null,
+            "title": <p>
+              <InProgressIcon
+                className="progress"
+                color="currentColor"
+                noVerticalAlign={false}
+                size="sm"
+                title={null}
+              />
+               Analyzing the upload file
+            </p>,
           },
           Object {
-            "title": null,
+            "title": "",
           },
         ],
       ]

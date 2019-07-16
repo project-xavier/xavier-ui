@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import NoReports from './NoReports';
-import { withRouter } from 'react-router';
 import { GlobalState } from '../../models/state';
 
 const mapStateToProps = (state: GlobalState)  => {
@@ -17,9 +16,7 @@ const mapStateToProps = (state: GlobalState)  => {
 const mapDispatchToProps = {
 };
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(NoReports)
-);
+export default  connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(NoReports);

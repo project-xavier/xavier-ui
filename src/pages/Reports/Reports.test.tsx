@@ -13,7 +13,7 @@ const props: Props = {
         totalDiskSpace: 5871365,
         totalPrice: 1200,
         creationDate: 123654565464,
-        status: 'progress'
+        status: 'IN_PROGRESS'
       },
       {
         id: 37,
@@ -23,7 +23,7 @@ const props: Props = {
         totalDiskSpace: 5412584,
         totalPrice: 1800,
         creationDate: 123654565464,
-        status: 'progress'
+        status: 'IN_PROGRESS'
       }
     ]
   },

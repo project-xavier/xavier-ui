@@ -13,6 +13,8 @@ exports[`UploadForm expect to render 1`] = `
         Array [
           "application/zip",
           "application/json",
+          "application/tar",
+          "application/tar+gzip",
         ]
       }
       multiple={false}
@@ -276,6 +278,8 @@ exports[`UploadForm expect to render errors 1`] = `
         Array [
           "application/zip",
           "application/json",
+          "application/tar",
+          "application/tar+gzip",
         ]
       }
       multiple={false}
