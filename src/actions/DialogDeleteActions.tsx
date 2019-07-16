@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios';
 import { createAction, createStandardAction } from 'typesafe-actions';
 
-interface Item {
+export interface Item {
   name: string;
   type: string;
   onDelete: () => void;

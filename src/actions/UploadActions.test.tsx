@@ -36,3 +36,9 @@ describe('selectFile', () => {
         expect(actionGenerator.selectUploadFile(file)).toMatchSnapshot();
     });
 });
+
+describe('resetUploadFile', () => {
+    it('returns a state object', () => {
+        expect(actionGenerator.resetUploadFile()).toMatchSnapshot();
+    });
+});

@@ -9,12 +9,30 @@ import * as actionGenerator from './ReportActions';
 
 describe('fetchReports', () => {
     it('returns a state object', () => {
-        expect(actionGenerator.fetchReports()).toMatchSnapshot();
+        expect(actionGenerator.fetchReports(1, 10, 'search text' )).toMatchSnapshot();
     });
 });
 
 describe('fetchReport', () => {
     it('returns a state object', () => {
         expect(actionGenerator.fetchReport(1)).toMatchSnapshot();
+    });
+});
+
+describe('deleteReport', () => {
+    it('returns a state object', () => {
+        expect(actionGenerator.deleteReport(1, 'my report name')).toMatchSnapshot();
+    });
+});
+
+describe('fetchReportWorkloadMigrationSummary', () => {
+    it('returns a state object', () => {
+        expect(actionGenerator.fetchReportWorkloadMigrationSummary(1)).toMatchSnapshot();
+    });
+});
+
+describe('fetchReportInitialSavingEstimation', () => {
+    it('returns a state object', () => {
+        expect(actionGenerator.fetchReportInitialSavingEstimation(1)).toMatchSnapshot();
     });
 });

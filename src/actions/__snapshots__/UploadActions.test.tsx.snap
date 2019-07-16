@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`resetUploadFile returns a state object 1`] = `
+Object {
+  "payload": Object {},
+  "type": "RESET_UPLOAD_FILE",
+}
+`;
+
 exports[`selectFile returns a state object 1`] = `
 Object {
   "payload": Object {

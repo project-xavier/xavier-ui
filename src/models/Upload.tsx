@@ -2,7 +2,7 @@ export interface Upload {
     id?: number;
     file: File,
     reportName: string,
-    customerId: string,
+    customerId?: string,
     reportDescription?: string | null,
     yearOverYearGrowthRatePercentage: number,
     percentageOfHypervisorsMigratedOnYear1: number,

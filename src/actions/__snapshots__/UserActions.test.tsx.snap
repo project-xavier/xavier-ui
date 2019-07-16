@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fetchUser returns a state object 1`] = `
+Object {
+  "meta": Object {
+    "notifications": Object {
+      "rejected": Object {
+        "title": "Failed to load user",
+        "variant": "danger",
+      },
+    },
+  },
+  "payload": Promise {},
+  "type": "FETCH_USER",
+}
+`;
+
+exports[`updateUser returns a state object 1`] = `
+Object {
+  "payload": Object {
+    "user": Object {
+      "firstTimeCreatingReports": true,
+    },
+  },
+  "type": "UPDATE_USER",
+}
+`;
