@@ -1,6 +1,6 @@
 export const isNotNullOrUndefined = (value: any): boolean => {
     return value === undefined || value === null;
-}
+};
 
 export const getErrorsFromValidationError = (validationError: any) => {
     const FIRST_ERROR = 0;
