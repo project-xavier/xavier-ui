@@ -14,7 +14,6 @@ import {
     AddCircleOIcon
 } from '@patternfly/react-icons';
 import { User } from '../../models';
-import { RouterGlobalProps } from '../../models/router';
 
 interface StateToProps {
     user: User | null;
@@ -23,7 +22,7 @@ interface StateToProps {
 interface DispatchToProps {
 }
 
-interface Props extends StateToProps, DispatchToProps, RouterGlobalProps {
+export interface Props extends StateToProps, DispatchToProps {
 };
 
 interface State {
