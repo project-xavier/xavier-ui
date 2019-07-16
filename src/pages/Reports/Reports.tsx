@@ -106,12 +106,12 @@ class Reports extends React.Component<Props, State> {
         this.startTimer(this.refreshData);
     }
 
-    componentDidUpdate(prevProps: Props, prevState: State) {
+    componentDidUpdate() {
         // If it is the first time fetching reports and there are no reports
         // then redirect to /no-reports page.
-        const { total } = prevProps.reports;
-        const { isFirstFetchReportsCall } = prevState;
-        if (total === 0 && isFirstFetchReportsCall && prevProps.reportsFetchStatus.status === 'complete') {
+        const { total } = this.props.reports;
+        const { isFirstFetchReportsCall } = this.state;
+        if (total === 0 && !isFirstFetchReportsCall) {
             this.props.history.push('/no-reports');
         }
     }
