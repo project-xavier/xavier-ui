@@ -7,6 +7,7 @@ import {
 } from '@patternfly/react-table';
 import { formatValue } from '../../../Utilities/formatValue';
 import { SourceCostsModel } from '../../../models';
+import { isNotNullOrUndefined } from '../../../Utilities/formUtils';
 
 interface Props {
     data: SourceCostsModel
@@ -29,28 +30,28 @@ class RenewalEstimation extends Component<Props, State> {
         }} = this.props;
 
         const columns = [
-            { title: 'For vSphere Enterprise Plus' },
+            'For vSphere Enterprise Plus',
             { title: 'ELA Renewal Estimation', props: { className: 'pf-u-text-align-right' }}
         ];
 
         const rows = [
             [
                 '-- As high as...',
-                formatValue(sourceRenewHighValue, 'usd', { fractionDigits: 0 })
+                isNotNullOrUndefined(sourceRenewHighValue) ? 'Unknown' : formatValue(sourceRenewHighValue, 'usd', { fractionDigits: 0 })
             ],
             [
                 '-- Most likely...',
-                formatValue(sourceRenewLikelyValue, 'usd', { fractionDigits: 0 })
+                isNotNullOrUndefined(sourceRenewLikelyValue) ? 'Unknown' : formatValue(sourceRenewLikelyValue, 'usd', { fractionDigits: 0 })
             ],
             [
                 '-- As low as...',
-                formatValue(sourceRenewLowValue, 'usd', { fractionDigits: 0 })
+                isNotNullOrUndefined(sourceRenewLowValue) ? 'Unknown' : formatValue(sourceRenewLowValue, 'usd', { fractionDigits: 0 })
             ]
         ];
 
         return (
             <React.Fragment>
-                <Table aria-label='Environment'
+                <Table aria-label='Renewal estimation'
                     cells={ columns }
                     rows={ rows }
                     variant={ TableVariant.compact }

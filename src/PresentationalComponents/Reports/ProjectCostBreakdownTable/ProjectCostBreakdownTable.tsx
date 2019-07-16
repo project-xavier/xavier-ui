@@ -6,6 +6,7 @@ import {
 } from '@patternfly/react-table';
 import { formatValue } from '../../../Utilities/formatValue';
 import { RHVRampUpCostsModel, SourceRampDownCostsModel } from '../../../models';
+import { isNotNullOrUndefined } from '../../../Utilities/formUtils';
 
 interface Props {
     rhvRampUpCostsModel: RHVRampUpCostsModel;
@@ -21,23 +22,36 @@ class ProjectCostBreakdownTable extends Component<Props, State> {
         super(props);
     }
 
-    render() {
-        const {
-            rhvRampUpCostsModel,
-            sourceRampDownCostsModel
-        } = this.props;
+    getSourceMaintenanceTotal = () => {
+        const { sourceRampDownCostsModel } = this.props;
 
-        const sourceMaintenanceTotal = sourceRampDownCostsModel.year1SourceMaintenanceTotalValue +
+        return sourceRampDownCostsModel.year1SourceMaintenanceTotalValue +
             sourceRampDownCostsModel.year2SourceMaintenanceTotalValue +
             sourceRampDownCostsModel.year3SourceMaintenanceTotalValue;
+    }
 
-        const hypervisorSubscriptions = rhvRampUpCostsModel.year1RhvTotalValue +
+    getHypervisorSubscriptions = () => {
+        const { rhvRampUpCostsModel } = this.props;
+
+        return rhvRampUpCostsModel.year1RhvTotalValue +
             rhvRampUpCostsModel.year2RhvTotalValue +
             rhvRampUpCostsModel.year3RhvTotalValue;
+    }
 
-        const hypervisorGrowthSubscriptions = rhvRampUpCostsModel.year1RhvGrandTotalGrowthValue +
+    gethypervisorGrowthSubscriptions = () => {
+        const { rhvRampUpCostsModel } = this.props;
+
+        return rhvRampUpCostsModel.year1RhvGrandTotalGrowthValue +
             rhvRampUpCostsModel.year2RhvGrandTotalGrowthValue +
             rhvRampUpCostsModel.year3RhvGrandTotalGrowthValue;
+    }
+
+    render() {
+        const { rhvRampUpCostsModel } = this.props;
+
+        const sourceMaintenanceTotal = this.getSourceMaintenanceTotal();
+        const hypervisorSubscriptions = this.getHypervisorSubscriptions();
+        const hypervisorGrowthSubscriptions = this.gethypervisorGrowthSubscriptions();
 
         const rhvSwitchLearningSubsValue = rhvRampUpCostsModel.rhvSwitchLearningSubsValue;
         const rhvSwitchConsultValue = rhvRampUpCostsModel.rhvSwitchConsultValue;
@@ -51,8 +65,8 @@ class ProjectCostBreakdownTable extends Component<Props, State> {
             rhvSwitchTAndEValue;
 
         const columns = [
-            { title: '' },
-            { title: '' },
+            '',
+            '',
             { title: '', props: { className: 'pf-u-text-align-right' }}
         ];
 
@@ -60,7 +74,7 @@ class ProjectCostBreakdownTable extends Component<Props, State> {
             [
                 'VMware maintenance',
                 'VMware support costs (during migration)',
-                formatValue(sourceMaintenanceTotal, 'usd', { fractionDigits: 0 })
+                Number.isNaN(sourceMaintenanceTotal) ? 'Unknown' : formatValue(sourceMaintenanceTotal, 'usd', { fractionDigits: 0 })
             ],
             [
                 {
@@ -81,12 +95,12 @@ class ProjectCostBreakdownTable extends Component<Props, State> {
             [
                 '',
                 'RHV hypervisor subscriptions',
-                formatValue(hypervisorSubscriptions, 'usd', { fractionDigits: 0 })
+                Number.isNaN(hypervisorSubscriptions) ? 'Unknown' : formatValue(hypervisorSubscriptions, 'usd', { fractionDigits: 0 })
             ],
             [
                 '',
                 'RHV hypervisor growth subscriptions',
-                formatValue(hypervisorGrowthSubscriptions, 'usd', { fractionDigits: 0 })
+                Number.isNaN(hypervisorGrowthSubscriptions) ? 'Unknown' : formatValue(hypervisorGrowthSubscriptions, 'usd', { fractionDigits: 0 })
             ],
             [
                 'Red Hat training and services',
@@ -96,17 +110,17 @@ class ProjectCostBreakdownTable extends Component<Props, State> {
             [
                 '',
                 'Red Hat training',
-                formatValue(rhvSwitchLearningSubsValue, 'usd', { fractionDigits: 0 })
+                isNotNullOrUndefined(rhvSwitchLearningSubsValue) ? 'Unknown' : formatValue(rhvSwitchLearningSubsValue, 'usd', { fractionDigits: 0 })
             ],
             [
                 '',
                 'Red Hat consulting',
-                formatValue(rhvSwitchConsultValue, 'usd', { fractionDigits: 0 })
+                isNotNullOrUndefined(rhvSwitchConsultValue) ? 'Unknown' : formatValue(rhvSwitchConsultValue, 'usd', { fractionDigits: 0 })
             ],
             [
                 '',
                 'Travel and lodging',
-                formatValue(rhvSwitchTAndEValue, 'usd', { fractionDigits: 0 })
+                isNotNullOrUndefined(rhvSwitchTAndEValue) ? 'Unknown' : formatValue(rhvSwitchTAndEValue, 'usd', { fractionDigits: 0 })
             ],
             [
                 {
@@ -114,7 +128,7 @@ class ProjectCostBreakdownTable extends Component<Props, State> {
                 },
                 '',
                 {
-                    title: <strong>{ formatValue(total, 'usd', { fractionDigits: 0 }) }</strong>
+                    title: <strong>{ Number.isNaN(total) ? 'Unknown' : formatValue(total, 'usd', { fractionDigits: 0 }) }</strong>
                 }
             ]
         ];
