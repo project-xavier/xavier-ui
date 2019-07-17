@@ -3,26 +3,26 @@ import Reports from './Reports';
 import { withRouter } from 'react-router';
 import { GlobalState } from '../../models/state';
 import  * as reportActions from '../../actions/ReportActions';
+import  * as dialogDeleteActions from '../../actions/DialogDeleteActions';
 
 const mapStateToProps = (state: GlobalState)  => {
     const {
         reportState: {
             reports,
-            loading,
-            error,
-            total
+            reportsFetchStatus
         }
     } = state;
     return {
         reports,
-        loading,
-        error,
-        total
+        reportsFetchStatus
     };
 };
 
 const mapDispatchToProps = {
-    fetchReports: reportActions.fetchReports
+    fetchReports: reportActions.fetchReports,
+    deleteReport: reportActions.deleteReport,
+    showDeleteDialog: dialogDeleteActions.openModal,
+    closeDeleteDialog: dialogDeleteActions.closeModal
 };
 
 export default withRouter(

@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GettingStarted expect to redirect 1`] = `
+<Redirect
+  push={false}
+  to="/reports"
+/>
+`;
+
+exports[`GettingStarted expect to render 1`] = `
+<ReportsPage>
+  <Bullseye
+    className=""
+    component="div"
+  >
+    <EmptyState
+      variant="full"
+    >
+      <div
+        className="pf-c-empty-state__icon"
+        style={
+          Object {
+            "opacity": 0.6,
+          }
+        }
+      >
+        <Icon
+          height="80px"
+        />
+      </div>
+      <Title
+        size="lg"
+      >
+        Let Red Hat Migration Analytics suggest ways to optimize your environment
+      </Title>
+      <EmptyStateBody>
+        See how you can optimize your virtual environment by uploading a Red Hat CloudForms generated inventory file and then letting Red Hat Migration Analytics create reports showing how you can save money and optimize workloads - whether by migrating virtual machines or migrating application to RHEL.
+      </EmptyStateBody>
+      <Link
+        className="pf-c-button pf-m-primary"
+        replace={false}
+        to="/reports/upload"
+      >
+        Get Started
+      </Link>
+    </EmptyState>
+  </Bullseye>
+</ReportsPage>
+`;

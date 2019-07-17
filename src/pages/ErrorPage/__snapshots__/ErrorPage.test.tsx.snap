@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorPage expect to render 1`] = `
+<Fragment>
+  <PageHeader>
+    <PageHeaderTitle
+      title="Error"
+    />
+  </PageHeader>
+  <Connect(Main)>
+    <Bullseye
+      className=""
+      component="div"
+    >
+      <EmptyState
+        variant="large"
+      >
+        <EmptyStateIcon
+          icon={[Function]}
+        />
+        <Title
+          headingLevel="h5"
+          size="lg"
+        >
+          Error
+        </Title>
+        <EmptyStateBody>
+          Something unexpected happened, please try again!
+        </EmptyStateBody>
+        <Link
+          className="pf-c-button pf-m-primary"
+          replace={false}
+          to="/"
+        >
+          Home
+        </Link>
+      </EmptyState>
+    </Bullseye>
+  </Connect(Main)>
+</Fragment>
+`;

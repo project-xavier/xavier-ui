@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`closeModal returns a state object 1`] = `
+Object {
+  "error": undefined,
+  "meta": undefined,
+  "payload": undefined,
+  "type": "dialog/delete/close",
+}
+`;
+
+exports[`openModal returns a state object 1`] = `
+Object {
+  "meta": undefined,
+  "payload": Object {
+    "name": "Pedro",
+    "onCancel": [Function],
+    "onDelete": [Function],
+    "type": "Persona",
+  },
+  "type": "dialog/delete/open",
+}
+`;
+
+exports[`openModal returns a state object 2`] = `
+Object {
+  "meta": undefined,
+  "payload": Object {
+    "config": Object {},
+    "isAxiosError": false,
+    "message": "my custom error message",
+    "name": "error",
+  },
+  "type": "dialog/delete/error",
+}
+`;
+
+exports[`processing returns a state object 1`] = `
+Object {
+  "error": undefined,
+  "meta": undefined,
+  "payload": undefined,
+  "type": "dialog/delete/processing",
+}
+`;

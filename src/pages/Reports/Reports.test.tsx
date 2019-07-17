@@ -1,62 +1,81 @@
 import { shallow } from 'enzyme';
-import Reports from './Reports';
+import Reports, { Props } from './Reports';
 
-const props = {
-  total: 2,
-  loading: false,
-  report: null,
-  reports: [
-    {
-      id: 36,
-      customerId: "123456",
-      fileName: "file1.json",
-      numberOfHosts: 254,
-      totalDiskSpace: 5871365,
-      totalPrice: 1200,
-      creationDate: 123654565464
-    },
-    {
-      id: 37,
-      customerId: "654321",
-      fileName: "file2.json",
-      numberOfHosts: 574,
-      totalDiskSpace: 5412584,
-      totalPrice: 1800,
-      creationDate: 123654565464
-    }
-  ],
-  error: "",
+const props: Props = {
+  reports: {
+    total: 2,
+    items: [
+      {
+        id: 36,
+        customerId: "123456",
+        fileName: "file1.json",
+        numberOfHosts: 254,
+        totalDiskSpace: 5871365,
+        totalPrice: 1200,
+        creationDate: 123654565464,
+        status: 'IN_PROGRESS'
+      },
+      {
+        id: 37,
+        customerId: "654321",
+        fileName: "file2.json",
+        numberOfHosts: 574,
+        totalDiskSpace: 5412584,
+        totalPrice: 1800,
+        creationDate: 123654565464,
+        status: 'IN_PROGRESS'
+      }
+    ]
+  },
+  reportsFetchStatus: {
+    error: null,
+    status: 'complete'
+  },
+
   fetchReports: () => ({
-    then: (fn: Function) => {
-      fn();
-    }
+    then: (fn: Function) => fn()
   }),
+  deleteReport: jest.fn(),
+  showDeleteDialog: jest.fn(),
+  closeDeleteDialog: jest.fn(),
 
-  history: null,
+  history: {
+    push: jest.fn()
+  },
   location: null,
   match: null
 };
 
-describe("ReportList", () => {
-  it("expect to render empty list", () => {
-    const emptyProps = Object.assign({}, props, {
-      total: 0,
-      reports: []
-    });
+describe("Reports should render list depending of TOTAL value", () => {
+  it("expect to render empty list even though is not fetching and items.length > 0. Using Total = 0", () => {
+    const emptyProps: Props = {
+      ...props,
+      reports: {
+        ...props.reports,
+        total: 0
+      },
+      reportsFetchStatus: {
+        ...props.reportsFetchStatus,
+        status: 'inProgress'
+      }
+    };
+
     const wrapper = shallow(<Reports {...emptyProps} />);
     expect(wrapper).toMatchSnapshot();
   });
 
-  it("expect to render loading list", () => {
-    const loadingProps = Object.assign({}, props, {
-      loading: true
-    });
-    const wrapper = shallow(<Reports {...loadingProps} />);
-    expect(wrapper).toMatchSnapshot();
-  });
-
-  it("expect to render list", () => {
-    const listProps = Object.assign({}, props);
+  it("expect to render list even though is fetching. Using Total > 0", () => {
+    const listProps: Props = {
+      ...props,
+      reports: {
+        ...props.reports,
+        total: props.reports.items.length
+      },
+      reportsFetchStatus: {
+        ...props.reportsFetchStatus,
+        status: 'inProgress'
+      }
+    };
     const wrapper = shallow(<Reports {...listProps} />);
     expect(wrapper).toMatchSnapshot();
   });

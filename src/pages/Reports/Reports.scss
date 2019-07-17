@@ -1,3 +1,11 @@
 .pf-c-empty-state > .dropzone {
     margin-top: var(--pf-c-empty-state--c-button--MarginTop);
 }
+
+.error {
+    color: var(--pf-global--danger-color--100) !important;
+}
+
+.success {
+    color: var(--pf-global--success-color--100) !important;
+}

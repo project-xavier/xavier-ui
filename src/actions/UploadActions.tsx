@@ -19,12 +19,8 @@ export const uploadRequest = (upload: Upload, config = {}): GenericAction => {
         payload: uploadFile(formData, config),
         meta: {
             file: upload.file,
-            notifications: {
-                rejected: {
-                    variant: 'danger',
-                    title: `Failed to upload file`
-                }
-            }
+            noError: true,
+            notifications: { }
         }
     };
 };

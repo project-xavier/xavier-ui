@@ -1,5 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`deleteReport returns a state object 1`] = `
+Object {
+  "meta": Object {
+    "notifications": Object {
+      "fulfilled": Object {
+        "title": "Report my report name deleted",
+        "variant": "success",
+      },
+      "rejected": Object {
+        "title": "Failed to delete report my report name",
+        "variant": "danger",
+      },
+    },
+  },
+  "payload": Promise {},
+  "type": "DELETE_REPORT",
+}
+`;
+
 exports[`fetchReport returns a state object 1`] = `
 Object {
   "meta": Object {
@@ -12,6 +31,36 @@ Object {
   },
   "payload": Promise {},
   "type": "FETCH_REPORT",
+}
+`;
+
+exports[`fetchReportInitialSavingEstimation returns a state object 1`] = `
+Object {
+  "meta": Object {
+    "notifications": Object {
+      "rejected": Object {
+        "title": "Failed to load report saving estimation 1",
+        "variant": "danger",
+      },
+    },
+  },
+  "payload": Promise {},
+  "type": "FETCH_REPORT_INITIAL_SAVING_ESTIMATION",
+}
+`;
+
+exports[`fetchReportWorkloadMigrationSummary returns a state object 1`] = `
+Object {
+  "meta": Object {
+    "notifications": Object {
+      "rejected": Object {
+        "title": "Failed to load report workload summary 1",
+        "variant": "danger",
+      },
+    },
+  },
+  "payload": Promise {},
+  "type": "FETCH_REPORT_WORKLOAD_MIGRATION_SUMMARY",
 }
 `;
 

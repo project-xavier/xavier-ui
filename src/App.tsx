@@ -5,6 +5,13 @@ import { Routes } from './Routes';
 import './App.scss';
 import '@patternfly/patternfly/patternfly-addons.css';
 import { RouterGlobalProps } from './models/router';
+import { NotificationsPortal } from '@redhat-cloud-services/frontend-components-notifications';
+import '@redhat-cloud-services/frontend-components-notifications/index.css';
+import asyncComponent from './Utilities/asyncComponent';
+
+const DeleteMessageDialog = asyncComponent(() =>
+  import(/* webpackChunkName: "DeleteDialog" */ './SmartComponents/DeleteDialog')
+);
 
 declare var insights: any;
 
@@ -33,7 +40,11 @@ class App extends Component<Props, State> {
 
     render() {
         return (
-            <Routes childProps={ this.props } />
+            <React.Fragment>
+                <Routes childProps={ this.props } />
+                <NotificationsPortal />
+                <DeleteMessageDialog />
+            </React.Fragment>
         );
     }
 }

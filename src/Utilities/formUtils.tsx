@@ -1,3 +1,7 @@
+export const isNotNullOrUndefined = (value: any): boolean => {
+    return value === undefined || value === null;
+};
+
 export const getErrorsFromValidationError = (validationError: any) => {
     const FIRST_ERROR = 0;
     return validationError.inner.reduce((errors: any, error: any) => {

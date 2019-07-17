@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NoReports expect to redirect 1`] = `
+<Redirect
+  push={false}
+  to="/getting-started"
+/>
+`;
+
+exports[`NoReports expect to render 1`] = `
+<withRouter(ReportsPage)>
+  <Bullseye
+    className=""
+    component="div"
+  >
+    <EmptyState
+      variant="large"
+    >
+      <EmptyStateIcon
+        icon={[Function]}
+      />
+      <Title
+        headingLevel="h5"
+        size="lg"
+      >
+        No reports found
+      </Title>
+      <EmptyStateBody>
+        Reports are created from inventory data files that are uploaded to Red Hat Migration Analytics.
+      </EmptyStateBody>
+      <Link
+        className="pf-c-button pf-m-primary"
+        replace={false}
+        to="/reports/upload"
+      >
+        Create report
+      </Link>
+    </EmptyState>
+  </Bullseye>
+</withRouter(ReportsPage)>
+`;

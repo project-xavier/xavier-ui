@@ -16,6 +16,8 @@ import {
     EmptyStateSecondaryActions
 } from '@patternfly/react-core';
 import { VolumeIcon } from '@patternfly/react-icons';
+import { Link } from 'react-router-dom';
+import Axios from 'axios';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { RouterGlobalProps } from '../../models/router';
@@ -24,7 +26,7 @@ import {
     PageHeader,
     PageHeaderTitle
 } from '@redhat-cloud-services/frontend-components';
-import { Upload } from '../../models';
+import { Upload, User } from '../../models';
 import './ReportsUpload.scss';
 import UploadForm from './UploadForm';
 import { validateForm } from '../../Utilities/formUtils';
@@ -41,6 +43,7 @@ interface FormValues {
 }
 
 interface StateToProps {
+    user: User;
     file: File;
     success: boolean | null;
     error: string | null;
@@ -53,6 +56,7 @@ interface DispatchToProps {
     uploadRequest: (upload: Upload, config: {}) => void;
     selectUploadFile: (file: File) => void;
     resetUploadFile: () => void;
+    updateUser: (user: User) => void;
 }
 
 interface Props extends StateToProps, DispatchToProps, RouterGlobalProps {
@@ -61,6 +65,7 @@ interface Props extends StateToProps, DispatchToProps, RouterGlobalProps {
 interface State {
     showForm: boolean;
     timeoutToRedirect: number;
+    cancelUploadSource: any;
 }
 
 const initialFormValue: FormValues = {
@@ -121,12 +126,26 @@ class ReportsUpload extends React.Component<Props, State> {
     redirectTimer: any;
     beforeUnloadHandler: any;
 
+    initialFormValue: FormValues;
+
     constructor(props: Props) {
         super(props);
 
         this.state = {
             showForm: true,
-            timeoutToRedirect: 3
+            timeoutToRedirect: 3,
+            cancelUploadSource: Axios.CancelToken.source()
+        };
+
+        this.initialFormValue = {
+            file: '',
+            reportName: '',
+            reportDescription: '',
+            yearOverYearGrowthRatePercentage: 5,
+            percentageOfHypervisorsMigratedOnYear1: 50,
+            percentageOfHypervisorsMigratedOnYear2: 30,
+            percentageOfHypervisorsMigratedOnYear3: 10,
+            percentageOfHypervisorsMigratedSum: 90
         };
 
         this.redirectTimer = null;
@@ -166,8 +185,14 @@ class ReportsUpload extends React.Component<Props, State> {
      * Called by "Close modal" or by the "Cancel button"
      */
     handleCloseModel = () => {
-        if (!this.props.uploading) {
-            this.props.history.push('/reports');
+        const { uploading, user } = this.props;
+
+        if (!uploading) {
+            if (user.firstTimeCreatingReports) {
+                this.props.history.push('/getting-started');
+            } else {
+                this.props.history.push('/reports');
+            }
         }
     };
 
@@ -179,20 +204,20 @@ class ReportsUpload extends React.Component<Props, State> {
         return (
             <Button type="button" variant={ ButtonVariant.primary } onClick={ this.handleCloseModel }> Closing in { timeoutToRedirect } </Button>
         );
-    }
+    };
 
     startRedirectTimer = () => {
         if (this.redirectTimer === null && this.state.timeoutToRedirect > 0) {
             this.redirectTimer = setInterval(this.redirectCountDown, 1000);
         }
-    }
+    };
 
     redirectCountDown = () => {
         let timeoutToRedirect = this.state.timeoutToRedirect - 1;
         this.setState({
             timeoutToRedirect
         });
-    }
+    };
 
     handleFormSubmit = (values: FormValues) => {
         this.setState({
@@ -213,6 +238,7 @@ class ReportsUpload extends React.Component<Props, State> {
             headers: {
                 'X-Requested-With': 'XMLHttpRequest'
             },
+            cancelToken: this.state.cancelUploadSource.token,
             onUploadProgress: (progressEvent: any) => {
                 const progress: number = Math.round((progressEvent.loaded / progressEvent.total) * 100);
                 this.props.uploadProgress(progress);
@@ -222,19 +248,31 @@ class ReportsUpload extends React.Component<Props, State> {
         this.props.uploadRequest(upload, config);
     }
 
+    handleCancelUpload = () => {
+        this.state.cancelUploadSource.cancel('Upload canceled by the user.');
+    };
+
     onFileSelected = (files: File[]): void => {
         this.props.selectUploadFile(files[0]);
     };
 
     renderProgress() {
         let message: string;
+        let secondaryAction;
         if (this.props.error) {
             message = 'An error occured during the upload process. Please, try again.';
+            secondaryAction = (
+                <Link to={ '/reports/upload' } className="pf-c-button pf-m-secondary" target="_self">Retry</Link>
+            );
         } else {
             if (this.props.success) {
                 message = 'Finished successfully. We will redirect you to the next page.';
+                secondaryAction = this.actionsOnUploadSuccess();
             } else {
                 message = 'Your file is been uploaded, the process can take some time.';
+                secondaryAction = (
+                    <Button onClick={ this.handleCancelUpload } variant={ ButtonVariant.link }>Cancel</Button>
+                );
             }
         }
 
@@ -254,9 +292,7 @@ class ReportsUpload extends React.Component<Props, State> {
                     </div>
                     <EmptyStateBody>{ message }</EmptyStateBody>
                     <EmptyStateSecondaryActions>
-                        {
-                            this.props.success ? this.actionsOnUploadSuccess() : ''
-                        }
+                        { secondaryAction }
                     </EmptyStateSecondaryActions>
                 </EmptyState>
             </Bullseye>
@@ -282,6 +318,12 @@ class ReportsUpload extends React.Component<Props, State> {
     }
 
     render() {
+        const { success, user } = this.props;
+        if (success && user.firstTimeCreatingReports) {
+            const { updateUser } = this.props;
+            updateUser({ firstTimeCreatingReports: false });
+        }
+
         return (
             <React.Fragment>
                 <PageHeader>

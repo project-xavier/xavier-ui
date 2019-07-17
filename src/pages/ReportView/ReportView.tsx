@@ -1,18 +1,15 @@
 import React from 'react';
-import { Redirect, Link } from 'react-router-dom';
-import {
-    Spinner
-} from '@redhat-cloud-services/frontend-components';
+import { Redirect, Switch, Route } from 'react-router-dom';
 import { RouterGlobalProps } from '../../models/router';
 import { Report } from '../../models';
 import ReportViewPage from '../../PresentationalComponents/ReportViewPage';
-import LoadingState from '../../PresentationalComponents/LoadingState';
-import { Card, CardBody, Button } from '@patternfly/react-core';
+import asyncComponent from '../../Utilities/asyncComponent';
+import { ReportViewPaths } from './ReportViewConstants';
+import { ObjectFetchStatus } from '../../models/state';
 
 interface StateToProps {
-    error: string | null;
     report: Report | null;
-    loading: boolean;
+    reportFetchStatus: ObjectFetchStatus;
 }
 
 interface DispatchToProps {
@@ -26,6 +23,13 @@ interface State {
     reportId: number;
 };
 
+const WorkloadMigrationSummary = asyncComponent(() =>
+    import(/* webpackChunkName: "WorkloadMigrationSummary" */ './WorkloadMigrationSummary'));
+const InitialSavingsEstimation = asyncComponent(() =>
+    import(/* webpackChunkName: "InitialSavingsEstimation" */ './InitialSavingsEstimation'));
+const WorkloadInventory = asyncComponent(() =>
+    import(/* webpackChunkName: "WorkloadInventory" */ './WorkloadInventory'));
+
 class ReportView extends React.Component<Props, State> {
 
     constructor(props: Props) {
@@ -35,57 +39,37 @@ class ReportView extends React.Component<Props, State> {
         };
     }
 
-    componentDidMount(): void {
-        const id: number = this.state.reportId;
-        if (id) {
-            this.props.fetchReport(id);
-        }
+    componentDidMount() {
+        const { reportId } = this.state;
+        this.props.fetchReport(reportId);
     }
 
     render() {
-        const { report, error } = this.props;
-        const { reportId } = this.state;
-
-        if (!reportId || error) {
-            return <Redirect to={ `/reports` } />;
-        }
-
-        const action = !this.props.loading && report ? report.id : '';
-
+        const { report, reportFetchStatus } = this.props;
         return (
             <ReportViewPage
-                title={ `Report ${action}` }
-                showBreadcrumb={ false }>
-                <LoadingState
-                    loading={ this.props.loading }
-                    placeholder={ <Spinner centered/> }>
-                    <Card>
-                        <CardBody>
-                            {
-                                report ? (<div className="pf-c-content">
-                                    <dl>
-                                        <dt>Customer id:</dt>
-                                        <dd>{ report.customerId }</dd>
-                                        <dt>File name:</dt>
-                                        <dd>{ report.fileName }</dd>
-                                        <dt>Number of hosts:</dt>
-                                        <dd>{ report.numberOfHosts.toLocaleString() }</dd>
-                                        <dt>Total disk space:</dt>
-                                        <dd>{ report.totalDiskSpace.toLocaleString() } B</dd>
-                                        <dt>Total price:</dt>
-                                        <dd>{ report.totalPrice }</dd>
-                                        <dt>Creation date:</dt>
-                                        <dd>{ new Date(report.creationDate).toUTCString() }</dd>
-                                    </dl>
-                                    <Button variant="secondary" component= { Link } to="/reports">Back</Button>
-                                </div>
-                                ) : (
-                                    ''
-                                )
-                            }
-                        </CardBody>
-                    </Card>
-                </LoadingState>
+                report={ report }
+                reportFetchStatus={ reportFetchStatus }
+            >
+                <Switch>
+                    <Route
+                        path={ `${this.props.match.url}/${ReportViewPaths.workloadMigrationSummary}` }
+                        component={ WorkloadMigrationSummary }
+                    />
+                    <Route
+                        path={ `${this.props.match.url}/${ReportViewPaths.initialSavingsEstimation}` }
+                        component={ InitialSavingsEstimation }
+                    />
+                    <Route
+                        path={ `${this.props.match.url}/${ReportViewPaths.workloadInventory}` }
+                        component={ WorkloadInventory }
+                    />
+
+                    <Redirect
+                        from={ `${this.props.match.url}` }
+                        to={ `${this.props.match.url}/${ReportViewPaths.initialSavingsEstimation}` }
+                    />
+                </Switch>
             </ReportViewPage>
         );
     }

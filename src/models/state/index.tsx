@@ -1,38 +1,36 @@
-import { Report } from '../Report';
+import { Report, ReportWorkloadMigrationSummary, ReportInitialSavingEstimation } from '../Report';
+import { User } from '../User';
 
 /**
  * The fields of this interface should match the /store/index.js
  */
 export interface GlobalState {
     reportState: ReportState,
-    uploadState: UploadState
+    uploadState: UploadState,
+    userState: UserState,
+    dialogDeleteState: DialogDeleteState
+}
+
+export interface ObjectFetchStatus {
+    error: string | null;
+    status: 'none' | 'inProgress' | 'complete';
 }
 
 export interface ReportState {
-    /**
-     * The error when fetch report/reports fails
-     */
-    error: string | null;
-
-    /**
-     * True when loading a list of reports or a single one
-     */
-    loading: boolean;
-
-    /**
-     * A Single report
-     */
     report: Report | null;
+    reportFetchStatus: ObjectFetchStatus;
 
-    /**
-     * List of reports
-     */
-    reports: Report[];
+    reports: {
+        total: number;
+        items: Report[];
+    };
+    reportsFetchStatus: ObjectFetchStatus;
 
-    /**
-     * Total number of elements of reports
-     */
-    total: number;
+    reportMigrationSummary: ReportWorkloadMigrationSummary | null;
+    reportMigrationSummaryFetchStatus: ObjectFetchStatus;
+
+    reportInitialSavingEstimation: ReportInitialSavingEstimation | null;
+    reportInitialSavingEstimationFetchStatus: ObjectFetchStatus;
 }
 
 export interface UploadState {
@@ -61,3 +59,18 @@ export interface UploadState {
      */
     uploading: boolean
 }
+
+export interface UserState {
+    user: User | null;
+    userFetchStatus: ObjectFetchStatus;
+}
+
+export type DialogDeleteState = Readonly<{
+    isOpen: boolean;
+    isProcessing: boolean;
+    isError: boolean;
+    name: string;
+    type: string;
+    onDelete: () => void;
+    onCancel: () => void;
+}>;

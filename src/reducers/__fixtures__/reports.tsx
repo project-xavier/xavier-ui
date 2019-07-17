@@ -17,7 +17,8 @@ const reportsMock: ListReponse = {
             numberOfHosts: 254,
             totalDiskSpace: 5871365,
             totalPrice: 1200,
-            creationDate: 45654654456
+            creationDate: 45654654456,
+            status: 'CREATED'
         },
         {
             id: 37,
@@ -26,7 +27,8 @@ const reportsMock: ListReponse = {
             numberOfHosts: 574,
             totalDiskSpace: 5412584,
             totalPrice: 1800,
-            creationDate: 1768876117
+            creationDate: 1768876117,
+            status: 'CREATED'
         },
         {
             id: 38,
@@ -35,7 +37,8 @@ const reportsMock: ListReponse = {
             numberOfHosts: 100,
             totalDiskSpace: 2563145,
             totalPrice: 1700,
-            creationDate: 17353543154
+            creationDate: 17353543154,
+            status: 'CREATED'
         }
     ]
 };

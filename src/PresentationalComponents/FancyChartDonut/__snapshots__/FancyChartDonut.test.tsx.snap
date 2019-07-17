@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FancyChartDonut expect to render with minimun props 1`] = `
+<Fragment>
+  <div
+    className="pf-u-display-flex"
+  >
+    <div
+      className="donut-chart-container"
+    >
+      <ChartDonut
+        colorScale={
+          Array [
+            "red",
+            "blue",
+            "yellow",
+            "green",
+          ]
+        }
+        data={
+          Array [
+            Object {
+              "x": "year1",
+              "y": 10,
+            },
+            Object {
+              "x": "year2",
+              "y": 20,
+            },
+            Object {
+              "x": "year3",
+              "y": 30,
+            },
+            Object {
+              "x": "year4",
+              "y": 40,
+            },
+          ]
+        }
+        labels={[Function]}
+      />
+    </div>
+    <ChartLegend
+      colorScale={
+        Array [
+          "red",
+          "blue",
+          "yellow",
+          "green",
+        ]
+      }
+      data={
+        Array [
+          Object {
+            "name": "year1: 10",
+          },
+          Object {
+            "name": "year2: 20",
+          },
+          Object {
+            "name": "year3: 30",
+          },
+          Object {
+            "name": "year4: 40",
+          },
+        ]
+      }
+      orientation="vertical"
+    />
+  </div>
+</Fragment>
+`;
