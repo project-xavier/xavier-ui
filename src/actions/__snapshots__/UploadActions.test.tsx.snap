@@ -29,12 +29,8 @@ exports[`uploadRequest returns a state object 1`] = `
 Object {
   "meta": Object {
     "file": File {},
-    "notifications": Object {
-      "rejected": Object {
-        "title": "Failed to upload file",
-        "variant": "danger",
-      },
-    },
+    "noError": true,
+    "notifications": Object {},
   },
   "payload": Promise {},
   "type": "UPLOAD_REQUEST",

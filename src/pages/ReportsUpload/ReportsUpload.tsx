@@ -16,6 +16,8 @@ import {
     EmptyStateSecondaryActions
 } from '@patternfly/react-core';
 import { VolumeIcon } from '@patternfly/react-icons';
+import { Link } from 'react-router-dom';
+import Axios from 'axios';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { RouterGlobalProps } from '../../models/router';
@@ -63,6 +65,7 @@ interface Props extends StateToProps, DispatchToProps, RouterGlobalProps {
 interface State {
     showForm: boolean;
     timeoutToRedirect: number;
+    cancelUploadSource: any;
 }
 
 const initialFormValue: FormValues = {
@@ -130,7 +133,8 @@ class ReportsUpload extends React.Component<Props, State> {
 
         this.state = {
             showForm: true,
-            timeoutToRedirect: 3
+            timeoutToRedirect: 3,
+            cancelUploadSource: Axios.CancelToken.source()
         };
 
         this.initialFormValue = {
@@ -234,6 +238,7 @@ class ReportsUpload extends React.Component<Props, State> {
             headers: {
                 'X-Requested-With': 'XMLHttpRequest'
             },
+            cancelToken: this.state.cancelUploadSource.token,
             onUploadProgress: (progressEvent: any) => {
                 const progress: number = Math.round((progressEvent.loaded / progressEvent.total) * 100);
                 this.props.uploadProgress(progress);
@@ -243,19 +248,31 @@ class ReportsUpload extends React.Component<Props, State> {
         this.props.uploadRequest(upload, config);
     }
 
+    handleCancelUpload = () => {
+        this.state.cancelUploadSource.cancel('Upload canceled by the user.');
+    };
+
     onFileSelected = (files: File[]): void => {
         this.props.selectUploadFile(files[0]);
     };
 
     renderProgress() {
         let message: string;
+        let secondaryAction;
         if (this.props.error) {
             message = 'An error occured during the upload process. Please, try again.';
+            secondaryAction = (
+                <Link to={ '/reports/upload' } className="pf-c-button pf-m-secondary" target="_self">Retry</Link>
+            );
         } else {
             if (this.props.success) {
                 message = 'Finished successfully. We will redirect you to the next page.';
+                secondaryAction = this.actionsOnUploadSuccess();
             } else {
                 message = 'Your file is been uploaded, the process can take some time.';
+                secondaryAction = (
+                    <Button onClick={ this.handleCancelUpload } variant={ ButtonVariant.link }>Cancel</Button>
+                );
             }
         }
 
@@ -275,9 +292,7 @@ class ReportsUpload extends React.Component<Props, State> {
                     </div>
                     <EmptyStateBody>{ message }</EmptyStateBody>
                     <EmptyStateSecondaryActions>
-                        {
-                            this.props.success ? this.actionsOnUploadSuccess() : ''
-                        }
+                        { secondaryAction }
                     </EmptyStateSecondaryActions>
                 </EmptyState>
             </Bullseye>

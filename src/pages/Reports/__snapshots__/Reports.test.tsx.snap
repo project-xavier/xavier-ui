@@ -32,7 +32,7 @@ exports[`Reports should render list depending of TOTAL value expect to render em
         className="pf-u-mr-md"
       >
         <Link
-          className="pf-c-button pf-m-secondary"
+          className="pf-c-button pf-m-primary"
           replace={false}
           to="/reports/upload"
         >
@@ -115,18 +115,11 @@ exports[`Reports should render list depending of TOTAL value expect to render em
           headingLevel="h5"
           size="lg"
         >
-          No reports found
+          No results found
         </Title>
         <EmptyStateBody>
-          Reports are created from inventory data files that are uploaded to Red Hat
+          No results match the search criteria
         </EmptyStateBody>
-        <Link
-          className="pf-c-button pf-m-primary"
-          replace={false}
-          to="/reports/upload"
-        >
-          Create Report
-        </Link>
       </EmptyState>
     </CardBody>
   </Card>
@@ -165,7 +158,7 @@ exports[`Reports should render list depending of TOTAL value expect to render li
         className="pf-u-mr-md"
       >
         <Link
-          className="pf-c-button pf-m-secondary"
+          className="pf-c-button pf-m-primary"
           replace={false}
           to="/reports/upload"
         >

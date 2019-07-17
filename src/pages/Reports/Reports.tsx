@@ -38,8 +38,7 @@ import {
     SearchIcon,
     OkIcon,
     ErrorCircleOIcon,
-    InProgressIcon,
-    AddCircleOIcon
+    InProgressIcon
 } from '@patternfly/react-icons';
 import debounce from 'lodash/debounce';
 import { Formik } from 'formik';
@@ -109,9 +108,9 @@ class Reports extends React.Component<Props, State> {
     componentDidUpdate() {
         // If it is the first time fetching reports and there are no reports
         // then redirect to /no-reports page.
-        const { total } = this.props.reports;
+        const { reportsFetchStatus, reports } = this.props;
         const { isFirstFetchReportsCall } = this.state;
-        if (total === 0 && !isFirstFetchReportsCall) {
+        if (reports.total === 0 && isFirstFetchReportsCall && reportsFetchStatus.status === 'complete') {
             this.props.history.push('/no-reports');
         }
     }
@@ -181,7 +180,7 @@ class Reports extends React.Component<Props, State> {
     };
 
     filtersInRowsAndCells(): void {
-        const reports: Report[] = Object.values(this.props.reports.items);
+        const reports: Report[] = this.props.reports.items ? Object.values(this.props.reports.items) : [];
 
         let rows: any[][] = [];
         if (reports.length > 0) {
@@ -255,12 +254,11 @@ class Reports extends React.Component<Props, State> {
                 <Card>
                     <CardBody>
                         <EmptyState variant={ EmptyStateVariant.full }>
-                            <EmptyStateIcon icon={ AddCircleOIcon } />
-                            <Title headingLevel="h5" size="lg">No reports found</Title>
+                            <EmptyStateIcon icon={ SearchIcon } />
+                            <Title headingLevel="h5" size="lg">No results found</Title>
                             <EmptyStateBody>
-                                Reports are created from inventory data files that are uploaded to Red Hat
+                                No results match the search criteria
                             </EmptyStateBody>
-                            <Link to={ '/reports/upload' } className="pf-c-button pf-m-primary">Create Report</Link>
                         </EmptyState>
                     </CardBody>
                 </Card>
@@ -316,7 +314,8 @@ class Reports extends React.Component<Props, State> {
                                     aria-label="search text input"
                                     onChange={ (_value, event) => handleChange(event) }
                                     onBlur={ handleBlur }
-                                    value={ values.filterText } />
+                                    value={ values.filterText }
+                                    placeholder="Filter by name..."/>
                                 <Button type="submit" variant={ ButtonVariant.tertiary } aria-label="search button for search input">
                                     <SearchIcon />
                                 </Button>
@@ -343,7 +342,7 @@ class Reports extends React.Component<Props, State> {
                     <ToolbarGroup>
                         <ToolbarItem className="pf-u-mr-xl">{ this.renderSearchBox() }</ToolbarItem>
                         <ToolbarItem className="pf-u-mr-md">
-                            <Link to={ '/reports/upload' } className="pf-c-button pf-m-secondary">Create</Link>
+                            <Link to={ '/reports/upload' } className="pf-c-button pf-m-primary">Create</Link>
                         </ToolbarItem>
                     </ToolbarGroup>
                     <ToolbarGroup>
