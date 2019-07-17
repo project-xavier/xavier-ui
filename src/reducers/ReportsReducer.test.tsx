@@ -33,7 +33,7 @@ const reportTestInitialState: ReportState = {
                 totalDiskSpace: 5871365,
                 totalPrice: 1200,
                 creationDate: 546785214,
-                status: 'progress'
+                status: 'IN_PROGRESS'
             }
         ]
     },
@@ -47,7 +47,7 @@ const reportTestInitialState: ReportState = {
         totalDiskSpace: 6546531,
         totalPrice: 100,
         creationDate: 546425465,
-        status: 'progress'
+        status: 'IN_PROGRESS'
     },
     reportFetchStatus: { ...defaultFetchStatus },
 
@@ -111,14 +111,12 @@ describe('report reducer', () => {
     });
 
     it('should handle FETCH_REPORTS_SUCCESS', () => {
-        const headers = {
-            'x-total-count': 100
-        };
+        const total = 100;
 
         const expectedNewState: ReportState = {
             ...reportTestInitialState,
             reports: {
-                total: headers["x-total-count"],
+                total,
                 items: reportsMock.data
             },
             reportsFetchStatus: {
@@ -130,8 +128,10 @@ describe('report reducer', () => {
         const newState: ReportState = reportsReducer(
             reportTestInitialState,
             fromRequest(successMessage(ActionTypes.FETCH_REPORTS), {
-                ...reportsMock,
-                headers
+                data: {
+                    content: [...reportsMock.data],
+                    totalElements: total
+                }
             })
         );
 

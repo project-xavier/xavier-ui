@@ -62,8 +62,8 @@ export const reportsReducer = function (
                 ...state,
                 reports: {
                     ...state.reports,
-                    items: action.payload.data,
-                    total: parseInt(action.payload.headers['x-total-count'])
+                    items: action.payload.data.content,
+                    total: action.payload.data.totalElements
                 },
                 reportsFetchStatus: {
                     ...state.reportsFetchStatus,

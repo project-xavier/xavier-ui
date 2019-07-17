@@ -1,3 +1,8 @@
+export interface SearchReportResult {
+    totalElements: number;
+    content: Report[];
+}
+
 export interface Report {
     id: number;
     customerId: string;

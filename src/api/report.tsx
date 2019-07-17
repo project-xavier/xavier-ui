@@ -3,11 +3,12 @@ import ApiClient from './apiClient';
 import {
     Report,
     ReportWorkloadMigrationSummary,
-    ReportInitialSavingEstimation
+    ReportInitialSavingEstimation,
+    SearchReportResult
 } from '../models';
 
-export function getAllReports(page: number, perPage: number, filterText: string): AxiosPromise<Report[]> {
-    const params = { page, limit: perPage, filterText };
+export function getAllReports(page: number, perPage: number, filterText: string): AxiosPromise<SearchReportResult> {
+    const params = { page, size: perPage, filterText };
     let query: string[] = [];
 
     Object.keys(params).map(function(key) {
@@ -18,7 +19,7 @@ export function getAllReports(page: number, perPage: number, filterText: string)
     });
 
     const url = `/report?${ query.join('&') }`;
-    return ApiClient.get<Report[]>(url);
+    return ApiClient.get<SearchReportResult>(url);
 }
 
 export function getReportById(id: number): AxiosPromise<Report> {
