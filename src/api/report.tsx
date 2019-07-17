@@ -8,7 +8,8 @@ import {
 } from '../models';
 
 export function getAllReports(page: number, perPage: number, filterText: string): AxiosPromise<SearchReportResult> {
-    const params = { page, size: perPage, filterText };
+    // Using page-1 because the backend considers page 0 as the first one
+    const params = { page: page - 1, size: perPage, filterText };
     let query: string[] = [];
 
     Object.keys(params).map(function(key) {

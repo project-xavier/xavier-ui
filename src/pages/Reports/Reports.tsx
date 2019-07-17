@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {
-    TableToolbar
+    TableToolbar,
+    SkeletonTable
 } from '@redhat-cloud-services/frontend-components';
 import {
     Button,
@@ -332,7 +333,9 @@ class Reports extends React.Component<Props, State> {
 
         if (isFirstFetchReportsCall) {
             return (
-                <ReportsPage>{ '' }</ReportsPage>
+                <ReportsPage>
+                    <SkeletonTable colSize={ 3 } rowSize={ 10 }/>
+                </ReportsPage>
             );
         }
 
