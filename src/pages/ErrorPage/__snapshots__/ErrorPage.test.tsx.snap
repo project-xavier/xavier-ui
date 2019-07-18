@@ -30,6 +30,7 @@ exports[`ErrorPage expect to render 1`] = `
         <Link
           className="pf-c-button pf-m-primary"
           replace={false}
+          target="_self"
           to="/"
         >
           Home
