@@ -229,9 +229,9 @@ class ReportsUpload extends React.Component<Props, State> {
             reportName: values.reportName,
             reportDescription: values.reportDescription,
             yearOverYearGrowthRatePercentage: values.yearOverYearGrowthRatePercentage,
-            percentageOfHypervisorsMigratedOnYear1: values.percentageOfHypervisorsMigratedOnYear1,
-            percentageOfHypervisorsMigratedOnYear2: values.percentageOfHypervisorsMigratedOnYear2,
-            percentageOfHypervisorsMigratedOnYear3: values.percentageOfHypervisorsMigratedOnYear3
+            percentageOfHypervisorsMigratedOnYear1: values.percentageOfHypervisorsMigratedOnYear1 / 100,
+            percentageOfHypervisorsMigratedOnYear2: values.percentageOfHypervisorsMigratedOnYear2 / 100,
+            percentageOfHypervisorsMigratedOnYear3: values.percentageOfHypervisorsMigratedOnYear3 / 100
         };
 
         const config = {
