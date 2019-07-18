@@ -59,7 +59,7 @@ class Environment extends Component<Props, State> {
             [
                 'Year-over-year growth rate for new hypervisors',
                 '',
-                isNotNullOrUndefined(growthRatePercentage) ? 'Unknown' : `${growthRatePercentage.toLocaleString()}%`
+                isNotNullOrUndefined(growthRatePercentage) ? 'Unknown' : `${(growthRatePercentage * 100).toLocaleString()}%`
             ]
         ];
 
