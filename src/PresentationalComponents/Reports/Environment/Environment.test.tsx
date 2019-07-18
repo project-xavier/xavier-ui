@@ -8,7 +8,7 @@ const baseData: EnvironmentModel = {
   year1Hypervisor: 12,
   year2Hypervisor: 123,
   year3Hypervisor: 1234,
-  growthRatePercentage: 120
+  growthRatePercentage: 0.05
 };
 
 describe("Environment", () => {

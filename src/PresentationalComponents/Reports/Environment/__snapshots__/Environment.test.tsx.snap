@@ -47,7 +47,7 @@ exports[`Environment expect to render 1`] = `
         Array [
           "Year-over-year growth rate for new hypervisors",
           "",
-          "120%",
+          "5%",
         ],
       ]
     }
