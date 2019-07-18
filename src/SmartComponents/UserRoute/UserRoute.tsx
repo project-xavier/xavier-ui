@@ -3,6 +3,8 @@ import { Route, Redirect } from 'react-router-dom';
 import { User } from '../../models';
 import { ObjectFetchStatus } from '../../models/state';
 
+declare var insights: any;
+
 interface StateToProps {
     user: User | null;
     userFetchStatus: ObjectFetchStatus;
@@ -25,7 +27,11 @@ class UserRoute extends React.Component<Props, State> {
     }
 
     componentDidMount() {
-        this.props.fetchUser();
+        // Load SSO user to prevent calling the backend before the auth
+        // process finishes
+        insights.chrome.auth.getUser().then(() => {
+            this.props.fetchUser();
+        });
     }
 
     render() {
