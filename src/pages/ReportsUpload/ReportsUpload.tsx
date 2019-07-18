@@ -228,7 +228,7 @@ class ReportsUpload extends React.Component<Props, State> {
             file: this.props.file,
             reportName: values.reportName,
             reportDescription: values.reportDescription,
-            yearOverYearGrowthRatePercentage: values.yearOverYearGrowthRatePercentage / 100 ,
+            yearOverYearGrowthRatePercentage: values.yearOverYearGrowthRatePercentage / 100,
             percentageOfHypervisorsMigratedOnYear1: values.percentageOfHypervisorsMigratedOnYear1 / 100,
             percentageOfHypervisorsMigratedOnYear2: values.percentageOfHypervisorsMigratedOnYear2 / 100,
             percentageOfHypervisorsMigratedOnYear3: values.percentageOfHypervisorsMigratedOnYear3 / 100
