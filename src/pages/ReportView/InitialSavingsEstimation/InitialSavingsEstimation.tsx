@@ -97,9 +97,9 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
                 </p>
                 <p>
                     <span>Source:</span>&nbsp;
-                    <span>Vmware Vsphere Enterprise Plus + Oracle Web Logic</span><br />
+                    <span>Vmware Vsphere Enterprise Plus</span><br />
                     <span>Target:</span>&nbsp;
-                    <span>Red Hat Virtualization + JBoss Enterprise Application Platform</span><br />
+                    <span>Red Hat Virtualization</span><br />
                     <span>Date:</span>&nbsp;
                     <span>{ new Date(report.creationDate).toUTCString() }</span>
                 </p>
