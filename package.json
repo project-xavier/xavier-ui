@@ -33,27 +33,6 @@
     "bootstrap": "node_modules/patternfly/node_modules/bootstrap-sass/assets/stylesheets",
     "fontAwesome": "node_modules/patternfly/node_modules/font-awesome-sass/assets/stylesheets"
   },
-  "jest": {
-    "coverageDirectory": "./coverage/",
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "src/**/*.{js,jsx,ts,tsx}",
-      "!src/**/stories/*"
-    ],
-    "setupFiles": [
-      "<rootDir>/config/setupTests.js"
-    ],
-    "roots": [
-      "<rootDir>/src/"
-    ],
-    "moduleNameMapper": {
-      "\\.(css|scss)$": "identity-obj-proxy",
-      "^lodash-es$": "lodash"
-    },
-    "snapshotSerializers": [
-      "enzyme-to-json/serializer"
-    ]
-  },
   "devDependencies": {
     "@babel/core": "^7.3.4",
     "@babel/plugin-proposal-class-properties": "^7.4.4",
@@ -64,6 +43,7 @@
     "@babel/preset-flow": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-typescript": "^7.3.3",
+    "@redhat-cloud-services/frontend-components-config": "0.0.9",
     "@types/enzyme": "^3.9.3",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
@@ -76,7 +56,7 @@
     "cross-fetch": "^2.2.2",
     "css-loader": "^2.1.1",
     "d3": "^5.7.0",
-    "enzyme": "^3.6.0",
+    "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.5.0",
     "enzyme-to-json": "^3.3.4",
     "eslint": "^5.15.1",
@@ -112,6 +92,9 @@
     "stylelint-config-recommended-scss": "^3.2.0",
     "stylelint-scss": "^3.3.0",
     "topojson": "^3.0.2",
+    "ts-jest": "^24.0.2",
+    "ts-loader": "^6.0.4",
+    "tsconfig-paths-webpack-plugin": "^3.2.0",
     "webpack": "^4.17.2",
     "webpack-bundle-analyzer": "^3.3.2",
     "webpack-cli": "^3.2.3",

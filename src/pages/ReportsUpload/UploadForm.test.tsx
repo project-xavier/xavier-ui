@@ -1,11 +1,25 @@
+import React from "react";
 import { shallow } from "enzyme";
-import UploadForm from "./UploadForm";
+import UploadForm, { UploadFormProps } from "./UploadForm";
 
-const props = {
+const props: UploadFormProps = {
   errors: {},
   values: {},
   touched: {},
-  file: new File([ '' ], 'myFile.zip')
+  file: new File([ '' ], 'myFile.zip'),
+  onFileSelected: jest.fn(),
+
+  error: {},
+  isSubmitting: false,
+  isValid: false,
+  isValidating: false,
+  submitCount: 0,
+  handleBlur: jest.fn(),
+  handleCancel: jest.fn(),
+  handleChange: jest.fn(),
+  handleReset: jest.fn(),
+  handleSubmit: jest.fn(),
+  setFieldValue: jest.fn()
 };
 
 describe("UploadForm", () => {

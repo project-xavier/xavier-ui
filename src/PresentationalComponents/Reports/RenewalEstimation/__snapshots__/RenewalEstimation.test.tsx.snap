@@ -112,6 +112,62 @@ exports[`RenewalEstimation expect to render using null and undefined data 1`] = 
 </Fragment>
 `;
 
+exports[`RenewalEstimation expect to render using null and undefined data 2`] = `
+<Fragment>
+  <Table
+    aria-label="Renewal estimation"
+    borders={false}
+    cells={
+      Array [
+        "For vSphere Enterprise Plus",
+        Object {
+          "props": Object {
+            "className": "pf-u-text-align-right",
+          },
+          "title": "ELA Renewal Estimation",
+        },
+      ]
+    }
+    className=""
+    contentId="expanded-content"
+    dropdownDirection="down"
+    dropdownPosition="right"
+    expandId="expandable-toggle"
+    gridBreakPoint="grid-md"
+    onCollapse={null}
+    onExpand={null}
+    role="grid"
+    rowLabeledBy="simple-node"
+    rows={
+      Array [
+        Array [
+          "-- As high as...",
+          "Unknown",
+        ],
+        Array [
+          "-- Most likely...",
+          "Unknown",
+        ],
+        Array [
+          "-- As low as...",
+          "Unknown",
+        ],
+      ]
+    }
+    variant="compact"
+  >
+    <TableHeader
+      className=""
+    />
+    <TableBody
+      className=""
+      onRowClick={[Function]}
+      rowKey="id"
+    />
+  </Table>
+</Fragment>
+`;
+
 exports[`RenewalEstimation expect to render using values equal to 0 1`] = `
 <Fragment>
   <Table

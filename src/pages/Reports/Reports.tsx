@@ -67,8 +67,8 @@ export interface State {
     filterText: string;
     page: number;
     perPage: number;
-    columns: Array<ICell | String>;
-    rows: Array<IRow | Array<String>>;
+    columns: Array<ICell | string>;
+    rows: Array<IRow | Array<string>>;
     isFirstFetchReportsCall: boolean;
 };
 

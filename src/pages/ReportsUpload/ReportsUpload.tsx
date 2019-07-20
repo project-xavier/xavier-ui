@@ -44,7 +44,7 @@ interface FormValues {
 
 interface StateToProps {
     user: User;
-    file: File;
+    file: File | null;
     success: boolean | null;
     error: string | null;
     progress: number;
@@ -59,7 +59,7 @@ interface DispatchToProps {
     updateUser: (user: User) => void;
 }
 
-interface Props extends StateToProps, DispatchToProps, RouterGlobalProps {
+export interface Props extends StateToProps, DispatchToProps, RouterGlobalProps {
 }
 
 interface State {
@@ -225,7 +225,7 @@ class ReportsUpload extends React.Component<Props, State> {
         });
 
         const upload: Upload = {
-            file: this.props.file,
+            file: this.props.file || null,
             reportName: values.reportName,
             reportDescription: values.reportDescription,
             yearOverYearGrowthRatePercentage: values.yearOverYearGrowthRatePercentage,

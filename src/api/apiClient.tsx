@@ -5,7 +5,7 @@ class BackendAPIClient {
     static request<T>(
         path: string,
         body: any = null,
-        method = 'get',
+        method: 'get' | 'post' | 'put' | 'delete' | 'options' | 'patch' | undefined = 'get',
         config = {}
     ): AxiosPromise<T> {
         return axios.request<T>(Object.assign({}, {

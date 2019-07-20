@@ -1,3 +1,4 @@
+import React from "react";
 import { shallow } from "enzyme";
 import ProjectCostBreakdownTable from "./ProjectCostBreakdownTable";
 import { RHVRampUpCostsModel, SourceRampDownCostsModel } from "../../../models";
@@ -42,24 +43,16 @@ describe("ProjectCostBreakdownTable", () => {
 
   it("expect to render using null and undefined data", () => {
     const rhvRampUpCostsModel: RHVRampUpCostsModel = {
-      ...baseRhvRampUpCostsModel,
-      year1RhvTotalValue: null,
-      year2RhvTotalValue: undefined,
-      year3RhvTotalValue: null,
-      year1RhvGrandTotalGrowthValue: undefined,
-      year2RhvGrandTotalGrowthValue: null,
-      year3RhvGrandTotalGrowthValue: undefined,
-      rhvSwitchLearningSubsValue: null,
-      rhvSwitchConsultValue: undefined,
-      rhvSwitchTAndEValue: null
+      ...baseRhvRampUpCostsModel
+    };
+    
+    const sourceRampDownCostsModel: SourceRampDownCostsModel = {
+      ...baseSourceRampDownCostsModel
     };
 
-    const sourceRampDownCostsModel: SourceRampDownCostsModel = {
-      ...baseSourceRampDownCostsModel,
-        year1SourceMaintenanceTotalValue: null,
-        year2SourceMaintenanceTotalValue: undefined,
-        year3SourceMaintenanceTotalValue: null
-    };
+    // Force null values
+    Object.keys(rhvRampUpCostsModel).forEach(key => rhvRampUpCostsModel[key] = null);
+    Object.keys(sourceRampDownCostsModel).forEach(key => sourceRampDownCostsModel[key] = null);
 
     const wrapper = shallow(
       <ProjectCostBreakdownTable

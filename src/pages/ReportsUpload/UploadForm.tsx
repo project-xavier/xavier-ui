@@ -23,10 +23,16 @@ import {
 import Dropzone from 'react-dropzone';
 import './UploadForm.scss';
 
-interface UploadFormProps extends FormikComputedProps<FormikValues>, FormikState<FormikValues>, FormikActions<FormikValues>, FormikHandlers {
-    file: File;
+export interface UploadFormProps extends FormikState<FormikValues>, FormikHandlers {
+    file: File | null;
     onFileSelected: Function;
     handleCancel: (e: any) => any;
+
+    isValid: boolean;
+    setFieldValue(field: keyof FormikValues & string, value: any, shouldValidate?: boolean): void;
+    handleSubmit: (e?: React.FormEvent<HTMLFormElement>) => void;
+    handleBlur(e: React.FocusEvent<any>): void;
+    handleChange(e: React.ChangeEvent<any>): void;
 }
 
 class UploadForm extends React.Component<UploadFormProps, { }> {
@@ -174,7 +180,7 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                         (errors.yearOverYearGrowthRatePercentage && touched.yearOverYearGrowthRatePercentage) ? false : true
                     }
                 >
-                    <Gallery>
+                    <Gallery gutter="sm">
                         <GalleryItem>
                             <InputGroup>
                                 <TextInput
@@ -207,7 +213,7 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                                 (errors.percentageOfHypervisorsMigratedSum) ? false : true
                             }
                         >
-                            <Gallery>
+                            <Gallery gutter="sm">
                                 <GalleryItem>
                                     <InputGroup>
                                         <InputGroupText className="year-box">Year 1</InputGroupText>
@@ -242,7 +248,7 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                                 (errors.percentageOfHypervisorsMigratedSum) ? false : true
                             }
                         >
-                            <Gallery>
+                            <Gallery gutter="sm">
                                 <GalleryItem>
                                     <InputGroup>
                                         <InputGroupText className="year-box">Year 2</InputGroupText>
@@ -277,7 +283,7 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                                 (errors.percentageOfHypervisorsMigratedSum) ? false : true
                             }
                         >
-                            <Gallery>
+                            <Gallery gutter="sm">
                                 <GalleryItem>
                                     <InputGroup>
                                         <InputGroupText className="year-box">Year 3</InputGroupText>

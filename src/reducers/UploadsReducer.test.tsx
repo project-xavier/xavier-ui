@@ -30,7 +30,7 @@ const fromRequest = (type: string, payload: any, meta = {}) => ({
 
 describe('report reducer', () => {
     it('should return the default state', () => {
-        const initialState: UploadState = undefined;
+        const initialState = undefined;
         const action = {} as GenericAction;
         
         expect(

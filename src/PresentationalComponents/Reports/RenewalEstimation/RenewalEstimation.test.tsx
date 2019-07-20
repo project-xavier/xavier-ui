@@ -1,3 +1,4 @@
+import React from "react";
 import { shallow } from "enzyme";
 import RenewalEstimation from "./RenewalEstimation";
 import { SourceCostsModel } from "../../../models";
@@ -24,20 +25,29 @@ describe("RenewalEstimation", () => {
   });
 
   it("expect to render using null and undefined data", () => {
-    const data: SourceCostsModel = {
-      ...baseSourceCostsModel,
-      sourceRenewHighValue: null,
-      sourceRenewLikelyValue: undefined,
-      sourceRenewLowValue: null
+    const sourceCostModel: SourceCostsModel = {
+      ...baseSourceCostsModel
     };
+    Object.keys(sourceCostModel).forEach(key => sourceCostModel[key] = null);
 
-    const wrapper = shallow(
+    const wrapper1 = shallow(
       <RenewalEstimation
-        data={ data }
+        data={ sourceCostModel }
       />
     );
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper1).toMatchSnapshot();
+
+
+    Object.keys(sourceCostModel).forEach(key => sourceCostModel[key] = undefined);
+
+    const wrapper2 = shallow(
+      <RenewalEstimation
+        data={ sourceCostModel }
+      />
+    );
+
+    expect(wrapper2).toMatchSnapshot();
   });
 
   it("expect to render using values equal to 0", () => {

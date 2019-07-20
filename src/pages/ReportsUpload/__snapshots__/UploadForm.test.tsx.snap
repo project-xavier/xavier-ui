@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`UploadForm expect to render 1`] = `
-<Form>
+<Form
+  onSubmit={[MockFunction]}
+>
   <FormGroup
     fieldId="file"
     isRequired={true}
@@ -42,6 +44,7 @@ exports[`UploadForm expect to render 1`] = `
       isRequired={true}
       isValid={true}
       name="reportName"
+      onBlur={[MockFunction]}
       onChange={[Function]}
       type="text"
     />
@@ -61,6 +64,7 @@ exports[`UploadForm expect to render 1`] = `
       isRequired={false}
       isValid={true}
       name="reportDescription"
+      onBlur={[MockFunction]}
       onChange={[Function]}
       type="text"
     />
@@ -73,7 +77,7 @@ exports[`UploadForm expect to render 1`] = `
   >
     <Gallery
       className=""
-      gutter={null}
+      gutter="sm"
     >
       <GalleryItem>
         <InputGroup
@@ -89,6 +93,7 @@ exports[`UploadForm expect to render 1`] = `
             isRequired={true}
             isValid={true}
             name="yearOverYearGrowthRatePercentage"
+            onBlur={[MockFunction]}
             onChange={[Function]}
             type="number"
           />
@@ -118,7 +123,7 @@ exports[`UploadForm expect to render 1`] = `
       >
         <Gallery
           className=""
-          gutter={null}
+          gutter="sm"
         >
           <GalleryItem>
             <InputGroup
@@ -139,6 +144,7 @@ exports[`UploadForm expect to render 1`] = `
                 isRequired={true}
                 isValid={true}
                 name="percentageOfHypervisorsMigratedOnYear1"
+                onBlur={[MockFunction]}
                 onChange={[Function]}
                 type="number"
               />
@@ -164,7 +170,7 @@ exports[`UploadForm expect to render 1`] = `
       >
         <Gallery
           className=""
-          gutter={null}
+          gutter="sm"
         >
           <GalleryItem>
             <InputGroup
@@ -185,6 +191,7 @@ exports[`UploadForm expect to render 1`] = `
                 isRequired={true}
                 isValid={true}
                 name="percentageOfHypervisorsMigratedOnYear2"
+                onBlur={[MockFunction]}
                 onChange={[Function]}
                 type="number"
               />
@@ -210,7 +217,7 @@ exports[`UploadForm expect to render 1`] = `
       >
         <Gallery
           className=""
-          gutter={null}
+          gutter="sm"
         >
           <GalleryItem>
             <InputGroup
@@ -231,6 +238,7 @@ exports[`UploadForm expect to render 1`] = `
                 isRequired={true}
                 isValid={true}
                 name="percentageOfHypervisorsMigratedOnYear3"
+                onBlur={[MockFunction]}
                 onChange={[Function]}
                 type="number"
               />
@@ -256,6 +264,7 @@ exports[`UploadForm expect to render 1`] = `
       Create report
     </Button>
     <Button
+      onClick={[MockFunction]}
       type="button"
       variant="secondary"
     >
@@ -266,7 +275,9 @@ exports[`UploadForm expect to render 1`] = `
 `;
 
 exports[`UploadForm expect to render errors 1`] = `
-<Form>
+<Form
+  onSubmit={[MockFunction]}
+>
   <FormGroup
     fieldId="file"
     helperTextInvalid="Field value invalid"
@@ -309,6 +320,7 @@ exports[`UploadForm expect to render errors 1`] = `
       isRequired={true}
       isValid={false}
       name="reportName"
+      onBlur={[MockFunction]}
       onChange={[Function]}
       type="text"
     />
@@ -329,6 +341,7 @@ exports[`UploadForm expect to render errors 1`] = `
       isRequired={false}
       isValid={false}
       name="reportDescription"
+      onBlur={[MockFunction]}
       onChange={[Function]}
       type="text"
     />
@@ -342,7 +355,7 @@ exports[`UploadForm expect to render errors 1`] = `
   >
     <Gallery
       className=""
-      gutter={null}
+      gutter="sm"
     >
       <GalleryItem>
         <InputGroup
@@ -358,6 +371,7 @@ exports[`UploadForm expect to render errors 1`] = `
             isRequired={true}
             isValid={false}
             name="yearOverYearGrowthRatePercentage"
+            onBlur={[MockFunction]}
             onChange={[Function]}
             type="number"
           />
@@ -388,7 +402,7 @@ exports[`UploadForm expect to render errors 1`] = `
       >
         <Gallery
           className=""
-          gutter={null}
+          gutter="sm"
         >
           <GalleryItem>
             <InputGroup
@@ -409,6 +423,7 @@ exports[`UploadForm expect to render errors 1`] = `
                 isRequired={true}
                 isValid={false}
                 name="percentageOfHypervisorsMigratedOnYear1"
+                onBlur={[MockFunction]}
                 onChange={[Function]}
                 type="number"
               />
@@ -435,7 +450,7 @@ exports[`UploadForm expect to render errors 1`] = `
       >
         <Gallery
           className=""
-          gutter={null}
+          gutter="sm"
         >
           <GalleryItem>
             <InputGroup
@@ -456,6 +471,7 @@ exports[`UploadForm expect to render errors 1`] = `
                 isRequired={true}
                 isValid={false}
                 name="percentageOfHypervisorsMigratedOnYear2"
+                onBlur={[MockFunction]}
                 onChange={[Function]}
                 type="number"
               />
@@ -482,7 +498,7 @@ exports[`UploadForm expect to render errors 1`] = `
       >
         <Gallery
           className=""
-          gutter={null}
+          gutter="sm"
         >
           <GalleryItem>
             <InputGroup
@@ -503,6 +519,7 @@ exports[`UploadForm expect to render errors 1`] = `
                 isRequired={true}
                 isValid={true}
                 name="percentageOfHypervisorsMigratedOnYear3"
+                onBlur={[MockFunction]}
                 onChange={[Function]}
                 type="number"
               />
@@ -528,6 +545,7 @@ exports[`UploadForm expect to render errors 1`] = `
       Create report
     </Button>
     <Button
+      onClick={[MockFunction]}
       type="button"
       variant="secondary"
     >
