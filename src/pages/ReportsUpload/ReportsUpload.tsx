@@ -123,10 +123,10 @@ const formValidationSchema = (values: FormValues) => {
 
 class ReportsUpload extends React.Component<Props, State> {
 
-    redirectTimer: any;
-    beforeUnloadHandler: any;
+    public redirectTimer: any;
+    public beforeUnloadHandler: any;
 
-    initialFormValue: FormValues;
+    public initialFormValue: FormValues;
 
     constructor(props: Props) {
         super(props);
@@ -151,7 +151,7 @@ class ReportsUpload extends React.Component<Props, State> {
         this.redirectTimer = null;
     }
 
-    componentDidMount() {
+    public componentDidMount() {
         this.beforeUnloadHandler = window.addEventListener('beforeunload', (event) => {
             if (this.props.uploading) {
                 event.preventDefault();
@@ -162,13 +162,13 @@ class ReportsUpload extends React.Component<Props, State> {
         });
     }
 
-    componentDidUpdate(_prevProps: Props, prevState: State) {
+    public componentDidUpdate(_prevProps: Props, prevState: State) {
         if (this.props.success && prevState.timeoutToRedirect !== 0 && this.state.timeoutToRedirect === 0) {
             this.props.history.push('/reports');
         }
     }
 
-    componentWillUnmount() {
+    public componentWillUnmount() {
         // Remove handler
         window.removeEventListener('beforeunload', this.beforeUnloadHandler);
 
@@ -184,7 +184,7 @@ class ReportsUpload extends React.Component<Props, State> {
     /**
      * Called by "Close modal" or by the "Cancel button"
      */
-    handleCloseModel = () => {
+    public handleCloseModel = () => {
         const { uploading, user } = this.props;
 
         if (!uploading) {
@@ -196,7 +196,7 @@ class ReportsUpload extends React.Component<Props, State> {
         }
     };
 
-    actionsOnUploadSuccess = () => {
+    public actionsOnUploadSuccess = () => {
         const { timeoutToRedirect } = this.state;
 
         this.startRedirectTimer();
@@ -206,26 +206,30 @@ class ReportsUpload extends React.Component<Props, State> {
         );
     };
 
-    startRedirectTimer = () => {
+    public startRedirectTimer = () => {
         if (this.redirectTimer === null && this.state.timeoutToRedirect > 0) {
             this.redirectTimer = setInterval(this.redirectCountDown, 1000);
         }
     };
 
-    redirectCountDown = () => {
-        let timeoutToRedirect = this.state.timeoutToRedirect - 1;
+    public redirectCountDown = () => {
+        const timeoutToRedirect = this.state.timeoutToRedirect - 1;
         this.setState({
             timeoutToRedirect
         });
     };
 
-    handleFormSubmit = (values: FormValues) => {
+    public handleFormSubmit = (values: FormValues) => {
         this.setState({
             showForm: false
         });
 
+        if (!this.props.file) {
+            throw Error('No file for handling submit');
+        }
+
         const upload: Upload = {
-            file: this.props.file || null,
+            file: this.props.file,
             reportName: values.reportName,
             reportDescription: values.reportDescription,
             yearOverYearGrowthRatePercentage: values.yearOverYearGrowthRatePercentage,
@@ -248,15 +252,15 @@ class ReportsUpload extends React.Component<Props, State> {
         this.props.uploadRequest(upload, config);
     }
 
-    handleCancelUpload = () => {
+    public handleCancelUpload = () => {
         this.state.cancelUploadSource.cancel('Upload canceled by the user.');
     };
 
-    onFileSelected = (files: File[]): void => {
+    public onFileSelected = (files: File[]): void => {
         this.props.selectUploadFile(files[0]);
     };
 
-    renderProgress() {
+    public renderProgress() {
         let message: string;
         let secondaryAction;
         if (this.props.error) {
@@ -299,11 +303,15 @@ class ReportsUpload extends React.Component<Props, State> {
         );
     }
 
-    renderForm() {
+    public renderForm() {
+        const validate = (values: any): void => {
+            validateForm(values, formValidationSchema);
+        };
+
         return (
             <Formik
                 initialValues={ initialFormValue }
-                validate={ (values) => validateForm(values, formValidationSchema) }
+                validate={ validate }
                 onSubmit={ this.handleFormSubmit }
             >
                 {
@@ -317,7 +325,7 @@ class ReportsUpload extends React.Component<Props, State> {
         );
     }
 
-    render() {
+    public render() {
         const { success, user } = this.props;
         if (success && user.firstTimeCreatingReports) {
             const { updateUser } = this.props;
@@ -332,7 +340,7 @@ class ReportsUpload extends React.Component<Props, State> {
                 <Main>
                     <Modal
                         title='Report options'
-                        isLarge
+                        isLarge={true}
                         isOpen={ true }
                         onClose={ this.handleCloseModel }
                         ariaDescribedById="Report options"

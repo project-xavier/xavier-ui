@@ -17,10 +17,10 @@ export const initialState: UserState = {
     }
 };
 
-export const userReducer = function (
+export const userReducer = (
     state: UserState = initialState,
     action: GenericAction
-) {
+) => {
     switch (action.type) {
         case ActionTypes.UPDATE_USER: {
             const nextState: UserState = {

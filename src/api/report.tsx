@@ -10,9 +10,9 @@ import {
 export function getAllReports(page: number, perPage: number, filterText: string): AxiosPromise<SearchReportResult> {
     // Using page-1 because the backend considers page 0 as the first one
     const params = { page: page - 1, size: perPage, filterText };
-    let query: string[] = [];
+    const query: string[] = [];
 
-    Object.keys(params).map(function(key) {
+    Object.keys(params).map((key) => {
         const value = params[key];
         if (value !== undefined) {
             query.push(`${ key }=${ value }`);

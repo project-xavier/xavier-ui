@@ -22,7 +22,7 @@ class ProjectCostBreakdownTable extends Component<Props, State> {
         super(props);
     }
 
-    getSourceMaintenanceTotal = (): number | undefined => {
+    public getSourceMaintenanceTotal = (): number | undefined => {
         const { sourceRampDownCostsModel } = this.props;
 
         if (isNotNullOrUndefined(
@@ -38,7 +38,7 @@ class ProjectCostBreakdownTable extends Component<Props, State> {
             sourceRampDownCostsModel.year3SourceMaintenanceTotalValue;
     }
 
-    getHypervisorSubscriptions = (): number | undefined => {
+    public getHypervisorSubscriptions = (): number | undefined => {
         const { rhvRampUpCostsModel } = this.props;
 
         if (isNotNullOrUndefined(
@@ -54,7 +54,7 @@ class ProjectCostBreakdownTable extends Component<Props, State> {
             rhvRampUpCostsModel.year3RhvTotalValue;
     }
 
-    gethypervisorGrowthSubscriptions = (): number | undefined => {
+    public gethypervisorGrowthSubscriptions = (): number | undefined => {
         const { rhvRampUpCostsModel } = this.props;
 
         if (isNotNullOrUndefined(
@@ -70,7 +70,7 @@ class ProjectCostBreakdownTable extends Component<Props, State> {
             rhvRampUpCostsModel.year3RhvGrandTotalGrowthValue;
     }
 
-    render() {
+    public render() {
         const { rhvRampUpCostsModel } = this.props;
 
         const sourceMaintenanceTotal = this.getSourceMaintenanceTotal();
@@ -81,7 +81,7 @@ class ProjectCostBreakdownTable extends Component<Props, State> {
         const rhvSwitchConsultValue = rhvRampUpCostsModel.rhvSwitchConsultValue;
         const rhvSwitchTAndEValue = rhvRampUpCostsModel.rhvSwitchTAndEValue;
 
-        let total: number | undefined = undefined;
+        let total: number | undefined;
         if (!isNotNullOrUndefined(
             sourceMaintenanceTotal,
             hypervisorSubscriptions,

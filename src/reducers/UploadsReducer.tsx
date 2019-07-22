@@ -17,10 +17,10 @@ export const initialState: UploadState = {
     uploading: false
 };
 
-export const uploadsReducer = function (
+export const uploadsReducer = (
     state: UploadState = initialState,
     action: GenericAction
-) {
+) => {
     switch (action.type) {
         case ActionTypes.UPLOAD_PROGRESS: {
             const nextState: UploadState = {

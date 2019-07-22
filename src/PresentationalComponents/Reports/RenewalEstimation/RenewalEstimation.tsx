@@ -22,7 +22,7 @@ class RenewalEstimation extends Component<Props, State> {
         super(props);
     }
 
-    render() {
+    public render() {
         const { data: {
             sourceRenewHighValue,
             sourceRenewLikelyValue,

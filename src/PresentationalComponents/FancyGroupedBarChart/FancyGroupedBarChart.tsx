@@ -17,11 +17,11 @@ import './FancyGroupedBarChart.scss';
 export interface FancyGroupedBarChartData {
     colors: string[];
     legends?: string[];
-    values: {
+    values: Array<Array<{
         x: string,
         y: number,
         label?: string
-    }[][];
+    }>>;
 }
 
 interface Props {
@@ -57,7 +57,7 @@ class FancyGroupedBarChart extends Component<Props, State> {
         super(props);
     }
 
-    render() {
+    public render() {
         const {
             data,
             chartProps,

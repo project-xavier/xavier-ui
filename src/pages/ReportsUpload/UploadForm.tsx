@@ -25,12 +25,12 @@ import './UploadForm.scss';
 
 export interface UploadFormProps extends FormikState<FormikValues>, FormikHandlers {
     file: File | null;
-    onFileSelected: Function;
+    onFileSelected: (files: File[]) => void;
     handleCancel: (e: any) => any;
 
     isValid: boolean;
-    setFieldValue(field: keyof FormikValues & string, value: any, shouldValidate?: boolean): void;
     handleSubmit: (e?: React.FormEvent<HTMLFormElement>) => void;
+    setFieldValue(field: keyof FormikValues & string, value: any, shouldValidate?: boolean): void;
     handleBlur(e: React.FocusEvent<any>): void;
     handleChange(e: React.ChangeEvent<any>): void;
 }
@@ -41,17 +41,17 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
         super(props);
     }
 
-    componentDidMount() {
+    public componentDidMount() {
         this.updateFieldValues();
     }
 
-    componentDidUpdate(prevProps: any) {
+    public componentDidUpdate(prevProps: any) {
         if (prevProps.file !== this.props.file) {
             this.updateFieldValues();
         }
     }
 
-    updateFieldValues() {
+    public updateFieldValues() {
         if (this.props.file) {
             const fileName = this.props.file.name;
             setTimeout(() => {
@@ -63,7 +63,7 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
         }
     }
 
-    render() {
+    public render() {
         const {
             values,
             errors,
@@ -75,10 +75,17 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
             isValid
         } = this.props;
 
+        const onDrop = (files: File[]): void => {
+            this.props.onFileSelected(files);
+        };
+        const customHandleChange = (_value: any, event: any) => {
+            handleChange(event);
+        };
+
         return (
             <Form onSubmit={ handleSubmit }>
                 <FormGroup
-                    isRequired
+                    isRequired={true}
                     label="Inventory data file"
                     fieldId="file"
                     helperTextInvalid={ errors.file }
@@ -87,10 +94,8 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                     }
                 >
                     <Dropzone
-                        onDrop={ (files: File[]) => {
-                            this.props.onFileSelected(files);
-                        } }
-                        noClick noKeyboard
+                        onDrop={ onDrop }
+                        noClick={true} noKeyboard={true}
                         multiple={ false }
                         accept={ [
                             'application/zip',
@@ -130,7 +135,7 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                     </Dropzone>
                 </FormGroup>
                 <FormGroup
-                    isRequired
+                    isRequired={true}
                     label="Report name"
                     fieldId="reportName"
                     helperTextInvalid={ errors.reportName }
@@ -139,12 +144,12 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                     }
                 >
                     <TextInput
-                        isRequired
+                        isRequired={true}
                         type="text"
                         id="reportName"
                         name="reportName"
                         aria-describedby="Report name"
-                        onChange={ (_value, event) => handleChange(event) }
+                        onChange={ customHandleChange }
                         onBlur={ handleBlur }
                         value={ values.reportName }
                         isValid={
@@ -163,7 +168,7 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                         id="reportDescription"
                         name="reportDescription"
                         aria-describedby="Report description"
-                        onChange={ (_value, event) => handleChange(event) }
+                        onChange={ customHandleChange }
                         onBlur={ handleBlur }
                         value={ values.reportDescription }
                         isValid={
@@ -172,7 +177,7 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                     />
                 </FormGroup>
                 <FormGroup
-                    isRequired
+                    isRequired={true}
                     label="Year-over-year growth rate for new hypervisors"
                     fieldId="yearOverYearGrowthRatePercentage"
                     helperTextInvalid={ errors.yearOverYearGrowthRatePercentage }
@@ -184,13 +189,13 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                         <GalleryItem>
                             <InputGroup>
                                 <TextInput
-                                    isRequired
+                                    isRequired={true}
                                     id="yearOverYearGrowthRatePercentage"
                                     type="number"
                                     name="yearOverYearGrowthRatePercentage"
                                     aria-describedby="Year-over-year growth rate for new hypervisors"
                                     className="pf-u-text-align-right"
-                                    onChange={ (_value, event) => handleChange(event) }
+                                    onChange={ customHandleChange }
                                     onBlur={ handleBlur }
                                     value={ values.yearOverYearGrowthRatePercentage }
                                     isValid={
@@ -218,13 +223,13 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                                     <InputGroup>
                                         <InputGroupText className="year-box">Year 1</InputGroupText>
                                         <TextInput
-                                            isRequired
+                                            isRequired={true}
                                             id="percentageOfHypervisorsMigratedOnYear1"
                                             type="number"
                                             name="percentageOfHypervisorsMigratedOnYear1"
                                             aria-label="Percentage of hypervisors migrated on year 1"
                                             className="pf-u-text-align-right"
-                                            onChange={ (_value, event) => handleChange(event) }
+                                            onChange={ customHandleChange }
                                             onBlur={ handleBlur }
                                             value={ values.percentageOfHypervisorsMigratedOnYear1 }
                                             isValid={
@@ -253,13 +258,13 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                                     <InputGroup>
                                         <InputGroupText className="year-box">Year 2</InputGroupText>
                                         <TextInput
-                                            isRequired
+                                            isRequired={true}
                                             id="percentageOfHypervisorsMigratedOnYear2"
                                             type="number"
                                             name="percentageOfHypervisorsMigratedOnYear2"
                                             aria-label="Percentage of hypervisors migrated on year 2"
                                             className="pf-u-text-align-right"
-                                            onChange={ (_value, event) => handleChange(event) }
+                                            onChange={ customHandleChange }
                                             onBlur={ handleBlur }
                                             value={ values.percentageOfHypervisorsMigratedOnYear2 }
                                             isValid={
@@ -288,13 +293,13 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                                     <InputGroup>
                                         <InputGroupText className="year-box">Year 3</InputGroupText>
                                         <TextInput
-                                            isRequired
+                                            isRequired={true}
                                             id="percentageOfHypervisorsMigratedOnYear3"
                                             type="number"
                                             name="percentageOfHypervisorsMigratedOnYear3"
                                             aria-label="Percentage of hypervisors migrated on year 3"
                                             className="pf-u-text-align-right"
-                                            onChange={ (_value, event) => handleChange(event) }
+                                            onChange={ customHandleChange }
                                             onBlur={ handleBlur }
                                             value={ values.percentageOfHypervisorsMigratedOnYear3 }
                                             isValid={

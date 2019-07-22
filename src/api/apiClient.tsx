@@ -2,7 +2,7 @@ import axios, { AxiosPromise } from 'axios';
 export const NOTIFICATIONS_API_ROOT = '/api/xavier';
 
 class BackendAPIClient {
-    static request<T>(
+    public static request<T>(
         path: string,
         body: any = null,
         method: 'get' | 'post' | 'put' | 'delete' | 'options' | 'patch' | undefined = 'get',
@@ -15,7 +15,7 @@ class BackendAPIClient {
         }, config));
     }
 
-    static post<T>(
+    public static post<T>(
         path: string,
         body: any,
         config = {}
@@ -23,7 +23,7 @@ class BackendAPIClient {
         return this.request<T>(path, body, 'post', config);
     }
 
-    static put<T>(
+    public static put<T>(
         path: string,
         body: any,
         config = {}
@@ -31,13 +31,13 @@ class BackendAPIClient {
         return this.request<T>(path, body, 'put', config);
     }
 
-    static get<T>(
+    public static get<T>(
         path: string
     ): AxiosPromise<T> {
         return this.request<T>(path);
     }
 
-    static delete(path: string, config = {}) {
+    public static delete(path: string, config = {}) {
         return this.request(path, null, 'delete', config);
     }
 }

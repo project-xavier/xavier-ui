@@ -39,10 +39,10 @@ export const initialState: ReportState = {
     }
 };
 
-export const reportsReducer = function (
+export const reportsReducer = (
     state: ReportState = initialState,
     action: GenericAction
-) {
+) => {
     switch (action.type) {
         // FETCH_REPORTS list of reports
         case pendingMessage(ActionTypes.FETCH_REPORTS): {

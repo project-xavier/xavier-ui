@@ -34,7 +34,7 @@ const props: Props = {
   },
 
   fetchReports: () => ({
-    then: (fn: Function) => fn()
+    then: (fn: () => any) => fn()
   }),
   deleteReport: jest.fn(),
   showDeleteDialog: jest.fn(),

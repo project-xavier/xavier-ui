@@ -139,7 +139,7 @@ describe('report reducer', () => {
     });
 
     it('should handle FETCH_REPORT_SUCCESS', () => {
-        let testReport: Report = reportMock.data;
+        const testReport: Report = reportMock.data;
 
         const expectedNewState: ReportState = {
             ...reportTestInitialState,

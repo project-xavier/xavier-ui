@@ -1,6 +1,6 @@
-export const VMwareColor = '#0066CC';
-export const RHVHypervisorsColor = '#C9190B';
-export const RHVGrowthColor = '#C58C00';
-export const RHTrainingColor = '#509149';
-export const RHConsultingColor = '#EF9234';
-export const RHTravelAndLodgingColor = '#5C969D';
+export const VMWARE_COLORR = '#0066CC';
+export const RHVHYPERVISORS_COLOR = '#C9190B';
+export const RHVGROWRTH_COLOR = '#C58C00';
+export const RHTRAINING_COLOR = '#509149';
+export const RHCONSULTING_COLOR = '#EF9234';
+export const RHTRAVELANDLODGING_COLOR = '#5C969D';
