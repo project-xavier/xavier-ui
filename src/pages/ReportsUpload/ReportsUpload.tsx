@@ -257,19 +257,19 @@ class ReportsUpload extends React.Component<Props, State> {
     };
 
     renderProgress() {
-        let message: string;
+        let title: string;
         let secondaryAction;
         if (this.props.error) {
-            message = 'An error occured during the upload process. Please, try again.';
+            title = 'An error ocurred while uploading your file';
             secondaryAction = (
                 <Link to={ '/reports/upload' } className="pf-c-button pf-m-secondary" target="_self">Retry</Link>
             );
         } else {
             if (this.props.success) {
-                message = 'Finished successfully. We will redirect you to the next page.';
+                title = 'Upload finished successfully';
                 secondaryAction = this.actionsOnUploadSuccess();
             } else {
-                message = 'Your file is been uploaded, the process can take some time.';
+                title = 'Upload in progress';
                 secondaryAction = (
                     <Button onClick={ this.handleCancelUpload } variant={ ButtonVariant.link }>Cancel</Button>
                 );
@@ -280,9 +280,7 @@ class ReportsUpload extends React.Component<Props, State> {
             <Bullseye>
                 <EmptyState variant={ EmptyStateVariant.full }>
                     <EmptyStateIcon icon={ VolumeIcon } />
-                    <Title headingLevel={ TitleLevel.h5 } size="lg">
-                        Upload
-                    </Title>
+                    <Title headingLevel={ TitleLevel.h5 } size="lg">{ title }</Title>
                     <div className="pf-c-empty-state__body">
                         <Progress
                             value={ this.props.progress }
@@ -290,7 +288,9 @@ class ReportsUpload extends React.Component<Props, State> {
                             variant={ this.props.error ? ProgressVariant.danger : ProgressVariant.info }
                         />
                     </div>
-                    <EmptyStateBody>{ message }</EmptyStateBody>
+                    <EmptyStateBody>
+                        Please, wait until your file is uploaded. Then we will redirect you to the next page.
+                    </EmptyStateBody>
                     <EmptyStateSecondaryActions>
                         { secondaryAction }
                     </EmptyStateSecondaryActions>
