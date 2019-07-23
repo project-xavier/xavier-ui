@@ -4,7 +4,8 @@ import {
     Report,
     ReportWorkloadMigrationSummary,
     ReportInitialSavingEstimation,
-    SearchReportResult
+    SearchReportResult,
+    ReportWorkloadInventory
 } from '../models';
 
 export function getAllReports(page: number, perPage: number, filterText: string): AxiosPromise<SearchReportResult> {
@@ -37,4 +38,8 @@ export function getReportWokloadMigrationSummary(id: number): AxiosPromise<Repor
 
 export function getReportInitialSavingestimation(id: number): AxiosPromise<ReportInitialSavingEstimation> {
     return ApiClient.get<ReportInitialSavingEstimation>(`/report/${id}/initial-saving-estimation`);
+}
+
+export function getReportWorkloadInventory(id: number): AxiosPromise<ReportWorkloadInventory> {
+    return ApiClient.get<ReportWorkloadInventory>(`/report/${id}/workload-inventory`);
 }

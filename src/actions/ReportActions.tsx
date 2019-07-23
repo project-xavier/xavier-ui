@@ -3,7 +3,8 @@ import {
     getReportById,
     deleteReport as destroyReport,
     getReportWokloadMigrationSummary,
-    getReportInitialSavingestimation
+    getReportInitialSavingestimation,
+    getReportWorkloadInventory
 } from '../api/report';
 import { GenericAction } from '../models/action';
 
@@ -89,6 +90,19 @@ export const fetchReportInitialSavingEstimation = (id: number): GenericAction =>
             rejected: {
                 variant: 'danger',
                 title: `Failed to load report saving estimation ${ id }`
+            }
+        }
+    }
+});
+
+export const fetchReportWorkloadInventory = (id: number): GenericAction => ({
+    type: ActionTypes.FETCH_REPORT_WOKLOAD_INVENTORY,
+    payload: getReportWorkloadInventory(id),
+    meta: {
+        notifications: {
+            rejected: {
+                variant: 'danger',
+                title: `Failed to load report workload inventory ${ id }`
             }
         }
     }

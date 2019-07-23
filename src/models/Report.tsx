@@ -49,7 +49,6 @@ export interface ReportInitialSavingEstimation {
     rhvSavingsModel: RHVSavingsModel;
     rhvAdditionalContainerCapacityModel: RHVAdditionalContainerCapacityModel;
     rhvOrderFormModel: RHVOrderFormModel;
-
 }
 
 export interface EnvironmentModel {
@@ -204,4 +203,7 @@ export interface RHVOrderFormModel {
     year3RhvOrderDiscountValue: number;
     year3RhvOrderTotalValue: number;
     year3RhvOrderGrandTotal: number;
+}
+
+export interface ReportWorkloadInventory {
 }

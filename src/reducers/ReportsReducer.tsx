@@ -36,6 +36,11 @@ export const initialState: ReportState = {
     reportInitialSavingEstimation: null,
     reportInitialSavingEstimationFetchStatus: {
         ...defaultFetchStatus
+    },
+
+    reportWorkloadInventory: null,
+    reportWorkloadInventoryFetchStatus: {
+        ...defaultFetchStatus
     }
 };
 
@@ -227,6 +232,47 @@ export const reportsReducer = function (
                 reportInitialSavingEstimation: null,
                 reportInitialSavingEstimationFetchStatus: {
                     ...state.reportInitialSavingEstimationFetchStatus,
+                    error: action.payload.message,
+                    status: 'complete'
+                }
+            };
+            return nextState;
+        }
+
+        // FETCH_REPORT_WOKLOAD_INVENTORY single report
+        case pendingMessage(ActionTypes.FETCH_REPORT_WOKLOAD_INVENTORY): {
+            const nextState: ReportState = {
+                ...state,
+                reportWorkloadInventory: null,
+                reportWorkloadInventoryFetchStatus: {
+                    ...state.reportWorkloadInventoryFetchStatus,
+                    error: null,
+                    status: 'inProgress'
+                }
+            };
+
+            return nextState;
+        }
+
+        case successMessage(ActionTypes.FETCH_REPORT_WOKLOAD_INVENTORY): {
+            const nextState: ReportState = {
+                ...state,
+                reportWorkloadInventory: action.payload.data,
+                reportWorkloadInventoryFetchStatus: {
+                    ...state.reportWorkloadInventoryFetchStatus,
+                    error: null,
+                    status: 'complete'
+                }
+            };
+            return nextState;
+        }
+
+        case failureMessage(ActionTypes.FETCH_REPORT_WOKLOAD_INVENTORY): {
+            const nextState: ReportState = {
+                ...state,
+                reportWorkloadInventory: null,
+                reportWorkloadInventoryFetchStatus: {
+                    ...state.reportWorkloadInventoryFetchStatus,
                     error: action.payload.message,
                     status: 'complete'
                 }
