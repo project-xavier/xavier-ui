@@ -6,6 +6,9 @@ import { init } from './store';
 import App from './App';
 import logger from 'redux-logger';
 import getBaseName from './Utilities/getBaseName';
+import { initApi } from './api/apiInit';
+
+initApi();
 
 ReactDOM.render(
     <Provider store={ init(logger).getStore() }>

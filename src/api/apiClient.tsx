@@ -1,5 +1,4 @@
 import axios, { AxiosPromise } from 'axios';
-export const NOTIFICATIONS_API_ROOT = '/api/xavier';
 
 class BackendAPIClient {
     static request<T>(
@@ -9,7 +8,7 @@ class BackendAPIClient {
         config = {}
     ): AxiosPromise<T> {
         return axios.request<T>(Object.assign({}, {
-            url: NOTIFICATIONS_API_ROOT.concat(path),
+            url: path,
             method,
             data: body
         }, config));
