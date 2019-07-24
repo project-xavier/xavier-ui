@@ -95,9 +95,9 @@ export const fetchReportInitialSavingEstimation = (id: number): GenericAction =>
     }
 });
 
-export const fetchReportWorkloadInventory = (id: number): GenericAction => ({
+export const fetchReportWorkloadInventory = (id: number, page: number, perPage: number): GenericAction => ({
     type: ActionTypes.FETCH_REPORT_WOKLOAD_INVENTORY,
-    payload: getReportWorkloadInventory(id),
+    payload: getReportWorkloadInventory(id, page, perPage),
     meta: {
         notifications: {
             rejected: {

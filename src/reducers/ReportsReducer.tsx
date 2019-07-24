@@ -38,7 +38,10 @@ export const initialState: ReportState = {
         ...defaultFetchStatus
     },
 
-    reportWorkloadInventory: null,
+    reportWorkloadInventory: {
+        total: 0,
+        items: []
+    },
     reportWorkloadInventoryFetchStatus: {
         ...defaultFetchStatus
     }
@@ -243,7 +246,11 @@ export const reportsReducer = function (
         case pendingMessage(ActionTypes.FETCH_REPORT_WOKLOAD_INVENTORY): {
             const nextState: ReportState = {
                 ...state,
-                reportWorkloadInventory: null,
+                reportWorkloadInventory: {
+                    ...state.reportWorkloadInventory,
+                    items: [],
+                    total: 0
+                },
                 reportWorkloadInventoryFetchStatus: {
                     ...state.reportWorkloadInventoryFetchStatus,
                     error: null,
@@ -257,7 +264,11 @@ export const reportsReducer = function (
         case successMessage(ActionTypes.FETCH_REPORT_WOKLOAD_INVENTORY): {
             const nextState: ReportState = {
                 ...state,
-                reportWorkloadInventory: action.payload.data,
+                reportWorkloadInventory: {
+                    ...state.reportWorkloadInventory,
+                    items: action.payload.data.content,
+                    total: action.payload.data.totalElements
+                },
                 reportWorkloadInventoryFetchStatus: {
                     ...state.reportWorkloadInventoryFetchStatus,
                     error: null,
@@ -270,7 +281,11 @@ export const reportsReducer = function (
         case failureMessage(ActionTypes.FETCH_REPORT_WOKLOAD_INVENTORY): {
             const nextState: ReportState = {
                 ...state,
-                reportWorkloadInventory: null,
+                reportWorkloadInventory: {
+                    ...state.reportWorkloadInventory,
+                    items: [],
+                    total: 0
+                },
                 reportWorkloadInventoryFetchStatus: {
                     ...state.reportWorkloadInventoryFetchStatus,
                     error: action.payload.message,

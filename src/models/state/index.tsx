@@ -37,7 +37,10 @@ export interface ReportState {
     reportInitialSavingEstimation: ReportInitialSavingEstimation | null;
     reportInitialSavingEstimationFetchStatus: ObjectFetchStatus;
 
-    reportWorkloadInventory: ReportWorkloadInventory | null;
+    reportWorkloadInventory: {
+        total: number;
+        items: ReportWorkloadInventory[]
+    };
     reportWorkloadInventoryFetchStatus: ObjectFetchStatus;
 }
 

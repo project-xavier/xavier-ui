@@ -37,10 +37,15 @@ import { Report, ReportWorkloadInventory } from '../../../models';
 import { ObjectFetchStatus } from '../../../models/state';
 import ReportCard from '../../../PresentationalComponents/ReportCard';
 import debounce from 'lodash/debounce';
+import { formatValue } from '../../../Utilities/formatValue';
+import { bytesToGb } from '../../../Utilities/unitConvertors';
 
 interface StateToProps extends RouterGlobalProps {
     report: Report;
-    reportWorkloadInventory: ReportWorkloadInventory | null;
+    reportWorkloadInventory: {
+        total: number;
+        items: ReportWorkloadInventory[]
+    };
     reportWorkloadInventoryFetchStatus: ObjectFetchStatus;
 }
 
@@ -48,8 +53,7 @@ interface DispatchToProps {
     fetchReportWorkloadInventory: (
         reportId: number,
         page: number,
-        perPage: number,
-        filterText: string
+        perPage: number
     ) => any;
 }
 
@@ -57,7 +61,6 @@ interface Props extends StateToProps, DispatchToProps {
 };
 
 interface State {
-    filterText: string;
     page: number;
     perPage: number;
     columns: Array<ICell | String>;
@@ -69,6 +72,8 @@ class WorkloadInventory extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state = {
+            page: 1,
+            perPage: 10,
             columns: [
                 {
                     title: 'Provider/Datacenter/Cluster',
@@ -122,60 +127,84 @@ class WorkloadInventory extends React.Component<Props, State> {
         this.refreshData();
     }
 
+    refreshData = (
+        page: number = this.state.page,
+        perPage: number = this.state.perPage
+    ) => {
+        const { report, fetchReportWorkloadInventory } = this.props;
+        fetchReportWorkloadInventory(report.id, page, perPage).then(() => {
+            this.filtersInRowsAndCells();
+        });
+    }
+
     filtersInRowsAndCells = () => {
-        const reports: any[] = [
-            {
-                uno: 'ytale-ubuntu-arl15-001',
-                dos: 'Not identified',
-                tres: 'Ubuntu',
-                cuatro: 'Medium',
-                cinco: 'OSP RHV',
-                seis: 'None'
-            },
-            {
-                uno: 'ytale-ubuntu-arl15-001',
-                dos: 'Not identified',
-                tres: 'Ubuntu',
-                cuatro: 'Medium',
-                cinco: 'OSP RHV',
-                seis: 'None'
-            }
-        ];
-        reports.push(1);
-        reports.push(1);
-        reports.push(1);
-        reports.push(1);
-        reports.push(1);
-        reports.push(1);
-        reports.push(1);
-        reports.push(1);
+        const items: ReportWorkloadInventory[] = this.props.reportWorkloadInventory.items
+            ? Object.values(this.props.reportWorkloadInventory.items) : [];
 
         let rows: any[][] = [];
-        if (reports.length > 0) {
-            rows = reports.reduce((a: any[], b: any, index: number) => {
+        if (items.length > 0) {
+            rows = items.reduce((a: any[], b: ReportWorkloadInventory, index: number) => {
                 a.push(
                     {
                         isOpen: false,
                         cells: [
                             {
                                 title: <span>
-                                    <span>IMS vCenter<br/></span>
-                                    <span>V2V-DC<br/></span>
-                                    <span>Cluster1<br/></span>
+                                    <span>{ b.provider }<br/></span>
+                                    <span>{ b.datacenter }<br/></span>
+                                    <span>{ b.cluster }<br/></span>
                                 </span>
                             },
-                            'ytale-ubuntu-arl15-001',
-                            'Not identified',
-                            'Ubuntu',
-                            'Medium',
-                            'OSP RHV',
-                            'None'
+                            b.vmName,
+                            {
+                                title: <span>
+                                    {
+                                        b.workload.map((val: string, index: number) => {
+                                            return (
+                                                <span key={ index }>{ val }<br/></span>
+                                            );
+                                        })
+                                    }</span>
+                            },
+                            b.osName,
+                            b.complexity,
+                            {
+                                title: <span>
+                                    {
+                                        b.recommendedTargetsIMS.map((val: string, index: number) => {
+                                            return (
+                                                <span key={ index }>{ val }<br/></span>
+                                            );
+                                        })
+                                    }</span>
+                            },
+                            {
+                                title: <span>
+                                    {
+                                        b.flagIMS.map((val: string, index: number) => {
+                                            return (
+                                                <span key={ index }>{ val }<br/></span>
+                                            );
+                                        })
+                                    }</span>
+                            }
                         ]
                     },
                     {
                         parent: index * 2,
-                        fullWidth: true,
-                        cells: [ 'child - 1' ]
+                        fullWidth: false,
+                        cells: [{
+                            title: <div className="pf-c-content"><dl>
+                                <dt>Disk space (GB)</dt>
+                                <dd>{ formatValue(bytesToGb(b.diskSpace), 'gb', { fractionDigits: 1 }) }</dd>
+                                <dt>Memory (GB)</dt>
+                                <dd>{ formatValue(bytesToGb(b.memory), 'gb', { fractionDigits: 1 }) }</dd>
+                                <dt>CPU cores</dt>
+                                <dd>{ b.cpuCores.toLocaleString() }</dd>
+                                <dt>Operating system description</dt>
+                                <dd>{ b.osDescription }</dd>
+                            </dl></div>
+                        }]
                     }
                 );
                 return a;
@@ -183,17 +212,6 @@ class WorkloadInventory extends React.Component<Props, State> {
         }
 
         this.setState({ rows });
-    }
-
-    refreshData = (
-        page: number = this.state.page,
-        perPage: number = this.state.perPage,
-        filterText: string = this.state.filterText
-    ) => {
-        const { report, fetchReportWorkloadInventory } = this.props;
-        fetchReportWorkloadInventory(report.id, page, perPage, filterText).then(() => {
-            this.filtersInRowsAndCells();
-        });
     }
 
     changePage = debounce(() => {
@@ -219,7 +237,7 @@ class WorkloadInventory extends React.Component<Props, State> {
 
     onPerPageSelect = (_event: any, perPage: number) => {
         let page = this.state.page;
-        const total = this.props.reports.total;
+        const total = this.props.reportWorkloadInventory.total;
 
         // If current page and perPage would request data beyond total, show last available page
         if (page * perPage > total) {
@@ -241,7 +259,7 @@ class WorkloadInventory extends React.Component<Props, State> {
 
     renderPagination = () => {
         const { page, perPage } = this.state;
-        const total = 10;
+        const { total } = this.props.reportWorkloadInventory;
 
         return (
             <Pagination

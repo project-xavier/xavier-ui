@@ -1,6 +1,6 @@
-export interface SearchReportResult {
+export interface SearchResult<T> {
     totalElements: number;
-    content: Report[];
+    content: T[];
 }
 
 export interface Report {
@@ -206,4 +206,17 @@ export interface RHVOrderFormModel {
 }
 
 export interface ReportWorkloadInventory {
+    provider: string;
+    datacenter: string;
+    cluster: string;
+    vmName: string;
+    workload: string[];
+    osName: string;
+    osDescription: string;
+    complexity: string;
+    recommendedTargetsIMS: string[];
+    flagIMS: string[];
+    diskSpace: number;
+    memory: number;
+    cpuCores: number;
 }
