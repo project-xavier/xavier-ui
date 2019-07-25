@@ -5,6 +5,9 @@ import { Provider } from 'react-redux';
 import { init } from './store';
 import App from './App';
 import getBaseName from './Utilities/getBaseName';
+import { initApi } from './api/apiInit';
+
+initApi();
 
 ReactDOM.render(
     <Provider store={ init().getStore() }>
