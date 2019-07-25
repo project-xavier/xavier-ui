@@ -53,7 +53,7 @@ rules:
       ImportDeclaration: 1
       ObjectExpression: 1
   react/jsx-curly-spacing:
-    - error
+    - ignore
     - always
     - children: true
     - allowMultiline: false

@@ -1,21 +1,12 @@
-import { 
-    uploadsReducer,
-    initialState as systemInitialState
-} from './UploadsReducer';
-import {
-    ActionTypes
-} from '../actions/UploadActions';
-import {
-    successMessage,
-    failureMessage,
-    pendingMessage
-} from './reducerHelper';
+import { uploadsReducer, initialState as systemInitialState } from './UploadsReducer';
+import { ActionTypes } from '../actions/UploadActions';
+import { successMessage, failureMessage, pendingMessage } from './reducerHelper';
 
 import { GenericAction } from '../models/action';
 import { UploadState } from '../models/state';
 
 const uploadInitialState: UploadState = {
-    file: new File([ '' ], 'myFile1.zip'),
+    file: new File([''], 'myFile1.zip'),
     success: null,
     error: null,
     progress: 0,
@@ -32,30 +23,26 @@ describe('report reducer', () => {
     it('should return the default state', () => {
         const initialState = undefined;
         const action = {} as GenericAction;
-        
-        expect(
-            uploadsReducer(initialState, action)
-        ).toEqual(systemInitialState);
+
+        expect(uploadsReducer(initialState, action)).toEqual(systemInitialState);
     });
 
     it('should return the previous state', () => {
         const initialState: UploadState = {
-            file: new File([ '' ], 'myFile.zip'),
+            file: new File([''], 'myFile.zip'),
             success: false,
             error: 'my custom error',
             progress: 90,
             uploading: true
         };
         const action = {} as GenericAction;
-        
-        expect(
-            uploadsReducer(initialState, action)
-        ).toEqual(initialState);
+
+        expect(uploadsReducer(initialState, action)).toEqual(initialState);
     });
 
     it('should handle SELECT_UPLOAD_FILE', () => {
         const payload = {
-            file: new File([ '' ], 'myFile.zip')
+            file: new File([''], 'myFile.zip')
         };
 
         const expectedNewState: UploadState = {
@@ -70,7 +57,7 @@ describe('report reducer', () => {
             uploadInitialState,
             fromRequest(ActionTypes.SELECT_UPLOAD_FILE, payload)
         );
-        
+
         expect(newState).toEqual(expectedNewState);
     });
 
@@ -94,7 +81,7 @@ describe('report reducer', () => {
     it('should handle UPLOAD_REQUEST_PENDING', () => {
         const payload = {};
         const meta = {
-            file: new File([ '' ], 'myFile.zip')
+            file: new File([''], 'myFile.zip')
         };
 
         const expectedNewState: UploadState = {

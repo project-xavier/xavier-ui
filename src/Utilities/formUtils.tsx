@@ -1,5 +1,5 @@
 export const isNotNullOrUndefined = (...value: any[]): boolean => {
-    return value.some((element: any) => element === undefined || element === null);;
+    return value.some((element: any) => element === undefined || element === null);
 };
 
 export const getErrorsFromValidationError = (validationError: any) => {

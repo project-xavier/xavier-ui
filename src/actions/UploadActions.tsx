@@ -20,7 +20,7 @@ export const uploadRequest = (upload: Upload, config = {}): GenericAction => {
         meta: {
             file: upload.file,
             noError: true,
-            notifications: { }
+            notifications: {}
         }
     };
 };
@@ -41,5 +41,5 @@ export const selectUploadFile = (file: File): GenericAction => ({
 
 export const resetUploadFile = (): GenericAction => ({
     type: ActionTypes.RESET_UPLOAD_FILE,
-    payload: { }
+    payload: {}
 });

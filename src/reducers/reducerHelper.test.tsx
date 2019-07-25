@@ -1,9 +1,4 @@
-import {
-    successMessage,
-    failureMessage,
-    pendingMessage,
-    initialStateFor
-} from './reducerHelper';
+import { successMessage, failureMessage, pendingMessage, initialStateFor } from './reducerHelper';
 
 describe('initialStateFor', () => {
     it('returns and object with the reducers initial object', () => {

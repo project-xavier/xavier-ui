@@ -7,32 +7,28 @@ class BackendAPIClient {
         method: 'get' | 'post' | 'put' | 'delete' | 'options' | 'patch' | undefined = 'get',
         config = {}
     ): AxiosPromise<T> {
-        return axios.request<T>(Object.assign({}, {
-            url: path,
-            method,
-            data: body
-        }, config));
+        return axios.request<T>(
+            Object.assign(
+                {},
+                {
+                    url: path,
+                    method,
+                    data: body
+                },
+                config
+            )
+        );
     }
 
-    public static post<T>(
-        path: string,
-        body: any,
-        config = {}
-    ): AxiosPromise<T> {
+    public static post<T>(path: string, body: any, config = {}): AxiosPromise<T> {
         return this.request<T>(path, body, 'post', config);
     }
 
-    public static put<T>(
-        path: string,
-        body: any,
-        config = {}
-    ): AxiosPromise<T> {
+    public static put<T>(path: string, body: any, config = {}): AxiosPromise<T> {
         return this.request<T>(path, body, 'put', config);
     }
 
-    public static get<T>(
-        path: string
-    ): AxiosPromise<T> {
+    public static get<T>(path: string): AxiosPromise<T> {
         return this.request<T>(path);
     }
 

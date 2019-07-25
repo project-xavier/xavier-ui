@@ -14,12 +14,7 @@ export const defaultState: DialogDeleteState = {
     onCancel: null
 };
 
-export type DeleteDialogAction = ActionType<
-    | typeof openModal
-    | typeof closeModal
-    | typeof processing
-    | typeof error
->;
+export type DeleteDialogAction = ActionType<typeof openModal | typeof closeModal | typeof processing | typeof error>;
 
 export const dialogDeleteReducer = (
     state: DialogDeleteState = defaultState,

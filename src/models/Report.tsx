@@ -49,7 +49,6 @@ export interface ReportInitialSavingEstimation {
     rhvSavingsModel: RHVSavingsModel;
     rhvAdditionalContainerCapacityModel: RHVAdditionalContainerCapacityModel;
     rhvOrderFormModel: RHVOrderFormModel;
-
 }
 
 export interface EnvironmentModel {

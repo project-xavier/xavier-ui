@@ -1,11 +1,5 @@
-import {
-    ActionTypes
-} from '../actions/UserActions';
-import {
-    pendingMessage,
-    successMessage,
-    failureMessage
-} from './reducerHelper';
+import { ActionTypes } from '../actions/UserActions';
+import { pendingMessage, successMessage, failureMessage } from './reducerHelper';
 import { UserState } from '../models/state';
 import { GenericAction } from '../models/action';
 
@@ -17,10 +11,7 @@ export const initialState: UserState = {
     }
 };
 
-export const userReducer = (
-    state: UserState = initialState,
-    action: GenericAction
-) => {
+export const userReducer = (state: UserState = initialState, action: GenericAction) => {
     switch (action.type) {
         case ActionTypes.UPDATE_USER: {
             const nextState: UserState = {
