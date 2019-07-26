@@ -29,7 +29,7 @@ describe('processing', () => {
 describe('openModal', () => {
     it('returns a state object', () => {
         const error: AxiosError = {
-            config: { },
+            config: {},
             name: 'error',
             message: 'my custom error message',
             isAxiosError: false

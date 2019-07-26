@@ -1,9 +1,8 @@
+import React from "react";
 import { shallow } from "enzyme";
 import ReportView from "./ReportView";
 
 const props = {
-  error: '',
-  loading: false,
   report: {
     id: 36,
     customerId: "123456",
@@ -11,7 +10,8 @@ const props = {
     numberOfHosts: 254,
     totalDiskSpace: 5871365,
     totalPrice: 1200,
-    creationDate: 254112
+    creationDate: 254112,
+    status: "CREATED"
   },
 
   match: {
@@ -20,6 +20,10 @@ const props = {
     }
   },
   fetchReport: jest.fn(),
+  reportFetchStatus: {
+    error: null,
+    status: "none"
+  },
   history: null,
   location: null
 };

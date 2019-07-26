@@ -1,11 +1,5 @@
-import {
-    pendingMessage,
-    successMessage,
-    failureMessage
-} from './reducerHelper';
-import {
-    ActionTypes
-} from '../actions/UploadActions';
+import { pendingMessage, successMessage, failureMessage } from './reducerHelper';
+import { ActionTypes } from '../actions/UploadActions';
 import { GenericAction } from '../models/action';
 import { UploadState } from '../models/state';
 
@@ -17,10 +11,7 @@ export const initialState: UploadState = {
     uploading: false
 };
 
-export const uploadsReducer = function (
-    state: UploadState = initialState,
-    action: GenericAction
-) {
+export const uploadsReducer = (state: UploadState = initialState, action: GenericAction) => {
     switch (action.type) {
         case ActionTypes.UPLOAD_PROGRESS: {
             const nextState: UploadState = {

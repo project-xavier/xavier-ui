@@ -17,7 +17,7 @@ interface State {
 
 class WorkloadInventory extends React.Component<Props, State> {
 
-    render() {
+    public render() {
         return (
             <p>WorkloadInventory...</p>
         );

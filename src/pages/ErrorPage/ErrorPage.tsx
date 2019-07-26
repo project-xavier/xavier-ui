@@ -32,7 +32,7 @@ class ErrorPage extends React.Component<Props, State> {
         super(props);
     }
 
-    render() {
+    public render() {
         return (
             <React.Fragment>
                 <PageHeader>

@@ -31,12 +31,12 @@ import ReportCard from '../../../PresentationalComponents/ReportCard';
 import ProjectCostBreakdownTable from '../../../PresentationalComponents/Reports/ProjectCostBreakdownTable';
 import './InitialSavingsEstimation.scss';
 import {
-    VMwareColor,
-    RHVHypervisorsColor,
-    RHVGrowthColor,
-    RHTrainingColor,
-    RHConsultingColor,
-    RHTravelAndLodgingColor
+    VMWARE_COLORR,
+    RHVHYPERVISORS_COLOR,
+    RHVGROWRTH_COLOR,
+    RHTRAINING_COLOR,
+    RHCONSULTING_COLOR,
+    RHTRAVELANDLODGING_COLOR
 } from '../../../Utilities/constants';
 import { ObjectFetchStatus } from '../../../models/state';
 import { ErrorCircleOIcon } from '@patternfly/react-icons';
@@ -73,16 +73,16 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
         super(props);
     }
 
-    componentDidMount() {
+    public componentDidMount() {
         this.refreshData();
     }
 
-    refreshData = () => {
+    public refreshData = () => {
         const { report, fetchReportInitialSavingEstimation } = this.props;
         fetchReportInitialSavingEstimation(report.id);
     };
 
-    renderInfo = () => {
+    public renderInfo = () => {
         const { report, reportInitialSavingEstimation } = this.props;
 
         return (
@@ -115,7 +115,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
         );
     }
 
-    renderCostExpenditureComparison = () => {
+    public renderCostExpenditureComparison = () => {
         const { reportInitialSavingEstimation } = this.props;
         const sourceRampDownCostsModel = reportInitialSavingEstimation.sourceRampDownCostsModel;
         const rhvRampUpCostsModel = reportInitialSavingEstimation.rhvRampUpCostsModel;
@@ -146,7 +146,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
 
         const barChartData: FancyGroupedBarChartData = {
             legends: [ 'VMware Costs', 'RHV Costs' ],
-            colors: [ VMwareColor, RHVHypervisorsColor ],
+            colors: [ VMWARE_COLORR, RHVHYPERVISORS_COLOR ],
             values: [
                 [
                     { x: '1', y: vmwareCostsYear1, label: formatValue(vmwareCostsYear1, 'usd', { fractionDigits: 0 }) },
@@ -188,7 +188,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
         );
     };
 
-    renderEnvironment = () => {
+    public renderEnvironment = () => {
         const { reportInitialSavingEstimation } = this.props;
 
         return (
@@ -198,7 +198,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
         );
     }
 
-    renderRenewalEstimation = () => {
+    public renderRenewalEstimation = () => {
         const { reportInitialSavingEstimation } = this.props;
 
         return (
@@ -208,7 +208,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
         );
     }
 
-    renderTotalMaintenance = () => {
+    public renderTotalMaintenance = () => {
         const { reportInitialSavingEstimation } = this.props;
 
         const sourceRampDownCostsModel = reportInitialSavingEstimation.sourceRampDownCostsModel;
@@ -261,12 +261,12 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
         };
 
         const chartData: FancyChartDonutData[] = [
-            { label: 'VMware', value: percentages[0], color: VMwareColor },
-            { label: 'RHV Hypervisors', value: percentages[1], color: RHVHypervisorsColor },
-            { label: 'RHV Growth', value: percentages[2], color: RHVGrowthColor },
-            { label: 'Red Hat Training', value: percentages[3], color: RHTrainingColor },
-            { label: 'Red Hat Consulting', value: percentages[4], color: RHConsultingColor },
-            { label: 'Travel and Lodging', value: percentages[5], color: RHTravelAndLodgingColor }
+            { label: 'VMware', value: percentages[0], color: VMWARE_COLORR },
+            { label: 'RHV Hypervisors', value: percentages[1], color: RHVHYPERVISORS_COLOR },
+            { label: 'RHV Growth', value: percentages[2], color: RHVGROWRTH_COLOR },
+            { label: 'Red Hat Training', value: percentages[3], color: RHTRAINING_COLOR },
+            { label: 'Red Hat Consulting', value: percentages[4], color: RHCONSULTING_COLOR },
+            { label: 'Travel and Lodging', value: percentages[5], color: RHTRAVELANDLODGING_COLOR }
         ];
 
         const tickFormat = (label: string, value: number) => `${label}: ${value.toFixed(2)}%`;
@@ -284,7 +284,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
         );
     }
 
-    renderProjectCostBreakdown = () => {
+    public renderProjectCostBreakdown = () => {
         const { reportInitialSavingEstimation } = this.props;
 
         const sourceRampDownCostsModel = reportInitialSavingEstimation.sourceRampDownCostsModel;
@@ -328,7 +328,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
 
         const barChartData: FancyGroupedBarChartData = {
             legends: undefined,
-            colors: [ VMwareColor, RHVHypervisorsColor, RHVGrowthColor, RHTrainingColor, RHConsultingColor, RHTravelAndLodgingColor ],
+            colors: [ VMWARE_COLORR, RHVHYPERVISORS_COLOR, RHVGROWRTH_COLOR, RHTRAINING_COLOR, RHCONSULTING_COLOR, RHTRAVELANDLODGING_COLOR ],
             values: [
                 [{ x: 'VMware', y: vmwareTotal, label: formatValue(vmwareTotal, 'usd', { fractionDigits: 0 }) }],
                 [{ x: 'RVH Hypervisors', y: rhvHypervisorsTotal, label: formatValue(rhvHypervisorsTotal, 'usd', { fractionDigits: 0 }) }],
@@ -375,7 +375,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
         );
     }
 
-    renderProjectCostBreakdownTable = () => {
+    public renderProjectCostBreakdownTable = () => {
         const { reportInitialSavingEstimation } = this.props;
 
         return (
@@ -388,7 +388,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
         );
     }
 
-    renderReports = () => {
+    public renderReports = () => {
         return (
             <React.Fragment>
                 <Stack gutter='md'>
@@ -430,7 +430,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
         );
     };
 
-    renderReportsSkeleton = () => {
+    public renderReportsSkeleton = () => {
         return (
             <React.Fragment>
                 <Stack gutter='md'>
@@ -477,7 +477,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
         );
     };
 
-    renderFetchError = () => {
+    public renderFetchError = () => {
         return (
             <Bullseye>
                 <EmptyState variant={ EmptyStateVariant.large }>
@@ -494,7 +494,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
         );
     };
 
-    render() {
+    public render() {
         const { reportInitialSavingEstimationFetchStatus } = this.props;
 
         if (reportInitialSavingEstimationFetchStatus.error) {

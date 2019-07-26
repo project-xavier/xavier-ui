@@ -1,3 +1,4 @@
+import React from "react";
 import { shallow } from 'enzyme';
 import Reports, { Props } from './Reports';
 
@@ -33,7 +34,7 @@ const props: Props = {
   },
 
   fetchReports: () => ({
-    then: (fn: Function) => fn()
+    then: (fn: () => any) => fn()
   }),
   deleteReport: jest.fn(),
   showDeleteDialog: jest.fn(),
