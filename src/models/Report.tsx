@@ -210,7 +210,7 @@ export interface ReportWorkloadInventory {
     datacenter: string;
     cluster: string;
     vmName: string;
-    workload: string[];
+    workloads: string[];
     osName: string;
     osDescription: string;
     complexity: string;

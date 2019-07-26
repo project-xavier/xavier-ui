@@ -159,7 +159,7 @@ class WorkloadInventory extends React.Component<Props, State> {
                             {
                                 title: <span>
                                     {
-                                        b.workload.map((val: string, index: number) => {
+                                        b.workloads.map((val: string, index: number) => {
                                             return (
                                                 <span key={ index }>{ val }<br/></span>
                                             );
