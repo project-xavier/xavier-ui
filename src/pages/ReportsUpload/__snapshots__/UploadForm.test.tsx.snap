@@ -75,11 +75,10 @@ exports[`UploadForm expect to render 1`] = `
     isValid={true}
     label="Year-over-year growth rate for new hypervisors"
   >
-    <Gallery
-      className=""
-      gutter="sm"
+    <div
+      className="pf-l-gallery"
     >
-      <GalleryItem>
+      <div>
         <InputGroup
           className=""
         >
@@ -104,8 +103,8 @@ exports[`UploadForm expect to render 1`] = `
             %
           </InputGroupText>
         </InputGroup>
-      </GalleryItem>
-    </Gallery>
+      </div>
+    </div>
   </FormGroup>
   <Stack
     className="pf-sm-gutter"
@@ -121,11 +120,10 @@ exports[`UploadForm expect to render 1`] = `
         isValid={true}
         label="Percentage of hypervisors migrated each year"
       >
-        <Gallery
-          className=""
-          gutter="sm"
+        <div
+          className="pf-l-gallery"
         >
-          <GalleryItem>
+          <div>
             <InputGroup
               className=""
             >
@@ -155,8 +153,8 @@ exports[`UploadForm expect to render 1`] = `
                 %
               </InputGroupText>
             </InputGroup>
-          </GalleryItem>
-        </Gallery>
+          </div>
+        </div>
       </FormGroup>
     </StackItem>
     <StackItem
@@ -168,11 +166,10 @@ exports[`UploadForm expect to render 1`] = `
         isValid={true}
         label=""
       >
-        <Gallery
-          className=""
-          gutter="sm"
+        <div
+          className="pf-l-gallery"
         >
-          <GalleryItem>
+          <div>
             <InputGroup
               className=""
             >
@@ -202,8 +199,8 @@ exports[`UploadForm expect to render 1`] = `
                 %
               </InputGroupText>
             </InputGroup>
-          </GalleryItem>
-        </Gallery>
+          </div>
+        </div>
       </FormGroup>
     </StackItem>
     <StackItem
@@ -215,11 +212,10 @@ exports[`UploadForm expect to render 1`] = `
         isValid={true}
         label=""
       >
-        <Gallery
-          className=""
-          gutter="sm"
+        <div
+          className="pf-l-gallery"
         >
-          <GalleryItem>
+          <div>
             <InputGroup
               className=""
             >
@@ -249,8 +245,8 @@ exports[`UploadForm expect to render 1`] = `
                 %
               </InputGroupText>
             </InputGroup>
-          </GalleryItem>
-        </Gallery>
+          </div>
+        </div>
       </FormGroup>
     </StackItem>
   </Stack>
@@ -353,11 +349,10 @@ exports[`UploadForm expect to render errors 1`] = `
     isValid={false}
     label="Year-over-year growth rate for new hypervisors"
   >
-    <Gallery
-      className=""
-      gutter="sm"
+    <div
+      className="pf-l-gallery"
     >
-      <GalleryItem>
+      <div>
         <InputGroup
           className=""
         >
@@ -382,8 +377,8 @@ exports[`UploadForm expect to render errors 1`] = `
             %
           </InputGroupText>
         </InputGroup>
-      </GalleryItem>
-    </Gallery>
+      </div>
+    </div>
   </FormGroup>
   <Stack
     className="pf-sm-gutter"
@@ -400,11 +395,10 @@ exports[`UploadForm expect to render errors 1`] = `
         isValid={false}
         label="Percentage of hypervisors migrated each year"
       >
-        <Gallery
-          className=""
-          gutter="sm"
+        <div
+          className="pf-l-gallery"
         >
-          <GalleryItem>
+          <div>
             <InputGroup
               className=""
             >
@@ -434,8 +428,8 @@ exports[`UploadForm expect to render errors 1`] = `
                 %
               </InputGroupText>
             </InputGroup>
-          </GalleryItem>
-        </Gallery>
+          </div>
+        </div>
       </FormGroup>
     </StackItem>
     <StackItem
@@ -448,11 +442,10 @@ exports[`UploadForm expect to render errors 1`] = `
         isValid={false}
         label=""
       >
-        <Gallery
-          className=""
-          gutter="sm"
+        <div
+          className="pf-l-gallery"
         >
-          <GalleryItem>
+          <div>
             <InputGroup
               className=""
             >
@@ -482,8 +475,8 @@ exports[`UploadForm expect to render errors 1`] = `
                 %
               </InputGroupText>
             </InputGroup>
-          </GalleryItem>
-        </Gallery>
+          </div>
+        </div>
       </FormGroup>
     </StackItem>
     <StackItem
@@ -496,11 +489,10 @@ exports[`UploadForm expect to render errors 1`] = `
         isValid={false}
         label=""
       >
-        <Gallery
-          className=""
-          gutter="sm"
+        <div
+          className="pf-l-gallery"
         >
-          <GalleryItem>
+          <div>
             <InputGroup
               className=""
             >
@@ -530,8 +522,8 @@ exports[`UploadForm expect to render errors 1`] = `
                 %
               </InputGroupText>
             </InputGroup>
-          </GalleryItem>
-        </Gallery>
+          </div>
+        </div>
       </FormGroup>
     </StackItem>
   </Stack>

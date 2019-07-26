@@ -305,7 +305,7 @@ class ReportsUpload extends React.Component<Props, State> {
 
     public renderForm() {
         const validate = (values: any): void => {
-            validateForm(values, formValidationSchema);
+            return validateForm(values, formValidationSchema);
         };
 
         return (

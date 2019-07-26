@@ -2,10 +2,7 @@ import React from 'react';
 import {
     FormikState,
     FormikValues,
-    FormikActions,
-    FormikHandlers,
-    FormikComputedProps
-} from 'formik';
+    FormikHandlers} from 'formik';
 import {
     Form,
     FormGroup,
@@ -13,8 +10,6 @@ import {
     TextInput,
     Button,
     ButtonVariant,
-    Gallery,
-    GalleryItem,
     InputGroupText,
     Stack,
     StackItem,
@@ -185,8 +180,8 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                         (errors.yearOverYearGrowthRatePercentage && touched.yearOverYearGrowthRatePercentage) ? false : true
                     }
                 >
-                    <Gallery gutter="sm">
-                        <GalleryItem>
+                    <div className="pf-l-gallery">
+                        <div>
                             <InputGroup>
                                 <TextInput
                                     isRequired={true}
@@ -204,8 +199,8 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                                 />
                                 <InputGroupText className="percentage-box">%</InputGroupText>
                             </InputGroup>
-                        </GalleryItem>
-                    </Gallery>
+                        </div>
+                    </div>
                 </FormGroup>
                 <Stack gutter="sm" className="pf-sm-gutter">
                     <StackItem isFilled={ false }>
@@ -218,8 +213,8 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                                 (errors.percentageOfHypervisorsMigratedSum) ? false : true
                             }
                         >
-                            <Gallery gutter="sm">
-                                <GalleryItem>
+                            <div className="pf-l-gallery">
+                                <div>
                                     <InputGroup>
                                         <InputGroupText className="year-box">Year 1</InputGroupText>
                                         <TextInput
@@ -239,8 +234,8 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                                         />
                                         <InputGroupText className="percentage-box">%</InputGroupText>
                                     </InputGroup>
-                                </GalleryItem>
-                            </Gallery>
+                                </div>
+                            </div>
                         </FormGroup>
                     </StackItem>
                     <StackItem isFilled={ false }>
@@ -253,8 +248,8 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                                 (errors.percentageOfHypervisorsMigratedSum) ? false : true
                             }
                         >
-                            <Gallery gutter="sm">
-                                <GalleryItem>
+                            <div className="pf-l-gallery">
+                                <div>
                                     <InputGroup>
                                         <InputGroupText className="year-box">Year 2</InputGroupText>
                                         <TextInput
@@ -274,8 +269,8 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                                         />
                                         <InputGroupText className="percentage-box">%</InputGroupText>
                                     </InputGroup>
-                                </GalleryItem>
-                            </Gallery>
+                                </div>
+                            </div>
                         </FormGroup>
                     </StackItem>
                     <StackItem isFilled={ false }>
@@ -288,8 +283,8 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                                 (errors.percentageOfHypervisorsMigratedSum) ? false : true
                             }
                         >
-                            <Gallery gutter="sm">
-                                <GalleryItem>
+                            <div className="pf-l-gallery">
+                                <div>
                                     <InputGroup>
                                         <InputGroupText className="year-box">Year 3</InputGroupText>
                                         <TextInput
@@ -309,8 +304,8 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                                         />
                                         <InputGroupText className="percentage-box">%</InputGroupText>
                                     </InputGroup>
-                                </GalleryItem>
-                            </Gallery>
+                                </div>
+                            </div>
                         </FormGroup>
                     </StackItem>
                 </Stack>
