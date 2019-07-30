@@ -8,17 +8,20 @@ const mapStateToProps = (state: GlobalState) => {
     const {
         report,
         reportWorkloadInventory,
-        reportWorkloadInventoryFetchStatus
+        reportWorkloadInventoryFetchStatus,
+        reportWorkloadInventoryCSVFetchStatus
     } = state.reportState;
     return {
         report,
         reportWorkloadInventory,
-        reportWorkloadInventoryFetchStatus
+        reportWorkloadInventoryFetchStatus,
+        reportWorkloadInventoryCSVFetchStatus
     };
 };
 
 const mapDispatchToProps = {
-    fetchReportWorkloadInventory: reportActions.fetchReportWorkloadInventory
+    fetchReportWorkloadInventory: reportActions.fetchReportWorkloadInventory,
+    fetchReportWorkloadInventoryCSV: reportActions.fetchReportWorkloadInventoryCSV
 };
 
 export default withRouter(

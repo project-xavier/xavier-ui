@@ -49,7 +49,7 @@ export function getReportWorkloadInventory(
     const params = { page: page - 1, size: perPage };
     const query: string[] = [];
 
-    Object.keys(params).map((key) => {
+    Object.keys(params).map(key => {
         const value = params[key];
         if (value !== undefined) {
             query.push(`${key}=${value}`);
@@ -58,4 +58,11 @@ export function getReportWorkloadInventory(
 
     const url = `/report/${id}/workload-inventory?${query.join('&')}`;
     return ApiClient.get<SearchResult<ReportWorkloadInventory>>(url);
+}
+
+export function getReportWorkloadInventoryCSV(id: number): AxiosPromise<any> {
+    const url = `/report/${id}/workload-inventory/csv`;
+    return ApiClient.request<any>(url, null, 'get', {
+        responseType: 'blob'
+    });
 }

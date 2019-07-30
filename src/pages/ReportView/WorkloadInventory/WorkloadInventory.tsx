@@ -30,7 +30,6 @@ import {
     Card,
     CardBody
 } from '@patternfly/react-core';
-import { Link } from 'react-router-dom';
 import { ErrorCircleOIcon, SearchIcon } from '@patternfly/react-icons';
 import './WorkloadInventory.scss';
 import { Report, ReportWorkloadInventory } from '../../../models';
@@ -47,6 +46,7 @@ interface StateToProps extends RouterGlobalProps {
         items: ReportWorkloadInventory[]
     };
     reportWorkloadInventoryFetchStatus: ObjectFetchStatus;
+    reportWorkloadInventoryCSVFetchStatus: ObjectFetchStatus;
 }
 
 interface DispatchToProps {
@@ -55,6 +55,7 @@ interface DispatchToProps {
         page: number,
         perPage: number
     ) => any;
+    fetchReportWorkloadInventoryCSV:(reportId: number) => any;
 }
 
 interface Props extends StateToProps, DispatchToProps {
@@ -130,6 +131,19 @@ class WorkloadInventory extends React.Component<Props, State> {
 
     public componentDidMount() {
         this.refreshData();
+    }
+
+    public handleDownloadCSV = () => {
+         const {reportId, fetchReportWorkloadInventoryCSV} = this.props;
+         fetchReportWorkloadInventoryCSV(reportId).then((response: any) => {
+            const downloadUrl = window.URL.createObjectURL(new Blob([response.value.data]));
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.setAttribute('download', 'workloadInventoryReport.csv');
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+         });
     }
 
     public refreshData = (
@@ -316,7 +330,7 @@ class WorkloadInventory extends React.Component<Props, State> {
     };
 
     public renderWorkloadInventory = () => {
-        const total = 10;
+        const { reportWorkloadInventory, reportWorkloadInventoryCSVFetchStatus } = this.props;
 
         return (
             <React.Fragment>
@@ -337,7 +351,16 @@ class WorkloadInventory extends React.Component<Props, State> {
                             </InputGroup> */ }
                         </ToolbarItem>
                         <ToolbarItem className="pf-u-mr-md">
-                            <Link to={ '/reports/upload' } className="pf-c-button pf-m-primary">Export as CSV</Link>
+                            <Button
+                                variant={"primary"}
+                                onClick={this.handleDownloadCSV}
+                                isDisabled={reportWorkloadInventoryCSVFetchStatus.status==='inProgress'}
+                            >
+                                {
+                                    reportWorkloadInventoryCSVFetchStatus.status==='inProgress' ?
+                                        'Exporting CSV' : 'Export as CSV'
+                                }
+                            </Button>
                         </ToolbarItem>
                     </ToolbarGroup>
                     <ToolbarGroup>
@@ -346,7 +369,7 @@ class WorkloadInventory extends React.Component<Props, State> {
                         </ToolbarItem>
                     </ToolbarGroup>
                 </TableToolbar>
-                { (total > 0 ? this.renderResultsTable() : this.renderNoResults()) }
+                { (reportWorkloadInventory. total > 0 ? this.renderResultsTable() : this.renderNoResults()) }
             </React.Fragment>
         );
     };

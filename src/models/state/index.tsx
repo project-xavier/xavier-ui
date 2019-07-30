@@ -42,6 +42,7 @@ export interface ReportState {
         items: ReportWorkloadInventory[]
     };
     reportWorkloadInventoryFetchStatus: ObjectFetchStatus;
+    reportWorkloadInventoryCSVFetchStatus: ObjectFetchStatus;
 }
 
 export interface UploadState {

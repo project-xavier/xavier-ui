@@ -38,6 +38,9 @@ export const initialState: ReportState = {
     },
     reportWorkloadInventoryFetchStatus: {
         ...defaultFetchStatus
+    },
+    reportWorkloadInventoryCSVFetchStatus: {
+        ...defaultFetchStatus
     }
 };
 
@@ -279,6 +282,44 @@ export const reportsReducer = (state: ReportState = initialState, action: Generi
                 },
                 reportWorkloadInventoryFetchStatus: {
                     ...state.reportWorkloadInventoryFetchStatus,
+                    error: action.payload.message,
+                    status: 'complete'
+                }
+            };
+            return nextState;
+        }
+
+        // FETCH_REPORT_WOKLOAD_INVENTORY_CSV single report
+        case pendingMessage(ActionTypes.FETCH_REPORT_WOKLOAD_INVENTORY_CSV): {
+            const nextState: ReportState = {
+                ...state,
+                reportWorkloadInventoryCSVFetchStatus: {
+                    ...state.reportWorkloadInventoryCSVFetchStatus,
+                    error: null,
+                    status: 'inProgress'
+                }
+            };
+
+            return nextState;
+        }
+
+        case successMessage(ActionTypes.FETCH_REPORT_WOKLOAD_INVENTORY_CSV): {
+            const nextState: ReportState = {
+                ...state,
+                reportWorkloadInventoryCSVFetchStatus: {
+                    ...state.reportWorkloadInventoryCSVFetchStatus,
+                    error: null,
+                    status: 'complete'
+                }
+            };
+            return nextState;
+        }
+
+        case failureMessage(ActionTypes.FETCH_REPORT_WOKLOAD_INVENTORY_CSV): {
+            const nextState: ReportState = {
+                ...state,
+                reportWorkloadInventoryCSVFetchStatus: {
+                    ...state.reportWorkloadInventoryCSVFetchStatus,
                     error: action.payload.message,
                     status: 'complete'
                 }
