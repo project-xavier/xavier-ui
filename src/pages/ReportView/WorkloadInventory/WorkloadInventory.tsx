@@ -63,11 +63,15 @@ interface Props extends StateToProps, DispatchToProps {
 interface State {
     page: number;
     perPage: number;
-    columns: Array<ICell | String>;
-    rows: Array<IRow | Array<String>>;
+    columns: Array<ICell | string>;
+    rows: Array<IRow | string[]>;
 };
 
 class WorkloadInventory extends React.Component<Props, State> {
+
+    public changePage = debounce(() => {
+        this.refreshData();
+    }, 800);
 
     constructor(props: Props) {
         super(props);
@@ -123,11 +127,11 @@ class WorkloadInventory extends React.Component<Props, State> {
         };
     }
 
-    componentDidMount() {
+    public componentDidMount() {
         this.refreshData();
     }
 
-    refreshData = (
+    public refreshData = (
         page: number = this.state.page,
         perPage: number = this.state.perPage
     ) => {
@@ -137,7 +141,7 @@ class WorkloadInventory extends React.Component<Props, State> {
         });
     }
 
-    filtersInRowsAndCells = () => {
+    public filtersInRowsAndCells = () => {
         const items: ReportWorkloadInventory[] = this.props.reportWorkloadInventory.items
             ? Object.values(this.props.reportWorkloadInventory.items) : [];
 
@@ -159,9 +163,9 @@ class WorkloadInventory extends React.Component<Props, State> {
                             {
                                 title: <span>
                                     {
-                                        b.workloads.map((val: string, index: number) => {
+                                        b.workloads.map((val: string, workloadIndex: number) => {
                                             return (
-                                                <span key={ index }>{ val }<br/></span>
+                                                <span key={ workloadIndex }>{ val }<br/></span>
                                             );
                                         })
                                     }</span>
@@ -171,9 +175,9 @@ class WorkloadInventory extends React.Component<Props, State> {
                             {
                                 title: <span>
                                     {
-                                        b.recommendedTargetsIMS.map((val: string, index: number) => {
+                                        b.recommendedTargetsIMS.map((val: string, targetsIndex: number) => {
                                             return (
-                                                <span key={ index }>{ val }<br/></span>
+                                                <span key={ targetsIndex }>{ val }<br/></span>
                                             );
                                         })
                                     }</span>
@@ -181,9 +185,9 @@ class WorkloadInventory extends React.Component<Props, State> {
                             {
                                 title: <span>
                                     {
-                                        b.flagIMS.map((val: string, index: number) => {
+                                        b.flagIMS.map((val: string, flagIndex: number) => {
                                             return (
-                                                <span key={ index }>{ val }<br/></span>
+                                                <span key={ flagIndex }>{ val }<br/></span>
                                             );
                                         })
                                     }</span>
@@ -214,11 +218,7 @@ class WorkloadInventory extends React.Component<Props, State> {
         this.setState({ rows });
     }
 
-    changePage = debounce(() => {
-        this.refreshData();
-    }, 800);
-
-    onPageChange = (_event: any, page: number, shouldDebounce: boolean) => {
+    public onPageChange = (_event: any, page: number, shouldDebounce: boolean) => {
         this.setState({ page });
         if (shouldDebounce) {
             this.changePage();
@@ -227,15 +227,15 @@ class WorkloadInventory extends React.Component<Props, State> {
         }
     };
 
-    onSetPage = (event: any, page: number) => {
+    public onSetPage = (event: any, page: number) => {
         return event.target.className === 'pf-c-form-control' || this.onPageChange(event, page, false);
     };
 
-    onPageInput = (event: any, page: number) => {
+    public onPageInput = (event: any, page: number) => {
         return this.onPageChange(event, page, true);
     };
 
-    onPerPageSelect = (_event: any, perPage: number) => {
+    public onPerPageSelect = (_event: any, perPage: number) => {
         let page = this.state.page;
         const total = this.props.reportWorkloadInventory.total;
 
@@ -248,7 +248,7 @@ class WorkloadInventory extends React.Component<Props, State> {
         this.refreshData(page, perPage);
     };
 
-    onRowCollapse = (_event: any, rowKey: number, isOpen: boolean) => {
+    public onRowCollapse = (_event: any, rowKey: number, isOpen: boolean) => {
         const { rows } = this.state;
 
         rows[rowKey].isOpen = isOpen;
@@ -257,7 +257,7 @@ class WorkloadInventory extends React.Component<Props, State> {
         });
     }
 
-    renderPagination = () => {
+    public renderPagination = () => {
         const { page, perPage } = this.state;
         const { total } = this.props.reportWorkloadInventory;
 
@@ -273,7 +273,7 @@ class WorkloadInventory extends React.Component<Props, State> {
         );
     };
 
-    renderResultsTable = () => {
+    public renderResultsTable = () => {
         const { rows, columns } = this.state;
 
         return (
@@ -296,7 +296,7 @@ class WorkloadInventory extends React.Component<Props, State> {
         );
     };
 
-    renderNoResults = () => {
+    public renderNoResults = () => {
         return (
             <React.Fragment>
                 <Card>
@@ -314,7 +314,7 @@ class WorkloadInventory extends React.Component<Props, State> {
         );
     };
 
-    renderWorkloadInventory = () => {
+    public renderWorkloadInventory = () => {
         const total = 10;
 
         return (
@@ -350,7 +350,7 @@ class WorkloadInventory extends React.Component<Props, State> {
         );
     };
 
-    renderWorkloadInventorySkeleton = () => {
+    public renderWorkloadInventorySkeleton = () => {
         return (
             <React.Fragment>
                 <Stack gutter='md'>
@@ -366,7 +366,7 @@ class WorkloadInventory extends React.Component<Props, State> {
         );
     };
 
-    renderFetchError = () => {
+    public renderFetchError = () => {
         const onRetryClick = () => {
             this.refreshData();
         };
@@ -387,7 +387,7 @@ class WorkloadInventory extends React.Component<Props, State> {
         );
     };
 
-    render() {
+    public render() {
         const { reportWorkloadInventoryFetchStatus } = this.props;
 
         if (reportWorkloadInventoryFetchStatus.error) {

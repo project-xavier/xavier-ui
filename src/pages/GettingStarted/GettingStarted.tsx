@@ -7,7 +7,7 @@ import {
     Bullseye,
     EmptyStateVariant
 } from '@patternfly/react-core';
-import ProcessImprovementSvg from '../../PresentationalComponents/Icons/process-improvement.svg';
+import ProcessImprovementSvg from '../../PresentationalComponents/Icons/process-improvement_svg';
 import './GettingStarted.scss';
 import ReportsPage from '../../PresentationalComponents/ReportsPage/ReportsPage';
 import { User } from '../../models';
@@ -32,7 +32,7 @@ class GettingStarted extends React.Component<Props, State> {
         super(props);
     }
 
-    render() {
+    public render() {
         const { user } = this.props;
 
         if (user && !user.firstTimeCreatingReports) {

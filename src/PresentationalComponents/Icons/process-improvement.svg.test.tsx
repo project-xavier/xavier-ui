@@ -1,5 +1,6 @@
+import React from "react";
 import { shallow } from 'enzyme';
-import ProcessImprovementIcon from './process-improvement.svg';
+import ProcessImprovementIcon from './process-improvement_svg';
 
 describe("process-improvement.svg", () => {
   it("expect to render", () => {

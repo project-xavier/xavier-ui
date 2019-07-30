@@ -67,8 +67,8 @@ export interface State {
     filterText: string;
     page: number;
     perPage: number;
-    columns: Array<ICell | String>;
-    rows: Array<IRow | Array<String>>;
+    columns: Array<ICell | string>;
+    rows: Array<IRow | string[]>;
     isFirstFetchReportsCall: boolean;
 };
 
@@ -76,7 +76,11 @@ const PULL_INTERVAL_TIME = 5000;
 
 class Reports extends React.Component<Props, State> {
 
-    pullTimer: any;
+    public pullTimer: any;
+
+    public changePage = debounce(() => {
+        this.refreshData();
+    }, 800);
 
     constructor(props: Props) {
         super(props);
@@ -101,12 +105,12 @@ class Reports extends React.Component<Props, State> {
 
     // React lyfe cycle methods
 
-    componentDidMount() {
+    public componentDidMount() {
         this.refreshData();
         this.startTimer(this.refreshData);
     }
 
-    componentDidUpdate() {
+    public componentDidUpdate() {
         // If it is the first time fetching reports and there are no reports
         // then redirect to /no-reports page.
         const { reportsFetchStatus, reports } = this.props;
@@ -116,13 +120,13 @@ class Reports extends React.Component<Props, State> {
         }
     }
 
-    componentWillUnmount() {
+    public componentWillUnmount() {
         this.stopTimer();
     }
 
     // Pull timer config
 
-    startTimer = (callback: (...args: any[]) => void) => {
+    public startTimer = (callback: (...args: any[]) => void) => {
         if (this.pullTimer) {
             clearInterval(this.pullTimer);
         }
@@ -130,13 +134,13 @@ class Reports extends React.Component<Props, State> {
         this.pullTimer = setInterval(callback, PULL_INTERVAL_TIME);
     };
 
-    stopTimer = () => {
+    public stopTimer = () => {
         clearInterval(this.pullTimer);
     };
 
     //
 
-    handleDeleteReport = (report: Report) => {
+    public handleDeleteReport = (report: Report) => {
         const { deleteReport, showDeleteDialog, closeDeleteDialog } = this.props;
 
         showDeleteDialog({
@@ -154,7 +158,7 @@ class Reports extends React.Component<Props, State> {
         });
     };
 
-    renderReportStatus = (report: Report) => {
+    public renderReportStatus = (report: Report) => {
         switch (report.status) {
             case 'CREATED':
                 return <p><OkIcon className="success" /> Report created - { new Date(report.creationDate).toUTCString() }</p>;
@@ -167,12 +171,16 @@ class Reports extends React.Component<Props, State> {
         }
     };
 
-    renderReportActions = (report: Report) => {
+    public renderReportActions = (report: Report) => {
+        const onDelete = (_event: any): void => {
+            this.handleDeleteReport(report);
+        };
+
         switch (report.status) {
             case 'CREATED':
-                return <Button variant={ ButtonVariant.secondary } onClick={ () => this.handleDeleteReport(report) }>Delete</Button>;
+                return <Button variant={ ButtonVariant.secondary } onClick={ onDelete }>Delete</Button>;
             case 'FAILED':
-                return <Button variant={ ButtonVariant.secondary } onClick={ () => this.handleDeleteReport(report) }>Delete</Button>;;
+                return <Button variant={ ButtonVariant.secondary } onClick={ onDelete }>Delete</Button>;;
             case 'IN_PROGRESS':
                 return '';
             default:
@@ -180,7 +188,7 @@ class Reports extends React.Component<Props, State> {
         }
     };
 
-    filtersInRowsAndCells(): void {
+    public filtersInRowsAndCells(): void {
         const reports: Report[] = this.props.reports.items ? Object.values(this.props.reports.items) : [];
 
         let rows: any[][] = [];
@@ -203,7 +211,7 @@ class Reports extends React.Component<Props, State> {
         this.setState({ rows });
     }
 
-    refreshData = (page: number = this.state.page, perPage: number = this.state.perPage, filterText: string = this.state.filterText) => {
+    public refreshData = (page: number = this.state.page, perPage: number = this.state.perPage, filterText: string = this.state.filterText) => {
         this.props.fetchReports(page, perPage, filterText).then(() => {
             this.filtersInRowsAndCells();
 
@@ -215,11 +223,7 @@ class Reports extends React.Component<Props, State> {
         });
     }
 
-    changePage = debounce(() => {
-        this.refreshData();
-    }, 800);
-
-    onPageChange = (_event: any, page: number, shouldDebounce: boolean) => {
+    public onPageChange = (event: any, page: number, shouldDebounce: boolean) => {
         this.setState({ page });
         if (shouldDebounce) {
             this.changePage();
@@ -228,15 +232,15 @@ class Reports extends React.Component<Props, State> {
         }
     };
 
-    onSetPage = (event: any, page: number) => {
+    public onSetPage = (event: any, page: number) => {
         return event.target.className === 'pf-c-form-control' || this.onPageChange(event, page, false);
     };
 
-    onPageInput = (event: any, page: number) => {
+    public onPageInput = (event: any, page: number) => {
         return this.onPageChange(event, page, true);
     };
 
-    onPerPageSelect = (_event: any, perPage: number) => {
+    public onPerPageSelect = (_event: any, perPage: number) => {
         let page = this.state.page;
         const total = this.props.reports.total;
 
@@ -249,7 +253,7 @@ class Reports extends React.Component<Props, State> {
         this.refreshData(page, perPage);
     };
 
-    renderNoResults() {
+    public renderNoResults() {
         return (
             <React.Fragment>
                 <Card>
@@ -267,7 +271,7 @@ class Reports extends React.Component<Props, State> {
         );
     }
 
-    renderResultsTable() {
+    public renderResultsTable() {
         const { rows, columns } = this.state;
 
         return (
@@ -281,7 +285,7 @@ class Reports extends React.Component<Props, State> {
         );
     }
 
-    handleSearchSubmit = (values: any) => {
+    public handleSearchSubmit = (values: any) => {
         const filterText: string = values.filterText;
         this.setState({
             filterText: filterText.trim()
@@ -289,14 +293,16 @@ class Reports extends React.Component<Props, State> {
         this.refreshData();
     };
 
-    renderSearchBox = () => {
+    public renderSearchBox = () => {
+        // Always return empty because every value is valid
+        const searchBoxValidation = () => {
+            return {};
+        }
+
         return (
             <Formik
                 initialValues={ { filterText: '' } }
-                validate={ () => {
-                    let errors = {};
-                    return errors;
-                } }
+                validate={ searchBoxValidation }
                 onSubmit={ this.handleSearchSubmit }
             >
                 {
@@ -306,28 +312,36 @@ class Reports extends React.Component<Props, State> {
                         handleBlur,
                         handleSubmit
                     }) =>
-                        <Form onSubmit={ handleSubmit }>
-                            <InputGroup>
-                                <TextInput
-                                    type="search"
-                                    id="filterText"
-                                    name="filterText"
-                                    aria-label="search text input"
-                                    onChange={ (_value, event) => handleChange(event) }
-                                    onBlur={ handleBlur }
-                                    value={ values.filterText }
-                                    placeholder="Filter by name..."/>
-                                <Button type="submit" variant={ ButtonVariant.tertiary } aria-label="search button for search input">
-                                    <SearchIcon />
-                                </Button>
-                            </InputGroup>
-                        </Form>
+                        {
+                            const customHandleChange = (_value: any, event: any) => {
+                                handleChange(event);
+                            };
+
+                            return (
+                                <Form onSubmit={ handleSubmit }>
+                                    <InputGroup>
+                                        <TextInput
+                                            type="search"
+                                            id="filterText"
+                                            name="filterText"
+                                            aria-label="search text input"
+                                            onChange={ customHandleChange }
+                                            onBlur={ handleBlur }
+                                            value={ values.filterText }
+                                            placeholder="Filter by name..."/>
+                                        <Button type="submit" variant={ ButtonVariant.tertiary } aria-label="search button for search input">
+                                            <SearchIcon />
+                                        </Button>
+                                    </InputGroup>
+                                </Form>
+                            );
+                        }
                 }
             </Formik>
         );
     };
 
-    render() {
+    public render() {
         const { isFirstFetchReportsCall, page, perPage } = this.state;
         const { total } = this.props.reports;
 

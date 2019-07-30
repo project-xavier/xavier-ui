@@ -9,12 +9,12 @@ import * as actionGenerator from './upload';
 
 describe('uploadFile', () => {
     it('returns a state object', () => {
-        const file = new File([ '' ], 'myFile.zip');
-    
+        const file = new File([''], 'myFile.zip');
+
         const formData = new FormData();
         formData.append('file', file, file.name);
         formData.append('customerId', 'myCustomerId');
-    
+
         const config = {};
         expect(actionGenerator.uploadFile(formData, config)).toMatchSnapshot();
     });

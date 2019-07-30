@@ -11,16 +11,16 @@ import {
 export function getAllReports(page: number, perPage: number, filterText: string): AxiosPromise<SearchResult<Report>> {
     // Using page-1 because the backend considers page 0 as the first one
     const params = { page: page - 1, size: perPage, filterText };
-    let query: string[] = [];
+    const query: string[] = [];
 
-    Object.keys(params).map(function(key) {
+    Object.keys(params).map(key => {
         const value = params[key];
         if (value !== undefined) {
-            query.push(`${ key }=${ value }`);
+            query.push(`${key}=${value}`);
         }
     });
 
-    const url = `/report?${ query.join('&') }`;
+    const url = `/report?${query.join('&')}`;
     return ApiClient.get<SearchResult<Report>>(url);
 }
 
@@ -40,18 +40,22 @@ export function getReportInitialSavingestimation(id: number): AxiosPromise<Repor
     return ApiClient.get<ReportInitialSavingEstimation>(`/report/${id}/initial-saving-estimation`);
 }
 
-export function getReportWorkloadInventory(id: number, page: number, perPage: number): AxiosPromise<SearchResult<ReportWorkloadInventory>> {
+export function getReportWorkloadInventory(
+    id: number,
+    page: number,
+    perPage: number
+): AxiosPromise<SearchResult<ReportWorkloadInventory>> {
     // Using page-1 because the backend considers page 0 as the first one
     const params = { page: page - 1, size: perPage };
-    let query: string[] = [];
+    const query: string[] = [];
 
-    Object.keys(params).map(function(key) {
+    Object.keys(params).map((key) => {
         const value = params[key];
         if (value !== undefined) {
-            query.push(`${ key }=${ value }`);
+            query.push(`${key}=${value}`);
         }
     });
 
-    const url = `/report/${id}/workload-inventory?${ query.join('&') }`;
+    const url = `/report/${id}/workload-inventory?${query.join('&')}`;
     return ApiClient.get<SearchResult<ReportWorkloadInventory>>(url);
 }

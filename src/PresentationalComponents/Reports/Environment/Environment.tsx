@@ -20,7 +20,7 @@ class Environment extends Component<Props, State> {
         super(props);
     }
 
-    render() {
+    public render() {
         const { data: {
             hypervisors,
             year1Hypervisor,

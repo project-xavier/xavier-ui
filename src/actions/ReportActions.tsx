@@ -20,7 +20,7 @@ export const ActionTypes = {
 /**
  * Fetchs reports
  */
-export const fetchReports = (page: number, perPage: number, filterText: string): GenericAction  => {
+export const fetchReports = (page: number, perPage: number, filterText: string): GenericAction => {
     return {
         type: ActionTypes.FETCH_REPORTS,
         payload: getAllReports(page, perPage, filterText),
@@ -46,7 +46,7 @@ export const fetchReport = (id: number): GenericAction => ({
         notifications: {
             rejected: {
                 variant: 'danger',
-                title: `Failed to load report ${ id }`
+                title: `Failed to load report ${id}`
             }
         }
     }
@@ -59,11 +59,11 @@ export const deleteReport = (id: number, name: string): GenericAction => ({
         notifications: {
             rejected: {
                 variant: 'danger',
-                title: `Failed to delete report ${ name }`
+                title: `Failed to delete report ${name}`
             },
             fulfilled: {
                 variant: 'success',
-                title: `Report ${ name } deleted`
+                title: `Report ${name} deleted`
             }
         }
     }
@@ -76,7 +76,7 @@ export const fetchReportWorkloadMigrationSummary = (id: number): GenericAction =
         notifications: {
             rejected: {
                 variant: 'danger',
-                title: `Failed to load report workload summary ${ id }`
+                title: `Failed to load report workload summary ${id}`
             }
         }
     }
@@ -89,7 +89,7 @@ export const fetchReportInitialSavingEstimation = (id: number): GenericAction =>
         notifications: {
             rejected: {
                 variant: 'danger',
-                title: `Failed to load report saving estimation ${ id }`
+                title: `Failed to load report saving estimation ${id}`
             }
         }
     }
@@ -102,9 +102,8 @@ export const fetchReportWorkloadInventory = (id: number, page: number, perPage: 
         notifications: {
             rejected: {
                 variant: 'danger',
-                title: `Failed to load report workload inventory ${ id }`
+                title: `Failed to load report workload inventory ${id}`
             }
         }
     }
 });
-

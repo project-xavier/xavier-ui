@@ -1,3 +1,4 @@
+import React from "react";
 import { shallow } from "enzyme";
 import ReportViewPage, { Props } from "./ReportViewPage";
 
@@ -10,7 +11,7 @@ const baseProps: Props = {
     numberOfHosts: 123,
     totalDiskSpace: 123,
     totalPrice: 123,
-    status: 'progress'
+    status: 'IN_PROGRESS'
   },
   reportFetchStatus: {
     error: null,

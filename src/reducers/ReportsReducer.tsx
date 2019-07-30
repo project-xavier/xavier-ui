@@ -1,11 +1,5 @@
-import {
-    ActionTypes
-} from '../actions/ReportActions';
-import {
-    pendingMessage,
-    successMessage,
-    failureMessage
-} from './reducerHelper';
+import { ActionTypes } from '../actions/ReportActions';
+import { pendingMessage, successMessage, failureMessage } from './reducerHelper';
 import { ReportState, ObjectFetchStatus } from '../models/state';
 import { GenericAction } from '../models/action';
 
@@ -47,10 +41,7 @@ export const initialState: ReportState = {
     }
 };
 
-export const reportsReducer = function (
-    state: ReportState = initialState,
-    action: GenericAction
-) {
+export const reportsReducer = (state: ReportState = initialState, action: GenericAction) => {
     switch (action.type) {
         // FETCH_REPORTS list of reports
         case pendingMessage(ActionTypes.FETCH_REPORTS): {

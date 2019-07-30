@@ -3,11 +3,7 @@ export const unitLookupKey = unit => {
     return lookup;
 };
 
-export const formatCurrency = (
-    value,
-    unit,
-    { fractionDigits = 2 } = {}
-) => {
+export const formatCurrency = (value, unit, { fractionDigits = 2 } = {}) => {
     let fValue = value;
     if (!value) {
         fValue = 0;
@@ -21,35 +17,19 @@ export const formatCurrency = (
     });
 };
 
-const unknownTypeFormatter = (
-    value,
-    _unit,
-    { fractionDigits } = {}
-) => {
+const unknownTypeFormatter = (value, _unit, { fractionDigits } = {}) => {
     return value.toFixed(fractionDigits);
 };
 
-export const formatUsageGb = (
-    value,
-    _unit,
-    { fractionDigits = 2 } = {}
-) => {
+export const formatUsageGb = (value, _unit, { fractionDigits = 2 } = {}) => {
     return value.toFixed(fractionDigits);
 };
 
-export const formatUsageHrs = (
-    value,
-    _unit,
-    { fractionDigits } = {}
-) => {
+export const formatUsageHrs = (value, _unit, { fractionDigits } = {}) => {
     return value.toFixed(fractionDigits);
 };
 
-export const formatValue = (
-    value,
-    unit,
-    options = {}
-) => {
+export const formatValue = (value, unit, options = {}) => {
     const lookup = unitLookupKey(unit);
     const fValue = value || 0;
 

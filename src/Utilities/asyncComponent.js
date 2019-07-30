@@ -1,10 +1,5 @@
 import React, { Component } from 'react';
 
-interface Props { };
-interface State {
-    component: any;
-};
-
 /**
  * Webpack allows loading components asynchronously by using import().
  *
@@ -23,9 +18,9 @@ interface State {
  *
  * @returns {AsyncComponent} The imported component or can return a loading
  */
-export default function asyncComponent(importComponent: any) {
-    class AsyncComponent extends Component<Props, State> {
-        constructor(props: Props) {
+export default function asyncComponent(importComponent) {
+    class AsyncComponent extends Component {
+        constructor(props) {
             super(props);
 
             this.state = {
@@ -44,7 +39,7 @@ export default function asyncComponent(importComponent: any) {
         render() {
             const C = this.state.component;
 
-            return C ? <C { ...this.props } /> : null;
+            return C ? <C {...this.props} /> : null;
         }
     }
 

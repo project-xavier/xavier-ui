@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Reports should render list depending of TOTAL value expect to render empty list even though is not fetching and items.length > 0. Using Total = 0 1`] = `
-<withRouter(ReportsPage)>
+<ReportsPage>
   <TableToolbar
     className="pf-u-justify-content-space-between"
     isFooter={false}
@@ -123,11 +123,11 @@ exports[`Reports should render list depending of TOTAL value expect to render em
       </EmptyState>
     </CardBody>
   </Card>
-</withRouter(ReportsPage)>
+</ReportsPage>
 `;
 
 exports[`Reports should render list depending of TOTAL value expect to render list even though is fetching. Using Total > 0 1`] = `
-<withRouter(ReportsPage)>
+<ReportsPage>
   <TableToolbar
     className="pf-u-justify-content-space-between"
     isFooter={false}
@@ -319,5 +319,5 @@ exports[`Reports should render list depending of TOTAL value expect to render li
       rowKey="id"
     />
   </Table>
-</withRouter(ReportsPage)>
+</ReportsPage>
 `;

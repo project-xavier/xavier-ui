@@ -26,7 +26,6 @@ globals:
   shallow: true
   React: true
 rules:
-  no-console: off
   array-bracket-spacing:
     - error
     - always
@@ -54,7 +53,7 @@ rules:
       ImportDeclaration: 1
       ObjectExpression: 1
   react/jsx-curly-spacing:
-    - error
+    - ignore
     - always
     - children: true
     - allowMultiline: false

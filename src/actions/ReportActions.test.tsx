@@ -9,7 +9,7 @@ import * as actionGenerator from './ReportActions';
 
 describe('fetchReports', () => {
     it('returns a state object', () => {
-        expect(actionGenerator.fetchReports(1, 10, 'search text' )).toMatchSnapshot();
+        expect(actionGenerator.fetchReports(1, 10, 'search text')).toMatchSnapshot();
     });
 });
 
@@ -39,6 +39,6 @@ describe('fetchReportInitialSavingEstimation', () => {
 
 describe('fetchReportWorkloadInventory', () => {
     it('returns a state object', () => {
-        expect(actionGenerator.fetchReportWorkloadInventory(1)).toMatchSnapshot();
+        expect(actionGenerator.fetchReportWorkloadInventory(1, 1, 10)).toMatchSnapshot();
     });
 });

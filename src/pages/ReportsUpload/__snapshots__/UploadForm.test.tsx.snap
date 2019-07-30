@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`UploadForm expect to render 1`] = `
-<Form>
+<Form
+  onSubmit={[MockFunction]}
+>
   <FormGroup
     fieldId="file"
     isRequired={true}
@@ -42,6 +44,7 @@ exports[`UploadForm expect to render 1`] = `
       isRequired={true}
       isValid={true}
       name="reportName"
+      onBlur={[MockFunction]}
       onChange={[Function]}
       type="text"
     />
@@ -61,6 +64,7 @@ exports[`UploadForm expect to render 1`] = `
       isRequired={false}
       isValid={true}
       name="reportDescription"
+      onBlur={[MockFunction]}
       onChange={[Function]}
       type="text"
     />
@@ -71,11 +75,10 @@ exports[`UploadForm expect to render 1`] = `
     isValid={true}
     label="Year-over-year growth rate for new hypervisors"
   >
-    <Gallery
-      className=""
-      gutter={null}
+    <div
+      className="pf-l-gallery"
     >
-      <GalleryItem>
+      <div>
         <InputGroup
           className=""
         >
@@ -89,6 +92,7 @@ exports[`UploadForm expect to render 1`] = `
             isRequired={true}
             isValid={true}
             name="yearOverYearGrowthRatePercentage"
+            onBlur={[MockFunction]}
             onChange={[Function]}
             type="number"
           />
@@ -99,8 +103,8 @@ exports[`UploadForm expect to render 1`] = `
             %
           </InputGroupText>
         </InputGroup>
-      </GalleryItem>
-    </Gallery>
+      </div>
+    </div>
   </FormGroup>
   <Stack
     className="pf-sm-gutter"
@@ -116,11 +120,10 @@ exports[`UploadForm expect to render 1`] = `
         isValid={true}
         label="Percentage of hypervisors migrated each year"
       >
-        <Gallery
-          className=""
-          gutter={null}
+        <div
+          className="pf-l-gallery"
         >
-          <GalleryItem>
+          <div>
             <InputGroup
               className=""
             >
@@ -139,6 +142,7 @@ exports[`UploadForm expect to render 1`] = `
                 isRequired={true}
                 isValid={true}
                 name="percentageOfHypervisorsMigratedOnYear1"
+                onBlur={[MockFunction]}
                 onChange={[Function]}
                 type="number"
               />
@@ -149,8 +153,8 @@ exports[`UploadForm expect to render 1`] = `
                 %
               </InputGroupText>
             </InputGroup>
-          </GalleryItem>
-        </Gallery>
+          </div>
+        </div>
       </FormGroup>
     </StackItem>
     <StackItem
@@ -162,11 +166,10 @@ exports[`UploadForm expect to render 1`] = `
         isValid={true}
         label=""
       >
-        <Gallery
-          className=""
-          gutter={null}
+        <div
+          className="pf-l-gallery"
         >
-          <GalleryItem>
+          <div>
             <InputGroup
               className=""
             >
@@ -185,6 +188,7 @@ exports[`UploadForm expect to render 1`] = `
                 isRequired={true}
                 isValid={true}
                 name="percentageOfHypervisorsMigratedOnYear2"
+                onBlur={[MockFunction]}
                 onChange={[Function]}
                 type="number"
               />
@@ -195,8 +199,8 @@ exports[`UploadForm expect to render 1`] = `
                 %
               </InputGroupText>
             </InputGroup>
-          </GalleryItem>
-        </Gallery>
+          </div>
+        </div>
       </FormGroup>
     </StackItem>
     <StackItem
@@ -208,11 +212,10 @@ exports[`UploadForm expect to render 1`] = `
         isValid={true}
         label=""
       >
-        <Gallery
-          className=""
-          gutter={null}
+        <div
+          className="pf-l-gallery"
         >
-          <GalleryItem>
+          <div>
             <InputGroup
               className=""
             >
@@ -231,6 +234,7 @@ exports[`UploadForm expect to render 1`] = `
                 isRequired={true}
                 isValid={true}
                 name="percentageOfHypervisorsMigratedOnYear3"
+                onBlur={[MockFunction]}
                 onChange={[Function]}
                 type="number"
               />
@@ -241,8 +245,8 @@ exports[`UploadForm expect to render 1`] = `
                 %
               </InputGroupText>
             </InputGroup>
-          </GalleryItem>
-        </Gallery>
+          </div>
+        </div>
       </FormGroup>
     </StackItem>
   </Stack>
@@ -256,6 +260,7 @@ exports[`UploadForm expect to render 1`] = `
       Create report
     </Button>
     <Button
+      onClick={[MockFunction]}
       type="button"
       variant="secondary"
     >
@@ -266,7 +271,9 @@ exports[`UploadForm expect to render 1`] = `
 `;
 
 exports[`UploadForm expect to render errors 1`] = `
-<Form>
+<Form
+  onSubmit={[MockFunction]}
+>
   <FormGroup
     fieldId="file"
     helperTextInvalid="Field value invalid"
@@ -309,6 +316,7 @@ exports[`UploadForm expect to render errors 1`] = `
       isRequired={true}
       isValid={false}
       name="reportName"
+      onBlur={[MockFunction]}
       onChange={[Function]}
       type="text"
     />
@@ -329,6 +337,7 @@ exports[`UploadForm expect to render errors 1`] = `
       isRequired={false}
       isValid={false}
       name="reportDescription"
+      onBlur={[MockFunction]}
       onChange={[Function]}
       type="text"
     />
@@ -340,11 +349,10 @@ exports[`UploadForm expect to render errors 1`] = `
     isValid={false}
     label="Year-over-year growth rate for new hypervisors"
   >
-    <Gallery
-      className=""
-      gutter={null}
+    <div
+      className="pf-l-gallery"
     >
-      <GalleryItem>
+      <div>
         <InputGroup
           className=""
         >
@@ -358,6 +366,7 @@ exports[`UploadForm expect to render errors 1`] = `
             isRequired={true}
             isValid={false}
             name="yearOverYearGrowthRatePercentage"
+            onBlur={[MockFunction]}
             onChange={[Function]}
             type="number"
           />
@@ -368,8 +377,8 @@ exports[`UploadForm expect to render errors 1`] = `
             %
           </InputGroupText>
         </InputGroup>
-      </GalleryItem>
-    </Gallery>
+      </div>
+    </div>
   </FormGroup>
   <Stack
     className="pf-sm-gutter"
@@ -386,11 +395,10 @@ exports[`UploadForm expect to render errors 1`] = `
         isValid={false}
         label="Percentage of hypervisors migrated each year"
       >
-        <Gallery
-          className=""
-          gutter={null}
+        <div
+          className="pf-l-gallery"
         >
-          <GalleryItem>
+          <div>
             <InputGroup
               className=""
             >
@@ -409,6 +417,7 @@ exports[`UploadForm expect to render errors 1`] = `
                 isRequired={true}
                 isValid={false}
                 name="percentageOfHypervisorsMigratedOnYear1"
+                onBlur={[MockFunction]}
                 onChange={[Function]}
                 type="number"
               />
@@ -419,8 +428,8 @@ exports[`UploadForm expect to render errors 1`] = `
                 %
               </InputGroupText>
             </InputGroup>
-          </GalleryItem>
-        </Gallery>
+          </div>
+        </div>
       </FormGroup>
     </StackItem>
     <StackItem
@@ -433,11 +442,10 @@ exports[`UploadForm expect to render errors 1`] = `
         isValid={false}
         label=""
       >
-        <Gallery
-          className=""
-          gutter={null}
+        <div
+          className="pf-l-gallery"
         >
-          <GalleryItem>
+          <div>
             <InputGroup
               className=""
             >
@@ -456,6 +464,7 @@ exports[`UploadForm expect to render errors 1`] = `
                 isRequired={true}
                 isValid={false}
                 name="percentageOfHypervisorsMigratedOnYear2"
+                onBlur={[MockFunction]}
                 onChange={[Function]}
                 type="number"
               />
@@ -466,8 +475,8 @@ exports[`UploadForm expect to render errors 1`] = `
                 %
               </InputGroupText>
             </InputGroup>
-          </GalleryItem>
-        </Gallery>
+          </div>
+        </div>
       </FormGroup>
     </StackItem>
     <StackItem
@@ -480,11 +489,10 @@ exports[`UploadForm expect to render errors 1`] = `
         isValid={false}
         label=""
       >
-        <Gallery
-          className=""
-          gutter={null}
+        <div
+          className="pf-l-gallery"
         >
-          <GalleryItem>
+          <div>
             <InputGroup
               className=""
             >
@@ -503,6 +511,7 @@ exports[`UploadForm expect to render errors 1`] = `
                 isRequired={true}
                 isValid={true}
                 name="percentageOfHypervisorsMigratedOnYear3"
+                onBlur={[MockFunction]}
                 onChange={[Function]}
                 type="number"
               />
@@ -513,8 +522,8 @@ exports[`UploadForm expect to render errors 1`] = `
                 %
               </InputGroupText>
             </InputGroup>
-          </GalleryItem>
-        </Gallery>
+          </div>
+        </div>
       </FormGroup>
     </StackItem>
   </Stack>
@@ -528,6 +537,7 @@ exports[`UploadForm expect to render errors 1`] = `
       Create report
     </Button>
     <Button
+      onClick={[MockFunction]}
       type="button"
       variant="secondary"
     >
