@@ -25,7 +25,7 @@ export interface Props extends RouterGlobalProps {
 };
 
 interface State {
-    activeTabKey: number
+    activeTabKey: number | string;
 }
 
 class ReportViewPage extends Component<Props, State> {
@@ -37,7 +37,7 @@ class ReportViewPage extends Component<Props, State> {
 
         if (props.location.pathname.endsWith(REPORT_VIEW_PATHS.workloadMigrationSummary)) {
             activeTabKey = 0;
-        } else if (props.location.pathname.endsWith(REPORT_VIEW_PATHS.workloadMigrationSummary)) {
+        } else if (props.location.pathname.endsWith(REPORT_VIEW_PATHS.initialSavingsEstimation)) {
             activeTabKey = 1;
         } else if (props.location.pathname.endsWith(REPORT_VIEW_PATHS.workloadInventory)) {
             activeTabKey = 2;
@@ -48,7 +48,7 @@ class ReportViewPage extends Component<Props, State> {
         };
     }
 
-    public handleTabClick = (_event: any, tabIndex: number) => {
+    public handleTabClick = (_event: React.MouseEvent<HTMLElement, MouseEvent>, tabIndex: number | string) => {
         this.setState({
             activeTabKey: tabIndex
         });

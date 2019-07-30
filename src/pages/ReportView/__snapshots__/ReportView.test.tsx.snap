@@ -27,12 +27,12 @@ exports[`ReportView expect to redirect because error 1`] = `
       path="undefined/workloadMigrationSummary"
     />
     <Route
-      component={[Function]}
       path="undefined/initialSavingsEstimation"
+      render={[Function]}
     />
     <Route
-      component={[Function]}
       path="undefined/workloadInventory"
+      render={[Function]}
     />
     <Redirect
       from="undefined"
@@ -70,12 +70,12 @@ exports[`ReportView expect to redirect because no reportId 1`] = `
       path="undefined/workloadMigrationSummary"
     />
     <Route
-      component={[Function]}
       path="undefined/initialSavingsEstimation"
+      render={[Function]}
     />
     <Route
-      component={[Function]}
       path="undefined/workloadInventory"
+      render={[Function]}
     />
     <Redirect
       from="undefined"
@@ -113,12 +113,12 @@ exports[`ReportView expect to render loading object 1`] = `
       path="undefined/workloadMigrationSummary"
     />
     <Route
-      component={[Function]}
       path="undefined/initialSavingsEstimation"
+      render={[Function]}
     />
     <Route
-      component={[Function]}
       path="undefined/workloadInventory"
+      render={[Function]}
     />
     <Redirect
       from="undefined"
@@ -156,12 +156,12 @@ exports[`ReportView expect to render object 1`] = `
       path="undefined/workloadMigrationSummary"
     />
     <Route
-      component={[Function]}
       path="undefined/initialSavingsEstimation"
+      render={[Function]}
     />
     <Route
-      component={[Function]}
       path="undefined/workloadInventory"
+      render={[Function]}
     />
     <Redirect
       from="undefined"

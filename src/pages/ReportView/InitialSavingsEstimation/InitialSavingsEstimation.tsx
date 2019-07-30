@@ -60,6 +60,7 @@ interface DispatchToProps {
 }
 
 interface Props extends StateToProps, DispatchToProps {
+    reportId: number;
 };
 
 interface State {
@@ -78,8 +79,8 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
     }
 
     public refreshData = () => {
-        const { report, fetchReportInitialSavingEstimation } = this.props;
-        fetchReportInitialSavingEstimation(report.id);
+        const { reportId, fetchReportInitialSavingEstimation } = this.props;
+        fetchReportInitialSavingEstimation(reportId);
     };
 
     public renderInfo = () => {
@@ -495,9 +496,9 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
     };
 
     public render() {
-        const { reportInitialSavingEstimationFetchStatus } = this.props;
+        const { reportInitialSavingEstimation, reportInitialSavingEstimationFetchStatus } = this.props;
 
-        if (reportInitialSavingEstimationFetchStatus.error) {
+        if (reportInitialSavingEstimationFetchStatus.error || !reportInitialSavingEstimation) {
             return this.renderFetchError();
         }
 

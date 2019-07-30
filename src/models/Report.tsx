@@ -215,7 +215,7 @@ export interface ReportWorkloadInventory {
     osDescription: string;
     complexity: string;
     recommendedTargetsIMS: string[];
-    flagIMS: string[];
+    flagsIMS: string[];
     diskSpace: number;
     memory: number;
     cpuCores: number;

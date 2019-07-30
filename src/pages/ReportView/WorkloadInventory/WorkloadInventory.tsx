@@ -58,6 +58,7 @@ interface DispatchToProps {
 }
 
 interface Props extends StateToProps, DispatchToProps {
+    reportId: number;
 };
 
 interface State {
@@ -135,8 +136,8 @@ class WorkloadInventory extends React.Component<Props, State> {
         page: number = this.state.page,
         perPage: number = this.state.perPage
     ) => {
-        const { report, fetchReportWorkloadInventory } = this.props;
-        fetchReportWorkloadInventory(report.id, page, perPage).then(() => {
+        const { reportId, fetchReportWorkloadInventory } = this.props;
+        fetchReportWorkloadInventory(reportId, page, perPage).then(() => {
             this.filtersInRowsAndCells();
         });
     }
@@ -185,7 +186,7 @@ class WorkloadInventory extends React.Component<Props, State> {
                             {
                                 title: <span>
                                     {
-                                        b.flagIMS.map((val: string, flagIndex: number) => {
+                                        b.flagsIMS.map((val: string, flagIndex: number) => {
                                             return (
                                                 <span key={ flagIndex }>{ val }<br/></span>
                                             );
