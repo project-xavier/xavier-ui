@@ -52,7 +52,8 @@ const reportTestInitialState: ReportState = {
         total: 0,
         items: []
     },
-    reportWorkloadInventoryFetchStatus: { ...defaultFetchStatus }
+    reportWorkloadInventoryFetchStatus: { ...defaultFetchStatus },
+    reportWorkloadInventoryCSVFetchStatus: { ...defaultFetchStatus }
 };
 
 const fromRequest = (type: string, payload: any, meta = {}) => ({
