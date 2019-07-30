@@ -82,8 +82,20 @@ class WorkloadInventory extends React.Component<Props, State> {
             perPage: 10,
             columns: [
                 {
-                    title: 'Provider/Datacenter/Cluster',
+                    title: 'Provider',
                     cellFormatters: [ expandable ],
+                    props: {
+                        className: 'vertical-align-middle'
+                    }
+                },
+                {
+                    title: 'Datacenter',
+                    props: {
+                        className: 'vertical-align-middle'
+                    }
+                },
+                {
+                    title: 'Cluster',
                     props: {
                         className: 'vertical-align-middle'
                     }
@@ -167,13 +179,9 @@ class WorkloadInventory extends React.Component<Props, State> {
                     {
                         isOpen: false,
                         cells: [
-                            {
-                                title: <span>
-                                    <span>{ b.provider }<br/></span>
-                                    <span>{ b.datacenter }<br/></span>
-                                    <span>{ b.cluster }<br/></span>
-                                </span>
-                            },
+                            b.provider,
+                            b.datacenter,
+                            b.cluster,
                             b.vmName,
                             {
                                 title: <span>
@@ -297,12 +305,13 @@ class WorkloadInventory extends React.Component<Props, State> {
                 onCollapse={ this.onRowCollapse }
                 rows={ rows }
                 cells={ columns }
+                className="table-vertical-align-middle"
             >
                 <TableHeader />
                 <TableBody />
                 <tfoot>
                     <tr>
-                        <td colSpan={ 8 }>
+                        <td colSpan={ 10 }>
                             { this.renderPagination() }
                         </td>
                     </tr>
@@ -382,7 +391,7 @@ class WorkloadInventory extends React.Component<Props, State> {
                         <ReportCard
                             title={ <Skeleton size="sm" /> }
                         >
-                            <SkeletonTable colSize={ 7 } rowSize={ 10 }/>
+                            <SkeletonTable colSize={ 9 } rowSize={ 10 }/>
                         </ReportCard>
                     </StackItem>
                 </Stack>
