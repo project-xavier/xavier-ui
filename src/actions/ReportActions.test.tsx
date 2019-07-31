@@ -39,6 +39,6 @@ describe('fetchReportInitialSavingEstimation', () => {
 
 describe('fetchReportWorkloadInventory', () => {
     it('returns a state object', () => {
-        expect(actionGenerator.fetchReportWorkloadInventory(1, 1, 10)).toMatchSnapshot();
+        expect(actionGenerator.fetchReportWorkloadInventory(1, 1, 10, 'vmName', 'asc')).toMatchSnapshot();
     });
 });

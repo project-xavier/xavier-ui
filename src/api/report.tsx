@@ -43,10 +43,17 @@ export function getReportInitialSavingestimation(id: number): AxiosPromise<Repor
 export function getReportWorkloadInventory(
     id: number,
     page: number,
-    perPage: number
+    perPage: number,
+    orderBy: string,
+    orderDirection: 'asc' | 'desc' | undefined
 ): AxiosPromise<SearchResult<ReportWorkloadInventory>> {
     // Using page-1 because the backend considers page 0 as the first one
-    const params = { page: page - 1, size: perPage };
+    const params = {
+        page: page - 1,
+        size: perPage,
+        orderBy,
+        orderAsc: orderDirection ? orderDirection === 'asc' : undefined
+    };
     const query: string[] = [];
 
     Object.keys(params).map(key => {

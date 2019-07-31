@@ -12,7 +12,8 @@ import {
     TableBody,
     ICell,
     IRow,
-    sortable
+    sortable,
+    ISortBy
 } from '@patternfly/react-table';
 import {
     ToolbarGroup,
@@ -54,7 +55,9 @@ interface DispatchToProps {
     fetchReportWorkloadInventory: (
         reportId: number,
         page: number,
-        perPage: number
+        perPage: number,
+        orderBy: string | undefined,
+        orderDirection: 'asc' | 'desc' | undefined
     ) => any;
     fetchReportWorkloadInventoryCSV:(reportId: number) => any;
 }
@@ -63,11 +66,22 @@ interface Props extends StateToProps, DispatchToProps {
     reportId: number;
 };
 
+interface Row extends IRow {
+    isOpen?: boolean;
+}
+
+interface Column extends ICell {
+    key: string;
+    cellFormatters?: any;
+    transforms?: any;
+}
+
 interface State {
     page: number;
     perPage: number;
-    columns: Array<ICell | string>;
-    rows: Array<IRow | string[]>;
+    columns: Column[];
+    rows: Row[];
+    sortBy: ISortBy;
 };
 
 class WorkloadInventory extends React.Component<Props, State> {
@@ -84,6 +98,7 @@ class WorkloadInventory extends React.Component<Props, State> {
             columns: [
                 {
                     title: 'Provider',
+                    key: 'provider',
                     props: {
                         className: 'vertical-align-middle'
                     },
@@ -91,18 +106,21 @@ class WorkloadInventory extends React.Component<Props, State> {
                 },
                 {
                     title: 'Datacenter',
+                    key: 'datacenter',
                     props: {
                         className: 'vertical-align-middle'
                     }
                 },
                 {
                     title: 'Cluster',
+                    key: 'cluster',
                     props: {
                         className: 'vertical-align-middle'
                     }
                 },
                 {
                     title: 'VMware',
+                    key: 'vmName',
                     props: {
                         className: 'vertical-align-middle'
                     },
@@ -110,12 +128,14 @@ class WorkloadInventory extends React.Component<Props, State> {
                 },
                 {
                     title: 'Workload',
+                    key: 'workload',
                     props: {
                         className: 'vertical-align-middle'
                     }
                 },
                 {
                     title: 'OS type',
+                    key: 'osName',
                     props: {
                         className: 'vertical-align-middle'
                     },
@@ -123,6 +143,7 @@ class WorkloadInventory extends React.Component<Props, State> {
                 },
                 {
                     title: 'Efford',
+                    key: 'complexity',
                     props: {
                         className: 'vertical-align-middle'
                     },
@@ -130,18 +151,21 @@ class WorkloadInventory extends React.Component<Props, State> {
                 },
                 {
                     title: 'Recomended targets',
+                    key: 'recommendedTargetsIMS',
                     props: {
                         className: 'vertical-align-middle'
                     }
                 },
                 {
                     title: 'Flag IMS',
+                    key: 'flagsIMS',
                     props: {
                         className: 'vertical-align-middle'
                     }
                 }
             ],
-            rows: []
+            rows: [],
+            sortBy: { }
         };
     }
 
@@ -164,10 +188,14 @@ class WorkloadInventory extends React.Component<Props, State> {
 
     public refreshData = (
         page: number = this.state.page,
-        perPage: number = this.state.perPage
+        perPage: number = this.state.perPage,
+        { direction, index } = this.state.sortBy
     ) => {
         const { reportId, fetchReportWorkloadInventory } = this.props;
-        fetchReportWorkloadInventory(reportId, page, perPage).then(() => {
+
+        const column = index ? this.state.columns[index].key : undefined;
+        const orderDirection = direction ? direction : undefined;
+        fetchReportWorkloadInventory(reportId, page, perPage, column, orderDirection).then(() => {
             this.filtersInRowsAndCells();
         });
     }
@@ -245,6 +273,18 @@ class WorkloadInventory extends React.Component<Props, State> {
         this.setState({ rows });
     }
 
+    public onSort = (event: any, index: number, direction: any) => {
+        const { reportId } = this.props;
+        const { page, perPage } = this.state;
+
+        const column = index ? this.state.columns[index-1].key : undefined;
+        const orderDirection = direction ? direction : undefined;
+        this.props.fetchReportWorkloadInventory(reportId, page, perPage, column, orderDirection).then(() => {
+            this.setState({sortBy: { index, direction }});
+            this.filtersInRowsAndCells();
+        });
+    }
+
     public onPageChange = (_event: any, page: number, shouldDebounce: boolean) => {
         this.setState({ page });
         if (shouldDebounce) {
@@ -301,7 +341,7 @@ class WorkloadInventory extends React.Component<Props, State> {
     };
 
     public renderResultsTable = () => {
-        const { rows, columns } = this.state;
+        const { rows, columns, sortBy } = this.state;
 
         return (
             <Table
@@ -309,6 +349,8 @@ class WorkloadInventory extends React.Component<Props, State> {
                 onCollapse={ this.onRowCollapse }
                 rows={ rows }
                 cells={ columns }
+                sortBy={ sortBy }
+                onSort={ this.onSort }
                 className="table-vertical-align-middle"
             >
                 <TableHeader />
