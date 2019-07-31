@@ -11,7 +11,8 @@ import {
     TableHeader,
     TableBody,
     ICell,
-    IRow
+    IRow,
+    sortable
 } from '@patternfly/react-table';
 import {
     ToolbarGroup,
@@ -83,10 +84,10 @@ class WorkloadInventory extends React.Component<Props, State> {
             columns: [
                 {
                     title: 'Provider',
-                    cellFormatters: [ expandable ],
                     props: {
                         className: 'vertical-align-middle'
-                    }
+                    },
+                    cellFormatters: [ expandable ]
                 },
                 {
                     title: 'Datacenter',
@@ -104,7 +105,8 @@ class WorkloadInventory extends React.Component<Props, State> {
                     title: 'VMware',
                     props: {
                         className: 'vertical-align-middle'
-                    }
+                    },
+                    transforms: [ sortable ]
                 },
                 {
                     title: 'Workload',
@@ -116,13 +118,15 @@ class WorkloadInventory extends React.Component<Props, State> {
                     title: 'OS type',
                     props: {
                         className: 'vertical-align-middle'
-                    }
+                    },
+                    transforms: [ sortable ]
                 },
                 {
-                    title: 'Risk IMS',
+                    title: 'Efford',
                     props: {
                         className: 'vertical-align-middle'
-                    }
+                    },
+                    transforms: [ sortable ]
                 },
                 {
                     title: 'Recomended targets',
