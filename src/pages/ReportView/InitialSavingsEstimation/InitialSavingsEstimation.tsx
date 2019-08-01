@@ -498,11 +498,11 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
     public render() {
         const { reportInitialSavingEstimation, reportInitialSavingEstimationFetchStatus } = this.props;
 
-        if (reportInitialSavingEstimationFetchStatus.error || !reportInitialSavingEstimation) {
+        const isFetchComplete: boolean = reportInitialSavingEstimationFetchStatus.status === 'complete';
+
+        if (reportInitialSavingEstimationFetchStatus.error || (isFetchComplete && !reportInitialSavingEstimation)) {
             return this.renderFetchError();
         }
-
-        const isFetchComplete: boolean = reportInitialSavingEstimationFetchStatus.status === 'complete';
 
         return (
             <React.Fragment>
