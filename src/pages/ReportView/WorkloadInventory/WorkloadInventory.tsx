@@ -119,7 +119,7 @@ class WorkloadInventory extends React.Component<Props, State> {
                     }
                 },
                 {
-                    title: 'VMware',
+                    title: 'VM name',
                     key: 'vmName',
                     props: {
                         className: 'vertical-align-middle'
@@ -142,7 +142,7 @@ class WorkloadInventory extends React.Component<Props, State> {
                     transforms: [ sortable ]
                 },
                 {
-                    title: 'Efford',
+                    title: 'Effort',
                     key: 'complexity',
                     props: {
                         className: 'vertical-align-middle'
@@ -150,14 +150,14 @@ class WorkloadInventory extends React.Component<Props, State> {
                     transforms: [ sortable ]
                 },
                 {
-                    title: 'Recomended targets',
+                    title: 'Recommended targets',
                     key: 'recommendedTargetsIMS',
                     props: {
                         className: 'vertical-align-middle'
                     }
                 },
                 {
-                    title: 'Flag IMS',
+                    title: 'Flags IMS',
                     key: 'flagsIMS',
                     props: {
                         className: 'vertical-align-middle'
