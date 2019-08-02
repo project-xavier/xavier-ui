@@ -13,7 +13,10 @@ import {
     ICell,
     IRow,
     sortable,
-    ISortBy
+    ISortBy,
+    cellWidth,
+    classNames,
+    Visibility
 } from '@patternfly/react-table';
 import {
     ToolbarGroup,
@@ -102,21 +105,24 @@ class WorkloadInventory extends React.Component<Props, State> {
                     props: {
                         className: 'vertical-align-middle'
                     },
-                    cellFormatters: [ expandable ]
+                    cellFormatters: [ expandable ],
+                    transforms: [ cellWidth(10) ]
                 },
                 {
                     title: 'Datacenter',
                     key: 'datacenter',
                     props: {
                         className: 'vertical-align-middle'
-                    }
+                    },
+                    transforms: [ cellWidth(10) ]
                 },
                 {
                     title: 'Cluster',
                     key: 'cluster',
                     props: {
                         className: 'vertical-align-middle'
-                    }
+                    },
+                    transforms: [ cellWidth(10) ]
                 },
                 {
                     title: 'VM name',
@@ -124,14 +130,16 @@ class WorkloadInventory extends React.Component<Props, State> {
                     props: {
                         className: 'vertical-align-middle'
                     },
-                    transforms: [ sortable ]
+                    transforms: [ sortable, cellWidth(20) ]
                 },
                 {
                     title: 'Workload',
                     key: 'workload',
                     props: {
                         className: 'vertical-align-middle'
-                    }
+                    },
+                    transforms: [ cellWidth(10) ],
+                    columnTransforms: [classNames(Visibility.hiddenOnMd, Visibility.visibleOnLg)]
                 },
                 {
                     title: 'OS type',
@@ -139,29 +147,35 @@ class WorkloadInventory extends React.Component<Props, State> {
                     props: {
                         className: 'vertical-align-middle'
                     },
-                    transforms: [ sortable ]
+                    transforms: [ sortable, cellWidth(10) ],
+                    columnTransforms: [classNames(Visibility.hiddenOnMd, Visibility.visibleOnLg)]
                 },
                 {
                     title: 'Effort',
                     key: 'complexity',
                     props: {
-                        className: 'vertical-align-middle'
+                        className: 'vertical-align-middle',
+                        transforms: [ sortable, cellWidth(10) ]
                     },
-                    transforms: [ sortable ]
+                    columnTransforms: [classNames(Visibility.hiddenOnMd, Visibility.visibleOnLg)]
                 },
                 {
                     title: 'Recommended targets',
                     key: 'recommendedTargetsIMS',
                     props: {
                         className: 'vertical-align-middle'
-                    }
+                    },
+                    transforms: [ cellWidth(10) ],
+                    columnTransforms: [classNames(Visibility.hiddenOnMd, Visibility.visibleOnLg)]
                 },
                 {
                     title: 'Flags IMS',
                     key: 'flagsIMS',
                     props: {
                         className: 'vertical-align-middle'
-                    }
+                    },
+                    transforms: [ cellWidth(10) ],
+                    columnTransforms: [classNames(Visibility.hiddenOnMd, Visibility.visibleOnLg)]
                 }
             ],
             rows: [],
