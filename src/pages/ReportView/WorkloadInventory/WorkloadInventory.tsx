@@ -154,9 +154,9 @@ class WorkloadInventory extends React.Component<Props, State> {
                     title: 'Effort',
                     key: 'complexity',
                     props: {
-                        className: 'vertical-align-middle',
-                        transforms: [ sortable, cellWidth(10) ]
+                        className: 'vertical-align-middle'
                     },
+                    transforms: [ sortable, cellWidth(10) ],
                     columnTransforms: [classNames(Visibility.hiddenOnMd, Visibility.visibleOnLg)]
                 },
                 {
