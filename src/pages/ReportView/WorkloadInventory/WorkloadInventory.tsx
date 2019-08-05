@@ -41,7 +41,10 @@ import {
     DropdownPosition,
     Select,
     SelectVariant,
-    SelectOption
+    SelectOption,
+    ChipGroup,
+    ChipGroupToolbarItem,
+    Chip
 } from '@patternfly/react-core';
 import { ErrorCircleOIcon, SearchIcon, FilterIcon } from '@patternfly/react-icons';
 import './WorkloadInventory.scss';
@@ -95,11 +98,13 @@ interface State {
     columns: Column[];
     rows: Row[];
     sortBy: ISortBy;
-    filterDropDownOpen_1: boolean; // Level 1 filter dropdown
-    filterDropDownOpen_2: boolean; // Level 2 filter dropdown
-    filterType: string;
-    filterTypeKey: FilterTypeKeyEnum;
-    filterValue: string;
+    filterDropDownOpen: boolean;
+    filterType: {
+        name: string,
+        value: FilterTypeKeyEnum
+    };
+    filterValue: Map<FilterTypeKeyEnum, string[]>;
+    secondaryFilterDropDownOpen: boolean;
 };
 
 enum FilterTypeKeyEnum {
@@ -114,6 +119,18 @@ enum FilterTypeKeyEnum {
     RECOMMENDED_TARGETS_IMS = "RECOMMENDED_TARGETS_IMS",
     FLAGS_IMS = "FLAGS_IMS"
 }
+
+const filters = [
+    { name: 'Provider', value: FilterTypeKeyEnum.PROVIDER },
+    { name: 'Datacenter', value: FilterTypeKeyEnum.DATACENTER },
+    { name: 'Cluster', value: FilterTypeKeyEnum.CLUSTER },
+    { name: 'Vm name', value: FilterTypeKeyEnum.VM_NAME },
+    { name: 'Workload', value: FilterTypeKeyEnum.WORKLOAD },
+    { name: 'Os name', value: FilterTypeKeyEnum.OS_NAME },
+    { name: 'Effort', value: FilterTypeKeyEnum.EFFORT },
+    { name: 'Recommended targets', value: FilterTypeKeyEnum.RECOMMENDED_TARGETS_IMS },
+    { name: 'Flags IMS', value: FilterTypeKeyEnum.FLAGS_IMS }
+];
 
 class WorkloadInventory extends React.Component<Props, State> {
 
@@ -134,7 +151,7 @@ class WorkloadInventory extends React.Component<Props, State> {
                         className: 'vertical-align-middle'
                     },
                     cellFormatters: [ expandable ],
-                    transforms: [ cellWidth(10) ]
+                    transforms: [ cellWidth('10') ]
                 },
                 {
                     title: 'Datacenter',
@@ -142,7 +159,7 @@ class WorkloadInventory extends React.Component<Props, State> {
                     props: {
                         className: 'vertical-align-middle'
                     },
-                    transforms: [ cellWidth(10) ]
+                    transforms: [ cellWidth('10') ]
                 },
                 {
                     title: 'Cluster',
@@ -150,7 +167,7 @@ class WorkloadInventory extends React.Component<Props, State> {
                     props: {
                         className: 'vertical-align-middle'
                     },
-                    transforms: [ cellWidth(10) ]
+                    transforms: [ cellWidth('10') ]
                 },
                 {
                     title: 'VM name',
@@ -158,7 +175,7 @@ class WorkloadInventory extends React.Component<Props, State> {
                     props: {
                         className: 'vertical-align-middle'
                     },
-                    transforms: [ sortable, cellWidth(20) ]
+                    transforms: [ sortable, cellWidth('20') ]
                 },
                 {
                     title: 'Workload',
@@ -166,7 +183,7 @@ class WorkloadInventory extends React.Component<Props, State> {
                     props: {
                         className: 'vertical-align-middle'
                     },
-                    transforms: [ cellWidth(10) ],
+                    transforms: [ cellWidth('10') ],
                     columnTransforms: [classNames(Visibility.hiddenOnMd, Visibility.visibleOnLg)]
                 },
                 {
@@ -175,7 +192,7 @@ class WorkloadInventory extends React.Component<Props, State> {
                     props: {
                         className: 'vertical-align-middle'
                     },
-                    transforms: [ sortable, cellWidth(10) ],
+                    transforms: [ sortable, cellWidth('10') ],
                     columnTransforms: [classNames(Visibility.hiddenOnMd, Visibility.visibleOnLg)]
                 },
                 {
@@ -184,7 +201,7 @@ class WorkloadInventory extends React.Component<Props, State> {
                     props: {
                         className: 'vertical-align-middle'
                     },
-                    transforms: [ sortable, cellWidth(10) ],
+                    transforms: [ sortable, cellWidth('10') ],
                     columnTransforms: [classNames(Visibility.hiddenOnMd, Visibility.visibleOnLg)]
                 },
                 {
@@ -193,7 +210,7 @@ class WorkloadInventory extends React.Component<Props, State> {
                     props: {
                         className: 'vertical-align-middle'
                     },
-                    transforms: [ cellWidth(10) ],
+                    transforms: [ cellWidth('10') ],
                     columnTransforms: [classNames(Visibility.hiddenOnMd, Visibility.visibleOnLg)]
                 },
                 {
@@ -202,17 +219,19 @@ class WorkloadInventory extends React.Component<Props, State> {
                     props: {
                         className: 'vertical-align-middle'
                     },
-                    transforms: [ cellWidth(10) ],
+                    transforms: [ cellWidth('10') ],
                     columnTransforms: [classNames(Visibility.hiddenOnMd, Visibility.visibleOnLg)]
                 }
             ],
             rows: [],
             sortBy: { },
-            filterDropDownOpen_1: false,
-            filterDropDownOpen_2: false,
-            filterType: 'Filter',
-            filterTypeKey: FilterTypeKeyEnum.NONE,
-            filterValue: ''
+            filterDropDownOpen: false,
+            secondaryFilterDropDownOpen: false,
+            filterType: {
+                name: 'Filter',
+                value: FilterTypeKeyEnum.NONE,
+            },
+            filterValue: new Map()
         };
     }
 
@@ -324,7 +343,7 @@ class WorkloadInventory extends React.Component<Props, State> {
         }
 
         this.setState({ rows });
-    }
+    };
 
     public onSort = (event: any, index: number, direction: any) => {
         const { reportId } = this.props;
@@ -336,7 +355,7 @@ class WorkloadInventory extends React.Component<Props, State> {
             this.setState({sortBy: { index, direction }});
             this.filtersInRowsAndCells();
         });
-    }
+    };
 
     public onPageChange = (_event: any, page: number, shouldDebounce: boolean) => {
         this.setState({ page });
@@ -438,7 +457,7 @@ class WorkloadInventory extends React.Component<Props, State> {
     };
 
     public renderFilterTypeDropdown = () => {
-        const { filterDropDownOpen_1, filterType } = this.state;
+        const { filterDropDownOpen, filterType } = this.state;
         return (
             <Dropdown
                 onToggle={this.onFilterDropDownToggle}
@@ -447,91 +466,86 @@ class WorkloadInventory extends React.Component<Props, State> {
                 toggle={
                 <DropdownToggle onToggle={this.onFilterDropDownToggle}>
                     <FilterIcon className="pf-u-mr-sm" />
-                    {filterType}
+                    {filterType.name}
                 </DropdownToggle>
                 }
-                isOpen={filterDropDownOpen_1}
-                dropdownItems={[
-                <DropdownItem key="provider" onClick={e => this.onFilterTypeSelect(e, 'Provider', FilterTypeKeyEnum.PROVIDER)}>
-                    Provider
-                </DropdownItem>,
-                <DropdownItem key="datacenter" onClick={e => this.onFilterTypeSelect(e, 'Datacenter', FilterTypeKeyEnum.DATACENTER)}>
-                    Datacenter
-                </DropdownItem>,
-                <DropdownItem key="cluster" onClick={e => this.onFilterTypeSelect(e, 'Cluster', FilterTypeKeyEnum.CLUSTER)}>
-                    Cluster
-                </DropdownItem>,
-                <DropdownItem key="vmName" onClick={e => this.onFilterTypeSelect(e, 'VM name', FilterTypeKeyEnum.VM_NAME)}>
-                    VM name
-                </DropdownItem>,
-                <DropdownItem key="workload" onClick={e => this.onFilterTypeSelect(e, 'Workload', FilterTypeKeyEnum.WORKLOAD)}>
-                    Workload
-                </DropdownItem>,
-                <DropdownItem key="osName" onClick={e => this.onFilterTypeSelect(e, 'OS type', FilterTypeKeyEnum.OS_NAME)}>
-                    OS type
-                </DropdownItem>,
-                <DropdownItem key="complexity" onClick={e => this.onFilterTypeSelect(e, 'Effort', FilterTypeKeyEnum.EFFORT)}>
-                    Effort
-                </DropdownItem>,
-                <DropdownItem key="recommendedTargetsIMS" onClick={e => this.onFilterTypeSelect(e, 'Recommended targets', FilterTypeKeyEnum.RECOMMENDED_TARGETS_IMS)}>
-                    Recommended targets
-                </DropdownItem>,
-                <DropdownItem key="flagsIMS" onClick={e => this.onFilterTypeSelect(e, 'Flags IMS', FilterTypeKeyEnum.FLAGS_IMS)}>
-                    Flags IMS
-                </DropdownItem>
-                ]}
+                isOpen={filterDropDownOpen}
+                dropdownItems={filters.map((element, index) => {
+                    return (
+                        <DropdownItem key={index} onClick={e => this.onFilterTypeSelect(e, element.name, element.value)}>
+                            {element.name}
+                        </DropdownItem>
+                    );
+                })}
             />
         );
     };
     
     onFilterDropDownToggle = (isOpen: boolean) => {
-        this.setState({ filterDropDownOpen_1: isOpen });
+        this.setState({ filterDropDownOpen: isOpen });
     };
 
-    onFilterTypeSelect = (e: any, filterType: string, filterTypeKey: FilterTypeKeyEnum) => {
+    onFilterTypeSelect = (e: any, filterName: string, filterValue: FilterTypeKeyEnum) => {
         e.preventDefault();
         this.setState({
-            filterType,
-            filterTypeKey,
-            filterDropDownOpen_1: false,
-            filterValue: filterType === this.state.filterType ? this.state.filterValue : ''
+            filterType: {
+                name: filterName,
+                value: filterValue
+            },
+            filterDropDownOpen: false,
+            // filterValue: filterType === this.state.filterType ? this.state.filterValue : ''
         });
     };
 
     public renderFilterInput = () => {
-        const { filterTypeKey } = this.state;
+        const { filterType } = this.state;
         const { reportWorkloadInventoryAvailableFilters } = this.props;
 
-        switch(filterTypeKey) {
+        switch(filterType.value) {
             case FilterTypeKeyEnum.PROVIDER:
-                return this.renderFilterDropdowndLevel2('Provider', reportWorkloadInventoryAvailableFilters.providers);
+                return this.renderSecondaryFilterDropdownd('Provider', reportWorkloadInventoryAvailableFilters.providers);
             case FilterTypeKeyEnum.DATACENTER:
-                return this.renderFilterDropdowndLevel2('Datacenter', reportWorkloadInventoryAvailableFilters.datacenters);
+                return this.renderSecondaryFilterDropdownd('Datacenter', reportWorkloadInventoryAvailableFilters.datacenters);
             case FilterTypeKeyEnum.CLUSTER:
-                return this.renderFilterDropdowndLevel2('Cluster', reportWorkloadInventoryAvailableFilters.clusters);
+                return this.renderSecondaryFilterDropdownd('Cluster', reportWorkloadInventoryAvailableFilters.clusters);
+            case FilterTypeKeyEnum.WORKLOAD:
+                return this.renderSecondaryFilterDropdownd('Workload', reportWorkloadInventoryAvailableFilters.workloads);
+            case FilterTypeKeyEnum.EFFORT:
+                return this.renderSecondaryFilterDropdownd('Effort', reportWorkloadInventoryAvailableFilters.complexities);
+            case FilterTypeKeyEnum.RECOMMENDED_TARGETS_IMS:
+                return this.renderSecondaryFilterDropdownd('Recommended targets', reportWorkloadInventoryAvailableFilters.recommendedTargetsIMS);
+            case FilterTypeKeyEnum.FLAGS_IMS:
+                return this.renderSecondaryFilterDropdownd('Flags IMS', reportWorkloadInventoryAvailableFilters.flagsIMS);
+            case FilterTypeKeyEnum.VM_NAME:
+                return this.renderFilterInputTextLevel2('Vm name');
+            case FilterTypeKeyEnum.OS_NAME:
+                return this.renderFilterInputTextLevel2('Os name');
+            default:
+                return (
+                    <TextInput
+                        type="text"
+                        aria-label="filter text input"
+                        readOnly
+                        placeholder="Select a filter..."
+                    />
+                );
         }
-        return (
-            <TextInput
-                type="text"
-                aria-label="filter text input"
-            />
-        );
     };
 
-    onToggleFilterDropdownLevel2 = (isExpanded: boolean) => {
+    onSecondaryFilterDropdownToggle = (isExpanded: boolean) => {
         this.setState({
-            filterDropDownOpen_2: isExpanded
+            secondaryFilterDropDownOpen: isExpanded
         });
     };
 
-    public renderFilterDropdowndLevel2 = (filterName: string, options: string[]) => {
-        const { filterDropDownOpen_2 } = this.state;
+    public renderSecondaryFilterDropdownd = (filterName: string, options: string[]) => {
+        const { secondaryFilterDropDownOpen } = this.state;
         return (
             <Select
                 variant={SelectVariant.checkbox}
                 aria-label="Select Input"
-                onToggle={this.onToggleFilterDropdownLevel2}
-                isExpanded={filterDropDownOpen_2}
+                onToggle={this.onSecondaryFilterDropdownToggle}
+                isExpanded={secondaryFilterDropDownOpen}
                 selections={[]}
                 placeholderText={`Filter by ${filterName}`}
                 ariaLabelledBy={filterName}
@@ -540,6 +554,24 @@ class WorkloadInventory extends React.Component<Props, State> {
                     return <SelectOption key={index} value={val} />;
                 })}
             </Select>
+        );
+    };
+
+    public renderFilterInputTextLevel2 = (filterName: string) => {
+        return (
+            <TextInput
+                type="search"
+                aria-label="filter text input"
+                placeholder={`Filter by ${filterName}...`}
+            />
+        );
+    };
+
+    public reportFilterChips = () => {
+        return (
+            <Chip key="chip1">
+              name
+            </Chip>
         );
     };
 
@@ -568,6 +600,13 @@ class WorkloadInventory extends React.Component<Props, State> {
                     <ToolbarGroup>
                         <ToolbarItem>
                             { this.renderPagination() }
+                        </ToolbarItem>
+                    </ToolbarGroup>
+                </TableToolbar>
+                <TableToolbar className="pf-u-justify-content-space-between">
+                    <ToolbarGroup>
+                        <ToolbarItem>
+                            { this.reportFilterChips() }
                         </ToolbarItem>
                     </ToolbarGroup>
                 </TableToolbar>
