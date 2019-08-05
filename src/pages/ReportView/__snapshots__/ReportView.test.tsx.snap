@@ -24,11 +24,11 @@ exports[`ReportView expect to redirect because error 1`] = `
   <Switch>
     <Route
       component={[Function]}
-      path="undefined/workloadMigrationSummary"
+      path="undefined/initialSavingsEstimation"
     />
     <Route
       component={[Function]}
-      path="undefined/initialSavingsEstimation"
+      path="undefined/workloadMigrationSummary"
     />
     <Route
       component={[Function]}
@@ -67,11 +67,11 @@ exports[`ReportView expect to redirect because no reportId 1`] = `
   <Switch>
     <Route
       component={[Function]}
-      path="undefined/workloadMigrationSummary"
+      path="undefined/initialSavingsEstimation"
     />
     <Route
       component={[Function]}
-      path="undefined/initialSavingsEstimation"
+      path="undefined/workloadMigrationSummary"
     />
     <Route
       component={[Function]}
@@ -110,11 +110,11 @@ exports[`ReportView expect to render loading object 1`] = `
   <Switch>
     <Route
       component={[Function]}
-      path="undefined/workloadMigrationSummary"
+      path="undefined/initialSavingsEstimation"
     />
     <Route
       component={[Function]}
-      path="undefined/initialSavingsEstimation"
+      path="undefined/workloadMigrationSummary"
     />
     <Route
       component={[Function]}
@@ -153,11 +153,11 @@ exports[`ReportView expect to render object 1`] = `
   <Switch>
     <Route
       component={[Function]}
-      path="undefined/workloadMigrationSummary"
+      path="undefined/initialSavingsEstimation"
     />
     <Route
       component={[Function]}
-      path="undefined/initialSavingsEstimation"
+      path="undefined/workloadMigrationSummary"
     />
     <Route
       component={[Function]}
