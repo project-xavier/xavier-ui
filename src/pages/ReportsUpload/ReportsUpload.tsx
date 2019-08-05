@@ -75,7 +75,7 @@ const initialFormValue: FormValues = {
     yearOverYearGrowthRatePercentage: 5,
     percentageOfHypervisorsMigratedOnYear1: 50,
     percentageOfHypervisorsMigratedOnYear2: 30,
-    percentageOfHypervisorsMigratedOnYear3: 10,
+    percentageOfHypervisorsMigratedOnYear3: 20,
     percentageOfHypervisorsMigratedSum: 90
 };
 
@@ -126,8 +126,6 @@ class ReportsUpload extends React.Component<Props, State> {
     public redirectTimer: any;
     public beforeUnloadHandler: any;
 
-    public initialFormValue: FormValues;
-
     constructor(props: Props) {
         super(props);
 
@@ -135,17 +133,6 @@ class ReportsUpload extends React.Component<Props, State> {
             showForm: true,
             timeoutToRedirect: 3,
             cancelUploadSource: Axios.CancelToken.source()
-        };
-
-        this.initialFormValue = {
-            file: '',
-            reportName: '',
-            reportDescription: '',
-            yearOverYearGrowthRatePercentage: 5,
-            percentageOfHypervisorsMigratedOnYear1: 50,
-            percentageOfHypervisorsMigratedOnYear2: 30,
-            percentageOfHypervisorsMigratedOnYear3: 10,
-            percentageOfHypervisorsMigratedSum: 90
         };
 
         this.redirectTimer = null;
