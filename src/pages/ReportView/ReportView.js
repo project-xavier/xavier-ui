@@ -35,12 +35,12 @@ class ReportView extends React.Component {
             >
                 <Switch>
                     <Route
-                        path={ `${this.props.match.url}/${REPORT_VIEW_PATHS.workloadMigrationSummary}` }
-                        component={ WorkloadMigrationSummary }
-                    />
-                    <Route
                         path={ `${this.props.match.url}/${REPORT_VIEW_PATHS.initialSavingsEstimation}` }
                         component={ InitialSavingsEstimation }
+                    />
+                    <Route
+                        path={ `${this.props.match.url}/${REPORT_VIEW_PATHS.workloadMigrationSummary}` }
+                        component={ WorkloadMigrationSummary }
                     />
                     <Route
                         path={ `${this.props.match.url}/${REPORT_VIEW_PATHS.workloadInventory}` }

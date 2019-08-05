@@ -33,9 +33,9 @@ class ReportViewPage extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
 
-        let activeTabKey = 1;
+        let activeTabKey = 0;
 
-        if (props.location.pathname.endsWith(REPORT_VIEW_PATHS.workloadMigrationSummary)) {
+        if (props.location.pathname.endsWith(REPORT_VIEW_PATHS.initialSavingsEstimation)) {
             activeTabKey = 0;
         } else if (props.location.pathname.endsWith(REPORT_VIEW_PATHS.workloadMigrationSummary)) {
             activeTabKey = 1;
@@ -57,10 +57,10 @@ class ReportViewPage extends Component<Props, State> {
 
         switch (tabIndex) {
             case 0:
-                history.push(`${match.url}/${REPORT_VIEW_PATHS.workloadMigrationSummary}`);
+                history.push(`${match.url}/${REPORT_VIEW_PATHS.initialSavingsEstimation}`);
                 break;
             case 1:
-                history.push(`${match.url}/${REPORT_VIEW_PATHS.initialSavingsEstimation}`);
+                history.push(`${match.url}/${REPORT_VIEW_PATHS.workloadMigrationSummary}`);
                 break;
             case 2:
                 history.push(`${match.url}/${REPORT_VIEW_PATHS.workloadInventory}`);
@@ -85,9 +85,9 @@ class ReportViewPage extends Component<Props, State> {
                     onSelect={ this.handleTabClick }
                     activeKey={ this.state.activeTabKey }
                 >
-                    <Tab eventKey={ 0 } title="Workload Migration Summary"/>
-                    <Tab eventKey={ 1 } title="Initials Savings Estimation"/>
-                    <Tab eventKey={ 2 } title="Workload Inventory"/>
+                    <Tab eventKey={ 0 } title="Initial savings estimation"/>
+                    <Tab eventKey={ 1 } title="Workload migration summary"/>
+                    <Tab eventKey={ 2 } title="Workload migration inventory"/>
                 </Tabs>
             </React.Fragment>
         );
