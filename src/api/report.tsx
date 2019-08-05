@@ -5,7 +5,8 @@ import {
     ReportWorkloadMigrationSummary,
     ReportInitialSavingEstimation,
     SearchResult,
-    ReportWorkloadInventory
+    ReportWorkloadInventory,
+    WorkloadInventoryReportFiltersModel
 } from '../models';
 
 export function getAllReports(page: number, perPage: number, filterText: string): AxiosPromise<SearchResult<Report>> {
@@ -72,4 +73,8 @@ export function getReportWorkloadInventoryCSV(id: number): AxiosPromise<any> {
     return ApiClient.request<any>(url, null, 'get', {
         responseType: 'blob'
     });
+}
+
+export function getReportWorkloadInventoryAvailableFilters(id: number): AxiosPromise<WorkloadInventoryReportFiltersModel> {
+    return ApiClient.get<WorkloadInventoryReportFiltersModel>(`/report/${id}/workload-inventory/available-filters`);
 }

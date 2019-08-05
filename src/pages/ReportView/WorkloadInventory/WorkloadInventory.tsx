@@ -33,11 +33,19 @@ import {
     Stack,
     StackItem,
     Card,
-    CardBody
+    CardBody,
+    Dropdown,
+    DropdownToggle,
+    DropdownItem,
+    TextInput,
+    DropdownPosition,
+    Select,
+    SelectVariant,
+    SelectOption
 } from '@patternfly/react-core';
-import { ErrorCircleOIcon, SearchIcon } from '@patternfly/react-icons';
+import { ErrorCircleOIcon, SearchIcon, FilterIcon } from '@patternfly/react-icons';
 import './WorkloadInventory.scss';
-import { Report, ReportWorkloadInventory } from '../../../models';
+import { Report, ReportWorkloadInventory, WorkloadInventoryReportFiltersModel } from '../../../models';
 import { ObjectFetchStatus } from '../../../models/state';
 import ReportCard from '../../../PresentationalComponents/ReportCard';
 import debounce from 'lodash/debounce';
@@ -45,13 +53,14 @@ import { formatValue } from '../../../Utilities/formatValue';
 import { bytesToGb } from '../../../Utilities/unitConvertors';
 
 interface StateToProps extends RouterGlobalProps {
-    report: Report;
     reportWorkloadInventory: {
         total: number;
         items: ReportWorkloadInventory[]
     };
     reportWorkloadInventoryFetchStatus: ObjectFetchStatus;
     reportWorkloadInventoryCSVFetchStatus: ObjectFetchStatus;
+    reportWorkloadInventoryAvailableFilters: WorkloadInventoryReportFiltersModel;
+    reportWorkloadInventoryAvailableFiltersFetchStatus: ObjectFetchStatus;
 }
 
 interface DispatchToProps {
@@ -63,6 +72,7 @@ interface DispatchToProps {
         orderDirection: 'asc' | 'desc' | undefined
     ) => any;
     fetchReportWorkloadInventoryCSV:(reportId: number) => any;
+    fetchReportWorkloadInventoryAvailableFilters: (reportId: number) => any;
 }
 
 interface Props extends StateToProps, DispatchToProps {
@@ -85,7 +95,25 @@ interface State {
     columns: Column[];
     rows: Row[];
     sortBy: ISortBy;
+    filterDropDownOpen_1: boolean; // Level 1 filter dropdown
+    filterDropDownOpen_2: boolean; // Level 2 filter dropdown
+    filterType: string;
+    filterTypeKey: FilterTypeKeyEnum;
+    filterValue: string;
 };
+
+enum FilterTypeKeyEnum {
+    NONE = "NONE",
+    PROVIDER = "PROVIDER",
+    DATACENTER = "DATACENTER",
+    CLUSTER = "CLUSTER",
+    VM_NAME = "VM_NAME",
+    WORKLOAD = "WORKLOAD",
+    OS_NAME = "OS_NAME",
+    EFFORT = "EFFORT",
+    RECOMMENDED_TARGETS_IMS = "RECOMMENDED_TARGETS_IMS",
+    FLAGS_IMS = "FLAGS_IMS"
+}
 
 class WorkloadInventory extends React.Component<Props, State> {
 
@@ -179,12 +207,18 @@ class WorkloadInventory extends React.Component<Props, State> {
                 }
             ],
             rows: [],
-            sortBy: { }
+            sortBy: { },
+            filterDropDownOpen_1: false,
+            filterDropDownOpen_2: false,
+            filterType: 'Filter',
+            filterTypeKey: FilterTypeKeyEnum.NONE,
+            filterValue: ''
         };
     }
 
     public componentDidMount() {
         this.refreshData();
+        this.refreshFilters();
     }
 
     public handleDownloadCSV = () => {
@@ -199,6 +233,11 @@ class WorkloadInventory extends React.Component<Props, State> {
             link.remove();
          });
     }
+
+    public refreshFilters = () => {
+        const { reportId, fetchReportWorkloadInventoryAvailableFilters } = this.props;
+        fetchReportWorkloadInventoryAvailableFilters(reportId);
+    };
 
     public refreshData = (
         page: number = this.state.page,
@@ -398,6 +437,112 @@ class WorkloadInventory extends React.Component<Props, State> {
         );
     };
 
+    public renderFilterTypeDropdown = () => {
+        const { filterDropDownOpen_1, filterType } = this.state;
+        return (
+            <Dropdown
+                onToggle={this.onFilterDropDownToggle}
+                position={DropdownPosition.left}
+                className="topology-view-filter-dropdown"
+                toggle={
+                <DropdownToggle onToggle={this.onFilterDropDownToggle}>
+                    <FilterIcon className="pf-u-mr-sm" />
+                    {filterType}
+                </DropdownToggle>
+                }
+                isOpen={filterDropDownOpen_1}
+                dropdownItems={[
+                <DropdownItem key="provider" onClick={e => this.onFilterTypeSelect(e, 'Provider', FilterTypeKeyEnum.PROVIDER)}>
+                    Provider
+                </DropdownItem>,
+                <DropdownItem key="datacenter" onClick={e => this.onFilterTypeSelect(e, 'Datacenter', FilterTypeKeyEnum.DATACENTER)}>
+                    Datacenter
+                </DropdownItem>,
+                <DropdownItem key="cluster" onClick={e => this.onFilterTypeSelect(e, 'Cluster', FilterTypeKeyEnum.CLUSTER)}>
+                    Cluster
+                </DropdownItem>,
+                <DropdownItem key="vmName" onClick={e => this.onFilterTypeSelect(e, 'VM name', FilterTypeKeyEnum.VM_NAME)}>
+                    VM name
+                </DropdownItem>,
+                <DropdownItem key="workload" onClick={e => this.onFilterTypeSelect(e, 'Workload', FilterTypeKeyEnum.WORKLOAD)}>
+                    Workload
+                </DropdownItem>,
+                <DropdownItem key="osName" onClick={e => this.onFilterTypeSelect(e, 'OS type', FilterTypeKeyEnum.OS_NAME)}>
+                    OS type
+                </DropdownItem>,
+                <DropdownItem key="complexity" onClick={e => this.onFilterTypeSelect(e, 'Effort', FilterTypeKeyEnum.EFFORT)}>
+                    Effort
+                </DropdownItem>,
+                <DropdownItem key="recommendedTargetsIMS" onClick={e => this.onFilterTypeSelect(e, 'Recommended targets', FilterTypeKeyEnum.RECOMMENDED_TARGETS_IMS)}>
+                    Recommended targets
+                </DropdownItem>,
+                <DropdownItem key="flagsIMS" onClick={e => this.onFilterTypeSelect(e, 'Flags IMS', FilterTypeKeyEnum.FLAGS_IMS)}>
+                    Flags IMS
+                </DropdownItem>
+                ]}
+            />
+        );
+    };
+    
+    onFilterDropDownToggle = (isOpen: boolean) => {
+        this.setState({ filterDropDownOpen_1: isOpen });
+    };
+
+    onFilterTypeSelect = (e: any, filterType: string, filterTypeKey: FilterTypeKeyEnum) => {
+        e.preventDefault();
+        this.setState({
+            filterType,
+            filterTypeKey,
+            filterDropDownOpen_1: false,
+            filterValue: filterType === this.state.filterType ? this.state.filterValue : ''
+        });
+    };
+
+    public renderFilterInput = () => {
+        const { filterTypeKey } = this.state;
+        const { reportWorkloadInventoryAvailableFilters } = this.props;
+
+        switch(filterTypeKey) {
+            case FilterTypeKeyEnum.PROVIDER:
+                return this.renderFilterDropdowndLevel2('Provider', reportWorkloadInventoryAvailableFilters.providers);
+            case FilterTypeKeyEnum.DATACENTER:
+                return this.renderFilterDropdowndLevel2('Datacenter', reportWorkloadInventoryAvailableFilters.datacenters);
+            case FilterTypeKeyEnum.CLUSTER:
+                return this.renderFilterDropdowndLevel2('Cluster', reportWorkloadInventoryAvailableFilters.clusters);
+        }
+        return (
+            <TextInput
+                type="text"
+                aria-label="filter text input"
+            />
+        );
+    };
+
+    onToggleFilterDropdownLevel2 = (isExpanded: boolean) => {
+        this.setState({
+            filterDropDownOpen_2: isExpanded
+        });
+    };
+
+    public renderFilterDropdowndLevel2 = (filterName: string, options: string[]) => {
+        const { filterDropDownOpen_2 } = this.state;
+        return (
+            <Select
+                variant={SelectVariant.checkbox}
+                aria-label="Select Input"
+                onToggle={this.onToggleFilterDropdownLevel2}
+                isExpanded={filterDropDownOpen_2}
+                selections={[]}
+                placeholderText={`Filter by ${filterName}`}
+                ariaLabelledBy={filterName}
+            >
+                {options.map((val, index) => {
+                    return <SelectOption key={index} value={val} />;
+                })}
+            </Select>
+        );
+    };
+
     public renderWorkloadInventory = () => {
         const { reportWorkloadInventory, reportWorkloadInventoryCSVFetchStatus } = this.props;
 
@@ -405,20 +550,8 @@ class WorkloadInventory extends React.Component<Props, State> {
             <React.Fragment>
                 <TableToolbar className="pf-u-justify-content-space-between">
                     <ToolbarGroup>
-                        <ToolbarItem className="pf-u-mr-xl">
-                            { /* <InputGroup>
-                                <TextInput
-                                    type="search"
-                                    id="filterText"
-                                    name="filterText"
-                                    aria-label="search text input"
-                                    placeholder="Filter by name..."
-                                />
-                                <Button type="submit" variant={ ButtonVariant.tertiary } aria-label="search button for search input">
-                                    <SearchIcon />
-                                </Button>
-                            </InputGroup> */ }
-                        </ToolbarItem>
+                        <ToolbarItem>{this.renderFilterTypeDropdown()}</ToolbarItem>
+                        <ToolbarItem className="pf-u-mr-md">{this.renderFilterInput()}</ToolbarItem>
                         <ToolbarItem className="pf-u-mr-md">
                             <Button
                                 variant={"primary"}

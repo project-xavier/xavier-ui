@@ -220,3 +220,13 @@ export interface ReportWorkloadInventory {
     memory: number;
     cpuCores: number;
 }
+
+export interface WorkloadInventoryReportFiltersModel {
+    providers: string[];
+    datacenters: string[];
+    clusters: string[];
+    workloads: string[];
+    complexities: string[];
+    recommendedTargetsIMS: string[];
+    flagsIMS: string[];
+}

@@ -41,6 +41,10 @@ export const initialState: ReportState = {
     },
     reportWorkloadInventoryCSVFetchStatus: {
         ...defaultFetchStatus
+    },
+    reportWorkloadInventoryAvailableFilters: null,
+    reportWorkloadInventoryAvailableFiltersFetchStatus: {
+        ...defaultFetchStatus
     }
 };
 
@@ -320,6 +324,47 @@ export const reportsReducer = (state: ReportState = initialState, action: Generi
                 ...state,
                 reportWorkloadInventoryCSVFetchStatus: {
                     ...state.reportWorkloadInventoryCSVFetchStatus,
+                    error: action.payload.message,
+                    status: 'complete'
+                }
+            };
+            return nextState;
+        }
+
+        // FETCH_REPORT_WOKLOAD_INVENTORY_AVAILABLE_FILTERS
+        case pendingMessage(ActionTypes.FETCH_REPORT_WOKLOAD_INVENTORY_AVAILABLE_FILTERS): {
+            const nextState: ReportState = {
+                ...state,
+                reportWorkloadInventoryAvailableFilters: null,
+                reportWorkloadInventoryAvailableFiltersFetchStatus: {
+                    ...state.reportWorkloadInventoryAvailableFiltersFetchStatus,
+                    error: null,
+                    status: 'inProgress'
+                }
+            };
+
+            return nextState;
+        }
+
+        case successMessage(ActionTypes.FETCH_REPORT_WOKLOAD_INVENTORY_AVAILABLE_FILTERS): {
+            const nextState: ReportState = {
+                ...state,
+                reportWorkloadInventoryAvailableFilters: action.payload.data,
+                reportWorkloadInventoryAvailableFiltersFetchStatus: {
+                    ...state.reportWorkloadInventoryAvailableFiltersFetchStatus,
+                    error: null,
+                    status: 'complete'
+                }
+            };
+            return nextState;
+        }
+
+        case failureMessage(ActionTypes.FETCH_REPORT_WOKLOAD_INVENTORY_AVAILABLE_FILTERS): {
+            const nextState: ReportState = {
+                ...state,
+                reportWorkloadInventoryAvailableFilters: null,
+                reportWorkloadInventoryAvailableFiltersFetchStatus: {
+                    ...state.reportWorkloadInventoryAvailableFiltersFetchStatus,
                     error: action.payload.message,
                     status: 'complete'
                 }
