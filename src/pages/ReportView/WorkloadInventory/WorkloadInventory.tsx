@@ -48,7 +48,7 @@ import {
 } from '@patternfly/react-core';
 import { ErrorCircleOIcon, SearchIcon, FilterIcon } from '@patternfly/react-icons';
 import './WorkloadInventory.scss';
-import { Report, ReportWorkloadInventory, WorkloadInventoryReportFiltersModel } from '../../../models';
+import { ReportWorkloadInventory, WorkloadInventoryReportFiltersModel } from '../../../models';
 import { ObjectFetchStatus } from '../../../models/state';
 import ReportCard from '../../../PresentationalComponents/ReportCard';
 import debounce from 'lodash/debounce';
@@ -120,7 +120,19 @@ enum FilterTypeKeyEnum {
     FLAGS_IMS = "FLAGS_IMS"
 }
 
-const filters = [
+const chipLabelsMap: Map<FilterTypeKeyEnum, string> = new Map([
+    [FilterTypeKeyEnum.PROVIDER, "Provider"],
+    [FilterTypeKeyEnum.DATACENTER, "Datacenter"],
+    [FilterTypeKeyEnum.CLUSTER, "Cluster"],
+    [FilterTypeKeyEnum.VM_NAME, "Vm name"],
+    [FilterTypeKeyEnum.WORKLOAD, "Workload"],
+    [FilterTypeKeyEnum.OS_NAME, "OS name"],
+    [FilterTypeKeyEnum.EFFORT, "Effort"],
+    [FilterTypeKeyEnum.RECOMMENDED_TARGETS_IMS, "Rec. Targets"],
+    [FilterTypeKeyEnum.FLAGS_IMS, "flags IMS"],
+]);
+
+const primaryFilters = [
     { name: 'Provider', value: FilterTypeKeyEnum.PROVIDER },
     { name: 'Datacenter', value: FilterTypeKeyEnum.DATACENTER },
     { name: 'Cluster', value: FilterTypeKeyEnum.CLUSTER },
@@ -470,7 +482,7 @@ class WorkloadInventory extends React.Component<Props, State> {
                 </DropdownToggle>
                 }
                 isOpen={filterDropDownOpen}
-                dropdownItems={filters.map((element, index) => {
+                dropdownItems={primaryFilters.map((element, index) => {
                     return (
                         <DropdownItem key={index} onClick={e => this.onFilterTypeSelect(e, element.name, element.value)}>
                             {element.name}
@@ -481,11 +493,11 @@ class WorkloadInventory extends React.Component<Props, State> {
         );
     };
     
-    onFilterDropDownToggle = (isOpen: boolean) => {
+    public onFilterDropDownToggle = (isOpen: boolean) => {
         this.setState({ filterDropDownOpen: isOpen });
     };
 
-    onFilterTypeSelect = (e: any, filterName: string, filterValue: FilterTypeKeyEnum) => {
+    public onFilterTypeSelect = (e: any, filterName: string, filterValue: FilterTypeKeyEnum) => {
         e.preventDefault();
         this.setState({
             filterType: {
@@ -503,52 +515,85 @@ class WorkloadInventory extends React.Component<Props, State> {
 
         switch(filterType.value) {
             case FilterTypeKeyEnum.PROVIDER:
-                return this.renderSecondaryFilterDropdownd('Provider', reportWorkloadInventoryAvailableFilters.providers);
+                return this.renderSecondaryFilterDropdownd(filterType, reportWorkloadInventoryAvailableFilters.providers);
             case FilterTypeKeyEnum.DATACENTER:
-                return this.renderSecondaryFilterDropdownd('Datacenter', reportWorkloadInventoryAvailableFilters.datacenters);
+                return this.renderSecondaryFilterDropdownd(filterType, reportWorkloadInventoryAvailableFilters.datacenters);
             case FilterTypeKeyEnum.CLUSTER:
-                return this.renderSecondaryFilterDropdownd('Cluster', reportWorkloadInventoryAvailableFilters.clusters);
+                return this.renderSecondaryFilterDropdownd(filterType, reportWorkloadInventoryAvailableFilters.clusters);
             case FilterTypeKeyEnum.WORKLOAD:
-                return this.renderSecondaryFilterDropdownd('Workload', reportWorkloadInventoryAvailableFilters.workloads);
+                return this.renderSecondaryFilterDropdownd(filterType, reportWorkloadInventoryAvailableFilters.workloads);
             case FilterTypeKeyEnum.EFFORT:
-                return this.renderSecondaryFilterDropdownd('Effort', reportWorkloadInventoryAvailableFilters.complexities);
+                return this.renderSecondaryFilterDropdownd(filterType, reportWorkloadInventoryAvailableFilters.complexities);
             case FilterTypeKeyEnum.RECOMMENDED_TARGETS_IMS:
-                return this.renderSecondaryFilterDropdownd('Recommended targets', reportWorkloadInventoryAvailableFilters.recommendedTargetsIMS);
+                return this.renderSecondaryFilterDropdownd(filterType, reportWorkloadInventoryAvailableFilters.recommendedTargetsIMS);
             case FilterTypeKeyEnum.FLAGS_IMS:
-                return this.renderSecondaryFilterDropdownd('Flags IMS', reportWorkloadInventoryAvailableFilters.flagsIMS);
+                return this.renderSecondaryFilterDropdownd(filterType, reportWorkloadInventoryAvailableFilters.flagsIMS);
             case FilterTypeKeyEnum.VM_NAME:
-                return this.renderFilterInputTextLevel2('Vm name');
+                return this.renderSecondaryFilterInputText(filterType);
             case FilterTypeKeyEnum.OS_NAME:
-                return this.renderFilterInputTextLevel2('Os name');
+                return this.renderSecondaryFilterInputText(filterType);
             default:
                 return (
                     <TextInput
                         type="text"
                         aria-label="filter text input"
-                        readOnly
+                        readOnly={true}
                         placeholder="Select a filter..."
                     />
                 );
         }
     };
 
-    onSecondaryFilterDropdownToggle = (isExpanded: boolean) => {
+    public onSecondaryFilterDropdownToggle = (isExpanded: boolean) => {
         this.setState({
             secondaryFilterDropDownOpen: isExpanded
         });
     };
 
-    public renderSecondaryFilterDropdownd = (filterName: string, options: string[]) => {
-        const { secondaryFilterDropDownOpen } = this.state;
+    public getMapValue = (key: FilterTypeKeyEnum, map: Map<FilterTypeKeyEnum, string[]>): string[] => {
+        if (!map.has(key)) {
+            map.set(key, []);
+        }
+        return map.get(key);
+    };
+
+    public onSecondaryFilterDropdownSelect = (selection: string, filterType: { name: string, value: FilterTypeKeyEnum }) => {
+        const { filterValue } = this.state;
+        
+        const currentFilterSelections: string[] = this.getMapValue(filterType.value, filterValue);
+        
+        // determine newFilterValue
+        const newFilterValue: Map<FilterTypeKeyEnum, string[]> = new Map(filterValue);
+
+        const previousElement: string | undefined = currentFilterSelections.find((elem: string) => elem === selection);
+        if (previousElement) {
+            newFilterValue.set(filterType.value, currentFilterSelections.filter((elem: string) => elem !== selection));
+        } else {
+            newFilterValue.set(filterType.value, [
+                ...currentFilterSelections,
+                selection
+            ]);
+        }
+
+        this.setState({
+            filterValue: newFilterValue
+        });
+    };
+
+    public renderSecondaryFilterDropdownd = (filterType: { name: string, value: FilterTypeKeyEnum }, options: string[]) => {
+        const { secondaryFilterDropDownOpen, filterValue } = this.state;
+        let selections: string[] = this.getMapValue(filterType.value, filterValue);
+
         return (
             <Select
                 variant={SelectVariant.checkbox}
-                aria-label="Select Input"
+                aria-label={`Select ${filterType.name} Input`}
                 onToggle={this.onSecondaryFilterDropdownToggle}
+                onSelect={(e, selection) => this.onSecondaryFilterDropdownSelect(selection, filterType)}
                 isExpanded={secondaryFilterDropDownOpen}
-                selections={[]}
-                placeholderText={`Filter by ${filterName}`}
-                ariaLabelledBy={filterName}
+                selections={selections}
+                placeholderText={`Filter by ${filterType.name}`}
+                ariaLabelledBy={filterType.name}
             >
                 {options.map((val, index) => {
                     return <SelectOption key={index} value={val} />;
@@ -557,21 +602,66 @@ class WorkloadInventory extends React.Component<Props, State> {
         );
     };
 
-    public renderFilterInputTextLevel2 = (filterName: string) => {
+    public renderSecondaryFilterInputText = (filterType: { name: string, value: FilterTypeKeyEnum }) => {
+        const { filterValue } = this.state;
+        
+        const onKeyDown = (e: any) => {
+            if (e.key === 'Enter') {
+                const selection = e.target.value;
+                const currentFilterSelections: string[] = this.getMapValue(filterType.value, filterValue);
+                
+                // determine newFilterValue
+                const newFilterValue: Map<FilterTypeKeyEnum, string[]> = new Map(filterValue);
+                
+                const previousElement: string | undefined = currentFilterSelections.find((elem: string) => elem === selection);
+                if (!previousElement) {
+                    newFilterValue.set(filterType.value, [
+                        ...currentFilterSelections,
+                        selection
+                    ]);
+
+                    this.setState({
+                        filterValue: newFilterValue
+                    });
+                }
+            }
+        };
+
         return (
             <TextInput
                 type="search"
                 aria-label="filter text input"
-                placeholder={`Filter by ${filterName}...`}
+                placeholder={`Filter by ${filterType.name}...`}
+                onKeyDown={onKeyDown}
             />
         );
     };
 
     public reportFilterChips = () => {
+        const { filterValue } = this.state;
+
+        const filterValue1: Array<{key: FilterTypeKeyEnum, value: string[]}> = [];
+        filterValue.forEach((value: string[], key: FilterTypeKeyEnum) => {
+            if (value.length > 0) {
+                filterValue1.push({
+                    key,
+                    value
+                });
+            }
+        });
+
         return (
-            <Chip key="chip1">
-              name
-            </Chip>
+            <ChipGroup withToolbar>
+                { filterValue1.map((group) => (
+                    <ChipGroupToolbarItem key={group.key} categoryName={chipLabelsMap.get(group.key)}>
+                        { group.value.map((chip: string) => (
+                            <Chip key={chip}>
+                                {chip}
+                            </Chip>
+                        ))}
+                    </ChipGroupToolbarItem>
+                ))}
+            </ChipGroup>
         );
     };
 

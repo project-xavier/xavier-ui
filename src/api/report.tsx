@@ -75,6 +75,8 @@ export function getReportWorkloadInventoryCSV(id: number): AxiosPromise<any> {
     });
 }
 
-export function getReportWorkloadInventoryAvailableFilters(id: number): AxiosPromise<WorkloadInventoryReportFiltersModel> {
+export function getReportWorkloadInventoryAvailableFilters(
+    id: number
+): AxiosPromise<WorkloadInventoryReportFiltersModel> {
     return ApiClient.get<WorkloadInventoryReportFiltersModel>(`/report/${id}/workload-inventory/available-filters`);
 }
