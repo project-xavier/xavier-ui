@@ -144,10 +144,10 @@ class Reports extends React.Component<Props, State> {
         const { deleteReport, showDeleteDialog, closeDeleteDialog } = this.props;
 
         showDeleteDialog({
-            name: report.fileName,
+            name: report.reportName,
             type: 'report',
             onDelete: () => {
-                deleteReport(report.id, report.fileName).then(() => {
+                deleteReport(report.id, report.reportName).then(() => {
                     closeDeleteDialog();
                     this.refreshData();
                 });
@@ -161,9 +161,9 @@ class Reports extends React.Component<Props, State> {
     public renderReportStatus = (report: Report) => {
         switch (report.status) {
             case 'CREATED':
-                return <p><OkIcon className="success" /> Report created - { new Date(report.creationDate).toUTCString() }</p>;
+                return <p><OkIcon className="success" /> Report created - { new Date(report.lastUpdate).toUTCString() }</p>;
             case 'FAILED':
-                return <p><ErrorCircleOIcon className="error" /> Report failed - { new Date(report.creationDate).toUTCString() }</p>;
+                return <p><ErrorCircleOIcon className="error" /> Report failed - { new Date(report.lastUpdate).toUTCString() }</p>;
             case 'IN_PROGRESS':
                 return <p><InProgressIcon className="progress" /> Analyzing the upload file</p>;
             default:
@@ -196,7 +196,7 @@ class Reports extends React.Component<Props, State> {
             rows = reports.map((report) => (
                 [
                     {
-                        title: <Link to={ `/reports/${report.id}` }>{ report.fileName }</Link>
+                        title: <Link to={ `/reports/${report.id}` }>{ report.reportName }</Link>
                     },
                     {
                         title: this.renderReportStatus(report)

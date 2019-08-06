@@ -262,7 +262,7 @@ exports[`Reports should render list depending of TOTAL value expect to render li
               replace={false}
               to="/reports/36"
             >
-              file1.json
+              My report name 36
             </Link>,
           },
           Object {
@@ -287,7 +287,7 @@ exports[`Reports should render list depending of TOTAL value expect to render li
               replace={false}
               to="/reports/37"
             >
-              file2.json
+              My report name 37
             </Link>,
           },
           Object {
