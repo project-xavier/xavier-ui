@@ -91,7 +91,7 @@ exports[`ReportViewPage expect to render tabs when fetch status is complete 1`] 
             <BreadcrumbItem
               isActive={true}
             >
-              123.zip
+              My report name 123
             </BreadcrumbItem>
           </Breadcrumb>
           <Tabs

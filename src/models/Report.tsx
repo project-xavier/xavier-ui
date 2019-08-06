@@ -5,12 +5,11 @@ export interface SearchResult<T> {
 
 export interface Report {
     id: number;
-    customerId: string;
-    fileName: string;
-    numberOfHosts: number;
-    totalDiskSpace: number;
-    totalPrice: number;
-    creationDate: number;
+    reportName: string;
+    reportDescription: string;
+    payloadName: string;
+    inserted: number;
+    lastUpdate: number;
     status: 'CREATED' | 'IN_PROGRESS' | 'FAILED';
 }
 

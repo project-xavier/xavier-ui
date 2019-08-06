@@ -88,7 +88,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
 
         return (
             <ReportCard
-                title={ `Initial Savings Estimation (${ report ? report.fileName : '' })` }
+                title={ `Initial Savings Estimation (${ report ? report.reportName : '' })` }
                 headerClass="pf-m-2xl-override"
                 bodyClass="pf-c-content no-margin-bottom"
                 skipBullseye={ true }
@@ -102,7 +102,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
                     <span>Target:</span>&nbsp;
                     <span>Red Hat Virtualization</span><br />
                     <span>Date:</span>&nbsp;
-                    <span>{ new Date(report.creationDate).toUTCString() }</span>
+                    <span>{ new Date(report.lastUpdate).toUTCString() }</span>
                 </p>
                 <p>
                     <span>Over 3 year(s) with Red Hat Virtualization, your initial savings estimation could be as much as</span>
