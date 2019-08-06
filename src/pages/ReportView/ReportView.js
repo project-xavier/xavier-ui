@@ -2,15 +2,7 @@ import React from 'react';
 import { Redirect, Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ReportViewPage from '../../PresentationalComponents/ReportViewPage';
-import asyncComponent from '../../Utilities/asyncComponent';
-import { REPORT_VIEW_PATHS } from './ReportViewConstants';
-
-const WorkloadMigrationSummary = asyncComponent(() =>
-    import(/* webpackChunkName: "WorkloadMigrationSummary" */ './WorkloadMigrationSummary'));
-const InitialSavingsEstimation = asyncComponent(() =>
-    import(/* webpackChunkName: "InitialSavingsEstimation" */ './InitialSavingsEstimation'));
-const WorkloadInventory = asyncComponent(() =>
-    import(/* webpackChunkName: "WorkloadInventory" */ './WorkloadInventory'));
+import { REPORT_VIEW_PATHS, DEFAULT_VIEW_PATH_INDEX } from './ReportViewConstants';
 
 class ReportView extends React.Component {
 
@@ -34,22 +26,19 @@ class ReportView extends React.Component {
                 reportFetchStatus={ reportFetchStatus }
             >
                 <Switch>
-                    <Route
-                        path={ `${this.props.match.url}/${REPORT_VIEW_PATHS.initialSavingsEstimation}` }
-                        component={ InitialSavingsEstimation }
-                    />
-                    <Route
-                        path={ `${this.props.match.url}/${REPORT_VIEW_PATHS.workloadMigrationSummary}` }
-                        component={ WorkloadMigrationSummary }
-                    />
-                    <Route
-                        path={ `${this.props.match.url}/${REPORT_VIEW_PATHS.workloadInventory}` }
-                        component={ WorkloadInventory }
-                    />
+                    { REPORT_VIEW_PATHS.map((elem, index) => {
+                        return (
+                            <Route
+                                key={ index }
+                                path={ `${this.props.match.url}/${elem.path}` }
+                                component={ elem.component }
+                            />
+                        );
+                    })}
 
                     <Redirect
                         from={ `${this.props.match.url}` }
-                        to={ `${this.props.match.url}/${REPORT_VIEW_PATHS.initialSavingsEstimation}` }
+                        to={ `${this.props.match.url}/${REPORT_VIEW_PATHS[DEFAULT_VIEW_PATH_INDEX].path}` }
                     />
                 </Switch>
             </ReportViewPage>
@@ -59,7 +48,7 @@ class ReportView extends React.Component {
 
 ReportView.propTypes = {
     match: PropTypes.object,
-    report: PropTypes.object,
+    report: PropTypes.any,
     reportFetchStatus: PropTypes.object,
     fetchReport: PropTypes.func
 };
