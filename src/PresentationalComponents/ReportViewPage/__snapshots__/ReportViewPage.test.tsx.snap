@@ -94,6 +94,53 @@ exports[`ReportViewPage expect to render tabs when fetch status is complete 1`] 
               123.zip
             </BreadcrumbItem>
           </Breadcrumb>
+          <div
+            className="pf-c-content"
+            style={
+              Object {
+                "marginBottom": "var(--pf-c-content--MarginBottom)",
+              }
+            }
+          >
+            <p>
+              <strong
+                className="pf-c-title pf-m-3xl"
+              >
+                Initial savings estimation(123.zip)
+              </strong>
+            </p>
+            <p>
+              <span>
+                Report build for a 3 year insfraestructure Migration for Acme Inc.
+              </span>
+              <br />
+              <React.Fragment>
+                <span>
+                  Source:
+                </span>
+                 
+                <span>
+                  VSphere Enterprise Plus
+                </span>
+                <br />
+                <span>
+                  Target:
+                </span>
+                 
+                <span>
+                  Red Hat Virtualization
+                </span>
+                <br />
+              </React.Fragment>
+              <span>
+                Date:
+              </span>
+               
+              <span>
+                Thu, 01 Jan 1970 00:00:00 GMT
+              </span>
+            </p>
+          </div>
           <Tabs
             activeKey={0}
             className=""
@@ -160,6 +207,53 @@ exports[`ReportViewPage expect to render tabs when fetch status is complete and 
               
             </BreadcrumbItem>
           </Breadcrumb>
+          <div
+            className="pf-c-content"
+            style={
+              Object {
+                "marginBottom": "var(--pf-c-content--MarginBottom)",
+              }
+            }
+          >
+            <p>
+              <strong
+                className="pf-c-title pf-m-3xl"
+              >
+                Initial savings estimation()
+              </strong>
+            </p>
+            <p>
+              <span>
+                Report build for a 3 year insfraestructure Migration for Acme Inc.
+              </span>
+              <br />
+              <React.Fragment>
+                <span>
+                  Source:
+                </span>
+                 
+                <span>
+                  VSphere Enterprise Plus
+                </span>
+                <br />
+                <span>
+                  Target:
+                </span>
+                 
+                <span>
+                  Red Hat Virtualization
+                </span>
+                <br />
+              </React.Fragment>
+              <span>
+                Date:
+              </span>
+               
+              <span>
+                
+              </span>
+            </p>
+          </div>
           <Tabs
             activeKey={0}
             className=""
