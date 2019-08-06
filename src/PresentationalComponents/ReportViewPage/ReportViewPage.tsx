@@ -70,7 +70,7 @@ class ReportViewPage extends Component<Props, State> {
 
     public renderTabs = () => {
         const { report } = this.props;
-        const currentBreadcrumb = report ? report.fileName : '';
+        const currentBreadcrumb = report ? report.reportName : '';
 
         return (
             <React.Fragment>
