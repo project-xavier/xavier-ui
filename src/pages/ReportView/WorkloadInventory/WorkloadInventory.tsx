@@ -44,7 +44,8 @@ import {
     SelectOption,
     ChipGroup,
     ChipGroupToolbarItem,
-    Chip
+    Chip,
+    ButtonVariant
 } from '@patternfly/react-core';
 import { ErrorCircleOIcon, SearchIcon, FilterIcon } from '@patternfly/react-icons';
 import './WorkloadInventory.scss';
@@ -533,7 +534,7 @@ class WorkloadInventory extends React.Component<Props, State> {
             case FilterTypeKeyEnum.VM_NAME:
                 return this.renderSecondaryFilterInputText(filterType);
             case FilterTypeKeyEnum.OS_NAME:
-                return this.renderSecondaryFilterInputText(filterType);
+                return this.renderSecondaryFilterDropdownd(filterType, reportWorkloadInventoryAvailableFilters.osNames);
             default:
                 return (
                     <TextInput
@@ -668,6 +669,10 @@ class WorkloadInventory extends React.Component<Props, State> {
         this.applyFilterAndSearch(newFilterValue);
     };
 
+    clearChips = () => {
+        this.applyFilterAndSearch(new Map());
+    };
+
     public reportFilterChips = () => {
         const { filterValue } = this.state;
 
@@ -682,22 +687,78 @@ class WorkloadInventory extends React.Component<Props, State> {
         });
 
         return (
-            <ChipGroup withToolbar>
-                { filterValueArray.map((group) => (
-                    <ChipGroupToolbarItem key={group.key} categoryName={chipLabelsMap.get(group.key)}>
-                        { group.value.map((chip: string) => (
-                            <Chip key={chip} onClick={() => this.deleteChipItem(group.key, chip)}>
-                                {chip}
-                            </Chip>
-                        ))}
-                    </ChipGroupToolbarItem>
-                ))}
-            </ChipGroup>
+            <React.Fragment>
+                <ChipGroup withToolbar>
+                    { filterValueArray.map((group) => (
+                        <ChipGroupToolbarItem key={group.key} categoryName={chipLabelsMap.get(group.key)}>
+                            { group.value.map((chip: string) => (
+                                <Chip key={chip} onClick={() => this.deleteChipItem(group.key, chip)}>
+                                    {chip}
+                                </Chip>
+                            ))}
+                        </ChipGroupToolbarItem>
+                    ))}
+                </ChipGroup>
+                {
+                    filterValueArray.length > 0 && <React.Fragment>
+                        &nbsp;<Button variant={ButtonVariant.link} onClick={ this.clearChips }>Clear filters</Button>
+                    </React.Fragment>
+                }
+            </React.Fragment>
         );
     };
 
     public renderWorkloadInventory = () => {
-        const { reportWorkloadInventory, reportWorkloadInventoryCSVFetchStatus } = this.props;
+        const { reportWorkloadInventory } = this.props;
+
+        return (
+            <React.Fragment>                
+                { (reportWorkloadInventory. total > 0 ? this.renderResultsTable() : this.renderNoResults()) }
+            </React.Fragment>
+        );
+    };
+
+    public renderWorkloadInventorySkeleton = () => {
+        return (
+            <React.Fragment>
+                <Stack gutter='md'>
+                    <StackItem isFilled={ false }>
+                        <SkeletonTable colSize={ 9 } rowSize={ 10 }/>
+                    </StackItem>
+                </Stack>
+            </React.Fragment>
+        );
+    };
+
+    public renderFetchError = () => {
+        const onRetryClick = () => {
+            this.refreshData();
+        };
+
+        return (
+            <Bullseye>
+                <EmptyState variant={ EmptyStateVariant.large }>
+                    <EmptyStateIcon icon={ ErrorCircleOIcon } />
+                    <Title headingLevel={ TitleLevel.h5 } size="lg">
+                        Error
+                    </Title>
+                    <EmptyStateBody>
+                        Something unexpected happend, please try again!
+                    </EmptyStateBody>
+                    <Button variant="primary" onClick={ onRetryClick }>Retry</Button>
+                </EmptyState>
+            </Bullseye>
+        );
+    };
+
+    public render() {
+        const { reportWorkloadInventoryFetchStatus, reportWorkloadInventoryCSVFetchStatus } = this.props;
+
+        if (reportWorkloadInventoryFetchStatus.error) {
+            return this.renderFetchError();
+        }
+
+        const isFetchComplete: boolean = reportWorkloadInventoryFetchStatus.status === 'complete';
 
         return (
             <React.Fragment>
@@ -731,59 +792,6 @@ class WorkloadInventory extends React.Component<Props, State> {
                         </ToolbarItem>
                     </ToolbarGroup>
                 </TableToolbar>
-                { (reportWorkloadInventory. total > 0 ? this.renderResultsTable() : this.renderNoResults()) }
-            </React.Fragment>
-        );
-    };
-
-    public renderWorkloadInventorySkeleton = () => {
-        return (
-            <React.Fragment>
-                <Stack gutter='md'>
-                    <StackItem isFilled={ false }>
-                        <ReportCard
-                            title={ <Skeleton size="sm" /> }
-                        >
-                            <SkeletonTable colSize={ 9 } rowSize={ 10 }/>
-                        </ReportCard>
-                    </StackItem>
-                </Stack>
-            </React.Fragment>
-        );
-    };
-
-    public renderFetchError = () => {
-        const onRetryClick = () => {
-            this.refreshData();
-        };
-
-        return (
-            <Bullseye>
-                <EmptyState variant={ EmptyStateVariant.large }>
-                    <EmptyStateIcon icon={ ErrorCircleOIcon } />
-                    <Title headingLevel={ TitleLevel.h5 } size="lg">
-                        Error
-                    </Title>
-                    <EmptyStateBody>
-                        Something unexpected happend, please try again!
-                    </EmptyStateBody>
-                    <Button variant="primary" onClick={ onRetryClick }>Retry</Button>
-                </EmptyState>
-            </Bullseye>
-        );
-    };
-
-    public render() {
-        const { reportWorkloadInventoryFetchStatus } = this.props;
-
-        if (reportWorkloadInventoryFetchStatus.error) {
-            return this.renderFetchError();
-        }
-
-        const isFetchComplete: boolean = reportWorkloadInventoryFetchStatus.status === 'complete';
-
-        return (
-            <React.Fragment>
                 { isFetchComplete ? this.renderWorkloadInventory() : this.renderWorkloadInventorySkeleton() }
             </React.Fragment>
         );

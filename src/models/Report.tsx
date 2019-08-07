@@ -229,4 +229,5 @@ export interface WorkloadInventoryReportFiltersModel {
     complexities: string[];
     recommendedTargetsIMS: string[];
     flagsIMS: string[];
+    osNames: string[];
 }

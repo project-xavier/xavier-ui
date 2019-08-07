@@ -244,11 +244,6 @@ export const reportsReducer = (state: ReportState = initialState, action: Generi
         case pendingMessage(ActionTypes.FETCH_REPORT_WOKLOAD_INVENTORY): {
             const nextState: ReportState = {
                 ...state,
-                reportWorkloadInventory: {
-                    ...state.reportWorkloadInventory,
-                    items: [],
-                    total: 0
-                },
                 reportWorkloadInventoryFetchStatus: {
                     ...state.reportWorkloadInventoryFetchStatus,
                     error: null,
