@@ -265,7 +265,7 @@ class WorkloadInventory extends React.Component<Props, State> {
             link.click();
             link.remove();
          });
-    }
+    };
 
     public refreshFilters = () => {
         const { reportId, fetchReportWorkloadInventoryAvailableFilters } = this.props;
@@ -285,7 +285,7 @@ class WorkloadInventory extends React.Component<Props, State> {
         fetchReportWorkloadInventory(reportId, page, perPage, column, orderDirection, filterValue).then(() => {
             this.filtersInRowsAndCells();
         });
-    }
+    };
 
     public filtersInRowsAndCells = () => {
         const items: ReportWorkloadInventory[] = this.props.reportWorkloadInventory.items
@@ -360,14 +360,22 @@ class WorkloadInventory extends React.Component<Props, State> {
         this.setState({ rows });
     };
 
+    /**
+     * Allways will reset the page to 1
+     */
     public onSort = (event: any, index: number, direction: any) => {
+        const page = 1;
+
         const { reportId } = this.props;
-        const { page, perPage, filterValue } = this.state;
+        const { perPage, filterValue } = this.state;
 
         const column = index ? this.state.columns[index-1].key : undefined;
         const orderDirection = direction ? direction : undefined;
         this.props.fetchReportWorkloadInventory(reportId, page, perPage, column, orderDirection, filterValue).then(() => {
-            this.setState({sortBy: { index, direction }});
+            this.setState({
+                page,
+                sortBy: { index, direction }
+            });
             this.filtersInRowsAndCells();
         });
     };
@@ -409,7 +417,7 @@ class WorkloadInventory extends React.Component<Props, State> {
         this.setState({
             rows
         });
-    }
+    };
 
     public renderPagination = () => {
         const { page, perPage } = this.state;
@@ -495,7 +503,7 @@ class WorkloadInventory extends React.Component<Props, State> {
             />
         );
     };
-    
+
     public onFilterDropDownToggle = (isOpen: boolean) => {
         this.setState({ filterDropDownOpen: isOpen });
     };
@@ -565,7 +573,7 @@ class WorkloadInventory extends React.Component<Props, State> {
             filterValue
         });
 
-        // 
+        //
         const page = 1;
         const { reportId } = this.props;
         const { perPage } = this.state;
@@ -584,9 +592,9 @@ class WorkloadInventory extends React.Component<Props, State> {
 
     public onSecondaryFilterDropdownSelect = (selection: string, filterType: { name: string, value: FilterTypeKeyEnum }) => {
         const { filterValue } = this.state;
-        
+
         const currentFilterSelections: string[] = this.getMapValue(filterType.value, filterValue);
-        
+
         // determine newFilterValue
         const newFilterValue: Map<FilterTypeKeyEnum, string[]> = new Map(filterValue);
 
@@ -627,15 +635,15 @@ class WorkloadInventory extends React.Component<Props, State> {
 
     public renderSecondaryFilterInputText = (filterType: { name: string, value: FilterTypeKeyEnum }) => {
         const { filterValue } = this.state;
-        
+
         const onKeyDown = (e: any) => {
             if (e.key === 'Enter') {
                 const selection = e.target.value;
                 const currentFilterSelections: string[] = this.getMapValue(filterType.value, filterValue);
-                
+
                 // determine newFilterValue
                 const newFilterValue: Map<FilterTypeKeyEnum, string[]> = new Map(filterValue);
-                
+
                 const previousElement: string | undefined = currentFilterSelections.find((elem: string) => elem === selection);
                 if (!previousElement) {
                     newFilterValue.set(filterType.value, [
@@ -665,7 +673,7 @@ class WorkloadInventory extends React.Component<Props, State> {
         const newFilterValue = new Map(currentFilterValue);
         const newChipValues = currentChipValues.filter((e) => e !== element);
         newFilterValue.set(filterTypeKey, newChipValues);
-        
+
         this.applyFilterAndSearch(newFilterValue);
     };
 
@@ -712,7 +720,7 @@ class WorkloadInventory extends React.Component<Props, State> {
         const { reportWorkloadInventory } = this.props;
 
         return (
-            <React.Fragment>                
+            <React.Fragment>
                 { (reportWorkloadInventory. total > 0 ? this.renderResultsTable() : this.renderNoResults()) }
             </React.Fragment>
         );

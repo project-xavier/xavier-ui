@@ -18,12 +18,11 @@ const reportTestInitialState: ReportState = {
         items: [
             {
                 id: 36,
-                customerId: '123456',
-                fileName: 'file1.json',
-                numberOfHosts: 254,
-                totalDiskSpace: 5871365,
-                totalPrice: 1200,
-                creationDate: 546785214,
+                reportName: 'my report name 37',
+                reportDescription: 'my report description 37',
+                payloadName: 'file1.json',
+                inserted: 546785214,
+                lastUpdate: 546785214,
                 status: 'IN_PROGRESS'
             }
         ]
@@ -32,12 +31,11 @@ const reportTestInitialState: ReportState = {
 
     report: {
         id: 37,
-        customerId: '654321',
-        fileName: 'file2.json',
-        numberOfHosts: 257,
-        totalDiskSpace: 6546531,
-        totalPrice: 100,
-        creationDate: 546425465,
+        reportName: 'my report name 37',
+        reportDescription: 'my report description 37',
+        payloadName: 'file2.json',
+        inserted: 546425465,
+        lastUpdate: 546425465,
         status: 'IN_PROGRESS'
     },
     reportFetchStatus: { ...defaultFetchStatus },
