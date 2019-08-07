@@ -43,6 +43,7 @@ import ReportCard from '../../../PresentationalComponents/ReportCard';
 import debounce from 'lodash/debounce';
 import { formatValue } from '../../../Utilities/formatValue';
 import { bytesToGb } from '../../../Utilities/unitConvertors';
+import { extractFilenameFromContentDispositionHeaderValue } from 'src/Utilities/extractUtils';
 
 interface StateToProps extends RouterGlobalProps {
     report: Report;
@@ -190,10 +191,13 @@ class WorkloadInventory extends React.Component<Props, State> {
     public handleDownloadCSV = () => {
          const {reportId, fetchReportWorkloadInventoryCSV} = this.props;
          fetchReportWorkloadInventoryCSV(reportId).then((response: any) => {
+            const contentDispositionHeader = response.value.headers['content-disposition'];
+            const fileName = extractFilenameFromContentDispositionHeaderValue(contentDispositionHeader);
+
             const downloadUrl = window.URL.createObjectURL(new Blob([response.value.data]));
             const link = document.createElement('a');
             link.href = downloadUrl;
-            link.setAttribute('download', 'workloadInventoryReport.csv');
+            link.setAttribute('download', fileName || 'workloadInventoryReport.csv');
             document.body.appendChild(link);
             link.click();
             link.remove();
