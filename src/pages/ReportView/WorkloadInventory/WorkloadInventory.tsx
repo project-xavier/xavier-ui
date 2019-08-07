@@ -207,7 +207,7 @@ class WorkloadInventory extends React.Component<Props, State> {
     ) => {
         const { reportId, fetchReportWorkloadInventory } = this.props;
 
-        const column = index ? this.state.columns[index].key : undefined;
+        const column = index ? this.state.columns[index - 1].key : undefined;
         const orderDirection = direction ? direction : undefined;
         fetchReportWorkloadInventory(reportId, page, perPage, column, orderDirection).then(() => {
             this.filtersInRowsAndCells();
