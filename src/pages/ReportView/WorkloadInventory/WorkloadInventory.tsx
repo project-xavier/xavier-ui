@@ -287,14 +287,21 @@ class WorkloadInventory extends React.Component<Props, State> {
         this.setState({ rows });
     }
 
+    /**
+     * Allways will reset the page to 1
+     */
     public onSort = (event: any, index: number, direction: any) => {
+        const page = 1;
         const { reportId } = this.props;
-        const { page, perPage } = this.state;
+        const { perPage } = this.state;
 
         const column = index ? this.state.columns[index-1].key : undefined;
         const orderDirection = direction ? direction : undefined;
         this.props.fetchReportWorkloadInventory(reportId, page, perPage, column, orderDirection).then(() => {
-            this.setState({sortBy: { index, direction }});
+            this.setState({
+                page,
+                sortBy: { index, direction }
+            });
             this.filtersInRowsAndCells();
         });
     }
