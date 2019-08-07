@@ -47,7 +47,7 @@ export function getReportWorkloadInventory(
     perPage: number,
     orderBy: string,
     orderDirection: 'asc' | 'desc' | undefined,
-    filters: Map<string, string>
+    filters: Map<string, string[]>
 ): AxiosPromise<SearchResult<ReportWorkloadInventory>> {
     // Using page-1 because the backend considers page 0 as the first one
     const params = {
@@ -62,6 +62,14 @@ export function getReportWorkloadInventory(
         const value = params[key];
         if (value !== undefined) {
             query.push(`${key}=${value}`);
+        }
+    });
+
+    filters.forEach((arrayValue: string[], key: string) => {
+        if (arrayValue.length > 0) {
+            arrayValue.forEach((value) => {
+                query.push(`${key}=${value}`);
+            })
         }
     });
 

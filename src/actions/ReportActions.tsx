@@ -105,7 +105,7 @@ export const fetchReportWorkloadInventory = (
     perPage: number,
     orderBy: string,
     orderDirection: 'asc' | 'desc' | undefined,
-    filters: Map<string, string>
+    filters: Map<string, string[]>
 ): GenericAction => ({
     type: ActionTypes.FETCH_REPORT_WOKLOAD_INVENTORY,
     payload: getReportWorkloadInventory(id, page, perPage, orderBy, orderDirection, filters),

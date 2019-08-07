@@ -110,15 +110,15 @@ interface State {
 
 enum FilterTypeKeyEnum {
     NONE = "NONE",
-    PROVIDER = "PROVIDER",
-    DATACENTER = "DATACENTER",
-    CLUSTER = "CLUSTER",
-    VM_NAME = "VM_NAME",
-    WORKLOAD = "WORKLOAD",
-    OS_NAME = "OS_NAME",
-    EFFORT = "EFFORT",
-    RECOMMENDED_TARGETS_IMS = "RECOMMENDED_TARGETS_IMS",
-    FLAGS_IMS = "FLAGS_IMS"
+    PROVIDER = "provider",
+    DATACENTER = "datacenter",
+    CLUSTER = "cluster",
+    VM_NAME = "vmName",
+    WORKLOAD = "workload",
+    OS_NAME = "osName",
+    EFFORT = "complexity",
+    RECOMMENDED_TARGETS_IMS = "recommendedTargetIMS",
+    FLAGS_IMS = "flagIMS"
 }
 
 const chipLabelsMap: Map<FilterTypeKeyEnum, string> = new Map([
@@ -279,7 +279,7 @@ class WorkloadInventory extends React.Component<Props, State> {
     ) => {
         const { reportId, fetchReportWorkloadInventory } = this.props;
 
-        const column = index ? this.state.columns[index].key : undefined;
+        const column = index ? this.state.columns[index-1].key : undefined;
         const orderDirection = direction ? direction : undefined;
         fetchReportWorkloadInventory(reportId, page, perPage, column, orderDirection, filterValue).then(() => {
             this.filtersInRowsAndCells();
@@ -559,6 +559,28 @@ class WorkloadInventory extends React.Component<Props, State> {
         return map.get(key);
     };
 
+    public applyFilterAndSearch = (filterValue: Map<FilterTypeKeyEnum, string[]>) => {
+        this.setState({
+            filterValue
+        });
+
+        // 
+        const page = 1;
+        const { reportId } = this.props;
+        const { perPage } = this.state;
+        const { direction, index } = this.state.sortBy;
+
+        const column = index ? this.state.columns[index-1].key : undefined;
+        const orderDirection = direction ? direction : undefined;
+
+        this.props.fetchReportWorkloadInventory(reportId, page, perPage, column, orderDirection, filterValue).then(() => {
+            this.setState({
+                page
+            });
+            this.filtersInRowsAndCells();
+        });
+    };
+
     public onSecondaryFilterDropdownSelect = (selection: string, filterType: { name: string, value: FilterTypeKeyEnum }) => {
         const { filterValue } = this.state;
         
@@ -577,9 +599,7 @@ class WorkloadInventory extends React.Component<Props, State> {
             ]);
         }
 
-        this.setState({
-            filterValue: newFilterValue
-        });
+        this.applyFilterAndSearch(newFilterValue);
     };
 
     public renderSecondaryFilterDropdownd = (filterType: { name: string, value: FilterTypeKeyEnum }, options: string[]) => {
@@ -622,9 +642,7 @@ class WorkloadInventory extends React.Component<Props, State> {
                         selection
                     ]);
 
-                    this.setState({
-                        filterValue: newFilterValue
-                    });
+                    this.applyFilterAndSearch(newFilterValue);
                 }
             }
         };
@@ -639,13 +657,24 @@ class WorkloadInventory extends React.Component<Props, State> {
         );
     };
 
+    deleteChipItem = (filterTypeKey: FilterTypeKeyEnum, element: string) => {
+        const currentFilterValue = this.state.filterValue;
+        const currentChipValues = this.getMapValue(filterTypeKey, this.state.filterValue);
+
+        const newFilterValue = new Map(currentFilterValue);
+        const newChipValues = currentChipValues.filter((e) => e !== element);
+        newFilterValue.set(filterTypeKey, newChipValues);
+        
+        this.applyFilterAndSearch(newFilterValue);
+    };
+
     public reportFilterChips = () => {
         const { filterValue } = this.state;
 
-        const filterValue1: Array<{key: FilterTypeKeyEnum, value: string[]}> = [];
+        const filterValueArray: Array<{key: FilterTypeKeyEnum, value: string[]}> = [];
         filterValue.forEach((value: string[], key: FilterTypeKeyEnum) => {
             if (value.length > 0) {
-                filterValue1.push({
+                filterValueArray.push({
                     key,
                     value
                 });
@@ -654,10 +683,10 @@ class WorkloadInventory extends React.Component<Props, State> {
 
         return (
             <ChipGroup withToolbar>
-                { filterValue1.map((group) => (
+                { filterValueArray.map((group) => (
                     <ChipGroupToolbarItem key={group.key} categoryName={chipLabelsMap.get(group.key)}>
                         { group.value.map((chip: string) => (
-                            <Chip key={chip}>
+                            <Chip key={chip} onClick={() => this.deleteChipItem(group.key, chip)}>
                                 {chip}
                             </Chip>
                         ))}
