@@ -106,7 +106,7 @@ class WorkloadInventory extends React.Component<Props, State> {
                         className: 'vertical-align-middle'
                     },
                     cellFormatters: [ expandable ],
-                    transforms: [ cellWidth(10) ]
+                    transforms: [ cellWidth('10') ]
                 },
                 {
                     title: 'Datacenter',
@@ -114,7 +114,7 @@ class WorkloadInventory extends React.Component<Props, State> {
                     props: {
                         className: 'vertical-align-middle'
                     },
-                    transforms: [ cellWidth(10) ]
+                    transforms: [ cellWidth('10') ]
                 },
                 {
                     title: 'Cluster',
@@ -122,7 +122,7 @@ class WorkloadInventory extends React.Component<Props, State> {
                     props: {
                         className: 'vertical-align-middle'
                     },
-                    transforms: [ cellWidth(10) ]
+                    transforms: [ cellWidth('10') ]
                 },
                 {
                     title: 'VM name',
@@ -130,7 +130,7 @@ class WorkloadInventory extends React.Component<Props, State> {
                     props: {
                         className: 'vertical-align-middle'
                     },
-                    transforms: [ sortable, cellWidth(20) ]
+                    transforms: [ sortable, cellWidth('20') ]
                 },
                 {
                     title: 'Workload',
@@ -138,7 +138,7 @@ class WorkloadInventory extends React.Component<Props, State> {
                     props: {
                         className: 'vertical-align-middle'
                     },
-                    transforms: [ cellWidth(10) ],
+                    transforms: [ cellWidth('10') ],
                     columnTransforms: [classNames(Visibility.hiddenOnMd, Visibility.visibleOnLg)]
                 },
                 {
@@ -147,7 +147,7 @@ class WorkloadInventory extends React.Component<Props, State> {
                     props: {
                         className: 'vertical-align-middle'
                     },
-                    transforms: [ sortable, cellWidth(10) ],
+                    transforms: [ sortable, cellWidth('10') ],
                     columnTransforms: [classNames(Visibility.hiddenOnMd, Visibility.visibleOnLg)]
                 },
                 {
@@ -156,7 +156,7 @@ class WorkloadInventory extends React.Component<Props, State> {
                     props: {
                         className: 'vertical-align-middle'
                     },
-                    transforms: [ sortable, cellWidth(10) ],
+                    transforms: [ sortable, cellWidth('10') ],
                     columnTransforms: [classNames(Visibility.hiddenOnMd, Visibility.visibleOnLg)]
                 },
                 {
@@ -165,7 +165,7 @@ class WorkloadInventory extends React.Component<Props, State> {
                     props: {
                         className: 'vertical-align-middle'
                     },
-                    transforms: [ cellWidth(10) ],
+                    transforms: [ cellWidth('10') ],
                     columnTransforms: [classNames(Visibility.hiddenOnMd, Visibility.visibleOnLg)]
                 },
                 {
@@ -174,7 +174,7 @@ class WorkloadInventory extends React.Component<Props, State> {
                     props: {
                         className: 'vertical-align-middle'
                     },
-                    transforms: [ cellWidth(10) ],
+                    transforms: [ cellWidth('10') ],
                     columnTransforms: [classNames(Visibility.hiddenOnMd, Visibility.visibleOnLg)]
                 }
             ],
