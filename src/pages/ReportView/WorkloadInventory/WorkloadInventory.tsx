@@ -72,7 +72,8 @@ interface DispatchToProps {
         page: number,
         perPage: number,
         orderBy: string | undefined,
-        orderDirection: 'asc' | 'desc' | undefined
+        orderDirection: 'asc' | 'desc' | undefined,
+        filterValue: Map<FilterTypeKeyEnum, string[]>
     ) => any;
     fetchReportWorkloadInventoryCSV:(reportId: number) => any;
     fetchReportWorkloadInventoryAvailableFilters: (reportId: number) => any;
@@ -273,13 +274,14 @@ class WorkloadInventory extends React.Component<Props, State> {
     public refreshData = (
         page: number = this.state.page,
         perPage: number = this.state.perPage,
-        { direction, index } = this.state.sortBy
+        { direction, index } = this.state.sortBy,
+        filterValue: Map<FilterTypeKeyEnum, string[]> = this.state.filterValue
     ) => {
         const { reportId, fetchReportWorkloadInventory } = this.props;
 
         const column = index ? this.state.columns[index].key : undefined;
         const orderDirection = direction ? direction : undefined;
-        fetchReportWorkloadInventory(reportId, page, perPage, column, orderDirection).then(() => {
+        fetchReportWorkloadInventory(reportId, page, perPage, column, orderDirection, filterValue).then(() => {
             this.filtersInRowsAndCells();
         });
     }
@@ -359,11 +361,11 @@ class WorkloadInventory extends React.Component<Props, State> {
 
     public onSort = (event: any, index: number, direction: any) => {
         const { reportId } = this.props;
-        const { page, perPage } = this.state;
+        const { page, perPage, filterValue } = this.state;
 
         const column = index ? this.state.columns[index-1].key : undefined;
         const orderDirection = direction ? direction : undefined;
-        this.props.fetchReportWorkloadInventory(reportId, page, perPage, column, orderDirection).then(() => {
+        this.props.fetchReportWorkloadInventory(reportId, page, perPage, column, orderDirection, filterValue).then(() => {
             this.setState({sortBy: { index, direction }});
             this.filtersInRowsAndCells();
         });
