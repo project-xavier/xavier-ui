@@ -67,9 +67,9 @@ export function getReportWorkloadInventory(
 
     filters.forEach((arrayValue: string[], key: string) => {
         if (arrayValue.length > 0) {
-            arrayValue.forEach((value) => {
+            arrayValue.forEach(value => {
                 query.push(`${key}=${value}`);
-            })
+            });
         }
     });
 

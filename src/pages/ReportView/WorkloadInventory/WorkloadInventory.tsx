@@ -494,8 +494,12 @@ class WorkloadInventory extends React.Component<Props, State> {
                 }
                 isOpen={filterDropDownOpen}
                 dropdownItems={primaryFilters.map((element, index) => {
+                    const onDropdownItemClick = (event) => {
+                        this.onFilterTypeSelect(event, element.name, element.value)
+                    };
+
                     return (
-                        <DropdownItem key={index} onClick={e => this.onFilterTypeSelect(e, element.name, element.value)}>
+                        <DropdownItem key={index} onClick={onDropdownItemClick}>
                             {element.name}
                         </DropdownItem>
                     );
@@ -613,14 +617,18 @@ class WorkloadInventory extends React.Component<Props, State> {
 
     public renderSecondaryFilterDropdownd = (filterType: { name: string, value: FilterTypeKeyEnum }, options: string[]) => {
         const { secondaryFilterDropDownOpen, filterValue } = this.state;
-        let selections: string[] = this.getMapValue(filterType.value, filterValue);
+        const selections: string[] = this.getMapValue(filterType.value, filterValue);
+
+        const onSelect = (event: any, selection: string) => {
+            this.onSecondaryFilterDropdownSelect(selection, filterType);
+        };
 
         return (
             <Select
                 variant={SelectVariant.checkbox}
                 aria-label={`Select ${filterType.name} Input`}
                 onToggle={this.onSecondaryFilterDropdownToggle}
-                onSelect={(e, selection) => this.onSecondaryFilterDropdownSelect(selection, filterType)}
+                onSelect={onSelect}
                 isExpanded={secondaryFilterDropDownOpen}
                 selections={selections}
                 placeholderText={`Filter by ${filterType.name}`}
@@ -666,7 +674,7 @@ class WorkloadInventory extends React.Component<Props, State> {
         );
     };
 
-    deleteChipItem = (filterTypeKey: FilterTypeKeyEnum, element: string) => {
+    public deleteChipItem = (filterTypeKey: FilterTypeKeyEnum, element: string) => {
         const currentFilterValue = this.state.filterValue;
         const currentChipValues = this.getMapValue(filterTypeKey, this.state.filterValue);
 
@@ -677,7 +685,7 @@ class WorkloadInventory extends React.Component<Props, State> {
         this.applyFilterAndSearch(newFilterValue);
     };
 
-    clearChips = () => {
+    public clearChips = () => {
         this.applyFilterAndSearch(new Map());
     };
 
@@ -696,16 +704,24 @@ class WorkloadInventory extends React.Component<Props, State> {
 
         return (
             <React.Fragment>
-                <ChipGroup withToolbar>
-                    { filterValueArray.map((group) => (
-                        <ChipGroupToolbarItem key={group.key} categoryName={chipLabelsMap.get(group.key)}>
-                            { group.value.map((chip: string) => (
-                                <Chip key={chip} onClick={() => this.deleteChipItem(group.key, chip)}>
-                                    {chip}
-                                </Chip>
-                            ))}
-                        </ChipGroupToolbarItem>
-                    ))}
+                <ChipGroup withToolbar={true}>
+                    { filterValueArray.map((group) => {
+                        return (
+                            <ChipGroupToolbarItem key={group.key} categoryName={chipLabelsMap.get(group.key)}>
+                                { group.value.map((chip: string) => {
+                                    const onDeleteChipItem = () => {
+                                        this.deleteChipItem(group.key, chip);
+                                    };
+
+                                    return (
+                                        <Chip key={chip} onClick={onDeleteChipItem}>
+                                            {chip}
+                                        </Chip>
+                                    );
+                                })}
+                            </ChipGroupToolbarItem>
+                        );
+                    })}
                 </ChipGroup>
                 {
                     filterValueArray.length > 0 && <React.Fragment>
