@@ -108,7 +108,7 @@ class FancyGroupedBarChart extends Component<Props, State> {
                                     <ChartBar
                                         key={ index }
                                         data={ value }
-                                        labelComponent={ <ChartTooltip style={ { color: 'white' } }/> }
+                                        labelComponent={ <ChartTooltip /> }
                                         { ...chartBarProps }
                                     />
                                 );
