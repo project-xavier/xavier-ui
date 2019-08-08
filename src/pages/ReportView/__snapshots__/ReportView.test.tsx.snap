@@ -4,14 +4,13 @@ exports[`ReportView expect to redirect because error 1`] = `
 <withRouter(ReportViewPage)
   report={
     Object {
-      "creationDate": 254112,
-      "customerId": "123456",
-      "fileName": "file1.json",
       "id": 36,
-      "numberOfHosts": 254,
+      "inserted": 254112,
+      "lastUpdate": 254112,
+      "payloadName": "file1.json",
+      "reportDescription": "My report description",
+      "reportName": "My report name",
       "status": "CREATED",
-      "totalDiskSpace": 5871365,
-      "totalPrice": 1200,
     }
   }
   reportFetchStatus={
@@ -50,14 +49,13 @@ exports[`ReportView expect to redirect because no reportId 1`] = `
 <withRouter(ReportViewPage)
   report={
     Object {
-      "creationDate": 254112,
-      "customerId": "123456",
-      "fileName": "file1.json",
       "id": 36,
-      "numberOfHosts": 254,
+      "inserted": 254112,
+      "lastUpdate": 254112,
+      "payloadName": "file1.json",
+      "reportDescription": "My report description",
+      "reportName": "My report name",
       "status": "CREATED",
-      "totalDiskSpace": 5871365,
-      "totalPrice": 1200,
     }
   }
   reportFetchStatus={
@@ -96,14 +94,13 @@ exports[`ReportView expect to render loading object 1`] = `
 <withRouter(ReportViewPage)
   report={
     Object {
-      "creationDate": 254112,
-      "customerId": "123456",
-      "fileName": "file1.json",
       "id": 36,
-      "numberOfHosts": 254,
+      "inserted": 254112,
+      "lastUpdate": 254112,
+      "payloadName": "file1.json",
+      "reportDescription": "My report description",
+      "reportName": "My report name",
       "status": "CREATED",
-      "totalDiskSpace": 5871365,
-      "totalPrice": 1200,
     }
   }
   reportFetchStatus={
@@ -142,14 +139,13 @@ exports[`ReportView expect to render object 1`] = `
 <withRouter(ReportViewPage)
   report={
     Object {
-      "creationDate": 254112,
-      "customerId": "123456",
-      "fileName": "file1.json",
       "id": 36,
-      "numberOfHosts": 254,
+      "inserted": 254112,
+      "lastUpdate": 254112,
+      "payloadName": "file1.json",
+      "reportDescription": "My report description",
+      "reportName": "My report name",
       "status": "CREATED",
-      "totalDiskSpace": 5871365,
-      "totalPrice": 1200,
     }
   }
   reportFetchStatus={

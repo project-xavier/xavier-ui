@@ -106,7 +106,7 @@ exports[`ReportViewPage expect to render tabs when fetch status is complete 1`] 
               <strong
                 className="pf-c-title pf-m-3xl"
               >
-                Initial savings estimation(123.zip)
+                Initial savings estimation(My report name 123)
               </strong>
             </p>
             <p>
@@ -137,7 +137,7 @@ exports[`ReportViewPage expect to render tabs when fetch status is complete 1`] 
               </span>
                
               <span>
-                Thu, 01 Jan 1970 00:00:00 GMT
+                Fri, 02 Jan 1970 10:17:36 GMT
               </span>
             </p>
           </div>
