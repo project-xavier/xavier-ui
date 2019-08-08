@@ -75,7 +75,7 @@ class ReportViewPage extends Component<Props, State> {
                         <strong className="pf-c-title pf-m-3xl">{ `${REPORT_VIEW_PATHS[activeTabKey].title}(${ currentBreadcrumb })` }</strong>
                     </p>
                     <p>
-                        <span>Report build for a 3 year insfraestructure Migration for Acme Inc.</span><br/>
+                        <span>{ report ? report.reportDescription : '' }</span><br/>
                         { (REPORT_VIEW_PATHS[activeTabKey].key === INITIAL_SAVINGS_ESTIMATION_KEY) && <React.Fragment>
                                 <span>Source:</span>&nbsp;<span>VSphere Enterprise Plus</span><br/>
                                 <span>Target:</span>&nbsp;<span>Red Hat Virtualization</span><br/>

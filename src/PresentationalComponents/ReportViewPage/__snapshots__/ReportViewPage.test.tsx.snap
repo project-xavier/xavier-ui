@@ -111,7 +111,7 @@ exports[`ReportViewPage expect to render tabs when fetch status is complete 1`] 
             </p>
             <p>
               <span>
-                Report build for a 3 year insfraestructure Migration for Acme Inc.
+                My report descruiption 123
               </span>
               <br />
               <React.Fragment>
@@ -224,7 +224,7 @@ exports[`ReportViewPage expect to render tabs when fetch status is complete and 
             </p>
             <p>
               <span>
-                Report build for a 3 year insfraestructure Migration for Acme Inc.
+                
               </span>
               <br />
               <React.Fragment>
