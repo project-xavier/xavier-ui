@@ -43,17 +43,11 @@ describe("ReportView", () => {
 
   it("expect to redirect because error", () => {
     const errorProps = Object.assign({}, props, {
-      error: 'Error loading data'
+      reportFetchStatus: {
+        error: 'Error loading data'
+      }
     });
     const wrapper = shallow(<ReportView {...errorProps} />);
-    expect(wrapper).toMatchSnapshot();
-  });
-
-  it("expect to render loading object", () => {
-    const loadingProps = Object.assign({}, props, {
-      loading: true
-    });
-    const wrapper = shallow(<ReportView {...loadingProps} />);
     expect(wrapper).toMatchSnapshot();
   });
 

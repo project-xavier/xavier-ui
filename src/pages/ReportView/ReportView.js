@@ -20,6 +20,11 @@ class ReportView extends React.Component {
 
     render() {
         const { report, reportFetchStatus } = this.props;
+        const { reportId } = this.state;
+
+        if (!reportId || reportFetchStatus.error) {
+            return <Redirect to="/report" />;
+        }
 
         return (
             <ReportViewPage
@@ -28,11 +33,12 @@ class ReportView extends React.Component {
             >
                 <Switch>
                     { REPORT_VIEW_PATHS.map((elem, index) => {
+                        const Component = elem.component;
                         return (
                             <Route
                                 key={ index }
                                 path={ `${this.props.match.url}/${elem.path}` }
-                                component={ elem.component }
+                                render={ () => <Component reportId={reportId} /> }
                             />
                         );
                     })}
