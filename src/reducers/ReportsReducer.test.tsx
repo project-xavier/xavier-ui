@@ -44,7 +44,14 @@ const reportTestInitialState: ReportState = {
     reportMigrationSummaryFetchStatus: { ...defaultFetchStatus },
 
     reportInitialSavingEstimation: null,
-    reportInitialSavingEstimationFetchStatus: { ...defaultFetchStatus }
+    reportInitialSavingEstimationFetchStatus: { ...defaultFetchStatus },
+
+    reportWorkloadInventory: {
+        total: 0,
+        items: []
+    },
+    reportWorkloadInventoryFetchStatus: { ...defaultFetchStatus },
+    reportWorkloadInventoryCSVFetchStatus: { ...defaultFetchStatus }
 };
 
 const fromRequest = (type: string, payload: any, meta = {}) => ({
