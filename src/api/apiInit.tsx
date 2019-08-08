@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
 
-const API_BASE_URL = '/api/xavier';
+export const API_BASE_URL = '/api/xavier';
 declare var insights: any;
 
 export const authInterceptor = (reqConfig: AxiosRequestConfig): AxiosRequestConfig => {

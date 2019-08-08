@@ -12,32 +12,29 @@ const reportsMock: ListReponse = {
     data: [
         {
             id: 36,
-            customerId: '123456',
-            fileName: 'file1.json',
-            numberOfHosts: 254,
-            totalDiskSpace: 5871365,
-            totalPrice: 1200,
-            creationDate: 45654654456,
+            reportName: 'My report name 36',
+            reportDescription: 'My report description 36',
+            payloadName: 'file1.json',
+            inserted: 45654654455,
+            lastUpdate: 45654654456,
             status: 'CREATED'
         },
         {
             id: 37,
-            customerId: '654321',
-            fileName: 'file2.json',
-            numberOfHosts: 574,
-            totalDiskSpace: 5412584,
-            totalPrice: 1800,
-            creationDate: 1768876117,
+            reportName: 'My report name 37',
+            reportDescription: 'My report description 37',
+            payloadName: 'file2.json',
+            inserted: 1768876116,
+            lastUpdate: 1768876117,
             status: 'CREATED'
         },
         {
             id: 38,
-            customerId: '147852',
-            fileName: 'file3.json',
-            numberOfHosts: 100,
-            totalDiskSpace: 2563145,
-            totalPrice: 1700,
-            creationDate: 17353543154,
+            reportName: 'My report name 38',
+            reportDescription: 'My report description 38',
+            payloadName: 'file3.json',
+            inserted: 17353543153,
+            lastUpdate: 17353543154,
             status: 'CREATED'
         }
     ]
