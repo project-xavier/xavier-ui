@@ -10,12 +10,14 @@ import {
     ChartBarProps,
     ChartAxis,
     ChartTooltip,
-    ChartAxisProps
+    ChartAxisProps,
+    ChartThemeColor,
+    ChartThemeVariant
 } from '@patternfly/react-charts';
 import './FancyGroupedBarChart.scss';
 
 export interface FancyGroupedBarChartData {
-    colors: string[];
+    colors?: string[];
     legends?: string[];
     values: Array<Array<{
         x: string,
@@ -73,6 +75,8 @@ class FancyGroupedBarChart extends Component<Props, State> {
         const { style: dependenAxisStyles, ...restDependentChartAxisProps } = dependentChartAxisProps || { style: { }};
         const { style: independenAxisStyles, ...restIndependentChartAxisProps } = independentChartAxisProps || { style: { }};
 
+        const colors = data.colors ? data.colors : undefined;
+
         return (
             <React.Fragment>
                 <div className="bar-chart-container">
@@ -80,13 +84,19 @@ class FancyGroupedBarChart extends Component<Props, State> {
                         data.legends &&
                         <ChartLegend
                             data={ data.legends.map((value) => ({ name: value })) }
-                            colorScale={ data.colors }
+                            colorScale={ colors }
+                            themeColor={ colors ? undefined : ChartThemeColor.multiOrdered }
+                            themeVariant={ colors ? undefined: ChartThemeVariant.light }
                             orientation={ 'horizontal' }
                             style={ Object.assign({ }, baseLegendStyle, legendStyle) }
                             { ...restLegendProps }
                         />
                     }
-                    <Chart { ...chartProps }>
+                    <Chart 
+                        themeColor={ colors ? undefined : ChartThemeColor.multiOrdered }
+                        themeVariant={ colors ? undefined: ChartThemeVariant.light }
+                        { ...chartProps }
+                    >
                         <ChartAxis
                             dependentAxis={ false }
                             style={ Object.assign({ }, baseIndependentAxisStyle, independenAxisStyles) }
@@ -100,7 +110,7 @@ class FancyGroupedBarChart extends Component<Props, State> {
                             { ...restDependentChartAxisProps }
                         />
                         <ChartGroup
-                            colorScale={ data.colors }
+                            colorScale={ colors }
                             { ...chartGroupProps }
                         >
                             { data.values.map((value, index: number) => {
@@ -108,7 +118,7 @@ class FancyGroupedBarChart extends Component<Props, State> {
                                     <ChartBar
                                         key={ index }
                                         data={ value }
-                                        labelComponent={ <ChartTooltip style={ { color: 'white' } }/> }
+                                        labelComponent={ <ChartTooltip /> }
                                         { ...chartBarProps }
                                     />
                                 );
