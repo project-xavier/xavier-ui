@@ -9,10 +9,7 @@ exports[`GettingStarted expect to redirect 1`] = `
 
 exports[`GettingStarted expect to render 1`] = `
 <ReportsPage>
-  <Bullseye
-    className=""
-    component="div"
-  >
+  <Bullseye>
     <EmptyState
       variant="full"
     >
