@@ -1,16 +1,16 @@
+import React from "react";
 import { shallow } from "enzyme";
 import ReportViewPage, { Props } from "./ReportViewPage";
 
 const baseProps: Props = {
   report: {
     id: 123,
-    creationDate: 123,
-    customerId: '123',
-    fileName: '123.zip',
-    numberOfHosts: 123,
-    totalDiskSpace: 123,
-    totalPrice: 123,
-    status: 'progress'
+    reportName: 'My report name 123',
+    reportDescription: 'My report descruiption 123',
+    payloadName: '123.zip',
+    inserted: 123456871,
+    lastUpdate: 123456879,
+    status: 'IN_PROGRESS'
   },
   reportFetchStatus: {
     error: null,

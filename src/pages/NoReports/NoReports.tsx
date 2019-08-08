@@ -34,7 +34,7 @@ class NoReports extends React.Component<Props, State> {
         super(props);
     }
 
-    render() {
+    public render() {
         const { user } = this.props;
 
         if (user && user.firstTimeCreatingReports) {

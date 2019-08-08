@@ -4,12 +4,16 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { init } from './store';
 import App from './App';
+import logger from 'redux-logger';
 import getBaseName from './Utilities/getBaseName';
+import { initApi } from './api/apiInit';
+
+initApi();
 
 ReactDOM.render(
-    <Provider store={ init().getStore() }>
+    <Provider store={ init(logger).getStore() }>
         <Router basename={ getBaseName(window.location.pathname) }>
-            <App />
+            <App/>
         </Router>
     </Provider>,
 

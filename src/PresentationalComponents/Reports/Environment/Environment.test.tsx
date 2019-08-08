@@ -1,3 +1,4 @@
+import React from "react";
 import { shallow } from "enzyme";
 import Environment from "./Environment";
 import { EnvironmentModel } from "../../../models";
@@ -25,20 +26,28 @@ describe("Environment", () => {
   });
 
   it("expect to render using null and undefined data", () => {
-    const data = {
-      ...baseData,
-      hypervisors: null,
-      year1Hypervisor: undefined,
-      year2Hypervisor: null,
-      year3Hypervisor: undefined,
-      growthRatePercentage: null
+    const data: EnvironmentModel = {
+      ...baseData
     };
+    
+    // Force null values
+    Object.keys(data).forEach(key => data[key] = null);
 
-    const wrapper = shallow(
+    const wrapper1 = shallow(
       <Environment data={ data } />
     );
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper1).toMatchSnapshot();
+
+    
+    // Force undefined values
+    Object.keys(data).forEach(key => data[key] = undefined);
+
+    const wrapper2 = shallow(
+      <Environment data={ data } />
+    );
+
+    expect(wrapper2).toMatchSnapshot();
   });
 
   it("expect to render using values equal to 0", () => {

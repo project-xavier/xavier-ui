@@ -20,7 +20,7 @@ class DeleteDialogBase extends React.Component<Props, State> {
         super(props);
     }
 
-    render() {
+    public render() {
         const {
             type,
             name,
@@ -33,7 +33,7 @@ class DeleteDialogBase extends React.Component<Props, State> {
 
         return (
             <Modal
-                isSmall
+                isSmall={true}
                 title={ `Delete ${name}?` }
                 onClose={ onCancel }
                 isOpen={ isOpen }

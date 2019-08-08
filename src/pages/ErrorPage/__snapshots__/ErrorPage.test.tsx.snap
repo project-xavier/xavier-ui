@@ -8,10 +8,7 @@ exports[`ErrorPage expect to render 1`] = `
     />
   </PageHeader>
   <Connect(Main)>
-    <Bullseye
-      className=""
-      component="div"
-    >
+    <Bullseye>
       <EmptyState
         variant="large"
       >

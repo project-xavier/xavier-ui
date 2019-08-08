@@ -1,7 +1,8 @@
+import React from "react";
 import { shallow } from "enzyme";
-import ReportsUpload from "./ReportsUpload";
+import ReportsUpload, { Props } from "./ReportsUpload";
 
-const props = {
+const props: Props = {
   file: null,
   success: null,
   error: null,
@@ -11,10 +12,16 @@ const props = {
   uploadProgress: jest.fn(),
   uploadRequest: jest.fn(),
   selectUploadFile: jest.fn(),
+  resetUploadFile: jest.fn(),
 
   history: null,
   location: null,
-  match: null
+  match: null,
+
+  user: {
+    firstTimeCreatingReports: false
+  },  
+  updateUser: jest.fn()
 };
 
 describe("ReportsUpload", () => {

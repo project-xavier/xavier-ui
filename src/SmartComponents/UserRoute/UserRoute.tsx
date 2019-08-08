@@ -24,23 +24,32 @@ class UserRoute extends React.Component<Props, State> {
         super(props);
     }
 
-    componentDidMount() {
+    public componentDidMount() {
         this.props.fetchUser();
     }
 
-    render() {
+    public render() {
         const { user, userFetchStatus, component: Component, ...rest } = this.props;
+        
+        const redirectToError = () => {
+            return (
+                <Redirect to="/error" />
+            );
+        };
+        const nullComponent = () => {
+            return null;
+        };
 
         switch (userFetchStatus.status) {
             case 'complete':
                 if (user) {
                     return <Route { ...rest } component={ Component } />;
                 } else {
-                    return <Route { ...rest } render={ () => <Redirect to="/error" /> } />;
+                    return <Route { ...rest } render={ redirectToError } />;
                 }
 
             default:
-                return <Route { ...rest } render={ () => null } />;
+                return <Route { ...rest } render={ nullComponent } />;
         }
     }
 }

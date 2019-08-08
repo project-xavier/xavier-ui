@@ -1,0 +1,31 @@
+{
+    "extends": ["tslint:recommended", "tslint-react", "tslint-eslint-rules", "tslint-config-prettier"],
+    "linterOptions": {
+      "exclude": [
+        "**/node_modules/**/*.ts"
+      ]
+    },
+    "rules": {
+      "ordered-imports": false,
+      "object-literal-sort-keys": false,
+      "interface-name" : [true, "never-prefix"],
+      "no-empty-interface": false,
+      "variable-name": [
+        true,
+        "ban-keywords",
+        "check-format",
+        "allow-leading-underscore",
+        "allow-pascal-case"
+      ]
+    },
+    "jsRules": {
+      "object-literal-sort-keys": false,
+      "variable-name": [
+        true,
+        "ban-keywords",
+        "check-format",
+        "allow-leading-underscore",
+        "allow-pascal-case"
+      ]
+    }
+  }
