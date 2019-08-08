@@ -20,6 +20,7 @@ class ReportView extends React.Component {
 
     render() {
         const { report, reportFetchStatus } = this.props;
+
         return (
             <ReportViewPage
                 report={ report }

@@ -26,7 +26,7 @@ export interface Props extends RouterGlobalProps {
 };
 
 interface State {
-    activeTabKey: number
+    activeTabKey: number | string;
 }
 
 class ReportViewPage extends Component<Props, State> {
@@ -47,7 +47,7 @@ class ReportViewPage extends Component<Props, State> {
         };
     }
 
-    public handleTabClick = (_event: any, tabIndex: number) => {
+    public handleTabClick = (_event: React.MouseEvent<HTMLElement, MouseEvent>, tabIndex: number | string) => {
         this.setState({
             activeTabKey: tabIndex
         });
@@ -60,7 +60,7 @@ class ReportViewPage extends Component<Props, State> {
     public renderTabs = () => {
         const { report } = this.props;
         const { activeTabKey } = this.state;
-        const currentBreadcrumb = report ? report.fileName : '';
+        const currentBreadcrumb = report ? report.reportName : '';
 
         return (
             <React.Fragment>
@@ -81,7 +81,7 @@ class ReportViewPage extends Component<Props, State> {
                                 <span>Target:</span>&nbsp;<span>Red Hat Virtualization</span><br/>
                             </React.Fragment>
                         }
-                        <span>Date:</span>&nbsp;<span>{ report ? new Date(report.creationDate).toUTCString() : '' }</span>
+                        <span>Date:</span>&nbsp;<span>{ report ? new Date(report.lastUpdate).toUTCString() : '' }</span>
                     </p>
                 </div>
                 <Tabs

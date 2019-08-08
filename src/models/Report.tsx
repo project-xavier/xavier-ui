@@ -1,16 +1,15 @@
-export interface SearchReportResult {
+export interface SearchResult<T> {
     totalElements: number;
-    content: Report[];
+    content: T[];
 }
 
 export interface Report {
     id: number;
-    customerId: string;
-    fileName: string;
-    numberOfHosts: number;
-    totalDiskSpace: number;
-    totalPrice: number;
-    creationDate: number;
+    reportName: string;
+    reportDescription: string;
+    payloadName: string;
+    inserted: number;
+    lastUpdate: number;
     status: 'CREATED' | 'IN_PROGRESS' | 'FAILED';
 }
 
@@ -203,4 +202,20 @@ export interface RHVOrderFormModel {
     year3RhvOrderDiscountValue: number;
     year3RhvOrderTotalValue: number;
     year3RhvOrderGrandTotal: number;
+}
+
+export interface ReportWorkloadInventory {
+    provider: string;
+    datacenter: string;
+    cluster: string;
+    vmName: string;
+    workloads: string[];
+    osName: string;
+    osDescription: string;
+    complexity: string;
+    recommendedTargetsIMS: string[];
+    flagsIMS: string[];
+    diskSpace: number;
+    memory: number;
+    cpuCores: number;
 }
