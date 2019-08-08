@@ -6,9 +6,7 @@ exports[`Reports should render list depending of TOTAL value expect to render em
     className="pf-u-justify-content-space-between"
     isFooter={false}
   >
-    <ToolbarGroup
-      className={null}
-    >
+    <ToolbarGroup>
       <ToolbarItem
         className="pf-u-mr-xl"
       >
@@ -40,65 +38,15 @@ exports[`Reports should render list depending of TOTAL value expect to render em
         </Link>
       </ToolbarItem>
     </ToolbarGroup>
-    <ToolbarGroup
-      className={null}
-    >
-      <ToolbarItem
-        className={null}
-      >
+    <ToolbarGroup>
+      <ToolbarItem>
         <Pagination
-          className=""
-          dropDirection="down"
           itemCount={0}
-          itemsEnd={null}
-          itemsStart={null}
-          onFirstClick={[Function]}
-          onLastClick={[Function]}
-          onNextClick={[Function]}
           onPageInput={[Function]}
           onPerPageSelect={[Function]}
-          onPreviousClick={[Function]}
           onSetPage={[Function]}
           page={1}
           perPage={10}
-          perPageOptions={
-            Array [
-              Object {
-                "title": "10",
-                "value": 10,
-              },
-              Object {
-                "title": "20",
-                "value": 20,
-              },
-              Object {
-                "title": "50",
-                "value": 50,
-              },
-              Object {
-                "title": "100",
-                "value": 100,
-              },
-            ]
-          }
-          titles={
-            Object {
-              "currPage": "Current page",
-              "items": "items",
-              "itemsPerPage": "Items per page",
-              "optionsToggle": "Select",
-              "pages": "pages",
-              "paginationTitle": "Pagination",
-              "perPageSuffix": "per page",
-              "toFirstPage": "Go to first page",
-              "toLastPage": "Go to last page",
-              "toNextPage": "Go to next page",
-              "toPreviousPage": "Go to previous page",
-            }
-          }
-          toggleTemplate={[Function]}
-          variant="top"
-          widgetId="pagination-options-menu"
         />
       </ToolbarItem>
     </ToolbarGroup>
@@ -132,9 +80,7 @@ exports[`Reports should render list depending of TOTAL value expect to render li
     className="pf-u-justify-content-space-between"
     isFooter={false}
   >
-    <ToolbarGroup
-      className={null}
-    >
+    <ToolbarGroup>
       <ToolbarItem
         className="pf-u-mr-xl"
       >
@@ -166,65 +112,15 @@ exports[`Reports should render list depending of TOTAL value expect to render li
         </Link>
       </ToolbarItem>
     </ToolbarGroup>
-    <ToolbarGroup
-      className={null}
-    >
-      <ToolbarItem
-        className={null}
-      >
+    <ToolbarGroup>
+      <ToolbarItem>
         <Pagination
-          className=""
-          dropDirection="down"
           itemCount={2}
-          itemsEnd={null}
-          itemsStart={null}
-          onFirstClick={[Function]}
-          onLastClick={[Function]}
-          onNextClick={[Function]}
           onPageInput={[Function]}
           onPerPageSelect={[Function]}
-          onPreviousClick={[Function]}
           onSetPage={[Function]}
           page={1}
           perPage={10}
-          perPageOptions={
-            Array [
-              Object {
-                "title": "10",
-                "value": 10,
-              },
-              Object {
-                "title": "20",
-                "value": 20,
-              },
-              Object {
-                "title": "50",
-                "value": 50,
-              },
-              Object {
-                "title": "100",
-                "value": 100,
-              },
-            ]
-          }
-          titles={
-            Object {
-              "currPage": "Current page",
-              "items": "items",
-              "itemsPerPage": "Items per page",
-              "optionsToggle": "Select",
-              "pages": "pages",
-              "paginationTitle": "Pagination",
-              "perPageSuffix": "per page",
-              "toFirstPage": "Go to first page",
-              "toLastPage": "Go to last page",
-              "toNextPage": "Go to next page",
-              "toPreviousPage": "Go to previous page",
-            }
-          }
-          toggleTemplate={[Function]}
-          variant="top"
-          widgetId="pagination-options-menu"
         />
       </ToolbarItem>
     </ToolbarGroup>
@@ -262,7 +158,7 @@ exports[`Reports should render list depending of TOTAL value expect to render li
               replace={false}
               to="/reports/36"
             >
-              file1.json
+              My report name 36
             </Link>,
           },
           Object {
@@ -287,7 +183,7 @@ exports[`Reports should render list depending of TOTAL value expect to render li
               replace={false}
               to="/reports/37"
             >
-              file2.json
+              My report name 37
             </Link>,
           },
           Object {

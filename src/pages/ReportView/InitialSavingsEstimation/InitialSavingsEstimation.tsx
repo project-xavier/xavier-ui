@@ -60,6 +60,7 @@ interface DispatchToProps {
 }
 
 interface Props extends StateToProps, DispatchToProps {
+    reportId: number;
 };
 
 interface State {
@@ -78,8 +79,8 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
     }
 
     public refreshData = () => {
-        const { report, fetchReportInitialSavingEstimation } = this.props;
-        fetchReportInitialSavingEstimation(report.id);
+        const { reportId, fetchReportInitialSavingEstimation } = this.props;
+        fetchReportInitialSavingEstimation(reportId);
     };
 
     public renderInfo = () => {
@@ -87,7 +88,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
 
         return (
             <ReportCard
-                title={ `Initial Savings Estimation (${ report ? report.fileName : '' })` }
+                title={ `Initial Savings Estimation (${ report ? report.reportName : '' })` }
                 headerClass="pf-m-2xl-override"
                 bodyClass="pf-c-content no-margin-bottom"
                 skipBullseye={ true }
@@ -101,7 +102,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
                     <span>Target:</span>&nbsp;
                     <span>Red Hat Virtualization</span><br />
                     <span>Date:</span>&nbsp;
-                    <span>{ new Date(report.creationDate).toUTCString() }</span>
+                    <span>{ new Date(report.lastUpdate).toUTCString() }</span>
                 </p>
                 <p>
                     <span>Over 3 year(s) with Red Hat Virtualization, your initial savings estimation could be as much as</span>
@@ -495,13 +496,13 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
     };
 
     public render() {
-        const { reportInitialSavingEstimationFetchStatus } = this.props;
-
-        if (reportInitialSavingEstimationFetchStatus.error) {
-            return this.renderFetchError();
-        }
+        const { reportInitialSavingEstimation, reportInitialSavingEstimationFetchStatus } = this.props;
 
         const isFetchComplete: boolean = reportInitialSavingEstimationFetchStatus.status === 'complete';
+
+        if (reportInitialSavingEstimationFetchStatus.error || (isFetchComplete && !reportInitialSavingEstimation)) {
+            return this.renderFetchError();
+        }
 
         return (
             <React.Fragment>
