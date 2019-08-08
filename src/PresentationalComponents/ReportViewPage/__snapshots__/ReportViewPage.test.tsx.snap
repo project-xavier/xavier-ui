@@ -91,7 +91,7 @@ exports[`ReportViewPage expect to render tabs when fetch status is complete 1`] 
             <BreadcrumbItem
               isActive={true}
             >
-              123.zip
+              My report name 123
             </BreadcrumbItem>
           </Breadcrumb>
           <Tabs
@@ -101,7 +101,7 @@ exports[`ReportViewPage expect to render tabs when fetch status is complete 1`] 
             isSecondary={false}
             leftScrollAriaLabel="Scroll left"
             onSelect={[Function]}
-            rightScrollAriaLabel="Scroll Right"
+            rightScrollAriaLabel="Scroll right"
             variant="div"
           >
             <ForwardRef
@@ -167,7 +167,7 @@ exports[`ReportViewPage expect to render tabs when fetch status is complete and 
             isSecondary={false}
             leftScrollAriaLabel="Scroll left"
             onSelect={[Function]}
-            rightScrollAriaLabel="Scroll Right"
+            rightScrollAriaLabel="Scroll right"
             variant="div"
           >
             <ForwardRef

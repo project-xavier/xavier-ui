@@ -28,6 +28,8 @@ class ReportView extends React.Component {
 
     render() {
         const { report, reportFetchStatus } = this.props;
+        const { reportId } = this.state;
+
         return (
             <ReportViewPage
                 report={ report }
@@ -36,7 +38,7 @@ class ReportView extends React.Component {
                 <Switch>
                     <Route
                         path={ `${this.props.match.url}/${REPORT_VIEW_PATHS.initialSavingsEstimation}` }
-                        component={ InitialSavingsEstimation }
+                        render={ () => <InitialSavingsEstimation reportId={reportId} /> }
                     />
                     <Route
                         path={ `${this.props.match.url}/${REPORT_VIEW_PATHS.workloadMigrationSummary}` }
@@ -44,7 +46,7 @@ class ReportView extends React.Component {
                     />
                     <Route
                         path={ `${this.props.match.url}/${REPORT_VIEW_PATHS.workloadInventory}` }
-                        component={ WorkloadInventory }
+                        render={ () => <WorkloadInventory reportId={reportId} /> }
                     />
 
                     <Redirect
@@ -59,7 +61,7 @@ class ReportView extends React.Component {
 
 ReportView.propTypes = {
     match: PropTypes.object,
-    report: PropTypes.object,
+    report: PropTypes.any,
     reportFetchStatus: PropTypes.object,
     fetchReport: PropTypes.func
 };

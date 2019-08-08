@@ -30,6 +30,17 @@ export const initialState: ReportState = {
     reportInitialSavingEstimation: null,
     reportInitialSavingEstimationFetchStatus: {
         ...defaultFetchStatus
+    },
+
+    reportWorkloadInventory: {
+        total: 0,
+        items: []
+    },
+    reportWorkloadInventoryFetchStatus: {
+        ...defaultFetchStatus
+    },
+    reportWorkloadInventoryCSVFetchStatus: {
+        ...defaultFetchStatus
     }
 };
 
@@ -218,6 +229,97 @@ export const reportsReducer = (state: ReportState = initialState, action: Generi
                 reportInitialSavingEstimation: null,
                 reportInitialSavingEstimationFetchStatus: {
                     ...state.reportInitialSavingEstimationFetchStatus,
+                    error: action.payload.message,
+                    status: 'complete'
+                }
+            };
+            return nextState;
+        }
+
+        // FETCH_REPORT_WOKLOAD_INVENTORY single report
+        case pendingMessage(ActionTypes.FETCH_REPORT_WOKLOAD_INVENTORY): {
+            const nextState: ReportState = {
+                ...state,
+                reportWorkloadInventory: {
+                    ...state.reportWorkloadInventory,
+                    items: [],
+                    total: 0
+                },
+                reportWorkloadInventoryFetchStatus: {
+                    ...state.reportWorkloadInventoryFetchStatus,
+                    error: null,
+                    status: 'inProgress'
+                }
+            };
+
+            return nextState;
+        }
+
+        case successMessage(ActionTypes.FETCH_REPORT_WOKLOAD_INVENTORY): {
+            const nextState: ReportState = {
+                ...state,
+                reportWorkloadInventory: {
+                    ...state.reportWorkloadInventory,
+                    items: action.payload.data.content,
+                    total: action.payload.data.totalElements
+                },
+                reportWorkloadInventoryFetchStatus: {
+                    ...state.reportWorkloadInventoryFetchStatus,
+                    error: null,
+                    status: 'complete'
+                }
+            };
+            return nextState;
+        }
+
+        case failureMessage(ActionTypes.FETCH_REPORT_WOKLOAD_INVENTORY): {
+            const nextState: ReportState = {
+                ...state,
+                reportWorkloadInventory: {
+                    ...state.reportWorkloadInventory,
+                    items: [],
+                    total: 0
+                },
+                reportWorkloadInventoryFetchStatus: {
+                    ...state.reportWorkloadInventoryFetchStatus,
+                    error: action.payload.message,
+                    status: 'complete'
+                }
+            };
+            return nextState;
+        }
+
+        // FETCH_REPORT_WOKLOAD_INVENTORY_CSV single report
+        case pendingMessage(ActionTypes.FETCH_REPORT_WOKLOAD_INVENTORY_CSV): {
+            const nextState: ReportState = {
+                ...state,
+                reportWorkloadInventoryCSVFetchStatus: {
+                    ...state.reportWorkloadInventoryCSVFetchStatus,
+                    error: null,
+                    status: 'inProgress'
+                }
+            };
+
+            return nextState;
+        }
+
+        case successMessage(ActionTypes.FETCH_REPORT_WOKLOAD_INVENTORY_CSV): {
+            const nextState: ReportState = {
+                ...state,
+                reportWorkloadInventoryCSVFetchStatus: {
+                    ...state.reportWorkloadInventoryCSVFetchStatus,
+                    error: null,
+                    status: 'complete'
+                }
+            };
+            return nextState;
+        }
+
+        case failureMessage(ActionTypes.FETCH_REPORT_WOKLOAD_INVENTORY_CSV): {
+            const nextState: ReportState = {
+                ...state,
+                reportWorkloadInventoryCSVFetchStatus: {
+                    ...state.reportWorkloadInventoryCSVFetchStatus,
                     error: action.payload.message,
                     status: 'complete'
                 }

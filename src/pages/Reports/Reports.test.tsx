@@ -8,22 +8,20 @@ const props: Props = {
     items: [
       {
         id: 36,
-        customerId: "123456",
-        fileName: "file1.json",
-        numberOfHosts: 254,
-        totalDiskSpace: 5871365,
-        totalPrice: 1200,
-        creationDate: 123654565464,
+        reportName: "My report name 36",
+        reportDescription: "My report description 36",
+        payloadName: "file1.json",
+        inserted: 123654565464,
+        lastUpdate: 123654565464,
         status: 'IN_PROGRESS'
       },
       {
         id: 37,
-        customerId: "654321",
-        fileName: "file2.json",
-        numberOfHosts: 574,
-        totalDiskSpace: 5412584,
-        totalPrice: 1800,
-        creationDate: 123654565464,
+        reportName: "My report name 37",
+        reportDescription: "My report description 37",
+        payloadName: "file2.json",
+        inserted: 123654565464,
+        lastUpdate: 123654565464,
         status: 'IN_PROGRESS'
       }
     ]
