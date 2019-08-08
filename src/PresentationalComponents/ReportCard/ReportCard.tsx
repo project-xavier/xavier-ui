@@ -24,7 +24,7 @@ class ReportCard extends Component<Props, State> {
         super(props);
     }
 
-    render() {
+    public render() {
         const {
             title,
             children,

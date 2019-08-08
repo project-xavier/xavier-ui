@@ -1,15 +1,6 @@
-import {
-    reportsReducer,
-    initialState as systemInitialState
-} from './ReportsReducer';
-import {
-    ActionTypes
-} from '../actions/ReportActions';
-import {
-    successMessage,
-    failureMessage,
-    pendingMessage
-} from './reducerHelper';
+import { reportsReducer, initialState as systemInitialState } from './ReportsReducer';
+import { ActionTypes } from '../actions/ReportActions';
+import { successMessage, failureMessage, pendingMessage } from './reducerHelper';
 
 import reportsMock, { reportMock } from './__fixtures__/reports';
 import { GenericAction } from '../models/action';
@@ -18,7 +9,7 @@ import { Report } from '../models';
 
 const defaultFetchStatus: ObjectFetchStatus = {
     error: null,
-    status: "none"
+    status: 'none'
 };
 
 const reportTestInitialState: ReportState = {
@@ -27,12 +18,11 @@ const reportTestInitialState: ReportState = {
         items: [
             {
                 id: 36,
-                customerId: '123456',
-                fileName: 'file1.json',
-                numberOfHosts: 254,
-                totalDiskSpace: 5871365,
-                totalPrice: 1200,
-                creationDate: 546785214,
+                reportName: 'my report name 37',
+                reportDescription: 'my report description 37',
+                payloadName: 'file1.json',
+                inserted: 546785214,
+                lastUpdate: 546785214,
                 status: 'IN_PROGRESS'
             }
         ]
@@ -41,12 +31,11 @@ const reportTestInitialState: ReportState = {
 
     report: {
         id: 37,
-        customerId: '654321',
-        fileName: 'file2.json',
-        numberOfHosts: 257,
-        totalDiskSpace: 6546531,
-        totalPrice: 100,
-        creationDate: 546425465,
+        reportName: 'my report name 37',
+        reportDescription: 'my report description 37',
+        payloadName: 'file2.json',
+        inserted: 546425465,
+        lastUpdate: 546425465,
         status: 'IN_PROGRESS'
     },
     reportFetchStatus: { ...defaultFetchStatus },
@@ -55,7 +44,14 @@ const reportTestInitialState: ReportState = {
     reportMigrationSummaryFetchStatus: { ...defaultFetchStatus },
 
     reportInitialSavingEstimation: null,
-    reportInitialSavingEstimationFetchStatus: { ...defaultFetchStatus }
+    reportInitialSavingEstimationFetchStatus: { ...defaultFetchStatus },
+
+    reportWorkloadInventory: {
+        total: 0,
+        items: []
+    },
+    reportWorkloadInventoryFetchStatus: { ...defaultFetchStatus },
+    reportWorkloadInventoryCSVFetchStatus: { ...defaultFetchStatus }
 };
 
 const fromRequest = (type: string, payload: any, meta = {}) => ({
@@ -65,14 +61,11 @@ const fromRequest = (type: string, payload: any, meta = {}) => ({
 });
 
 describe('report reducer', () => {
-
     it('should return the default system state', () => {
         const initialState = undefined;
         const action = {} as GenericAction;
-        
-        expect(
-            reportsReducer(initialState, action)
-        ).toEqual(systemInitialState);
+
+        expect(reportsReducer(initialState, action)).toEqual(systemInitialState);
     });
 
     it('should handle FETCH_REPORTS_PENDING', () => {
@@ -80,7 +73,7 @@ describe('report reducer', () => {
             ...reportTestInitialState,
             reportsFetchStatus: {
                 error: null,
-                status: "inProgress"
+                status: 'inProgress'
             }
         };
 
@@ -98,7 +91,7 @@ describe('report reducer', () => {
             report: null,
             reportFetchStatus: {
                 error: null,
-                status: "inProgress"
+                status: 'inProgress'
             }
         };
 
@@ -121,7 +114,7 @@ describe('report reducer', () => {
             },
             reportsFetchStatus: {
                 error: null,
-                status: "complete"
+                status: 'complete'
             }
         };
 
@@ -139,14 +132,14 @@ describe('report reducer', () => {
     });
 
     it('should handle FETCH_REPORT_SUCCESS', () => {
-        let testReport: Report = reportMock.data;
+        const testReport: Report = reportMock.data;
 
         const expectedNewState: ReportState = {
             ...reportTestInitialState,
             report: testReport,
             reportFetchStatus: {
                 error: null,
-                status: "complete"
+                status: 'complete'
             }
         };
 
@@ -160,7 +153,7 @@ describe('report reducer', () => {
 
     it('should handle FETCH_REPORTS_FAILURE', () => {
         const error = 'my error message';
-        
+
         const expectedNewState: ReportState = {
             ...reportTestInitialState,
             reports: {
@@ -169,7 +162,7 @@ describe('report reducer', () => {
             },
             reportsFetchStatus: {
                 error,
-                status: "complete"
+                status: 'complete'
             }
         };
         const newState: ReportState = reportsReducer(
@@ -188,7 +181,7 @@ describe('report reducer', () => {
             report: null,
             reportFetchStatus: {
                 error,
-                status: "complete"
+                status: 'complete'
             }
         };
 
@@ -199,5 +192,4 @@ describe('report reducer', () => {
 
         expect(newState).toEqual(expectedNewState);
     });
-
 });

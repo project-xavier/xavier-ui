@@ -17,6 +17,7 @@ exports[`ReportsUpload expect to render form 1`] = `
       isOpen={true}
       isSmall={false}
       onClose={[Function]}
+      showClose={true}
       title="Report options"
     >
       <Formik

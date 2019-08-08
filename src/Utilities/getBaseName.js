@@ -1,4 +1,4 @@
-function getBaseName(pathname: string): string {
+function getBaseName(pathname) {
     let release = '/';
     const pathName = pathname.split('/');
 

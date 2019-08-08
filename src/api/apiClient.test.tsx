@@ -33,8 +33,8 @@ describe('API calls', () => {
 
     describe('post', () => {
         it('calls request with /create and post', () => {
-            expect(ApiClient.post('/create', {key: 'value'})).toEqual({});
-            expect(ApiClient.request).toHaveBeenCalledWith('/create', {key: 'value'}, 'post', {});
+            expect(ApiClient.post('/create', { key: 'value' })).toEqual({});
+            expect(ApiClient.request).toHaveBeenCalledWith('/create', { key: 'value' }, 'post', {});
         });
     });
 
@@ -47,8 +47,8 @@ describe('API calls', () => {
 
     describe('put', () => {
         it('calls request with path and put', () => {
-            expect(ApiClient.put('/update', {key: 'value'})).toEqual({});
-            expect(ApiClient.request).toHaveBeenCalledWith('/update', {key: 'value'}, 'put', {});
+            expect(ApiClient.put('/update', { key: 'value' })).toEqual({});
+            expect(ApiClient.request).toHaveBeenCalledWith('/update', { key: 'value' }, 'put', {});
         });
     });
 

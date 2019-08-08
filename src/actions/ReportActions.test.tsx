@@ -9,7 +9,7 @@ import * as actionGenerator from './ReportActions';
 
 describe('fetchReports', () => {
     it('returns a state object', () => {
-        expect(actionGenerator.fetchReports(1, 10, 'search text' )).toMatchSnapshot();
+        expect(actionGenerator.fetchReports(1, 10, 'search text')).toMatchSnapshot();
     });
 });
 
@@ -34,5 +34,11 @@ describe('fetchReportWorkloadMigrationSummary', () => {
 describe('fetchReportInitialSavingEstimation', () => {
     it('returns a state object', () => {
         expect(actionGenerator.fetchReportInitialSavingEstimation(1)).toMatchSnapshot();
+    });
+});
+
+describe('fetchReportWorkloadInventory', () => {
+    it('returns a state object', () => {
+        expect(actionGenerator.fetchReportWorkloadInventory(1, 1, 10, 'vmName', 'asc')).toMatchSnapshot();
     });
 });

@@ -19,7 +19,7 @@ class ReportsPage extends Component<Props, State> {
         super(props);
     }
 
-    render() {
+    public render() {
         const { children } = this.props;
 
         return (

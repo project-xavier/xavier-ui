@@ -1,8 +1,8 @@
 import { Route, Switch, Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import React from 'react';
 import asyncComponent from './Utilities/asyncComponent';
 import some from 'lodash/some';
-import { RouterGlobalProps } from './models/router';
 import UserRoute from './SmartComponents/UserRoute';
 
 /**
@@ -41,19 +41,15 @@ const paths = {
     error: '/error'
 };
 
-interface InsightsRouteProps {
-    component: any;
-    rootClass: string;
-    skipLoadUser: boolean;
-}
+type Props = {
+    childProps: any
+};
 
-const InsightsRoute = ({ component: Component, rootClass, skipLoadUser, ...rest } : InsightsRouteProps) => {
+const InsightsRoute = ({ component: Component, rootClass, skipLoadUser, ...rest }) => {
     const root = document.getElementById('root');
-    if (root) {
-        root.removeAttribute('class');
-        root.classList.add(`page__${rootClass}`, 'pf-c-page__main');
-        root.setAttribute('role', 'main');
-    }
+    root.removeAttribute('class');
+    root.classList.add(`page__${rootClass}`, 'pf-c-page__main');
+    root.setAttribute('role', 'main');
 
     if (skipLoadUser) {
         return (<Route { ...rest } component={ Component } />);
@@ -62,9 +58,11 @@ const InsightsRoute = ({ component: Component, rootClass, skipLoadUser, ...rest 
     }
 };
 
-interface RoutesProps {
-    childProps: RouterGlobalProps;
-}
+InsightsRoute.propTypes = {
+    component: PropTypes.func,
+    rootClass: PropTypes.string,
+    skipLoadUser: PropTypes.bool
+};
 
 /**
  * the Switch component changes routes depending on the path.
@@ -74,7 +72,7 @@ interface RoutesProps {
  *      path - https://prod.foo.redhat.com:1337/insights/advisor/rules
  *      component - component to be rendered when a route has been chosen.
  */
-export const Routes = (props: RoutesProps) => {
+export const Routes = (props: Props) => {
     const path = props.childProps.location.pathname;
 
     return (
@@ -87,7 +85,7 @@ export const Routes = (props: RoutesProps) => {
             <InsightsRoute component={ ErrorPage } rootClass='error' path={ paths.error } skipLoadUser={ true }/>
 
             { /* Finally, catch all unmatched routes */ }
-            <Route render={ () => some(paths, p => p === path) ? null : (<Redirect to={ paths.gettingStarted } />) } />
+            <Route render={ () => some(paths, p => p === path) ? null : (<Redirect to={ paths.gettingStarted }/>) }/>
         </Switch>
     );
 };

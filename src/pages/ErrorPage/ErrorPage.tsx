@@ -32,7 +32,7 @@ class ErrorPage extends React.Component<Props, State> {
         super(props);
     }
 
-    render() {
+    public render() {
         return (
             <React.Fragment>
                 <PageHeader>
@@ -48,7 +48,7 @@ class ErrorPage extends React.Component<Props, State> {
                             <EmptyStateBody>
                                 Something unexpected happened, please try again!
                             </EmptyStateBody>
-                            <Link to={ '/' } className="pf-c-button pf-m-primary">Home</Link>
+                            <Link to={ '/' } className="pf-c-button pf-m-primary" target="_self">Home</Link>
                         </EmptyState>
                     </Bullseye>
                 </Main>

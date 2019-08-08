@@ -11,7 +11,7 @@ import { Upload } from '../models';
 describe('uploadRequest', () => {
     it('returns a state object', () => {
         const upload: Upload = {
-            file: new File([ '' ], 'myFile.zip'),
+            file: new File([''], 'myFile.zip'),
             reportName: 'myReportName',
             reportDescription: 'myReportDescription',
             yearOverYearGrowthRatePercentage: 5,
@@ -32,7 +32,7 @@ describe('uploadProgress', () => {
 
 describe('selectFile', () => {
     it('returns a state object', () => {
-        const file = new File([ '' ], 'myFile.zip');
+        const file = new File([''], 'myFile.zip');
         expect(actionGenerator.selectUploadFile(file)).toMatchSnapshot();
     });
 });

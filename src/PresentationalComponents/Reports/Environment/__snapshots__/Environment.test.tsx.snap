@@ -47,7 +47,7 @@ exports[`Environment expect to render 1`] = `
         Array [
           "Year-over-year growth rate for new hypervisors",
           "",
-          "120%",
+          "5%",
         ],
       ]
     }
@@ -63,6 +63,68 @@ exports[`Environment expect to render 1`] = `
 `;
 
 exports[`Environment expect to render using null and undefined data 1`] = `
+<Fragment>
+  <Table
+    aria-label="Environment"
+    borders={true}
+    cells={
+      Array [
+        "",
+        "",
+        "",
+      ]
+    }
+    className=""
+    contentId="expanded-content"
+    dropdownDirection="down"
+    dropdownPosition="right"
+    expandId="expandable-toggle"
+    gridBreakPoint="grid-md"
+    onCollapse={null}
+    onExpand={null}
+    role="grid"
+    rowLabeledBy="simple-node"
+    rows={
+      Array [
+        Array [
+          "ESXi hypervisors (2-socket servers)",
+          "",
+          "Unknown",
+        ],
+        Array [
+          "ESXi hypervisors would be migrated to RH technologies",
+          "Year1 (incremental)",
+          "Unknown",
+        ],
+        Array [
+          "",
+          "Year2 (incremental)",
+          "Unknown",
+        ],
+        Array [
+          "",
+          "Year3 (incremental)",
+          "Unknown",
+        ],
+        Array [
+          "Year-over-year growth rate for new hypervisors",
+          "",
+          "Unknown",
+        ],
+      ]
+    }
+    variant="compact"
+  >
+    <TableBody
+      className=""
+      onRowClick={[Function]}
+      rowKey="id"
+    />
+  </Table>
+</Fragment>
+`;
+
+exports[`Environment expect to render using null and undefined data 2`] = `
 <Fragment>
   <Table
     aria-label="Environment"

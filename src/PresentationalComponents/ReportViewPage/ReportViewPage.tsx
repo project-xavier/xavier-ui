@@ -15,7 +15,7 @@ import {
 import { Report } from '../../models';
 import { Link } from 'react-router-dom';
 import { RouterGlobalProps } from '../../models/router';
-import { ReportViewPaths } from '../../pages/ReportView/ReportViewConstants';
+import { REPORT_VIEW_PATHS } from '../../pages/ReportView/ReportViewConstants';
 import { ObjectFetchStatus } from '../../models/state';
 
 export interface Props extends RouterGlobalProps {
@@ -25,7 +25,7 @@ export interface Props extends RouterGlobalProps {
 };
 
 interface State {
-    activeTabKey: number
+    activeTabKey: number | string;
 }
 
 class ReportViewPage extends Component<Props, State> {
@@ -35,11 +35,11 @@ class ReportViewPage extends Component<Props, State> {
 
         let activeTabKey = 1;
 
-        if (props.location.pathname.endsWith(ReportViewPaths.workloadMigrationSummary)) {
+        if (props.location.pathname.endsWith(REPORT_VIEW_PATHS.workloadMigrationSummary)) {
             activeTabKey = 0;
-        } else if (props.location.pathname.endsWith(ReportViewPaths.workloadMigrationSummary)) {
+        } else if (props.location.pathname.endsWith(REPORT_VIEW_PATHS.initialSavingsEstimation)) {
             activeTabKey = 1;
-        } else if (props.location.pathname.endsWith(ReportViewPaths.workloadInventory)) {
+        } else if (props.location.pathname.endsWith(REPORT_VIEW_PATHS.workloadInventory)) {
             activeTabKey = 2;
         }
 
@@ -48,7 +48,7 @@ class ReportViewPage extends Component<Props, State> {
         };
     }
 
-    handleTabClick = (_event: any, tabIndex: number) => {
+    public handleTabClick = (_event: React.MouseEvent<HTMLElement, MouseEvent>, tabIndex: number | string) => {
         this.setState({
             activeTabKey: tabIndex
         });
@@ -57,20 +57,20 @@ class ReportViewPage extends Component<Props, State> {
 
         switch (tabIndex) {
             case 0:
-                history.push(`${match.url}/${ReportViewPaths.workloadMigrationSummary}`);
+                history.push(`${match.url}/${REPORT_VIEW_PATHS.workloadMigrationSummary}`);
                 break;
             case 1:
-                history.push(`${match.url}/${ReportViewPaths.initialSavingsEstimation}`);
+                history.push(`${match.url}/${REPORT_VIEW_PATHS.initialSavingsEstimation}`);
                 break;
             case 2:
-                history.push(`${match.url}/${ReportViewPaths.workloadInventory}`);
+                history.push(`${match.url}/${REPORT_VIEW_PATHS.workloadInventory}`);
                 break;
         }
     };
 
-    renderTabs = () => {
+    public renderTabs = () => {
         const { report } = this.props;
-        const currentBreadcrumb = report ? report.fileName : '';
+        const currentBreadcrumb = report ? report.reportName : '';
 
         return (
             <React.Fragment>
@@ -78,22 +78,22 @@ class ReportViewPage extends Component<Props, State> {
                     <BreadcrumbItem>
                         <Link to="/reports">Reports</Link>
                     </BreadcrumbItem>
-                    <BreadcrumbItem isActive>{ currentBreadcrumb }</BreadcrumbItem>
+                    <BreadcrumbItem isActive={true}>{ currentBreadcrumb }</BreadcrumbItem>
                 </Breadcrumb>
                 <Tabs
-                    isFilled
+                    isFilled={true}
                     onSelect={ this.handleTabClick }
                     activeKey={ this.state.activeTabKey }
                 >
-                    <Tab eventKey={ 0 } title="Workload Migration Summary"></Tab>
-                    <Tab eventKey={ 1 } title="Initials Savings Estimation"></Tab>
-                    <Tab eventKey={ 2 } title="Workload Inventory"></Tab>
+                    <Tab eventKey={ 0 } title="Workload Migration Summary"/>
+                    <Tab eventKey={ 1 } title="Initials Savings Estimation"/>
+                    <Tab eventKey={ 2 } title="Workload Inventory"/>
                 </Tabs>
             </React.Fragment>
         );
     }
 
-    renderTabsSkeleton = () => {
+    public renderTabsSkeleton = () => {
         return (
             <React.Fragment>
                 <div className="pf-l-stack pf-m-gutter">
@@ -118,7 +118,7 @@ class ReportViewPage extends Component<Props, State> {
         );
     };
 
-    render() {
+    public render() {
         const { reportFetchStatus, children } = this.props;
 
         if (reportFetchStatus.error) {

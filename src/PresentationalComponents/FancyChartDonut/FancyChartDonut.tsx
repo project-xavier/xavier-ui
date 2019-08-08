@@ -28,7 +28,7 @@ class FancyChartDonut extends Component<Props, State> {
         super(props);
     }
 
-    render() {
+    public render() {
         const { data, chartProps, chartLegendProps, tickFormat } = this.props;
 
         const chartData = data.map((val) => {
@@ -46,6 +46,10 @@ class FancyChartDonut extends Component<Props, State> {
 
         const colorScale = data.map((val) => val.color);
 
+        const chartLabels = (datum: any): string => {
+            return tickFormat ? tickFormat(datum.x, datum.y) : `${datum.x}: ${datum.y}`;
+        };
+
         return (
             <React.Fragment>
                 <div className="pf-u-display-flex">
@@ -53,7 +57,7 @@ class FancyChartDonut extends Component<Props, State> {
                         <ChartDonut
                             data={ chartData }
                             colorScale={ colorScale }
-                            labels={ datum => tickFormat ? tickFormat(datum.x, datum.y) : `${datum.x}: ${datum.y}` }
+                            labels={ chartLabels }
                             { ...chartProps }
                         />
                     </div>
