@@ -7,10 +7,7 @@ exports[`ReportCard expect to render with bullseye 1`] = `
       This is the title
     </CardHeader>
     <CardBody>
-      <Bullseye
-        className=""
-        component="div"
-      >
+      <Bullseye>
         children
       </Bullseye>
     </CardBody>
@@ -31,10 +28,7 @@ exports[`ReportCard expect to render with custom classes 1`] = `
     <CardBody
       className="customBodyClass"
     >
-      <Bullseye
-        className=""
-        component="div"
-      >
+      <Bullseye>
         loaded
       </Bullseye>
     </CardBody>

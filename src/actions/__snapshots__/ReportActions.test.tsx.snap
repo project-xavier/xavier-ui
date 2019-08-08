@@ -49,6 +49,21 @@ Object {
 }
 `;
 
+exports[`fetchReportWorkloadInventory returns a state object 1`] = `
+Object {
+  "meta": Object {
+    "notifications": Object {
+      "rejected": Object {
+        "title": "Failed to load report workload inventory 1",
+        "variant": "danger",
+      },
+    },
+  },
+  "payload": Promise {},
+  "type": "FETCH_REPORT_WOKLOAD_INVENTORY",
+}
+`;
+
 exports[`fetchReportWorkloadMigrationSummary returns a state object 1`] = `
 Object {
   "meta": Object {

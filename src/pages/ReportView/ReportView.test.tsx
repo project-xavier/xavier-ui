@@ -5,12 +5,11 @@ import ReportView from "./ReportView";
 const props = {
   report: {
     id: 36,
-    customerId: "123456",
-    fileName: "file1.json",
-    numberOfHosts: 254,
-    totalDiskSpace: 5871365,
-    totalPrice: 1200,
-    creationDate: 254112,
+    reportName: "My report name",
+    reportDescription: "My report description",
+    payloadName: "file1.json",
+    inserted: 254112,
+    lastUpdate: 254112,
     status: "CREATED"
   },
 
