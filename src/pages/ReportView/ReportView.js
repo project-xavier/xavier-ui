@@ -30,6 +30,10 @@ class ReportView extends React.Component {
         const { report, reportFetchStatus } = this.props;
         const { reportId } = this.state;
 
+        if (!reportId) {
+            return <Redirect to="/report" />;
+        }
+
         return (
             <ReportViewPage
                 report={ report }
