@@ -94,15 +94,10 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
                 skipBullseye={ true }
             >
                 <p>
-                    Report build for a 3 year insfraestructure Migration for Acme Inc.
-                </p>
-                <p>
                     <span>Source:</span>&nbsp;
                     <span>Vmware Vsphere Enterprise Plus</span><br />
                     <span>Target:</span>&nbsp;
-                    <span>Red Hat Virtualization</span><br />
-                    <span>Date:</span>&nbsp;
-                    <span>{ new Date(report.lastUpdate).toUTCString() }</span>
+                    <span>Red Hat Virtualization</span>
                 </p>
                 <p>
                     <span>Over 3 year(s) with Red Hat Virtualization, your initial savings estimation could be as much as</span>
