@@ -80,6 +80,10 @@ class Reports extends React.Component<Props, State> {
 
     public pullTimer: any;
 
+    public refreshDataWithDedounce = debounce(() => {
+        this.refreshData();
+    }, 800);
+
     constructor(props: Props) {
         super(props);
         this.state = {
@@ -125,7 +129,7 @@ class Reports extends React.Component<Props, State> {
 
     // 
 
-    public setState_andResetTimer_andSetRenderStatus = (state: any = {}) => {
+    public setStateAndResetTimerAndSetRenderStatus = (state: any = {}) => {
         this.resetRefreshDataTimer();
         this.setState({
             ...state,
@@ -172,11 +176,7 @@ class Reports extends React.Component<Props, State> {
         });
     };
 
-    public refreshDataWithDedounce = debounce(() => {
-        this.refreshData();
-    }, 800);
-
-    public filtersInRowsAndCells(): void {
+    public filtersInRowsAndCells = () => {
         const reports: Report[] = this.props.reports.items ? Object.values(this.props.reports.items) : [];
 
         let rows: any[][] = [];
@@ -211,7 +211,7 @@ class Reports extends React.Component<Props, State> {
                 deleteReport(report.id, report.reportName).then(() => {
                     closeDeleteDialog();
                     
-                    this.setState_andResetTimer_andSetRenderStatus();
+                    this.setStateAndResetTimerAndSetRenderStatus();
                     this.refreshData();
                 });
             },
@@ -224,7 +224,7 @@ class Reports extends React.Component<Props, State> {
     public onPageChange = (event: any, page: number, shouldDebounce: boolean) => {
         this.setState({ page });
 
-        this.setState_andResetTimer_andSetRenderStatus();
+        this.setStateAndResetTimerAndSetRenderStatus();
         if (shouldDebounce) {
             this.refreshDataWithDedounce();
         } else {
@@ -249,7 +249,7 @@ class Reports extends React.Component<Props, State> {
             page = Math.floor(total / perPage) + 1;
         }
 
-        this.setState_andResetTimer_andSetRenderStatus({page, perPage});
+        this.setStateAndResetTimerAndSetRenderStatus({page, perPage});
         this.refreshData(page, perPage);
     };
 
@@ -258,7 +258,7 @@ class Reports extends React.Component<Props, State> {
         const filterText: string = values.filterText.trim();
         const {perPage} = this.state;
         
-        this.setState_andResetTimer_andSetRenderStatus({
+        this.setStateAndResetTimerAndSetRenderStatus({
             filterText,
             page
         });
@@ -391,26 +391,28 @@ class Reports extends React.Component<Props, State> {
         if (isFirstFetchReportsCall) {
             toolbar = '';
         } else {
-            toolbar = (<TableToolbar className="pf-u-justify-content-space-between">
-            <ToolbarGroup>
-                <ToolbarItem className="pf-u-mr-xl">{ this.renderSearchBox() }</ToolbarItem>
-                <ToolbarItem className="pf-u-mr-md">
-                    <Link to={ '/reports/upload' } className="pf-c-button pf-m-primary">Create</Link>
-                </ToolbarItem>
-            </ToolbarGroup>
-            <ToolbarGroup>
-                <ToolbarItem>
-                    <Pagination
-                        itemCount={ reports.total }
-                        perPage={ perPage }
-                        page={ page }
-                        onSetPage={ this.onSetPage }
-                        onPageInput={ this.onPageInput }
-                        onPerPageSelect={ this.onPerPageSelect }
-                    />
-                </ToolbarItem>
-            </ToolbarGroup>
-        </TableToolbar>);
+            toolbar = (
+                <TableToolbar className="pf-u-justify-content-space-between">
+                    <ToolbarGroup>
+                        <ToolbarItem className="pf-u-mr-xl">{ this.renderSearchBox() }</ToolbarItem>
+                        <ToolbarItem className="pf-u-mr-md">
+                            <Link to={ '/reports/upload' } className="pf-c-button pf-m-primary">Create</Link>
+                        </ToolbarItem>
+                    </ToolbarGroup>
+                    <ToolbarGroup>
+                        <ToolbarItem>
+                            <Pagination
+                                itemCount={ reports.total }
+                                perPage={ perPage }
+                                page={ page }
+                                onSetPage={ this.onSetPage }
+                                onPageInput={ this.onPageInput }
+                                onPerPageSelect={ this.onPerPageSelect }
+                            />
+                        </ToolbarItem>
+                    </ToolbarGroup>
+                </TableToolbar>
+            );
         }
 
         let table: React.ReactNode;
