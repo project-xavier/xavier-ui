@@ -72,10 +72,10 @@ class ReportViewPage extends Component<Props, State> {
                 </Breadcrumb>
                 <div className="pf-c-content" style={{marginBottom: 'var(--pf-c-content--MarginBottom)'}}>
                     <p>
-                        <strong className="pf-c-title pf-m-3xl">{ `${REPORT_VIEW_PATHS[activeTabKey].title}(${ currentBreadcrumb })` }</strong>
+                        <span className="pf-c-title pf-m-3xl">{ `${REPORT_VIEW_PATHS[activeTabKey].title} (${ currentBreadcrumb })` }</span>
                     </p>
                     <p>
-                        <span>{ report ? report.reportDescription : '' }</span><br/>
+                        { (report && report.reportDescription) && <React.Fragment><span>{report.reportDescription}</span><br/></React.Fragment> }
                         { (REPORT_VIEW_PATHS[activeTabKey].key === INITIAL_SAVINGS_ESTIMATION_KEY) && <React.Fragment>
                                 <span>Source:</span>&nbsp;<span>VSphere Enterprise Plus</span><br/>
                                 <span>Target:</span>&nbsp;<span>Red Hat Virtualization</span><br/>
@@ -103,6 +103,12 @@ class ReportViewPage extends Component<Props, State> {
         return (
             <React.Fragment>
                 <div className="pf-l-stack pf-m-gutter">
+                    <div className="pf-l-stack__item">
+                        <Skeleton size="sm" />
+                    </div>
+                    <div className="pf-l-stack__item">
+                        <Skeleton size="sm" />
+                    </div>
                     <div className="pf-l-stack__item">
                         <Skeleton size="sm" />
                     </div>
