@@ -16,7 +16,8 @@ import {
     Title,
     TitleLevel,
     EmptyStateBody,
-    Button
+    Button,
+    Tooltip
 } from '@patternfly/react-core';
 
 import { Report, ReportInitialSavingEstimation } from '../../../models';
@@ -30,7 +31,7 @@ import FancyGroupedBarChart from '../../../PresentationalComponents/FancyGrouped
 import ReportCard from '../../../PresentationalComponents/ReportCard';
 import ProjectCostBreakdownTable from '../../../PresentationalComponents/Reports/ProjectCostBreakdownTable';
 import { ObjectFetchStatus } from '../../../models/state';
-import { ErrorCircleOIcon } from '@patternfly/react-icons';
+import { ErrorCircleOIcon, HelpIcon } from '@patternfly/react-icons';
 import {
     ChartAxisProps,
     ChartLegendProps,
@@ -247,7 +248,21 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
         const tickFormat = (label: string, value: number) => `${label}: ${value.toFixed(2)}%`;
         return (
             <ReportCard
-                title='Total VMware maintenance, Red Hat Virtualization, training and services costs during a 3 year migration'
+                title={
+                    <span>
+                        <span>Total costs during 3 years migration</span>
+                        <span style={{float: 'right'}}>
+                            <Tooltip
+                                position="right"
+                                content={
+                                    <div>Includes VMWare maintenance, Red Hat virtualization subscriptions, training and services</div>
+                                }
+                            >
+                                <HelpIcon />
+                            </Tooltip>
+                        </span>
+                    </span>
+                }
             >
                 <FancyChartDonut
                     data={ chartData }
