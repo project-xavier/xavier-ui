@@ -2,7 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import {
     TableToolbar,
-    SkeletonTable
+    SkeletonTable,
+    Skeleton
 } from '@redhat-cloud-services/frontend-components';
 import {
     Button,
@@ -70,6 +71,7 @@ export interface State {
     columns: Array<ICell | string>;
     rows: Array<IRow | string[]>;
     isFirstFetchReportsCall: boolean;
+    renderInProgresFetchStatus: boolean;
 };
 
 const PULL_INTERVAL_TIME = 5000;
@@ -77,10 +79,6 @@ const PULL_INTERVAL_TIME = 5000;
 class Reports extends React.Component<Props, State> {
 
     public pullTimer: any;
-
-    public changePage = debounce(() => {
-        this.refreshData();
-    }, 800);
 
     constructor(props: Props) {
         super(props);
@@ -99,7 +97,8 @@ class Reports extends React.Component<Props, State> {
                 }
             ],
             rows: [],
-            isFirstFetchReportsCall: true
+            isFirstFetchReportsCall: true,
+            renderInProgresFetchStatus: false
         };
     }
 
@@ -107,7 +106,7 @@ class Reports extends React.Component<Props, State> {
 
     public componentDidMount() {
         this.refreshData();
-        this.startTimer(this.refreshData);
+        this.resetRefreshDataTimer();
     }
 
     public componentDidUpdate() {
@@ -124,7 +123,21 @@ class Reports extends React.Component<Props, State> {
         this.stopTimer();
     }
 
+    // 
+
+    public setState_andResetTimer_andSetRenderStatus = (state: any = {}) => {
+        this.resetRefreshDataTimer();
+        this.setState({
+            ...state,
+            renderInProgresFetchStatus: true
+        });
+    }
     // Pull timer config
+
+    public resetRefreshDataTimer = () => {
+        this.stopTimer();
+        this.startTimer(this.refreshData);
+    };
 
     public startTimer = (callback: (...args: any[]) => void) => {
         if (this.pullTimer) {
@@ -138,7 +151,55 @@ class Reports extends React.Component<Props, State> {
         clearInterval(this.pullTimer);
     };
 
-    //
+    // Table data management section
+
+    public refreshData = (page: number = this.state.page, perPage: number = this.state.perPage, filterText: string = this.state.filterText) => {
+        const { renderInProgresFetchStatus } = this.state;
+        this.props.fetchReports(page, perPage, filterText).then(() => {
+            this.filtersInRowsAndCells();
+
+            if (renderInProgresFetchStatus) {
+                this.setState({
+                    renderInProgresFetchStatus: false
+                });   
+            }
+
+            // Change isFirstFetchReportsCall to false to indicate
+            const { isFirstFetchReportsCall } = this.state;
+            if (isFirstFetchReportsCall) {
+                this.setState({ isFirstFetchReportsCall: false });
+            }
+        });
+    };
+
+    public refreshDataWithDedounce = debounce(() => {
+        this.refreshData();
+    }, 800);
+
+    public filtersInRowsAndCells(): void {
+        const reports: Report[] = this.props.reports.items ? Object.values(this.props.reports.items) : [];
+
+        let rows: any[][] = [];
+        if (reports.length > 0) {
+            rows = reports.map((report) => (
+                [
+                    {
+                        title: <Link to={ `/reports/${report.id}` }>{ report.reportName }</Link>
+                    },
+                    {
+                        title: this.renderReportStatus(report)
+                    },
+                    {
+                        title: this.renderReportActions(report)
+                    }
+                ]
+            ));
+        }
+
+        this.setState({ rows });
+    };
+
+    // Actions
 
     public handleDeleteReport = (report: Report) => {
         const { deleteReport, showDeleteDialog, closeDeleteDialog } = this.props;
@@ -149,6 +210,8 @@ class Reports extends React.Component<Props, State> {
             onDelete: () => {
                 deleteReport(report.id, report.reportName).then(() => {
                     closeDeleteDialog();
+                    
+                    this.setState_andResetTimer_andSetRenderStatus();
                     this.refreshData();
                 });
             },
@@ -157,6 +220,48 @@ class Reports extends React.Component<Props, State> {
             }
         });
     };
+
+    public onPageChange = (event: any, page: number, shouldDebounce: boolean) => {
+        this.setState({ page });
+
+        this.setState_andResetTimer_andSetRenderStatus();
+        if (shouldDebounce) {
+            this.refreshDataWithDedounce();
+        } else {
+            this.refreshData(page);
+        }
+    };
+
+    public onSetPage = (event: any, page: number) => {
+        return event.target.className === 'pf-c-form-control' || this.onPageChange(event, page, false);
+    };
+
+    public onPageInput = (event: any, page: number) => {
+        return this.onPageChange(event, page, true);
+    };
+
+    public onPerPageSelect = (_event: any, perPage: number) => {
+        let page = this.state.page;
+        const total = this.props.reports.total;
+
+        // If current page and perPage would request data beyond total, show last available page
+        if (page * perPage > total) {
+            page = Math.floor(total / perPage) + 1;
+        }
+
+        this.setState_andResetTimer_andSetRenderStatus({page, perPage});
+        this.refreshData(page, perPage);
+    };
+
+    public handleSearchSubmit = (values: any) => {
+        const filterText: string = values.filterText.trim();
+        const {page, perPage} = this.state;
+        
+        this.setState_andResetTimer_andSetRenderStatus({filterText});
+        this.refreshData(page, perPage, filterText);
+    };
+
+    // Render section
 
     public renderReportStatus = (report: Report) => {
         switch (report.status) {
@@ -188,72 +293,7 @@ class Reports extends React.Component<Props, State> {
         }
     };
 
-    public filtersInRowsAndCells(): void {
-        const reports: Report[] = this.props.reports.items ? Object.values(this.props.reports.items) : [];
-
-        let rows: any[][] = [];
-        if (reports.length > 0) {
-            rows = reports.map((report) => (
-                [
-                    {
-                        title: <Link to={ `/reports/${report.id}` }>{ report.reportName }</Link>
-                    },
-                    {
-                        title: this.renderReportStatus(report)
-                    },
-                    {
-                        title: this.renderReportActions(report)
-                    }
-                ]
-            ));
-        }
-
-        this.setState({ rows });
-    }
-
-    public refreshData = (page: number = this.state.page, perPage: number = this.state.perPage, filterText: string = this.state.filterText) => {
-        this.props.fetchReports(page, perPage, filterText).then(() => {
-            this.filtersInRowsAndCells();
-
-            // Change to false to indicate that
-            const { isFirstFetchReportsCall } = this.state;
-            if (isFirstFetchReportsCall) {
-                this.setState({ isFirstFetchReportsCall: false });
-            }
-        });
-    }
-
-    public onPageChange = (event: any, page: number, shouldDebounce: boolean) => {
-        this.setState({ page });
-        if (shouldDebounce) {
-            this.changePage();
-        } else {
-            this.refreshData(page);
-        }
-    };
-
-    public onSetPage = (event: any, page: number) => {
-        return event.target.className === 'pf-c-form-control' || this.onPageChange(event, page, false);
-    };
-
-    public onPageInput = (event: any, page: number) => {
-        return this.onPageChange(event, page, true);
-    };
-
-    public onPerPageSelect = (_event: any, perPage: number) => {
-        let page = this.state.page;
-        const total = this.props.reports.total;
-
-        // If current page and perPage would request data beyond total, show last available page
-        if (page * perPage > total) {
-            page = Math.floor(total / perPage) + 1;
-        }
-
-        this.setState({ page, perPage });
-        this.refreshData(page, perPage);
-    };
-
-    public renderNoResults() {
+    public renderNoResults = () => {
         return (
             <React.Fragment>
                 <Card>
@@ -269,9 +309,9 @@ class Reports extends React.Component<Props, State> {
                 </Card>
             </React.Fragment>
         );
-    }
+    };
 
-    public renderResultsTable() {
+    public renderResultsTable = () => {
         const { rows, columns } = this.state;
 
         return (
@@ -283,14 +323,12 @@ class Reports extends React.Component<Props, State> {
                 <TableBody />
             </Table>
         );
-    }
+    };
 
-    public handleSearchSubmit = (values: any) => {
-        const filterText: string = values.filterText;
-        this.setState({
-            filterText: filterText.trim()
-        });
-        this.refreshData();
+    public renderResultsTableSkeleton = () => {
+        return (
+            <SkeletonTable colSize={ 3 } rowSize={ 10 }/>
+        );
     };
 
     public renderSearchBox = () => {
@@ -342,40 +380,46 @@ class Reports extends React.Component<Props, State> {
     };
 
     public render() {
-        const { isFirstFetchReportsCall, page, perPage } = this.state;
-        const { total } = this.props.reports;
+        const { page, perPage, isFirstFetchReportsCall, renderInProgresFetchStatus } = this.state;
+        const { reports, reportsFetchStatus } = this.props;
 
+        let toolbar: React.ReactNode;
         if (isFirstFetchReportsCall) {
-            return (
-                <ReportsPage>
-                    <SkeletonTable colSize={ 3 } rowSize={ 10 }/>
-                </ReportsPage>
-            );
+            toolbar = '';
+        } else {
+            toolbar = (<TableToolbar className="pf-u-justify-content-space-between">
+            <ToolbarGroup>
+                <ToolbarItem className="pf-u-mr-xl">{ this.renderSearchBox() }</ToolbarItem>
+                <ToolbarItem className="pf-u-mr-md">
+                    <Link to={ '/reports/upload' } className="pf-c-button pf-m-primary">Create</Link>
+                </ToolbarItem>
+            </ToolbarGroup>
+            <ToolbarGroup>
+                <ToolbarItem>
+                    <Pagination
+                        itemCount={ reports.total }
+                        perPage={ perPage }
+                        page={ page }
+                        onSetPage={ this.onSetPage }
+                        onPageInput={ this.onPageInput }
+                        onPerPageSelect={ this.onPerPageSelect }
+                    />
+                </ToolbarItem>
+            </ToolbarGroup>
+        </TableToolbar>);
+        }
+
+        let table: React.ReactNode;
+        if (isFirstFetchReportsCall || (reportsFetchStatus.status === 'inProgress' && renderInProgresFetchStatus)) {
+            table = this.renderResultsTableSkeleton();
+        } else {
+            table = reports.total > 0 ? this.renderResultsTable() : this.renderNoResults();
         }
 
         return (
             <ReportsPage>
-                <TableToolbar className="pf-u-justify-content-space-between">
-                    <ToolbarGroup>
-                        <ToolbarItem className="pf-u-mr-xl">{ this.renderSearchBox() }</ToolbarItem>
-                        <ToolbarItem className="pf-u-mr-md">
-                            <Link to={ '/reports/upload' } className="pf-c-button pf-m-primary">Create</Link>
-                        </ToolbarItem>
-                    </ToolbarGroup>
-                    <ToolbarGroup>
-                        <ToolbarItem>
-                            <Pagination
-                                itemCount={ total }
-                                perPage={ perPage }
-                                page={ page }
-                                onSetPage={ this.onSetPage }
-                                onPageInput={ this.onPageInput }
-                                onPerPageSelect={ this.onPerPageSelect }
-                            />
-                        </ToolbarItem>
-                    </ToolbarGroup>
-                </TableToolbar>
-                { (total > 0 ? this.renderResultsTable() : this.renderNoResults()) }
+                { toolbar }
+                { table }
             </ReportsPage>
         );
     }
