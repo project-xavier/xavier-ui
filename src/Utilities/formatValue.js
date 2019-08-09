@@ -48,6 +48,11 @@ export const formatValue = (value, unit, options = {}) => {
     }
 };
 
-export const formatDate = (value) => {
-    return value.toUTCString();
+export const formatDate = value => {
+    const locale = 'default';
+    const day = value.getDate();
+    const month = value.toLocaleString(locale, { month: 'long' });
+    const year = value.getFullYear();
+
+    return day + ' ' + month + ' ' + year;
 };
