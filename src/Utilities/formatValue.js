@@ -47,3 +47,7 @@ export const formatValue = (value, unit, options = {}) => {
             return unknownTypeFormatter(fValue, lookup, options);
     }
 };
+
+export const formatDate = (value) => {
+    return value.toUTCString();
+};

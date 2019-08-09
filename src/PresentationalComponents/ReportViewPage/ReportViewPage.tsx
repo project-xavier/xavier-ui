@@ -18,6 +18,7 @@ import { Link } from 'react-router-dom';
 import { RouterGlobalProps } from '../../models/router';
 import { REPORT_VIEW_PATHS, DEFAULT_VIEW_PATH_INDEX, INITIAL_SAVINGS_ESTIMATION_KEY } from '../../pages/ReportView/ReportViewConstants';
 import { ObjectFetchStatus } from '../../models/state';
+import { formatDate } from '../../Utilities/formatValue';
 
 export interface Props extends RouterGlobalProps {
     mainStyle?: any;
@@ -81,7 +82,7 @@ class ReportViewPage extends Component<Props, State> {
                                 <span>Target:</span>&nbsp;<span>Red Hat Virtualization</span><br/>
                             </React.Fragment>
                         }
-                        <span>Date:</span>&nbsp;<span>{ report ? new Date(report.lastUpdate).toUTCString() : '' }</span>
+                        <span>Date:</span>&nbsp;<span>{ report ? formatDate(new Date(report.lastUpdate)) : 'Unknow' }</span>
                     </p>
                 </div>
                 <Tabs

@@ -26,6 +26,20 @@ exports[`ReportViewPage expect to render skeleton 1`] = `
             <div
               className="pf-l-stack__item"
             >
+              <Skeleton
+                size="sm"
+              />
+            </div>
+            <div
+              className="pf-l-stack__item"
+            >
+              <Skeleton
+                size="sm"
+              />
+            </div>
+            <div
+              className="pf-l-stack__item"
+            >
               <div
                 className="pf-l-grid"
               >
@@ -103,17 +117,19 @@ exports[`ReportViewPage expect to render tabs when fetch status is complete 1`] 
             }
           >
             <p>
-              <strong
+              <span
                 className="pf-c-title pf-m-3xl"
               >
-                Initial savings estimation(My report name 123)
-              </strong>
+                Initial savings estimation (My report name 123)
+              </span>
             </p>
             <p>
-              <span>
-                My report descruiption 123
-              </span>
-              <br />
+              <React.Fragment>
+                <span>
+                  My report descruiption 123
+                </span>
+                <br />
+              </React.Fragment>
               <React.Fragment>
                 <span>
                   Source:
@@ -216,17 +232,13 @@ exports[`ReportViewPage expect to render tabs when fetch status is complete and 
             }
           >
             <p>
-              <strong
+              <span
                 className="pf-c-title pf-m-3xl"
               >
-                Initial savings estimation()
-              </strong>
+                Initial savings estimation ()
+              </span>
             </p>
             <p>
-              <span>
-                
-              </span>
-              <br />
               <React.Fragment>
                 <span>
                   Source:
@@ -250,7 +262,7 @@ exports[`ReportViewPage expect to render tabs when fetch status is complete and 
               </span>
                
               <span>
-                
+                Unknow
               </span>
             </p>
           </div>
