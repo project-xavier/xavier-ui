@@ -254,10 +254,14 @@ class Reports extends React.Component<Props, State> {
     };
 
     public handleSearchSubmit = (values: any) => {
+        const page = 1;
         const filterText: string = values.filterText.trim();
-        const {page, perPage} = this.state;
+        const {perPage} = this.state;
         
-        this.setState_andResetTimer_andSetRenderStatus({filterText});
+        this.setState_andResetTimer_andSetRenderStatus({
+            filterText,
+            page
+        });
         this.refreshData(page, perPage, filterText);
     };
 
