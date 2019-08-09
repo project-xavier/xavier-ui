@@ -27,7 +27,7 @@ exports[`ReportsUpload expect to render form 1`] = `
             "file": "",
             "percentageOfHypervisorsMigratedOnYear1": 50,
             "percentageOfHypervisorsMigratedOnYear2": 30,
-            "percentageOfHypervisorsMigratedOnYear3": 10,
+            "percentageOfHypervisorsMigratedOnYear3": 20,
             "percentageOfHypervisorsMigratedSum": 90,
             "reportDescription": "",
             "reportName": "",

@@ -97,7 +97,7 @@ class ReportViewPage extends Component<Props, State> {
                 </Tabs>
             </React.Fragment>
         );
-    }
+    };
 
     public renderTabsSkeleton = () => {
         return (

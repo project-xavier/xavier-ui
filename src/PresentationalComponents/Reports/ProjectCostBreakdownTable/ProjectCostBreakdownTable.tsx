@@ -58,16 +58,18 @@ class ProjectCostBreakdownTable extends Component<Props, State> {
         const { rhvRampUpCostsModel } = this.props;
 
         if (isNotNullOrUndefined(
-            rhvRampUpCostsModel.year1RhvGrandTotalGrowthValue,
-            rhvRampUpCostsModel.year2RhvGrandTotalGrowthValue,
-            rhvRampUpCostsModel.year3RhvGrandTotalGrowthValue
+            rhvRampUpCostsModel.year1RhvTotalGrowthValue,
+            rhvRampUpCostsModel.year2RhvTotalGrowthValue,
+            rhvRampUpCostsModel.year3RhvTotalGrowthValue
         )) {
             return undefined;
         }
 
-        return rhvRampUpCostsModel.year1RhvGrandTotalGrowthValue +
-            rhvRampUpCostsModel.year2RhvGrandTotalGrowthValue +
-            rhvRampUpCostsModel.year3RhvGrandTotalGrowthValue;
+        // null or undefined  values are already validaded above
+        // "|| 0" is written just to avoid "Object is possibly 'undefined'" warning
+        return (rhvRampUpCostsModel.year1RhvTotalGrowthValue || 0) +
+            (rhvRampUpCostsModel.year2RhvTotalGrowthValue || 0) +
+            (rhvRampUpCostsModel.year3RhvTotalGrowthValue || 0);
     }
 
     public render() {

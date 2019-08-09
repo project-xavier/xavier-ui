@@ -75,7 +75,7 @@ const initialFormValue: FormValues = {
     yearOverYearGrowthRatePercentage: 5,
     percentageOfHypervisorsMigratedOnYear1: 50,
     percentageOfHypervisorsMigratedOnYear2: 30,
-    percentageOfHypervisorsMigratedOnYear3: 10,
+    percentageOfHypervisorsMigratedOnYear3: 20,
     percentageOfHypervisorsMigratedSum: 90
 };
 
@@ -126,8 +126,6 @@ class ReportsUpload extends React.Component<Props, State> {
     public redirectTimer: any;
     public beforeUnloadHandler: any;
 
-    public initialFormValue: FormValues;
-
     constructor(props: Props) {
         super(props);
 
@@ -135,17 +133,6 @@ class ReportsUpload extends React.Component<Props, State> {
             showForm: true,
             timeoutToRedirect: 3,
             cancelUploadSource: Axios.CancelToken.source()
-        };
-
-        this.initialFormValue = {
-            file: '',
-            reportName: '',
-            reportDescription: '',
-            yearOverYearGrowthRatePercentage: 5,
-            percentageOfHypervisorsMigratedOnYear1: 50,
-            percentageOfHypervisorsMigratedOnYear2: 30,
-            percentageOfHypervisorsMigratedOnYear3: 10,
-            percentageOfHypervisorsMigratedSum: 90
         };
 
         this.redirectTimer = null;
@@ -250,7 +237,7 @@ class ReportsUpload extends React.Component<Props, State> {
         };
 
         this.props.uploadRequest(upload, config);
-    }
+    };
 
     public handleCancelUpload = () => {
         this.state.cancelUploadSource.cancel('Upload canceled by the user.');
@@ -261,19 +248,19 @@ class ReportsUpload extends React.Component<Props, State> {
     };
 
     public renderProgress() {
-        let message: string;
+        let title: string;
         let secondaryAction;
         if (this.props.error) {
-            message = 'An error occured during the upload process. Please, try again.';
+            title = 'An error ocurred while uploading your file';
             secondaryAction = (
                 <Link to={ '/reports/upload' } className="pf-c-button pf-m-secondary" target="_self">Retry</Link>
             );
         } else {
             if (this.props.success) {
-                message = 'Finished successfully. We will redirect you to the next page.';
+                title = 'Upload finished successfully';
                 secondaryAction = this.actionsOnUploadSuccess();
             } else {
-                message = 'Your file is been uploaded, the process can take some time.';
+                title = 'Upload in progress';
                 secondaryAction = (
                     <Button onClick={ this.handleCancelUpload } variant={ ButtonVariant.link }>Cancel</Button>
                 );
@@ -284,9 +271,7 @@ class ReportsUpload extends React.Component<Props, State> {
             <Bullseye>
                 <EmptyState variant={ EmptyStateVariant.full }>
                     <EmptyStateIcon icon={ VolumeIcon } />
-                    <Title headingLevel={ TitleLevel.h5 } size="lg">
-                        Upload
-                    </Title>
+                    <Title headingLevel={ TitleLevel.h5 } size="lg">{ title }</Title>
                     <div className="pf-c-empty-state__body">
                         <Progress
                             value={ this.props.progress }
@@ -294,7 +279,9 @@ class ReportsUpload extends React.Component<Props, State> {
                             variant={ this.props.error ? ProgressVariant.danger : ProgressVariant.info }
                         />
                     </div>
-                    <EmptyStateBody>{ message }</EmptyStateBody>
+                    <EmptyStateBody>
+                        Please, wait until your file is uploaded. Then we will redirect you to the next page.
+                    </EmptyStateBody>
                     <EmptyStateSecondaryActions>
                         { secondaryAction }
                     </EmptyStateSecondaryActions>
