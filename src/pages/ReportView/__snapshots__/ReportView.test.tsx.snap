@@ -22,66 +22,31 @@ exports[`ReportView expect to redirect because error 1`] = `
 >
   <Switch>
     <Route
-      component={[Function]}
-      path="undefined/workloadMigrationSummary"
-    />
-    <Route
-      path="undefined/initialSavingsEstimation"
+      path="/report/1/initialSavingsEstimation"
       render={[Function]}
     />
     <Route
-      path="undefined/workloadInventory"
+      component={[Function]}
+      path="/report/1/workloadMigrationSummary"
+    />
+    <Route
+      path="/report/1/workloadInventory"
       render={[Function]}
     />
     <Redirect
-      from="undefined"
+      from="/report/1"
       push={false}
-      to="undefined/initialSavingsEstimation"
+      to="/report/1/initialSavingsEstimation"
     />
   </Switch>
 </withRouter(ReportViewPage)>
 `;
 
 exports[`ReportView expect to redirect because no reportId 1`] = `
-<withRouter(ReportViewPage)
-  report={
-    Object {
-      "id": 36,
-      "inserted": 254112,
-      "lastUpdate": 254112,
-      "payloadName": "file1.json",
-      "reportDescription": "My report description",
-      "reportName": "My report name",
-      "status": "CREATED",
-    }
-  }
-  reportFetchStatus={
-    Object {
-      "error": null,
-      "status": "none",
-    }
-  }
->
-  <Switch>
-    <Route
-      component={[Function]}
-      path="undefined/workloadMigrationSummary"
-    />
-    <Route
-      path="undefined/initialSavingsEstimation"
-      render={[Function]}
-    />
-    <Route
-      path="undefined/workloadInventory"
-      render={[Function]}
-    />
-    <Redirect
-      from="undefined"
-      push={false}
-      to="undefined/initialSavingsEstimation"
-    />
-  </Switch>
-</withRouter(ReportViewPage)>
+<Redirect
+  push={false}
+  to="/report"
+/>
 `;
 
 exports[`ReportView expect to render loading object 1`] = `
@@ -106,21 +71,21 @@ exports[`ReportView expect to render loading object 1`] = `
 >
   <Switch>
     <Route
-      component={[Function]}
-      path="undefined/workloadMigrationSummary"
-    />
-    <Route
-      path="undefined/initialSavingsEstimation"
+      path="/report/1/initialSavingsEstimation"
       render={[Function]}
     />
     <Route
-      path="undefined/workloadInventory"
+      component={[Function]}
+      path="/report/1/workloadMigrationSummary"
+    />
+    <Route
+      path="/report/1/workloadInventory"
       render={[Function]}
     />
     <Redirect
-      from="undefined"
+      from="/report/1"
       push={false}
-      to="undefined/initialSavingsEstimation"
+      to="/report/1/initialSavingsEstimation"
     />
   </Switch>
 </withRouter(ReportViewPage)>
@@ -148,21 +113,21 @@ exports[`ReportView expect to render object 1`] = `
 >
   <Switch>
     <Route
-      component={[Function]}
-      path="undefined/workloadMigrationSummary"
-    />
-    <Route
-      path="undefined/initialSavingsEstimation"
+      path="/report/1/initialSavingsEstimation"
       render={[Function]}
     />
     <Route
-      path="undefined/workloadInventory"
+      component={[Function]}
+      path="/report/1/workloadMigrationSummary"
+    />
+    <Route
+      path="/report/1/workloadInventory"
       render={[Function]}
     />
     <Redirect
-      from="undefined"
+      from="/report/1"
       push={false}
-      to="undefined/initialSavingsEstimation"
+      to="/report/1/initialSavingsEstimation"
     />
   </Switch>
 </withRouter(ReportViewPage)>

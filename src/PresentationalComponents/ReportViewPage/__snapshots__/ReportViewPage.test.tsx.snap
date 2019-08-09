@@ -95,7 +95,7 @@ exports[`ReportViewPage expect to render tabs when fetch status is complete 1`] 
             </BreadcrumbItem>
           </Breadcrumb>
           <Tabs
-            activeKey={1}
+            activeKey={0}
             className=""
             isFilled={true}
             isSecondary={false}
@@ -106,15 +106,15 @@ exports[`ReportViewPage expect to render tabs when fetch status is complete 1`] 
           >
             <ForwardRef
               eventKey={0}
-              title="Workload Migration Summary"
+              title="Initial savings estimation"
             />
             <ForwardRef
               eventKey={1}
-              title="Initials Savings Estimation"
+              title="Workload migration summary"
             />
             <ForwardRef
               eventKey={2}
-              title="Workload Inventory"
+              title="Workload migration inventory"
             />
           </Tabs>
         </React.Fragment>
@@ -161,7 +161,7 @@ exports[`ReportViewPage expect to render tabs when fetch status is complete and 
             </BreadcrumbItem>
           </Breadcrumb>
           <Tabs
-            activeKey={1}
+            activeKey={0}
             className=""
             isFilled={true}
             isSecondary={false}
@@ -172,15 +172,15 @@ exports[`ReportViewPage expect to render tabs when fetch status is complete and 
           >
             <ForwardRef
               eventKey={0}
-              title="Workload Migration Summary"
+              title="Initial savings estimation"
             />
             <ForwardRef
               eventKey={1}
-              title="Initials Savings Estimation"
+              title="Workload migration summary"
             />
             <ForwardRef
               eventKey={2}
-              title="Workload Inventory"
+              title="Workload migration inventory"
             />
           </Tabs>
         </React.Fragment>

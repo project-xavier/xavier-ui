@@ -16,7 +16,8 @@ const props = {
   match: {
     params: {
       reportId: 1
-    }
+    },
+    url: '/report/1'
   },
   fetchReport: jest.fn(),
   reportFetchStatus: {

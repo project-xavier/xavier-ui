@@ -30,6 +30,10 @@ class ReportView extends React.Component {
         const { report, reportFetchStatus } = this.props;
         const { reportId } = this.state;
 
+        if (!reportId) {
+            return <Redirect to="/report" />;
+        }
+
         return (
             <ReportViewPage
                 report={ report }
@@ -37,12 +41,12 @@ class ReportView extends React.Component {
             >
                 <Switch>
                     <Route
-                        path={ `${this.props.match.url}/${REPORT_VIEW_PATHS.workloadMigrationSummary}` }
-                        component={ WorkloadMigrationSummary }
-                    />
-                    <Route
                         path={ `${this.props.match.url}/${REPORT_VIEW_PATHS.initialSavingsEstimation}` }
                         render={ () => <InitialSavingsEstimation reportId={reportId} /> }
+                    />
+                    <Route
+                        path={ `${this.props.match.url}/${REPORT_VIEW_PATHS.workloadMigrationSummary}` }
+                        component={ WorkloadMigrationSummary }
                     />
                     <Route
                         path={ `${this.props.match.url}/${REPORT_VIEW_PATHS.workloadInventory}` }
