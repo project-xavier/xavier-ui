@@ -228,9 +228,9 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
         ].reduce(sumReducer, 0);
 
         const rhvGrowthTotal = [
-            rhvRampUpCostsModel.year1RhvTotalGrowthValue,
-            rhvRampUpCostsModel.year2RhvTotalGrowthValue,
-            rhvRampUpCostsModel.year3RhvTotalGrowthValue
+            (rhvRampUpCostsModel.year1RhvTotalGrowthValue || 0),
+            (rhvRampUpCostsModel.year2RhvTotalGrowthValue || 0),
+            (rhvRampUpCostsModel.year3RhvTotalGrowthValue || 0)
         ].reduce(sumReducer, 0);
 
         const rhTrainingTotal = rhvRampUpCostsModel.rhvSwitchLearningSubsValue;
