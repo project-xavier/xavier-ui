@@ -44,6 +44,7 @@ import {
 import debounce from 'lodash/debounce';
 import { Formik } from 'formik';
 import { ObjectFetchStatus } from '../../models/state';
+import { formatDate } from '../../Utilities/formatValue';
 
 interface StateToProps {
     reports: {
@@ -161,9 +162,9 @@ class Reports extends React.Component<Props, State> {
     public renderReportStatus = (report: Report) => {
         switch (report.status) {
             case 'CREATED':
-                return <p><OkIcon className="success" /> Report created - { new Date(report.lastUpdate).toUTCString() }</p>;
+                return <p><OkIcon className="success" /> Report created - { formatDate(new Date(report.lastUpdate)) }</p>;
             case 'FAILED':
-                return <p><ErrorCircleOIcon className="error" /> Report failed - { new Date(report.lastUpdate).toUTCString() }</p>;
+                return <p><ErrorCircleOIcon className="error" /> Report failed - { formatDate(new Date(report.lastUpdate)) }</p>;
             case 'IN_PROGRESS':
                 return <p><InProgressIcon className="progress" /> Analyzing the upload file</p>;
             default:
