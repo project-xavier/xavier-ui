@@ -3,13 +3,15 @@ import {
     ChartDonut,
     ChartDonutProps,
     ChartLegend,
-    ChartLegendProps
+    ChartLegendProps,
+    ChartThemeColor,
+    ChartThemeVariant
 } from '@patternfly/react-charts';
 
 export interface FancyChartDonutData {
     label: string;
     value: number;
-    color: string;
+    color?: string;
 }
 
 interface Props {
@@ -44,7 +46,7 @@ class FancyChartDonut extends Component<Props, State> {
             };
         });
 
-        const colorScale = data.map((val) => val.color);
+        const colorScale = !data.some((val) => !val.color) ? data.map((val) => val.color || '') : undefined;
 
         const chartLabels = (datum: any): string => {
             return tickFormat ? tickFormat(datum.x, datum.y) : `${datum.x}: ${datum.y}`;
@@ -56,6 +58,8 @@ class FancyChartDonut extends Component<Props, State> {
                     <div className="donut-chart-container">
                         <ChartDonut
                             data={ chartData }
+                            themeColor={colorScale ? undefined : ChartThemeColor.multiOrdered}
+                            themeVariant={colorScale ? undefined : ChartThemeVariant.light}
                             colorScale={ colorScale }
                             labels={ chartLabels }
                             { ...chartProps }
@@ -64,6 +68,8 @@ class FancyChartDonut extends Component<Props, State> {
                     <ChartLegend
                         data={ legendData }
                         colorScale={ colorScale }
+                        themeColor={colorScale ? undefined : ChartThemeColor.multiOrdered}
+                        themeVariant={colorScale ? undefined : ChartThemeVariant.light}
                         orientation="vertical"
                         { ...chartLegendProps }
                     />
