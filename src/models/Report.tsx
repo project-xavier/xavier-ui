@@ -13,16 +13,19 @@ export interface Report {
     status: 'CREATED' | 'IN_PROGRESS' | 'FAILED';
 }
 
-export interface ReportWorkloadMigrationSummary {
+export interface ReportWorkloadSummary {
     summary: Summary[];
     complexity: Complexity;
+    targetsRecommendation: TargetRecommendation;
+    workloadsDetected: WorkloadsDetected;
+    scanRuns: ScanRun[];
 }
 
 export interface Summary {
     provider: string;
     product: string;
     version: string;
-    hypervisors: number;
+    hosts: number;
     sockets: number;
     clusters: number;
     vms: number;
@@ -30,9 +33,28 @@ export interface Summary {
 
 export interface Complexity {
     unknown: number;
-    hard: number;
+    difficult: number;
     medium: number;
     easy: number;
+}
+
+export interface TargetRecommendation {
+    rhv: number;
+    osp: number;
+    rhel: number;
+}
+
+export interface WorkloadsDetected {
+    rhel: number;
+    sles: number;
+    windows: number;
+    oel: number;
+}
+
+export interface ScanRun {
+    target: string;
+    type: string;
+    date: number;
 }
 
 export interface ReportInitialSavingEstimation {

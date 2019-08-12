@@ -1,6 +1,6 @@
 import {
     Report,
-    ReportWorkloadMigrationSummary,
+    ReportWorkloadSummary,
     ReportInitialSavingEstimation,
     ReportWorkloadInventory
 } from '../Report';
@@ -31,8 +31,8 @@ export interface ReportState {
     };
     reportsFetchStatus: ObjectFetchStatus;
 
-    reportMigrationSummary: ReportWorkloadMigrationSummary | null;
-    reportMigrationSummaryFetchStatus: ObjectFetchStatus;
+    reportWorkloadSummary: ReportWorkloadSummary | null;
+    reportWorkloadSummaryFetchStatus: ObjectFetchStatus;
 
     reportInitialSavingEstimation: ReportInitialSavingEstimation | null;
     reportInitialSavingEstimationFetchStatus: ObjectFetchStatus;

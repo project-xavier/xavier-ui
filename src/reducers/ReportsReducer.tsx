@@ -22,8 +22,8 @@ export const initialState: ReportState = {
         ...defaultFetchStatus
     },
 
-    reportMigrationSummary: null,
-    reportMigrationSummaryFetchStatus: {
+    reportWorkloadSummary: null,
+    reportWorkloadSummaryFetchStatus: {
         ...defaultFetchStatus
     },
 
@@ -154,13 +154,12 @@ export const reportsReducer = (state: ReportState = initialState, action: Generi
             return nextState;
         }
 
-        // FETCH_REPORT_WORKLOAD_MIGRATION_SUMMARY single report
-        case pendingMessage(ActionTypes.FETCH_REPORT_WORKLOAD_MIGRATION_SUMMARY): {
+        // FETCH_REPORT_WORKLOAD_SUMMARY single report
+        case pendingMessage(ActionTypes.FETCH_REPORT_WORKLOAD_SUMMARY): {
             const nextState: ReportState = {
                 ...state,
-                reportMigrationSummary: null,
-                reportMigrationSummaryFetchStatus: {
-                    ...state.reportMigrationSummaryFetchStatus,
+                reportWorkloadSummaryFetchStatus: {
+                    ...state.reportWorkloadSummaryFetchStatus,
                     error: null,
                     status: 'inProgress'
                 }
@@ -169,12 +168,12 @@ export const reportsReducer = (state: ReportState = initialState, action: Generi
             return nextState;
         }
 
-        case successMessage(ActionTypes.FETCH_REPORT_WORKLOAD_MIGRATION_SUMMARY): {
+        case successMessage(ActionTypes.FETCH_REPORT_WORKLOAD_SUMMARY): {
             const nextState: ReportState = {
                 ...state,
-                reportMigrationSummary: action.payload.data,
-                reportMigrationSummaryFetchStatus: {
-                    ...state.reportMigrationSummaryFetchStatus,
+                reportWorkloadSummary: action.payload.data,
+                reportWorkloadSummaryFetchStatus: {
+                    ...state.reportWorkloadSummaryFetchStatus,
                     error: null,
                     status: 'complete'
                 }
@@ -182,12 +181,12 @@ export const reportsReducer = (state: ReportState = initialState, action: Generi
             return nextState;
         }
 
-        case failureMessage(ActionTypes.FETCH_REPORT_WORKLOAD_MIGRATION_SUMMARY): {
+        case failureMessage(ActionTypes.FETCH_REPORT_WORKLOAD_SUMMARY): {
             const nextState: ReportState = {
                 ...state,
-                reportMigrationSummary: null,
-                reportMigrationSummaryFetchStatus: {
-                    ...state.reportMigrationSummaryFetchStatus,
+                reportWorkloadSummary: null,
+                reportWorkloadSummaryFetchStatus: {
+                    ...state.reportWorkloadSummaryFetchStatus,
                     error: action.payload.message,
                     status: 'complete'
                 }

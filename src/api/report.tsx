@@ -2,7 +2,7 @@ import { AxiosPromise } from 'axios';
 import ApiClient from './apiClient';
 import {
     Report,
-    ReportWorkloadMigrationSummary,
+    ReportWorkloadMigrationSummary as ReportWorkloadSummary,
     ReportInitialSavingEstimation,
     SearchResult,
     ReportWorkloadInventory
@@ -32,8 +32,8 @@ export function deleteReport(id: number): AxiosPromise {
     return ApiClient.delete(`/report/${id}`);
 }
 
-export function getReportWokloadMigrationSummary(id: number): AxiosPromise<ReportWorkloadMigrationSummary> {
-    return ApiClient.get<ReportWorkloadMigrationSummary>(`/report/${id}/workload-migration-summary`);
+export function getReportWokloadMigrationSummary(id: number): AxiosPromise<ReportWorkloadSummary> {
+    return ApiClient.get<ReportWorkloadSummary>(`/report/${id}/workload-summary`);
 }
 
 export function getReportInitialSavingestimation(id: number): AxiosPromise<ReportInitialSavingEstimation> {

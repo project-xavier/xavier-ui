@@ -2,7 +2,7 @@ import {
     getAllReports,
     getReportById,
     deleteReport as destroyReport,
-    getReportWokloadMigrationSummary,
+    getReportWokloadMigrationSummary as getReportWokloadSummary,
     getReportInitialSavingestimation,
     getReportWorkloadInventory,
     getReportWorkloadInventoryCSV
@@ -13,7 +13,7 @@ export const ActionTypes = {
     FETCH_REPORTS: 'FETCH_REPORTS',
     FETCH_REPORT: 'FETCH_REPORT',
     DELETE_REPORT: 'DELETE_REPORT',
-    FETCH_REPORT_WORKLOAD_MIGRATION_SUMMARY: 'FETCH_REPORT_WORKLOAD_MIGRATION_SUMMARY',
+    FETCH_REPORT_WORKLOAD_SUMMARY: 'FETCH_REPORT_WORKLOAD_SUMMARY',
     FETCH_REPORT_INITIAL_SAVING_ESTIMATION: 'FETCH_REPORT_INITIAL_SAVING_ESTIMATION',
     FETCH_REPORT_WOKLOAD_INVENTORY: 'FETCH_REPORT_WOKLOAD_INVENTORY',
     FETCH_REPORT_WOKLOAD_INVENTORY_CSV: 'FETCH_REPORT_WOKLOAD_INVENTORY_CSV'
@@ -71,9 +71,9 @@ export const deleteReport = (id: number, name: string): GenericAction => ({
     }
 });
 
-export const fetchReportWorkloadMigrationSummary = (id: number): GenericAction => ({
-    type: ActionTypes.FETCH_REPORT_WORKLOAD_MIGRATION_SUMMARY,
-    payload: getReportWokloadMigrationSummary(id),
+export const fetchReportWorkloadSummary = (id: number): GenericAction => ({
+    type: ActionTypes.FETCH_REPORT_WORKLOAD_SUMMARY,
+    payload: getReportWokloadSummary(id),
     meta: {
         notifications: {
             rejected: {
