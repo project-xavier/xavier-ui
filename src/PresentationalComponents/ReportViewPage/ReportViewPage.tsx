@@ -10,13 +10,15 @@ import {
     Tabs,
     Tab,
     Breadcrumb,
-    BreadcrumbItem
+    BreadcrumbItem,
+    Title
 } from '@patternfly/react-core';
 import { Report } from '../../models';
 import { Link } from 'react-router-dom';
 import { RouterGlobalProps } from '../../models/router';
-import { REPORT_VIEW_PATHS } from '../../pages/ReportView/ReportViewConstants';
+import { REPORT_VIEW_PATHS, DEFAULT_VIEW_PATH_INDEX, INITIAL_SAVINGS_ESTIMATION_KEY } from '../../pages/ReportView/ReportViewConstants';
 import { ObjectFetchStatus } from '../../models/state';
+import { formatDate } from '../../Utilities/formatValue';
 
 export interface Props extends RouterGlobalProps {
     mainStyle?: any;
@@ -33,15 +35,13 @@ class ReportViewPage extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
 
-        let activeTabKey = 1;
+        let activeTabKey = DEFAULT_VIEW_PATH_INDEX;
 
-        if (props.location.pathname.endsWith(REPORT_VIEW_PATHS.workloadMigrationSummary)) {
-            activeTabKey = 0;
-        } else if (props.location.pathname.endsWith(REPORT_VIEW_PATHS.initialSavingsEstimation)) {
-            activeTabKey = 1;
-        } else if (props.location.pathname.endsWith(REPORT_VIEW_PATHS.workloadInventory)) {
-            activeTabKey = 2;
-        }
+        REPORT_VIEW_PATHS.forEach((val, index) => {
+            if (props.location.pathname.endsWith(val.path)) {
+                activeTabKey = index;
+            }
+        });
 
         this.state = {
             activeTabKey
@@ -55,21 +55,12 @@ class ReportViewPage extends Component<Props, State> {
 
         const { history, match } = this.props;
 
-        switch (tabIndex) {
-            case 0:
-                history.push(`${match.url}/${REPORT_VIEW_PATHS.workloadMigrationSummary}`);
-                break;
-            case 1:
-                history.push(`${match.url}/${REPORT_VIEW_PATHS.initialSavingsEstimation}`);
-                break;
-            case 2:
-                history.push(`${match.url}/${REPORT_VIEW_PATHS.workloadInventory}`);
-                break;
-        }
+        history.push(`${match.url}/${REPORT_VIEW_PATHS[tabIndex].path}`);
     };
 
     public renderTabs = () => {
         const { report } = this.props;
+        const { activeTabKey } = this.state;
         const currentBreadcrumb = report ? report.reportName : '';
 
         return (
@@ -80,23 +71,45 @@ class ReportViewPage extends Component<Props, State> {
                     </BreadcrumbItem>
                     <BreadcrumbItem isActive={true}>{ currentBreadcrumb }</BreadcrumbItem>
                 </Breadcrumb>
+                <div className="pf-c-content" style={{marginBottom: 'var(--pf-c-content--MarginBottom)'}}>
+                    <p>
+                        <span className="pf-c-title pf-m-3xl">{ `${REPORT_VIEW_PATHS[activeTabKey].title} (${ currentBreadcrumb })` }</span>
+                    </p>
+                    <p>
+                        { (report && report.reportDescription) && <React.Fragment><span>{report.reportDescription}</span><br/></React.Fragment> }
+                        { (REPORT_VIEW_PATHS[activeTabKey].key === INITIAL_SAVINGS_ESTIMATION_KEY) && <React.Fragment>
+                                <span>Source:</span>&nbsp;<span>VSphere Enterprise Plus</span><br/>
+                                <span>Target:</span>&nbsp;<span>Red Hat Virtualization</span><br/>
+                            </React.Fragment>
+                        }
+                        <span>Date:</span>&nbsp;<span>{ report ? formatDate(new Date(report.lastUpdate)) : 'Unknow' }</span>
+                    </p>
+                </div>
                 <Tabs
                     isFilled={true}
                     onSelect={ this.handleTabClick }
-                    activeKey={ this.state.activeTabKey }
+                    activeKey={ activeTabKey }
                 >
-                    <Tab eventKey={ 0 } title="Workload Migration Summary"/>
-                    <Tab eventKey={ 1 } title="Initials Savings Estimation"/>
-                    <Tab eventKey={ 2 } title="Workload Inventory"/>
+                    { REPORT_VIEW_PATHS.map((elem, index) => {
+                        return (
+                            <Tab key={ index } eventKey={ index } title={ elem.title } />
+                        );
+                    })}
                 </Tabs>
             </React.Fragment>
         );
-    }
+    };
 
     public renderTabsSkeleton = () => {
         return (
             <React.Fragment>
                 <div className="pf-l-stack pf-m-gutter">
+                    <div className="pf-l-stack__item">
+                        <Skeleton size="sm" />
+                    </div>
+                    <div className="pf-l-stack__item">
+                        <Skeleton size="sm" />
+                    </div>
                     <div className="pf-l-stack__item">
                         <Skeleton size="sm" />
                     </div>

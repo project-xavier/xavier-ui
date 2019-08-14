@@ -77,15 +77,7 @@ exports[`FancyGroupedBarChart expect to render footer 1`] = `
             ]
           }
           key="0"
-          labelComponent={
-            <ChartTooltip
-              style={
-                Object {
-                  "color": "white",
-                }
-              }
-            />
-          }
+          labelComponent={<ChartTooltip />}
         />
         <ChartBar
           data={
@@ -108,15 +100,7 @@ exports[`FancyGroupedBarChart expect to render footer 1`] = `
             ]
           }
           key="1"
-          labelComponent={
-            <ChartTooltip
-              style={
-                Object {
-                  "color": "white",
-                }
-              }
-            />
-          }
+          labelComponent={<ChartTooltip />}
         />
       </ChartGroup>
     </Chart>
@@ -208,15 +192,7 @@ exports[`FancyGroupedBarChart expect to render with minimun props 1`] = `
             ]
           }
           key="0"
-          labelComponent={
-            <ChartTooltip
-              style={
-                Object {
-                  "color": "white",
-                }
-              }
-            />
-          }
+          labelComponent={<ChartTooltip />}
         />
         <ChartBar
           data={
@@ -239,15 +215,7 @@ exports[`FancyGroupedBarChart expect to render with minimun props 1`] = `
             ]
           }
           key="1"
-          labelComponent={
-            <ChartTooltip
-              style={
-                Object {
-                  "color": "white",
-                }
-              }
-            />
-          }
+          labelComponent={<ChartTooltip />}
         />
       </ChartGroup>
     </Chart>

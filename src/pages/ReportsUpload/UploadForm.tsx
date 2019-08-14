@@ -52,7 +52,8 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
             setTimeout(() => {
                 this.props.setFieldValue('file', fileName);
                 if (!this.props.values.reportName) {
-                    this.props.setFieldValue('reportName', fileName);
+                    const fileNameWithoutExtension = fileName.replace(/\.[^/.]+$/, "");
+                    this.props.setFieldValue('reportName', fileNameWithoutExtension);
                 }
             }, 0);
         }

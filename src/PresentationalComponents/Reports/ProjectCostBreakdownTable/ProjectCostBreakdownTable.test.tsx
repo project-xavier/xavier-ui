@@ -7,12 +7,16 @@ const baseRhvRampUpCostsModel: RHVRampUpCostsModel = {
   year1RhvTotalValue: 1000,
   year2RhvTotalValue: 2000,
   year3RhvTotalValue: 3000,
-  year1RhvGrandTotalGrowthValue: 4000,
-  year2RhvGrandTotalGrowthValue: 5000,
-  year3RhvGrandTotalGrowthValue: 6000,
+  year1RhvTotalGrowthValue: 4000,
+  year2RhvTotalGrowthValue: 5000,
+  year3RhvTotalGrowthValue: 6000,
   rhvSwitchLearningSubsValue: 7000,
   rhvSwitchConsultValue: 8000,
-  rhvSwitchTAndEValue: 9000
+  rhvSwitchTAndEValue: 9000,
+
+  year1RhvGrandTotalGrowthValue: 0,
+  year2RhvGrandTotalGrowthValue: 0,
+  year3RhvGrandTotalGrowthValue: 0
 };
 
 const baseSourceRampDownCostsModel: SourceRampDownCostsModel = {
@@ -70,9 +74,9 @@ describe("ProjectCostBreakdownTable", () => {
       year1RhvTotalValue: 0,
       year2RhvTotalValue: 0,
       year3RhvTotalValue: 0,
-      year1RhvGrandTotalGrowthValue: 0,
-      year2RhvGrandTotalGrowthValue: 0,
-      year3RhvGrandTotalGrowthValue: 0,
+      year1RhvTotalGrowthValue: 0,
+      year2RhvTotalGrowthValue: 0,
+      year3RhvTotalGrowthValue: 0,
       rhvSwitchLearningSubsValue: 0,
       rhvSwitchConsultValue: 0,
       rhvSwitchTAndEValue: 0
