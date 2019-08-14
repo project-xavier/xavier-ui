@@ -26,6 +26,20 @@ exports[`ReportViewPage expect to render skeleton 1`] = `
             <div
               className="pf-l-stack__item"
             >
+              <Skeleton
+                size="sm"
+              />
+            </div>
+            <div
+              className="pf-l-stack__item"
+            >
+              <Skeleton
+                size="sm"
+              />
+            </div>
+            <div
+              className="pf-l-stack__item"
+            >
               <div
                 className="pf-l-grid"
               >
@@ -94,8 +108,57 @@ exports[`ReportViewPage expect to render tabs when fetch status is complete 1`] 
               My report name 123
             </BreadcrumbItem>
           </Breadcrumb>
+          <div
+            className="pf-c-content"
+            style={
+              Object {
+                "marginBottom": "var(--pf-c-content--MarginBottom)",
+              }
+            }
+          >
+            <p>
+              <span
+                className="pf-c-title pf-m-3xl"
+              >
+                Initial savings estimation (My report name 123)
+              </span>
+            </p>
+            <p>
+              <React.Fragment>
+                <span>
+                  My report descruiption 123
+                </span>
+                <br />
+              </React.Fragment>
+              <React.Fragment>
+                <span>
+                  Source:
+                </span>
+                 
+                <span>
+                  VSphere Enterprise Plus
+                </span>
+                <br />
+                <span>
+                  Target:
+                </span>
+                 
+                <span>
+                  Red Hat Virtualization
+                </span>
+                <br />
+              </React.Fragment>
+              <span>
+                Date:
+              </span>
+               
+              <span>
+                2 January 1970
+              </span>
+            </p>
+          </div>
           <Tabs
-            activeKey={1}
+            activeKey={0}
             className=""
             isFilled={true}
             isSecondary={false}
@@ -106,15 +169,15 @@ exports[`ReportViewPage expect to render tabs when fetch status is complete 1`] 
           >
             <ForwardRef
               eventKey={0}
-              title="Workload Migration Summary"
+              title="Initial savings estimation"
             />
             <ForwardRef
               eventKey={1}
-              title="Initials Savings Estimation"
+              title="Workload migration summary"
             />
             <ForwardRef
               eventKey={2}
-              title="Workload Inventory"
+              title="Workload migration inventory"
             />
           </Tabs>
         </React.Fragment>
@@ -160,8 +223,51 @@ exports[`ReportViewPage expect to render tabs when fetch status is complete and 
               
             </BreadcrumbItem>
           </Breadcrumb>
+          <div
+            className="pf-c-content"
+            style={
+              Object {
+                "marginBottom": "var(--pf-c-content--MarginBottom)",
+              }
+            }
+          >
+            <p>
+              <span
+                className="pf-c-title pf-m-3xl"
+              >
+                Initial savings estimation ()
+              </span>
+            </p>
+            <p>
+              <React.Fragment>
+                <span>
+                  Source:
+                </span>
+                 
+                <span>
+                  VSphere Enterprise Plus
+                </span>
+                <br />
+                <span>
+                  Target:
+                </span>
+                 
+                <span>
+                  Red Hat Virtualization
+                </span>
+                <br />
+              </React.Fragment>
+              <span>
+                Date:
+              </span>
+               
+              <span>
+                Unknow
+              </span>
+            </p>
+          </div>
           <Tabs
-            activeKey={1}
+            activeKey={0}
             className=""
             isFilled={true}
             isSecondary={false}
@@ -172,15 +278,15 @@ exports[`ReportViewPage expect to render tabs when fetch status is complete and 
           >
             <ForwardRef
               eventKey={0}
-              title="Workload Migration Summary"
+              title="Initial savings estimation"
             />
             <ForwardRef
               eventKey={1}
-              title="Initials Savings Estimation"
+              title="Workload migration summary"
             />
             <ForwardRef
               eventKey={2}
-              title="Workload Inventory"
+              title="Workload migration inventory"
             />
           </Tabs>
         </React.Fragment>
