@@ -1,0 +1,62 @@
+import React, { Component } from 'react';
+import {
+    Table,
+    TableBody,
+    TableVariant,
+    ICell,
+    TableHeader
+} from '@patternfly/react-table';
+import { formatValue, formatDate } from '../../../Utilities/formatValue';
+import { ScanRun } from '../../../models';
+
+interface Props {
+    scanRuns: ScanRun[];
+}
+
+interface State {
+    columns: Array<ICell | string>;
+}
+
+class ScansRunTable extends Component<Props, State> {
+
+    constructor(props: Props) {
+        super(props);
+        this.state = {
+            columns: [
+                'Target',
+                'Type',
+                'Date'
+            ]
+        };
+    }
+
+    public render() {
+        const { columns } = this.state;
+        const { scanRuns } = this.props;
+
+        const rows = scanRuns.map((element) => {
+            return [
+                element.target,
+                element.type,
+                formatDate(new Date(element.date))
+            ];
+        });
+
+        return (
+            <React.Fragment>
+                <Table
+                    aria-label='Scans run table'
+                    cells={ columns }
+                    rows={ rows }
+                    variant={ TableVariant.compact }
+                    borders={ false }
+                >
+                    <TableHeader />
+                    <TableBody />                    
+                </Table>
+            </React.Fragment>
+        );
+    }
+}
+
+export default ScansRunTable;

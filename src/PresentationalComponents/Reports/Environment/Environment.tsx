@@ -6,6 +6,7 @@ import {
 } from '@patternfly/react-table';
 import { EnvironmentModel } from '../../../models';
 import { isNotNullOrUndefined } from '../../../Utilities/formUtils';
+import { formatNumber, formatPercentage } from '../../../Utilities/formatValue';
 
 interface Props {
     data: EnvironmentModel
@@ -39,22 +40,22 @@ class Environment extends Component<Props, State> {
             [
                 'ESXi hypervisors (2-socket servers)',
                 '',
-                isNotNullOrUndefined(hypervisors) ? 'Unknown' : hypervisors.toLocaleString()
+                isNotNullOrUndefined(hypervisors) ? 'Unknown' : formatNumber(hypervisors, 0)
             ],
             [
                 'ESXi hypervisors would be migrated to RH technologies',
                 'Year1 (incremental)',
-                isNotNullOrUndefined(year1Hypervisor) ? 'Unknown' : year1Hypervisor.toLocaleString()
+                isNotNullOrUndefined(year1Hypervisor) ? 'Unknown' : formatNumber(year1Hypervisor, 0)
             ],
             [
                 '',
                 'Year2 (incremental)',
-                isNotNullOrUndefined(year2Hypervisor) ? 'Unknown' : year2Hypervisor.toLocaleString()
+                isNotNullOrUndefined(year2Hypervisor) ? 'Unknown' : formatNumber(year2Hypervisor, 0)
             ],
             [
                 '',
                 'Year3 (incremental)',
-                isNotNullOrUndefined(year3Hypervisor) ? 'Unknown' : year3Hypervisor.toLocaleString()
+                isNotNullOrUndefined(year3Hypervisor) ? 'Unknown' : formatNumber(year3Hypervisor, 0)
             ],
             [
                 'Year-over-year growth rate for new hypervisors',

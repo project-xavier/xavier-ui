@@ -41,7 +41,7 @@ import { Report, ReportWorkloadInventory } from '../../../models';
 import { ObjectFetchStatus } from '../../../models/state';
 import ReportCard from '../../../PresentationalComponents/ReportCard';
 import debounce from 'lodash/debounce';
-import { formatValue } from '../../../Utilities/formatValue';
+import { formatValue, formatNumber } from '../../../Utilities/formatValue';
 import { bytesToGb } from '../../../Utilities/unitConvertors';
 import { extractFilenameFromContentDispositionHeaderValue } from 'src/Utilities/extractUtils';
 
@@ -277,7 +277,7 @@ class WorkloadInventory extends React.Component<Props, State> {
                                 <dt>Memory (GB)</dt>
                                 <dd>{ formatValue(bytesToGb(b.memory), 'gb', { fractionDigits: 1 }) }</dd>
                                 <dt>CPU cores</dt>
-                                <dd>{ b.cpuCores.toLocaleString() }</dd>
+                                <dd>{ formatNumber(b.cpuCores, 0) }</dd>
                                 <dt>Operating system description</dt>
                                 <dd>{ b.osDescription }</dd>
                             </dl></div>

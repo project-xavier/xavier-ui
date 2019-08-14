@@ -22,6 +22,10 @@ import ReportCard from '../../../PresentationalComponents/ReportCard';
 import SummaryTable from '../../../PresentationalComponents/Reports/SummaryTable';
 import FancyChartDonut from '../../../PresentationalComponents/FancyChartDonut';
 import { FancyChartDonutData } from '../../../PresentationalComponents/FancyChartDonut/FancyChartDonut';
+import { formatPercentage, formatNumber } from '../../../Utilities/formatValue';
+import ScansRunTable from '../../../PresentationalComponents/Reports/ScansRunTable';
+import WorkloadsDetectedTable from '../../../SmartComponents/Reports/WorkloadsDetectedTable';
+import FlagsTable from '../../../SmartComponents/Reports/FlagsTable';
 
 interface StateToProps {
     reportWorkloadSummary: ReportWorkloadSummary;
@@ -38,6 +42,8 @@ interface Props extends StateToProps, DispatchToProps {
 
 interface State {
 };
+
+const sumReducer = (a: number, b: number) => a + b;
 
 class WorkloadMigrationSummary extends React.Component<Props, State> {
 
@@ -67,47 +73,23 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
     };
 
     public renderMigrationComplexity = () => {
-        const { reportInitialSavingEstimation } = this.props;
-
-        const sourceRampDownCostsModel = reportInitialSavingEstimation.sourceRampDownCostsModel;
-        const rhvRampUpCostsModel = reportInitialSavingEstimation.rhvRampUpCostsModel;
-
-        const vmwareTotal = [
-            sourceRampDownCostsModel.year1SourceMaintenanceTotalValue,
-            sourceRampDownCostsModel.year2SourceMaintenanceTotalValue,
-            sourceRampDownCostsModel.year3SourceMaintenanceTotalValue
-        ].reduce(sumReducer, 0);
-
-        const rhvHypervisorsTotal = [
-            rhvRampUpCostsModel.year1RhvTotalValue,
-            rhvRampUpCostsModel.year2RhvTotalValue,
-            rhvRampUpCostsModel.year3RhvTotalValue
-        ].reduce(sumReducer, 0);
-
-        const rhvGrowthTotal = [
-            (rhvRampUpCostsModel.year1RhvTotalGrowthValue || 0),
-            (rhvRampUpCostsModel.year2RhvTotalGrowthValue || 0),
-            (rhvRampUpCostsModel.year3RhvTotalGrowthValue || 0)
-        ].reduce(sumReducer, 0);
-
-        const rhTrainingTotal = rhvRampUpCostsModel.rhvSwitchLearningSubsValue;
-        const rhConsultingTotal = rhvRampUpCostsModel.rhvSwitchConsultValue;
-        const rhTravelAndLodgingTotal = rhvRampUpCostsModel.rhvSwitchTAndEValue;
+        const { reportWorkloadSummary } = this.props;
+        const complexity = reportWorkloadSummary.complexity;
 
         //
         const pieValues = [
-            vmwareTotal,
-            rhvHypervisorsTotal,
-            rhvGrowthTotal,
-            rhTrainingTotal,
-            rhConsultingTotal,
-            rhTravelAndLodgingTotal
+            complexity.easy,
+            complexity.medium,
+            complexity.difficult,
+            complexity.unknown
         ];
+
         const total = pieValues.reduce(sumReducer, 0);
-        const percentages = pieValues.map((val) => ((val / total) * 100));
+        const percentages = pieValues.map((val: number) => val / total);
 
         const chartProps = {
-            title: formatValue(total, 'usd', { fractionDigits: 0 }),
+            title: formatPercentage(1, 0),
+            subTitle: 'total',
             height: 300,
             width: 300
         };
@@ -119,24 +101,157 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
         };
 
         const chartData: FancyChartDonutData[] = [
-            { label: 'VMware', value: percentages[0] },
-            { label: 'RHV Hypervisors', value: percentages[1] },
-            { label: 'RHV Growth', value: percentages[2] },
-            { label: 'Red Hat Training', value: percentages[3] },
-            { label: 'Red Hat Consulting', value: percentages[4] },
-            { label: 'Travel and Lodging', value: percentages[5] }
+            { label: 'Easy', value: percentages[0], data: pieValues[0] },
+            { label: 'Medium', value: percentages[1], data: pieValues[1] },
+            { label: 'Difficult', value: percentages[2], data: pieValues[2] },
+            { label: 'Unknow', value: percentages[3], data: pieValues[3] }
         ];
 
-        const tickFormat = (label: string, value: number) => `${label}: ${value.toFixed(2)}%`;
+        const tickFormat = (label: string, value: number, data: any) => `${label}: ${formatPercentage(value, 2)} - VMs: ${formatNumber(data, 0)}`;
         return (
             <ReportCard
-                title='Total VMware maintenance, Red Hat Virtualization, training and services costs during a 3 year migration)'
+                title='Migration complexity'
             >
                 <FancyChartDonut
                     data={ chartData }
                     chartProps={ chartProps }
                     chartLegendProps={ chartLegendProps }
                     tickFormat={ tickFormat }
+                />
+            </ReportCard>
+        );
+    };
+
+    public renderTargetRecommendation = () => {
+        const { reportWorkloadSummary } = this.props;
+        const targetsRecommendation = reportWorkloadSummary.targetsRecommendation;
+
+        const pieValues = [
+            targetsRecommendation.rhv,
+            targetsRecommendation.osp,
+            targetsRecommendation.rhel
+        ];
+        const total = pieValues.reduce(sumReducer, 0);
+        const percentages = pieValues.map((val: number) => val / total);
+        
+        return (
+            <ReportCard
+                title='Target recommendation'
+                skipBullseye={ true }
+            >
+                <div className="pf-l-grid pf-m-all-6-col-on-md pf-m-all-4-col-on-lg pf-m-gutter">
+                    <div>
+                        <h2 className="pf-c-title pf-m-4xl">
+                            { formatPercentage(percentages[0], 0) } RHV
+                        </h2>
+                        <h3 className="pf-c-title pf-m-1xl">
+                            Workloads suitable for Red Hat Virtualization
+                        </h3>
+                    </div>
+                    <div>
+                        <h2 className="pf-c-title pf-m-4xl">
+                            { formatPercentage(percentages[1], 0) } OSP
+                        </h2>
+                        <h3 className="pf-c-title pf-m-1xl">
+                            Workloads could be running on Red Hat OpenStack Platform
+                        </h3>
+                    </div>
+                    <div>
+                        <h2 className="pf-c-title pf-m-4xl">
+                            { formatPercentage(percentages[2], 0) } RHEL
+                        </h2>
+                        <h3 className="pf-c-title pf-m-1xl">
+                            Workloads running, or possible to migrate to Red Hat Enterprise Linux
+                        </h3>
+                    </div>
+                </div>
+            </ReportCard>
+        );
+    };
+
+    public renderWorkloadsDetectedTable = () => {
+        const { reportId } = this.props;
+        
+        return (
+            <ReportCard
+                title='Workloads detected'
+                skipBullseye={ true }
+            >
+                <WorkloadsDetectedTable reportId={ reportId }/>
+            </ReportCard>
+        );
+    };
+
+    public renderWorkloadsDetected = () => {
+        const { reportWorkloadSummary } = this.props;
+        const complexity = reportWorkloadSummary.complexity;
+
+        //
+        const pieValues = [
+            complexity.easy,
+            complexity.medium,
+            complexity.difficult,
+            complexity.unknown
+        ];
+
+        const total = pieValues.reduce(sumReducer, 0);
+        const percentages = pieValues.map((val: number) => val / total);
+
+        const chartProps = {
+            title: formatPercentage(1, 0),
+            subTitle: 'Total',
+            height: 300,
+            width: 300
+        };
+        const chartLegendProps = {
+            height: 300,
+            width: 210,
+            responsive: false,
+            y: 60
+        };
+
+        const chartData: FancyChartDonutData[] = [
+            { label: 'RHEL', value: percentages[0] },
+            { label: 'SLES', value: percentages[1] },
+            { label: 'Windows', value: percentages[2] },
+            { label: 'OEL', value: percentages[3] }
+        ];
+
+        const tickFormat = (label: string, value: number) => `${label}: ${formatPercentage(value, 2)}`;
+        return (
+            <ReportCard
+                title='Workloads detected (OS Types)'
+            >
+                <FancyChartDonut
+                    data={ chartData }
+                    chartProps={ chartProps }
+                    chartLegendProps={ chartLegendProps }
+                    tickFormat={ tickFormat }
+                />
+            </ReportCard>
+        );
+    };
+
+    public renderFlagsTable = () => {
+        const { reportId } = this.props;
+        
+        return (
+            <ReportCard
+                title='Flags (Considerations to be migrated)'
+                skipBullseye={ true }
+            >
+                <FlagsTable reportId={ reportId }/>
+            </ReportCard>
+        );
+    };
+
+    public renderScansRun = () => {
+        const { reportWorkloadSummary } = this.props;
+
+        return (
+            <ReportCard title="Scans run">
+                <ScansRunTable
+                    scanRuns={ reportWorkloadSummary.scanRuns }
                 />
             </ReportCard>
         );
@@ -151,6 +266,21 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
                     </StackItem>
                     <StackItem isFilled={ false }>
                         { this.renderMigrationComplexity() }
+                    </StackItem>
+                    <StackItem isFilled={ false }>
+                        { this.renderTargetRecommendation() }
+                    </StackItem>
+                    <StackItem isFilled={ false }>
+                        { this.renderWorkloadsDetectedTable() }
+                    </StackItem>
+                    <StackItem isFilled={ false }>
+                        { this.renderWorkloadsDetected() }
+                    </StackItem>
+                    <StackItem isFilled={ false }>
+                        { this.renderFlagsTable() }
+                    </StackItem>
+                    <StackItem isFilled={ false }>
+                        { this.renderScansRun() }
                     </StackItem>
                 </Stack>
             </React.Fragment>

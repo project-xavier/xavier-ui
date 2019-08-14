@@ -6,8 +6,9 @@ import {
     ICell,
     TableHeader
 } from '@patternfly/react-table';
-import { formatValue } from '../../../Utilities/formatValue';
+import { formatNumber } from '../../../Utilities/formatValue';
 import { Summary } from '../../../models';
+import './SummaryTable.scss';
 
 interface Props {
     summary: Summary[];
@@ -53,10 +54,10 @@ class SummaryTable extends Component<Props, State> {
                 element.provider,
                 element.product,
                 element.version,
-                formatValue(element.hosts),
-                formatValue(element.sockets),
-                formatValue(element.clusters),
-                formatValue(element.vms)
+                formatNumber(element.hosts, 0),
+                formatNumber(element.sockets, 0),
+                formatNumber(element.clusters, 0),
+                formatNumber(element.vms, 0)
             ];
         });
 
@@ -64,27 +65,29 @@ class SummaryTable extends Component<Props, State> {
             <React.Fragment>
                 <Table
                     aria-label='Summary table'
-                    rows={ rows }
                     cells={ columns }
+                    rows={ rows }
+                    variant={ TableVariant.compact }
+                    borders={ false }
                 >
                     <TableHeader />
                     <TableBody />
                     <tfoot>
-                        <tr>
+                        <tr className="summary-table-footer">
                             <td colSpan={ 3 }>
                                 <strong>Total</strong>
                             </td>
                             <td>
-                                <strong>{ formatValue(totalHosts) }</strong>
+                                <strong>{ formatNumber(totalHosts, 0) }</strong>
                             </td>
                             <td>
-                                <strong>{ formatValue(totalSockets) }</strong>
+                                <strong>{ formatNumber(totalSockets, 0) }</strong>
                             </td>
                             <td>
-                                <strong>{ formatValue(totalClusters) }</strong>
+                                <strong>{ formatNumber(totalClusters, 0) }</strong>
                             </td>
                             <td>
-                                <strong>{ formatValue(totalVms) }</strong>
+                                <strong>{ formatNumber(totalVms, 0) }</strong>
                             </td>
                         </tr>
                     </tfoot>

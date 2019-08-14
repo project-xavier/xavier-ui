@@ -2,7 +2,9 @@ import {
     getAllReports,
     getReportById,
     deleteReport as destroyReport,
-    getReportWokloadMigrationSummary as getReportWokloadSummary,
+    getReportWokloadSummary,
+    getReportWorkloadsDetected,
+    getReportFlags,
     getReportInitialSavingestimation,
     getReportWorkloadInventory,
     getReportWorkloadInventoryCSV
@@ -14,6 +16,8 @@ export const ActionTypes = {
     FETCH_REPORT: 'FETCH_REPORT',
     DELETE_REPORT: 'DELETE_REPORT',
     FETCH_REPORT_WORKLOAD_SUMMARY: 'FETCH_REPORT_WORKLOAD_SUMMARY',
+    FETCH_REPORT_WORKLOADS_DETECTED: 'FETCH_REPORT_WORKLOADS_DETECTED',
+    FETCH_REPORT_FLAGS: 'FETCH_REPORT_FLAGS',
     FETCH_REPORT_INITIAL_SAVING_ESTIMATION: 'FETCH_REPORT_INITIAL_SAVING_ESTIMATION',
     FETCH_REPORT_WOKLOAD_INVENTORY: 'FETCH_REPORT_WOKLOAD_INVENTORY',
     FETCH_REPORT_WOKLOAD_INVENTORY_CSV: 'FETCH_REPORT_WOKLOAD_INVENTORY_CSV'
@@ -79,6 +83,44 @@ export const fetchReportWorkloadSummary = (id: number): GenericAction => ({
             rejected: {
                 variant: 'danger',
                 title: `Failed to load report workload summary ${id}`
+            }
+        }
+    }
+});
+
+export const fetchReportWorkloadsDetected = (
+    id: number,
+    page: number,
+    perPage: number,
+    orderBy: string,
+    orderDirection: 'asc' | 'desc' | undefined
+): GenericAction => ({
+    type: ActionTypes.FETCH_REPORT_WORKLOADS_DETECTED,
+    payload: getReportWorkloadsDetected(id, page, perPage, orderBy, orderDirection),
+    meta: {
+        notifications: {
+            rejected: {
+                variant: 'danger',
+                title: `Failed to load report workloads detected ${id}`
+            }
+        }
+    }
+});
+
+export const fetchReportFlags = (
+    id: number,
+    page: number,
+    perPage: number,
+    orderBy: string,
+    orderDirection: 'asc' | 'desc' | undefined
+): GenericAction => ({
+    type: ActionTypes.FETCH_REPORT_FLAGS,
+    payload: getReportFlags(id, page, perPage, orderBy, orderDirection),
+    meta: {
+        notifications: {
+            rejected: {
+                variant: 'danger',
+                title: `Failed to load report flags ${id}`
             }
         }
     }

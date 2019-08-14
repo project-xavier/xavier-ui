@@ -17,7 +17,7 @@ export interface ReportWorkloadSummary {
     summary: Summary[];
     complexity: Complexity;
     targetsRecommendation: TargetRecommendation;
-    workloadsDetected: WorkloadsDetected;
+    workloadsDetected: WorkloadsDetectedOSTypes;
     scanRuns: ScanRun[];
 }
 
@@ -44,7 +44,7 @@ export interface TargetRecommendation {
     rhel: number;
 }
 
-export interface WorkloadsDetected {
+export interface WorkloadsDetectedOSTypes {
     rhel: number;
     sles: number;
     windows: number;
@@ -55,6 +55,22 @@ export interface ScanRun {
     target: string;
     type: string;
     date: number;
+}
+
+export interface WorkloadDetected {
+    workload: string;
+    osName: string;
+    clusters: number;
+    vms: number;
+}
+
+export interface Flag {
+    workload: string;
+    flag: string;
+    assessment: string;
+    osName: string;
+    clusters: number;
+    vms: number;
 }
 
 export interface ReportInitialSavingEstimation {

@@ -42,6 +42,16 @@ const reportTestInitialState: ReportState = {
 
     reportWorkloadSummary: null,
     reportWorkloadSummaryFetchStatus: { ...defaultFetchStatus },
+    reportWorkloadsDetected: {
+        total: 0,
+        items: []
+    },
+    reportWorkloadsDetectedFetchStatus: { ...defaultFetchStatus },
+    reportFlags: {
+        total: 0,
+        items: []
+    },
+    reportFlagsFetchStatus: { ...defaultFetchStatus },
 
     reportInitialSavingEstimation: null,
     reportInitialSavingEstimationFetchStatus: { ...defaultFetchStatus },

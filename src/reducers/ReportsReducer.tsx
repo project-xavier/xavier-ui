@@ -26,6 +26,20 @@ export const initialState: ReportState = {
     reportWorkloadSummaryFetchStatus: {
         ...defaultFetchStatus
     },
+    reportWorkloadsDetected: {
+        total: 0,
+        items: []
+    },
+    reportWorkloadsDetectedFetchStatus: {
+        ...defaultFetchStatus
+    },
+    reportFlags: {
+        total: 0,
+        items: []
+    },
+    reportFlagsFetchStatus: {
+        ...defaultFetchStatus
+    },
 
     reportInitialSavingEstimation: null,
     reportInitialSavingEstimationFetchStatus: {
@@ -187,6 +201,102 @@ export const reportsReducer = (state: ReportState = initialState, action: Generi
                 reportWorkloadSummary: null,
                 reportWorkloadSummaryFetchStatus: {
                     ...state.reportWorkloadSummaryFetchStatus,
+                    error: action.payload.message,
+                    status: 'complete'
+                }
+            };
+            return nextState;
+        }
+
+        // FETCH_REPORT_WORKLOADS_DETECTED single report
+        case pendingMessage(ActionTypes.FETCH_REPORT_WORKLOADS_DETECTED): {
+            const nextState: ReportState = {
+                ...state,
+                reportWorkloadsDetectedFetchStatus: {
+                    ...state.reportWorkloadsDetectedFetchStatus,
+                    error: null,
+                    status: 'inProgress'
+                }
+            };
+
+            return nextState;
+        }
+
+        case successMessage(ActionTypes.FETCH_REPORT_WORKLOADS_DETECTED): {
+            const nextState: ReportState = {
+                ...state,
+                reportWorkloadsDetected: {
+                    ...state.reportWorkloadsDetected,
+                    items: action.payload.data.content,
+                    total: action.payload.data.totalElements
+                },
+                reportWorkloadsDetectedFetchStatus: {
+                    ...state.reportWorkloadsDetectedFetchStatus,
+                    error: null,
+                    status: 'complete'
+                }
+            };
+            return nextState;
+        }
+
+        case failureMessage(ActionTypes.FETCH_REPORT_WORKLOADS_DETECTED): {
+            const nextState: ReportState = {
+                ...state,
+                reportWorkloadsDetected: {
+                    ...state.reportWorkloadsDetected,
+                    items: [],
+                    total: 0
+                },
+                reportWorkloadsDetectedFetchStatus: {
+                    ...state.reportWorkloadsDetectedFetchStatus,
+                    error: action.payload.message,
+                    status: 'complete'
+                }
+            };
+            return nextState;
+        }
+
+        // FETCH_REPORT_FLAGS single report
+        case pendingMessage(ActionTypes.FETCH_REPORT_FLAGS): {
+            const nextState: ReportState = {
+                ...state,
+                reportFlagsFetchStatus: {
+                    ...state.reportFlagsFetchStatus,
+                    error: null,
+                    status: 'inProgress'
+                }
+            };
+
+            return nextState;
+        }
+
+        case successMessage(ActionTypes.FETCH_REPORT_FLAGS): {
+            const nextState: ReportState = {
+                ...state,
+                reportFlags: {
+                    ...state.reportFlags,
+                    items: action.payload.data.content,
+                    total: action.payload.data.totalElements
+                },
+                reportFlagsFetchStatus: {
+                    ...state.reportFlagsFetchStatus,
+                    error: null,
+                    status: 'complete'
+                }
+            };
+            return nextState;
+        }
+
+        case failureMessage(ActionTypes.FETCH_REPORT_FLAGS): {
+            const nextState: ReportState = {
+                ...state,
+                reportFlags: {
+                    ...state.reportFlags,
+                    items: [],
+                    total: 0
+                },
+                reportFlagsFetchStatus: {
+                    ...state.reportFlagsFetchStatus,
                     error: action.payload.message,
                     status: 'complete'
                 }
