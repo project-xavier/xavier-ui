@@ -45,6 +45,7 @@ import {
 import debounce from 'lodash/debounce';
 import { Formik } from 'formik';
 import { ObjectFetchStatus } from '../../models/state';
+import { formatDate } from '../../Utilities/formatValue';
 
 interface StateToProps {
     reports: {
@@ -127,7 +128,7 @@ class Reports extends React.Component<Props, State> {
         this.stopTimer();
     }
 
-    // 
+    //
 
     public setStateAndResetTimerAndSetRenderStatus = (state: any = {}) => {
         this.resetRefreshDataTimer();
@@ -135,7 +136,8 @@ class Reports extends React.Component<Props, State> {
             ...state,
             renderInProgresFetchStatus: true
         });
-    }
+    };
+
     // Pull timer config
 
     public resetRefreshDataTimer = () => {
@@ -165,7 +167,7 @@ class Reports extends React.Component<Props, State> {
             if (renderInProgresFetchStatus) {
                 this.setState({
                     renderInProgresFetchStatus: false
-                });   
+                });
             }
 
             // Change isFirstFetchReportsCall to false to indicate
@@ -210,7 +212,7 @@ class Reports extends React.Component<Props, State> {
             onDelete: () => {
                 deleteReport(report.id, report.reportName).then(() => {
                     closeDeleteDialog();
-                    
+
                     this.setStateAndResetTimerAndSetRenderStatus();
                     this.refreshData();
                 });
@@ -257,7 +259,7 @@ class Reports extends React.Component<Props, State> {
         const page = 1;
         const filterText: string = values.filterText.trim();
         const {perPage} = this.state;
-        
+
         this.setStateAndResetTimerAndSetRenderStatus({
             filterText,
             page
@@ -270,9 +272,9 @@ class Reports extends React.Component<Props, State> {
     public renderReportStatus = (report: Report) => {
         switch (report.status) {
             case 'CREATED':
-                return <p><OkIcon className="success" /> Report created - { new Date(report.lastUpdate).toUTCString() }</p>;
+                return <p><OkIcon className="success" /> Report created - { formatDate(new Date(report.lastUpdate)) }</p>;
             case 'FAILED':
-                return <p><ErrorCircleOIcon className="error" /> Report failed - { new Date(report.lastUpdate).toUTCString() }</p>;
+                return <p><ErrorCircleOIcon className="error" /> Report failed - { formatDate(new Date(report.lastUpdate)) }</p>;
             case 'IN_PROGRESS':
                 return <p><InProgressIcon className="progress" /> Analyzing the upload file</p>;
             default:
@@ -339,7 +341,7 @@ class Reports extends React.Component<Props, State> {
         // Always return empty because every value is valid
         const searchBoxValidation = () => {
             return {};
-        }
+        };
 
         return (
             <Formik
