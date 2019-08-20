@@ -36,10 +36,10 @@ import {
 import { ErrorCircleOIcon, SearchIcon } from '@patternfly/react-icons';
 import { WorkloadDetected } from '../../../models';
 import { ObjectFetchStatus } from '../../../models/state';
-import ReportCard from '../../../PresentationalComponents/ReportCard';
 import debounce from 'lodash/debounce';
 import { formatNumber } from '../../../Utilities/formatValue';
 import './WorkloadsDetectedTable.scss';
+import { isNotNullOrUndefined } from '../../../Utilities/formUtils';
 
 interface StateToProps extends RouterGlobalProps {
     reportWorkloadsDetected: {
@@ -145,10 +145,10 @@ class WorkloadsDetectedTable extends React.Component<Props, State> {
         if (items.length > 0) {
             rows = items.map((row: WorkloadDetected) => {
                 return [
-                    row.workload,
-                    row.osName,
-                    formatNumber(row.clusters, 0),
-                    formatNumber(row.vms, 0)
+                    row.workload ? row.workload : '',
+                    row.osName ? row.osName : '',
+                    isNotNullOrUndefined(row.clusters) ? formatNumber(row.clusters, 0) : '',
+                    isNotNullOrUndefined(row.vms) ? formatNumber(row.vms, 0) : ''
                 ];
             });
         }

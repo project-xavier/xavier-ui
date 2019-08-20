@@ -9,6 +9,7 @@ import {
 import { formatNumber } from '../../../Utilities/formatValue';
 import { Summary } from '../../../models';
 import './SummaryTable.scss';
+import { isNotNullOrUndefined } from '../../../Utilities/formUtils';
 
 interface Props {
     summary: Summary[];
@@ -45,19 +46,19 @@ class SummaryTable extends Component<Props, State> {
         let totalVms = 0;
 
         const rows = summary.map((element) => {
-            totalHosts += element.hosts;
-            totalSockets += element.sockets;
-            totalClusters += element.clusters;
-            totalVms += element.vms;
+            totalHosts += (element.hosts || 0);
+            totalSockets += (element.sockets || 0);
+            totalClusters += (element.clusters || 0);
+            totalVms += (element.vms || 0);
 
             return [
-                element.provider,
-                element.product,
-                element.version,
-                formatNumber(element.hosts, 0),
-                formatNumber(element.sockets, 0),
-                formatNumber(element.clusters, 0),
-                formatNumber(element.vms, 0)
+                !isNotNullOrUndefined(element.provider) ? element.provider : '',
+                !isNotNullOrUndefined(element.product) ? element.product : '',
+                !isNotNullOrUndefined(element.version) ? element.version : '',
+                !isNotNullOrUndefined(element.hosts) ? formatNumber(element.hosts, 0) : '',
+                !isNotNullOrUndefined(element.sockets) ? formatNumber(element.sockets, 0) : '',
+                !isNotNullOrUndefined(element.clusters) ? formatNumber(element.clusters, 0) : '',
+                !isNotNullOrUndefined(element.vms) ? formatNumber(element.vms, 0) : '',
             ];
         });
 

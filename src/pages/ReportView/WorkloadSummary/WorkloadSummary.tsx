@@ -60,21 +60,39 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
         fetchReportWorkloadSummary(reportId);
     };
 
+    public renderErrorCard = (title: string) => {
+        return (
+            <ReportCard title={title}>
+                There is no enough data to render this card.
+            </ReportCard>
+        );
+    };
     public renderSummary = () => {
         const { reportWorkloadSummary } = this.props;
 
+        const title="Summary";
+        const summary = reportWorkloadSummary.summaryModels;
+
+        if (!summary) {
+            return this.renderErrorCard(title);
+        }
+
         return (
-            <ReportCard title="Summary">
-                <SummaryTable
-                    summary={ reportWorkloadSummary.summary }
-                />
+            <ReportCard title={title}>
+                <SummaryTable summary={ summary } />
             </ReportCard>
         );
     };
 
     public renderMigrationComplexity = () => {
         const { reportWorkloadSummary } = this.props;
+
+        const title="Migration complexity";
         const complexity = reportWorkloadSummary.complexity;
+
+        if (!complexity) {
+            return this.renderErrorCard(title);
+        }
 
         //
         const pieValues = [
@@ -124,19 +142,25 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
 
     public renderTargetRecommendation = () => {
         const { reportWorkloadSummary } = this.props;
+
+        const title="Target recommendation";
         const targetsRecommendation = reportWorkloadSummary.targetsRecommendation;
 
-        const pieValues = [
+        if (!targetsRecommendation) {
+            return this.renderErrorCard(title);
+        }
+
+        const values = [
             targetsRecommendation.rhv,
             targetsRecommendation.osp,
             targetsRecommendation.rhel
         ];
-        const total = pieValues.reduce(sumReducer, 0);
-        const percentages = pieValues.map((val: number) => val / total);
+        const total = targetsRecommendation.total;
+        const percentages = values.map((val: number) => val / total);
         
         return (
             <ReportCard
-                title='Target recommendation'
+                title={title}
                 skipBullseye={ true }
             >
                 <div className="pf-l-grid pf-m-all-6-col-on-md pf-m-all-4-col-on-lg pf-m-gutter">
@@ -183,8 +207,14 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
     };
 
     public renderWorkloadsDetected = () => {
-        const { reportWorkloadSummary } = this.props;
+        const { reportWorkloadSummary } = this.props;        
+
+        const title="Workloads detected (OS Types)";
         const complexity = reportWorkloadSummary.complexity;
+
+        if (!complexity) {
+            return this.renderErrorCard(title);
+        }
 
         //
         const pieValues = [
@@ -220,7 +250,7 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
         const tickFormat = (label: string, value: number) => `${label}: ${formatPercentage(value, 2)}`;
         return (
             <ReportCard
-                title='Workloads detected (OS Types)'
+                title={title}
             >
                 <FancyChartDonut
                     data={ chartData }
@@ -247,11 +277,18 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
 
     public renderScansRun = () => {
         const { reportWorkloadSummary } = this.props;
+       
+        const title="Scans run";
+        const scanRuns = reportWorkloadSummary.scanRuns;
+
+        if (!scanRuns) {
+            return this.renderErrorCard(title);
+        }
 
         return (
-            <ReportCard title="Scans run">
+            <ReportCard title={title}>
                 <ScansRunTable
-                    scanRuns={ reportWorkloadSummary.scanRuns }
+                    scanRuns={ scanRuns }
                 />
             </ReportCard>
         );

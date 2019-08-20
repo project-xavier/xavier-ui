@@ -14,7 +14,7 @@ export interface Report {
 }
 
 export interface ReportWorkloadSummary {
-    summary: Summary[];
+    summaryModels: Summary[];
     complexity: Complexity;
     targetsRecommendation: TargetRecommendation;
     workloadsDetected: WorkloadsDetectedOSTypes;
@@ -39,6 +39,7 @@ export interface Complexity {
 }
 
 export interface TargetRecommendation {
+    total: number;
     rhv: number;
     osp: number;
     rhel: number;
