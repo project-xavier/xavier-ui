@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {
     Card,
-    CardHeader,
     CardBody,
     Bullseye
 } from '@patternfly/react-core';

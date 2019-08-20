@@ -4,9 +4,6 @@ import {
     SkeletonTable
 } from '@redhat-cloud-services/frontend-components';
 import {
-    Card,
-    CardBody,
-    CardHeader,
     Stack,
     StackItem,
     Bullseye,
