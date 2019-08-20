@@ -404,16 +404,13 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
                         </div>
                     </StackItem>
                     <StackItem isFilled={ false }>
-                        <Card>
-                            <CardHeader>Disclaimer</CardHeader>
-                            <CardBody>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                                    labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                                    laboris nisi ut aliquip ex ea commodo consequat. Learn more about this in the documentation.
-                                </p>
-                            </CardBody>
-                        </Card>
+                        <ReportCard title="Disclaimer" skipBullseye={true}>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                                labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                                laboris nisi ut aliquip ex ea commodo consequat. Learn more about this in the documentation.
+                            </p>
+                        </ReportCard>
                     </StackItem>
                 </Stack>
             </React.Fragment>

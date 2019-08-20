@@ -3,9 +3,11 @@
 exports[`ReportCard expect to render with bullseye 1`] = `
 <Fragment>
   <Card>
-    <CardHeader>
+    <div
+      className="pf-c-card__header pf-c-title pf-m-xl"
+    >
       This is the title
-    </CardHeader>
+    </div>
     <CardBody>
       <Bullseye>
         children
@@ -20,11 +22,11 @@ exports[`ReportCard expect to render with custom classes 1`] = `
   <Card
     className="customCardClass"
   >
-    <CardHeader
-      className="customHeaderClass"
+    <div
+      className="pf-c-card__header pf-c-title pf-m-xl customHeaderClass"
     >
       This is the title
-    </CardHeader>
+    </div>
     <CardBody
       className="customBodyClass"
     >
@@ -39,9 +41,11 @@ exports[`ReportCard expect to render with custom classes 1`] = `
 exports[`ReportCard expect to render without bullseye 1`] = `
 <Fragment>
   <Card>
-    <CardHeader>
+    <div
+      className="pf-c-card__header pf-c-title pf-m-xl"
+    >
       This is the title
-    </CardHeader>
+    </div>
     <CardBody>
       children
     </CardBody>

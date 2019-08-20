@@ -5,6 +5,9 @@ import {
     CardBody,
     Bullseye
 } from '@patternfly/react-core';
+import { css } from '@patternfly/react-styles';
+import styles from '@patternfly/react-styles/css/components/Card/card';
+import titleStyles from '@patternfly/react-styles/css/components/Title/title';
 
 interface Props {
     title: any;
@@ -37,9 +40,9 @@ class ReportCard extends Component<Props, State> {
         return (
             <React.Fragment>
                 <Card className={ cardClass }>
-                    <CardHeader className={ headerClass }>
+                    <div className={css(styles.cardHeader, titleStyles.title, titleStyles.modifiers.xl, headerClass)}>
                         { title }
-                    </CardHeader>
+                    </div>
                     <CardBody className={ bodyClass }>
                         {
                             skipBullseye ?
