@@ -88,7 +88,7 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
         const { reportWorkloadSummary } = this.props;
 
         const title="Migration complexity";
-        const complexity = reportWorkloadSummary.complexity;
+        const complexity = reportWorkloadSummary.complexityModel;
 
         if (!complexity) {
             return this.renderErrorCard(title);
@@ -144,18 +144,18 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
         const { reportWorkloadSummary } = this.props;
 
         const title="Target recommendation";
-        const targetsRecommendation = reportWorkloadSummary.targetsRecommendation;
+        const recommendedTargetsIMS = reportWorkloadSummary.recommendedTargetsIMSModel;
 
-        if (!targetsRecommendation) {
+        if (!recommendedTargetsIMS) {
             return this.renderErrorCard(title);
         }
 
         const values = [
-            targetsRecommendation.rhv,
-            targetsRecommendation.osp,
-            targetsRecommendation.rhel
+            recommendedTargetsIMS.rhv,
+            recommendedTargetsIMS.osp,
+            recommendedTargetsIMS.rhel
         ];
-        const total = targetsRecommendation.total;
+        const total = recommendedTargetsIMS.total;
         const percentages = values.map((val: number) => val / total);
         
         return (
@@ -210,18 +210,18 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
         const { reportWorkloadSummary } = this.props;        
 
         const title="Workloads detected (OS Types)";
-        const complexity = reportWorkloadSummary.complexity;
+        const workloadOsTypesDetected = reportWorkloadSummary.workloadOsTypesDetectedModel;
 
-        if (!complexity) {
+        if (!workloadOsTypesDetected) {
             return this.renderErrorCard(title);
         }
 
         //
         const pieValues = [
-            complexity.easy,
-            complexity.medium,
-            complexity.difficult,
-            complexity.unknown
+            workloadOsTypesDetected.rhel,
+            workloadOsTypesDetected.sles,
+            workloadOsTypesDetected.windows,
+            workloadOsTypesDetected.oel
         ];
 
         const total = pieValues.reduce(sumReducer, 0);
@@ -279,7 +279,7 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
         const { reportWorkloadSummary } = this.props;
        
         const title="Scans run";
-        const scanRuns = reportWorkloadSummary.scanRuns;
+        const scanRuns = reportWorkloadSummary.scanRunModels;
 
         if (!scanRuns) {
             return this.renderErrorCard(title);

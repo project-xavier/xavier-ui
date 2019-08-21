@@ -15,10 +15,10 @@ export interface Report {
 
 export interface ReportWorkloadSummary {
     summaryModels: Summary[];
-    complexity: Complexity;
-    targetsRecommendation: TargetRecommendation;
-    workloadsDetected: WorkloadsDetectedOSTypes;
-    scanRuns: ScanRun[];
+    complexityModel: ComplexityModel;
+    recommendedTargetsIMSModel: RecommendedTargetsIMSModel;
+    workloadOsTypesDetectedModel: WorkloadOsTypesDetectedModel;
+    scanRunModels: ScanRunModel[];
 }
 
 export interface Summary {
@@ -31,28 +31,28 @@ export interface Summary {
     vms: number;
 }
 
-export interface Complexity {
+export interface ComplexityModel {
     unknown: number;
     difficult: number;
     medium: number;
     easy: number;
 }
 
-export interface TargetRecommendation {
+export interface RecommendedTargetsIMSModel {
     total: number;
     rhv: number;
     osp: number;
     rhel: number;
 }
 
-export interface WorkloadsDetectedOSTypes {
+export interface WorkloadOsTypesDetectedModel {
     rhel: number;
     sles: number;
     windows: number;
     oel: number;
 }
 
-export interface ScanRun {
+export interface ScanRunModel {
     target: string;
     type: string;
     date: number;
