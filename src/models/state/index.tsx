@@ -3,8 +3,8 @@ import {
     ReportWorkloadSummary,
     ReportInitialSavingEstimation,
     ReportWorkloadInventory,
-    WorkloadDetected,
-    Flag
+    WorkloadModel,
+    FlagModel
 } from '../Report';
 import { User } from '../User';
 
@@ -37,12 +37,12 @@ export interface ReportState {
     reportWorkloadSummaryFetchStatus: ObjectFetchStatus;
     reportWorkloadsDetected: {
         total: number;
-        items: WorkloadDetected[]
+        items: WorkloadModel[]
     };
     reportWorkloadsDetectedFetchStatus: ObjectFetchStatus;
     reportFlags: {
         total: number;
-        items: Flag[]
+        items: FlagModel[]
     };
     reportFlagsFetchStatus: ObjectFetchStatus;
 

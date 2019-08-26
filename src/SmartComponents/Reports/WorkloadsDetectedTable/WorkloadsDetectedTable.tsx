@@ -34,7 +34,7 @@ import {
     CardBody
 } from '@patternfly/react-core';
 import { ErrorCircleOIcon, SearchIcon } from '@patternfly/react-icons';
-import { WorkloadDetected } from '../../../models';
+import { WorkloadModel } from '../../../models';
 import { ObjectFetchStatus } from '../../../models/state';
 import debounce from 'lodash/debounce';
 import { formatNumber } from '../../../Utilities/formatValue';
@@ -44,7 +44,7 @@ import { isNotNullOrUndefined } from '../../../Utilities/formUtils';
 interface StateToProps extends RouterGlobalProps {
     reportWorkloadsDetected: {
         total: number;
-        items: WorkloadDetected[]
+        items: WorkloadModel[]
     };
     reportWorkloadsDetectedFetchStatus: ObjectFetchStatus;
 }
@@ -138,12 +138,12 @@ class WorkloadsDetectedTable extends React.Component<Props, State> {
     }
 
     public filtersInRowsAndCells = () => {
-        const items: WorkloadDetected[] = this.props.reportWorkloadsDetected.items
+        const items: WorkloadModel[] = this.props.reportWorkloadsDetected.items
             ? Object.values(this.props.reportWorkloadsDetected.items) : [];
 
         let rows: any[][] = [];
         if (items.length > 0) {
-            rows = items.map((row: WorkloadDetected) => {
+            rows = items.map((row: WorkloadModel) => {
                 return [
                     row.workload ? row.workload : '',
                     row.osName ? row.osName : '',

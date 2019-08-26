@@ -58,14 +58,14 @@ export interface ScanRunModel {
     date: number;
 }
 
-export interface WorkloadDetected {
+export interface WorkloadModel {
     workload: string;
     osName: string;
     clusters: number;
     vms: number;
 }
 
-export interface Flag {
+export interface FlagModel {
     workload: string;
     flag: string;
     assessment: string;

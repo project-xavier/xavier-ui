@@ -6,8 +6,8 @@ import {
     ReportInitialSavingEstimation,
     SearchResult,
     ReportWorkloadInventory,
-    WorkloadDetected,
-    Flag
+    WorkloadModel,
+    FlagModel
 } from '../models';
 
 export function getAllReports(page: number, perPage: number, filterText: string): AxiosPromise<SearchResult<Report>> {
@@ -44,7 +44,7 @@ export function getReportWorkloadsDetected(
     perPage: number,
     orderBy: string,
     orderDirection: 'asc' | 'desc' | undefined
-): AxiosPromise<SearchResult<WorkloadDetected>> {
+): AxiosPromise<SearchResult<WorkloadModel>> {
     // Using page-1 because the backend considers page 0 as the first one
     const params = {
         page: page - 1,
@@ -61,8 +61,8 @@ export function getReportWorkloadsDetected(
         }
     });
 
-    const url = `/report/${id}/workload-summary/workloads-detected?${query.join('&')}`;
-    return ApiClient.get<SearchResult<WorkloadDetected>>(url);
+    const url = `/report/${id}/workload-summary/workloads?${query.join('&')}`;
+    return ApiClient.get<SearchResult<WorkloadModel>>(url);
 }
 
 export function getReportFlags(
@@ -71,7 +71,7 @@ export function getReportFlags(
     perPage: number,
     orderBy: string,
     orderDirection: 'asc' | 'desc' | undefined
-): AxiosPromise<SearchResult<Flag>> {
+): AxiosPromise<SearchResult<FlagModel>> {
     // Using page-1 because the backend considers page 0 as the first one
     const params = {
         page: page - 1,
@@ -89,7 +89,7 @@ export function getReportFlags(
     });
 
     const url = `/report/${id}/workload-summary/flags?${query.join('&')}`;
-    return ApiClient.get<SearchResult<Flag>>(url);
+    return ApiClient.get<SearchResult<FlagModel>>(url);
 }
 
 export function getReportInitialSavingestimation(id: number): AxiosPromise<ReportInitialSavingEstimation> {

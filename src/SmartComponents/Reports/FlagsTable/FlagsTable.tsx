@@ -31,7 +31,7 @@ import {
     CardBody
 } from '@patternfly/react-core';
 import { ErrorCircleOIcon, SearchIcon } from '@patternfly/react-icons';
-import { Flag } from '../../../models';
+import { FlagModel } from '../../../models';
 import { ObjectFetchStatus } from '../../../models/state';
 import debounce from 'lodash/debounce';
 import { formatNumber } from '../../../Utilities/formatValue';
@@ -41,7 +41,7 @@ import { isNotNullOrUndefined } from '../../../Utilities/formUtils';
 interface StateToProps extends RouterGlobalProps {
     reportFlags: {
         total: number;
-        items: Flag[]
+        items: FlagModel[]
     };
     reportFlagsFetchStatus: ObjectFetchStatus;
 }
@@ -141,12 +141,12 @@ class FlagsTable extends React.Component<Props, State> {
     }
 
     public filtersInRowsAndCells = () => {
-        const items: Flag[] = this.props.reportFlags.items
+        const items: FlagModel[] = this.props.reportFlags.items
             ? Object.values(this.props.reportFlags.items) : [];
 
         let rows: any[][] = [];
         if (items.length > 0) {
-            rows = items.map((row: Flag) => {
+            rows = items.map((row: FlagModel) => {
                 return [
                     row.flag ? row.flag : '',
                     row.assessment ? row.assessment : '',
