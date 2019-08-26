@@ -76,31 +76,27 @@ exports[`UploadForm expect to render 1`] = `
     label="Year-over-year growth rate for new hypervisors"
   >
     <div
-      className="pf-l-gallery"
+      className="pf-l-grid pf-m-all-3-col-on-md"
     >
-      <div>
-        <InputGroup>
-          <TextInput
-            aria-describedby="Year-over-year growth rate for new hypervisors"
-            aria-label={null}
-            className="pf-u-text-align-right"
-            id="yearOverYearGrowthRatePercentage"
-            isDisabled={false}
-            isReadOnly={false}
-            isRequired={true}
-            isValid={true}
-            name="yearOverYearGrowthRatePercentage"
-            onBlur={[MockFunction]}
-            onChange={[Function]}
-            type="number"
-          />
-          <InputGroupText
-            className="percentage-box"
-          >
-            %
-          </InputGroupText>
-        </InputGroup>
-      </div>
+      <InputGroup>
+        <TextInput
+          aria-describedby="Year-over-year growth rate for new hypervisors"
+          aria-label={null}
+          className="pf-u-text-align-right"
+          id="yearOverYearGrowthRatePercentage"
+          isDisabled={false}
+          isReadOnly={false}
+          isRequired={true}
+          isValid={true}
+          name="yearOverYearGrowthRatePercentage"
+          onBlur={[MockFunction]}
+          onChange={[Function]}
+          type="number"
+        />
+        <InputGroupText>
+          %
+        </InputGroupText>
+      </InputGroup>
     </div>
   </FormGroup>
   <Stack
@@ -110,131 +106,120 @@ exports[`UploadForm expect to render 1`] = `
     <StackItem
       isFilled={false}
     >
+      <label
+        className="pf-c-form__label"
+      >
+        <span
+          className="pf-c-form__label-text"
+        >
+          Percentage of hypervisors migrated each year
+        </span>
+      </label>
+    </StackItem>
+    <StackItem
+      className="upload-form-subform-margin-left"
+      isFilled={false}
+    >
       <FormGroup
         fieldId="percentageOfHypervisorsMigratedOnYear1"
         isValid={true}
-        label="Percentage of hypervisors migrated each year"
+        label="Year1"
       >
         <div
-          className="pf-l-gallery"
+          className="pf-l-grid pf-m-all-3-col-on-md"
         >
-          <div>
-            <InputGroup>
-              <InputGroupText
-                className="year-box"
-              >
-                Year 1
-              </InputGroupText>
-              <TextInput
-                aria-label="Percentage of hypervisors migrated on year 1"
-                className="pf-u-text-align-right"
-                id="percentageOfHypervisorsMigratedOnYear1"
-                isDisabled={false}
-                isReadOnly={false}
-                isRequired={true}
-                isValid={true}
-                name="percentageOfHypervisorsMigratedOnYear1"
-                onBlur={[MockFunction]}
-                onChange={[Function]}
-                type="number"
-              />
-              <InputGroupText
-                className="percentage-box"
-              >
-                %
-              </InputGroupText>
-            </InputGroup>
-          </div>
+          <InputGroup>
+            <TextInput
+              aria-label="Percentage of hypervisors migrated on year 1"
+              className="pf-u-text-align-right"
+              id="percentageOfHypervisorsMigratedOnYear1"
+              isDisabled={false}
+              isReadOnly={false}
+              isRequired={true}
+              isValid={true}
+              name="percentageOfHypervisorsMigratedOnYear1"
+              onBlur={[MockFunction]}
+              onChange={[Function]}
+              type="number"
+            />
+            <InputGroupText>
+              %
+            </InputGroupText>
+          </InputGroup>
         </div>
       </FormGroup>
     </StackItem>
     <StackItem
+      className="upload-form-subform-margin-left"
       isFilled={false}
     >
       <FormGroup
-        fieldId=""
+        fieldId="percentageOfHypervisorsMigratedOnYear2"
         isValid={true}
-        label=""
+        label="Year 2"
       >
         <div
-          className="pf-l-gallery"
+          className="pf-l-grid pf-m-all-3-col-on-md"
         >
-          <div>
-            <InputGroup>
-              <InputGroupText
-                className="year-box"
-              >
-                Year 2
-              </InputGroupText>
-              <TextInput
-                aria-label="Percentage of hypervisors migrated on year 2"
-                className="pf-u-text-align-right"
-                id="percentageOfHypervisorsMigratedOnYear2"
-                isDisabled={false}
-                isReadOnly={false}
-                isRequired={true}
-                isValid={true}
-                name="percentageOfHypervisorsMigratedOnYear2"
-                onBlur={[MockFunction]}
-                onChange={[Function]}
-                type="number"
-              />
-              <InputGroupText
-                className="percentage-box"
-              >
-                %
-              </InputGroupText>
-            </InputGroup>
-          </div>
+          <InputGroup>
+            <TextInput
+              aria-label="Percentage of hypervisors migrated on year 2"
+              className="pf-u-text-align-right"
+              id="percentageOfHypervisorsMigratedOnYear2"
+              isDisabled={false}
+              isReadOnly={false}
+              isRequired={true}
+              isValid={true}
+              name="percentageOfHypervisorsMigratedOnYear2"
+              onBlur={[MockFunction]}
+              onChange={[Function]}
+              type="number"
+            />
+            <InputGroupText>
+              %
+            </InputGroupText>
+          </InputGroup>
         </div>
       </FormGroup>
     </StackItem>
     <StackItem
+      className="upload-form-subform-margin-left"
       isFilled={false}
     >
       <FormGroup
-        fieldId=""
+        fieldId="percentageOfHypervisorsMigratedOnYear3"
         isValid={true}
-        label=""
+        label="Year 3"
       >
         <div
-          className="pf-l-gallery"
+          className="pf-l-grid pf-m-all-3-col-on-md"
         >
-          <div>
-            <InputGroup>
-              <InputGroupText
-                className="year-box"
-              >
-                Year 3
-              </InputGroupText>
-              <TextInput
-                aria-label="Percentage of hypervisors migrated on year 3"
-                className="pf-u-text-align-right"
-                id="percentageOfHypervisorsMigratedOnYear3"
-                isDisabled={false}
-                isReadOnly={false}
-                isRequired={true}
-                isValid={true}
-                name="percentageOfHypervisorsMigratedOnYear3"
-                onBlur={[MockFunction]}
-                onChange={[Function]}
-                type="number"
-              />
-              <InputGroupText
-                className="percentage-box"
-              >
-                %
-              </InputGroupText>
-            </InputGroup>
-          </div>
+          <InputGroup>
+            <TextInput
+              aria-label="Percentage of hypervisors migrated on year 3"
+              className="pf-u-text-align-right"
+              id="percentageOfHypervisorsMigratedOnYear3"
+              isDisabled={false}
+              isReadOnly={false}
+              isRequired={true}
+              isValid={true}
+              name="percentageOfHypervisorsMigratedOnYear3"
+              onBlur={[MockFunction]}
+              onChange={[Function]}
+              type="number"
+            />
+            <InputGroupText>
+              %
+            </InputGroupText>
+          </InputGroup>
         </div>
       </FormGroup>
     </StackItem>
   </Stack>
   <ActionGroup>
     <Button
-      disabled={true}
-      isDisabled={true}
+      disabled={false}
+      isDisabled={false}
       type="submit"
       variant="primary"
     >
@@ -331,31 +316,27 @@ exports[`UploadForm expect to render errors 1`] = `
     label="Year-over-year growth rate for new hypervisors"
   >
     <div
-      className="pf-l-gallery"
+      className="pf-l-grid pf-m-all-3-col-on-md"
     >
-      <div>
-        <InputGroup>
-          <TextInput
-            aria-describedby="Year-over-year growth rate for new hypervisors"
-            aria-label={null}
-            className="pf-u-text-align-right"
-            id="yearOverYearGrowthRatePercentage"
-            isDisabled={false}
-            isReadOnly={false}
-            isRequired={true}
-            isValid={false}
-            name="yearOverYearGrowthRatePercentage"
-            onBlur={[MockFunction]}
-            onChange={[Function]}
-            type="number"
-          />
-          <InputGroupText
-            className="percentage-box"
-          >
-            %
-          </InputGroupText>
-        </InputGroup>
-      </div>
+      <InputGroup>
+        <TextInput
+          aria-describedby="Year-over-year growth rate for new hypervisors"
+          aria-label={null}
+          className="pf-u-text-align-right"
+          id="yearOverYearGrowthRatePercentage"
+          isDisabled={false}
+          isReadOnly={false}
+          isRequired={true}
+          isValid={false}
+          name="yearOverYearGrowthRatePercentage"
+          onBlur={[MockFunction]}
+          onChange={[Function]}
+          type="number"
+        />
+        <InputGroupText>
+          %
+        </InputGroupText>
+      </InputGroup>
     </div>
   </FormGroup>
   <Stack
@@ -365,134 +346,123 @@ exports[`UploadForm expect to render errors 1`] = `
     <StackItem
       isFilled={false}
     >
+      <label
+        className="pf-c-form__label"
+      >
+        <span
+          className="pf-c-form__label-text"
+        >
+          Percentage of hypervisors migrated each year
+        </span>
+      </label>
+    </StackItem>
+    <StackItem
+      className="upload-form-subform-margin-left"
+      isFilled={false}
+    >
       <FormGroup
         fieldId="percentageOfHypervisorsMigratedOnYear1"
         helperTextInvalid="Field value invalid"
         isValid={false}
-        label="Percentage of hypervisors migrated each year"
+        label="Year1"
       >
         <div
-          className="pf-l-gallery"
+          className="pf-l-grid pf-m-all-3-col-on-md"
         >
-          <div>
-            <InputGroup>
-              <InputGroupText
-                className="year-box"
-              >
-                Year 1
-              </InputGroupText>
-              <TextInput
-                aria-label="Percentage of hypervisors migrated on year 1"
-                className="pf-u-text-align-right"
-                id="percentageOfHypervisorsMigratedOnYear1"
-                isDisabled={false}
-                isReadOnly={false}
-                isRequired={true}
-                isValid={false}
-                name="percentageOfHypervisorsMigratedOnYear1"
-                onBlur={[MockFunction]}
-                onChange={[Function]}
-                type="number"
-              />
-              <InputGroupText
-                className="percentage-box"
-              >
-                %
-              </InputGroupText>
-            </InputGroup>
-          </div>
+          <InputGroup>
+            <TextInput
+              aria-label="Percentage of hypervisors migrated on year 1"
+              className="pf-u-text-align-right"
+              id="percentageOfHypervisorsMigratedOnYear1"
+              isDisabled={false}
+              isReadOnly={false}
+              isRequired={true}
+              isValid={false}
+              name="percentageOfHypervisorsMigratedOnYear1"
+              onBlur={[MockFunction]}
+              onChange={[Function]}
+              type="number"
+            />
+            <InputGroupText>
+              %
+            </InputGroupText>
+          </InputGroup>
         </div>
       </FormGroup>
     </StackItem>
     <StackItem
+      className="upload-form-subform-margin-left"
       isFilled={false}
     >
       <FormGroup
-        fieldId=""
+        fieldId="percentageOfHypervisorsMigratedOnYear2"
         helperTextInvalid="Field value invalid"
         isValid={false}
-        label=""
+        label="Year 2"
       >
         <div
-          className="pf-l-gallery"
+          className="pf-l-grid pf-m-all-3-col-on-md"
         >
-          <div>
-            <InputGroup>
-              <InputGroupText
-                className="year-box"
-              >
-                Year 2
-              </InputGroupText>
-              <TextInput
-                aria-label="Percentage of hypervisors migrated on year 2"
-                className="pf-u-text-align-right"
-                id="percentageOfHypervisorsMigratedOnYear2"
-                isDisabled={false}
-                isReadOnly={false}
-                isRequired={true}
-                isValid={false}
-                name="percentageOfHypervisorsMigratedOnYear2"
-                onBlur={[MockFunction]}
-                onChange={[Function]}
-                type="number"
-              />
-              <InputGroupText
-                className="percentage-box"
-              >
-                %
-              </InputGroupText>
-            </InputGroup>
-          </div>
+          <InputGroup>
+            <TextInput
+              aria-label="Percentage of hypervisors migrated on year 2"
+              className="pf-u-text-align-right"
+              id="percentageOfHypervisorsMigratedOnYear2"
+              isDisabled={false}
+              isReadOnly={false}
+              isRequired={true}
+              isValid={false}
+              name="percentageOfHypervisorsMigratedOnYear2"
+              onBlur={[MockFunction]}
+              onChange={[Function]}
+              type="number"
+            />
+            <InputGroupText>
+              %
+            </InputGroupText>
+          </InputGroup>
         </div>
       </FormGroup>
     </StackItem>
     <StackItem
+      className="upload-form-subform-margin-left"
       isFilled={false}
     >
       <FormGroup
-        fieldId=""
+        fieldId="percentageOfHypervisorsMigratedOnYear3"
         helperTextInvalid="Field value invalid"
         isValid={false}
-        label=""
+        label="Year 3"
       >
         <div
-          className="pf-l-gallery"
+          className="pf-l-grid pf-m-all-3-col-on-md"
         >
-          <div>
-            <InputGroup>
-              <InputGroupText
-                className="year-box"
-              >
-                Year 3
-              </InputGroupText>
-              <TextInput
-                aria-label="Percentage of hypervisors migrated on year 3"
-                className="pf-u-text-align-right"
-                id="percentageOfHypervisorsMigratedOnYear3"
-                isDisabled={false}
-                isReadOnly={false}
-                isRequired={true}
-                isValid={true}
-                name="percentageOfHypervisorsMigratedOnYear3"
-                onBlur={[MockFunction]}
-                onChange={[Function]}
-                type="number"
-              />
-              <InputGroupText
-                className="percentage-box"
-              >
-                %
-              </InputGroupText>
-            </InputGroup>
-          </div>
+          <InputGroup>
+            <TextInput
+              aria-label="Percentage of hypervisors migrated on year 3"
+              className="pf-u-text-align-right"
+              id="percentageOfHypervisorsMigratedOnYear3"
+              isDisabled={false}
+              isReadOnly={false}
+              isRequired={true}
+              isValid={true}
+              name="percentageOfHypervisorsMigratedOnYear3"
+              onBlur={[MockFunction]}
+              onChange={[Function]}
+              type="number"
+            />
+            <InputGroupText>
+              %
+            </InputGroupText>
+          </InputGroup>
         </div>
       </FormGroup>
     </StackItem>
   </Stack>
   <ActionGroup>
     <Button
-      disabled={true}
-      isDisabled={true}
+      disabled={false}
+      isDisabled={false}
       type="submit"
       variant="primary"
     >
