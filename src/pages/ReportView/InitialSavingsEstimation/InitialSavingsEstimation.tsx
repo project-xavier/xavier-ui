@@ -268,7 +268,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
         const tickFormat = (label: string, value: number) => `${label}: ${value.toFixed(2)}%`;
         return (
             <ReportCard
-                title='Total VMware maintenance, Red Hat Virtualization, training and services costs during a 3 year migration)'
+                title='Total VMware maintenance, Red Hat Virtualization, training and services costs during a 3 year migration'
             >
                 <FancyChartDonut
                     data={ chartData }
