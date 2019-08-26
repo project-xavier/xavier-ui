@@ -125,6 +125,6 @@
     "format": "prettier --check --write ./src/**/*.{tsx,ts,js}"
   },
   "insights": {
-    "appname": "migration-analytics"a
+    "appname": "migration-analytics"
   }
 }
