@@ -108,8 +108,8 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
         const chartProps = {
             title: formatNumber(total, 0),
             subTitle: 'Total VMs',
-            height: 300,
-            width: 300
+            height: 250,
+            width: 250
         };
         const chartLegendProps = {
             height: 300,
