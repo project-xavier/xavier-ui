@@ -5,7 +5,8 @@ import {
     ChartLegend,
     ChartLegendProps,
     ChartThemeColor,
-    ChartThemeVariant
+    ChartThemeVariant,
+    ChartTooltip
 } from '@patternfly/react-charts';
 
 export interface FancyChartDonutData {
@@ -20,6 +21,7 @@ interface Props {
     chartProps?: ChartDonutProps;
     chartLegendProps?: ChartLegendProps;
     tickFormat?: (label: string, value: number, data: any) => string;
+    tooltipFormat?: (datum: any, active: boolean) => string;
 }
 
 interface State {
@@ -32,7 +34,7 @@ class FancyChartDonut extends Component<Props, State> {
     }
 
     public render() {
-        const { data, chartProps, chartLegendProps, tickFormat } = this.props;
+        const { data, chartProps, chartLegendProps, tickFormat, tooltipFormat } = this.props;
 
         const chartData = data.map((val) => {
             return {
@@ -64,6 +66,7 @@ class FancyChartDonut extends Component<Props, State> {
                             themeVariant={colorScale ? undefined : ChartThemeVariant.light}
                             colorScale={ colorScale }
                             labels={ chartLabels }
+                            labelComponent={  <ChartTooltip text={ tooltipFormat ? tooltipFormat : undefined }/> }
                             { ...chartProps }
                         />
                     </div>

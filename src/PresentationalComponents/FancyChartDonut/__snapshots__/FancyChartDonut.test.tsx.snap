@@ -41,6 +41,7 @@ exports[`FancyChartDonut expect to render with minimun props 1`] = `
             },
           ]
         }
+        labelComponent={<ChartTooltip />}
         labels={[Function]}
       />
     </div>
