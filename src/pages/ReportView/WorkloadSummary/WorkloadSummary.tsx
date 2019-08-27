@@ -121,7 +121,7 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
         const chartData: FancyChartDonutData[] = [
             { label: 'Easy', value: percentages[0], data: pieValues[0] },
             { label: 'Medium', value: percentages[1], data: pieValues[1] },
-            { label: 'Difficult', value: percentages[2], data: pieValues[2] },
+            { label: 'Hard', value: percentages[2], data: pieValues[2] },
             { label: 'Unknow', value: percentages[3], data: pieValues[3] }
         ];
 
