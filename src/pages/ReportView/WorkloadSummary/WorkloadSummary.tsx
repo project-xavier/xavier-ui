@@ -106,8 +106,8 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
         const percentages = pieValues.map((val: number) => val / total);
 
         const chartProps = {
-            title: formatPercentage(1, 0),
-            subTitle: 'total',
+            title: formatNumber(total, 0),
+            subTitle: 'Total VMs',
             height: 300,
             width: 300
         };
@@ -125,7 +125,9 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
             { label: 'Unknow', value: percentages[3], data: pieValues[3] }
         ];
 
-        const tickFormat = (label: string, value: number, data: any) => `${label}: ${formatPercentage(value, 2)} - VMs: ${formatNumber(data, 0)}`;
+        const tickFormat = (label: string, value: number, data: any) => `${label}: ${formatPercentage(value, 2)}`;
+        const tooltipFormat = (datum: any, active: boolean) => `${datum.x}: ${formatPercentage(datum.y, 2)} \n VMs: ${formatNumber(datum.data, 0)}`;
+
         return (
             <ReportCard
                 title='Migration complexity'
@@ -135,6 +137,7 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
                     chartProps={ chartProps }
                     chartLegendProps={ chartLegendProps }
                     tickFormat={ tickFormat }
+                    tooltipFormat={ tooltipFormat }
                 />
             </ReportCard>
         );
