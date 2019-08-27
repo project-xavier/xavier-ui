@@ -36,7 +36,7 @@ import { ObjectFetchStatus } from '../../../models/state';
 import debounce from 'lodash/debounce';
 import { formatNumber } from '../../../Utilities/formatValue';
 import './FlagsTable.scss';
-import { isNotNullOrUndefined } from '../../../Utilities/formUtils';
+import { isNullOrUndefined } from '../../../Utilities/formUtils';
 
 interface StateToProps extends RouterGlobalProps {
     reportFlags: {
@@ -151,8 +151,8 @@ class FlagsTable extends React.Component<Props, State> {
                     row.flag ? row.flag : '',
                     row.assessment ? row.assessment : '',
                     row.osName ? row.osName : '',
-                    isNotNullOrUndefined(row.clusters) ? formatNumber(row.clusters, 0) : '',
-                    isNotNullOrUndefined(row.vms) ? formatNumber(row.vms, 0) : ''
+                    !isNullOrUndefined(row.clusters) ? formatNumber(row.clusters, 0) : '',
+                    !isNullOrUndefined(row.vms) ? formatNumber(row.vms, 0) : ''
                 ];
             });
         }

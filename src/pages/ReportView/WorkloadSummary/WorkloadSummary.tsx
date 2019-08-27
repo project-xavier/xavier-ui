@@ -98,7 +98,7 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
         const pieValues = [
             complexity.easy,
             complexity.medium,
-            complexity.difficult,
+            complexity.hard,
             complexity.unknown
         ];
 

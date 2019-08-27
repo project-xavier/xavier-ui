@@ -33,7 +33,7 @@ export interface Summary {
 
 export interface ComplexityModel {
     unknown: number;
-    difficult: number;
+    hard: number;
     medium: number;
     easy: number;
 }

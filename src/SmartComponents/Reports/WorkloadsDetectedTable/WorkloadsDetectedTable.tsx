@@ -39,7 +39,7 @@ import { ObjectFetchStatus } from '../../../models/state';
 import debounce from 'lodash/debounce';
 import { formatNumber } from '../../../Utilities/formatValue';
 import './WorkloadsDetectedTable.scss';
-import { isNotNullOrUndefined } from '../../../Utilities/formUtils';
+import { isNullOrUndefined } from '../../../Utilities/formUtils';
 
 interface StateToProps extends RouterGlobalProps {
     reportWorkloadsDetected: {
@@ -147,8 +147,8 @@ class WorkloadsDetectedTable extends React.Component<Props, State> {
                 return [
                     row.workload ? row.workload : '',
                     row.osName ? row.osName : '',
-                    isNotNullOrUndefined(row.clusters) ? formatNumber(row.clusters, 0) : '',
-                    isNotNullOrUndefined(row.vms) ? formatNumber(row.vms, 0) : ''
+                    !isNullOrUndefined(row.clusters) ? formatNumber(row.clusters, 0) : '',
+                    !isNullOrUndefined(row.vms) ? formatNumber(row.vms, 0) : ''
                 ];
             });
         }
