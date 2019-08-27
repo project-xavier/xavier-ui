@@ -3,13 +3,16 @@ import {
     ChartDonut,
     ChartDonutProps,
     ChartLegend,
-    ChartLegendProps
+    ChartLegendProps,
+    ChartThemeColor,
+    ChartThemeVariant,
+    ChartTooltip
 } from '@patternfly/react-charts';
 
 export interface FancyChartDonutData {
     label: string;
     value: number;
-    color: string;
+    color?: string;
 }
 
 interface Props {
@@ -17,6 +20,7 @@ interface Props {
     chartProps?: ChartDonutProps;
     chartLegendProps?: ChartLegendProps;
     tickFormat?: (label: string, value: number) => string;
+    tooltipFormat?: (datum: any, active: boolean) => string;
 }
 
 interface State {
@@ -29,7 +33,7 @@ class FancyChartDonut extends Component<Props, State> {
     }
 
     public render() {
-        const { data, chartProps, chartLegendProps, tickFormat } = this.props;
+        const { data, chartProps, chartLegendProps, tickFormat, tooltipFormat } = this.props;
 
         const chartData = data.map((val) => {
             return {
@@ -44,7 +48,7 @@ class FancyChartDonut extends Component<Props, State> {
             };
         });
 
-        const colorScale = data.map((val) => val.color);
+        const colorScale = !data.some((val) => !val.color) ? data.map((val) => val.color || '') : undefined;
 
         const chartLabels = (datum: any): string => {
             return tickFormat ? tickFormat(datum.x, datum.y) : `${datum.x}: ${datum.y}`;
@@ -56,14 +60,19 @@ class FancyChartDonut extends Component<Props, State> {
                     <div className="donut-chart-container">
                         <ChartDonut
                             data={ chartData }
+                            themeColor={colorScale ? undefined : ChartThemeColor.multiOrdered}
+                            themeVariant={colorScale ? undefined : ChartThemeVariant.light}
                             colorScale={ colorScale }
                             labels={ chartLabels }
+                            labelComponent={  <ChartTooltip text={ tooltipFormat ? tooltipFormat : undefined }/> }
                             { ...chartProps }
                         />
                     </div>
                     <ChartLegend
                         data={ legendData }
                         colorScale={ colorScale }
+                        themeColor={colorScale ? undefined : ChartThemeColor.multiOrdered}
+                        themeVariant={colorScale ? undefined : ChartThemeVariant.light}
                         orientation="vertical"
                         { ...chartLegendProps }
                     />
