@@ -246,6 +246,8 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
         ];
 
         const tickFormat = (label: string, value: number) => `${label}: ${value.toFixed(2)}%`;
+        const tooltipFormat = (datum: any, active: boolean) => `${datum.x} \n ${datum.y.toFixed(2)}%`;
+
         return (
             <ReportCard
                 title={
@@ -269,6 +271,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
                     chartProps={ chartProps }
                     chartLegendProps={ chartLegendProps }
                     tickFormat={ tickFormat }
+                    tooltipFormat={ tooltipFormat }
                 />
             </ReportCard>
         );
