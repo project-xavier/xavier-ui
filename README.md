@@ -76,4 +76,4 @@ cd jaxrs-util-mocks
 ```
 
 # Open you browser
-open your browser - [https://ci.foo.redhat.com:1337/staging/migration-analytics](https://ci.foo.redhat.com:1337/staging/migration-analytics)
+open your browser - [https://ci.foo.redhat.com:1337/migrations/migration-analytics](https://ci.foo.redhat.com:1337/migrations/migration-analytics)

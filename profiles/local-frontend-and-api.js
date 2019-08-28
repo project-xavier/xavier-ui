@@ -1,6 +1,6 @@
 /*global module*/
 
-const SECTION = 'staging';
+const SECTION = 'migrations';
 const APP_ID = 'migration-analytics';
 const FRONTEND_PORT = 8002;
 const API_PORT = 8080;
