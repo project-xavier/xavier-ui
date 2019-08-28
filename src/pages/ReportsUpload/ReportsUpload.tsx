@@ -81,13 +81,13 @@ const initialFormValue: FormValues = {
 
 const formValidationSchema = (values: FormValues) => {
     return Yup.object().shape({
-        file: Yup.string()
+        file: Yup.string().trim()
         .required('File is mandatory'),
-        reportName: Yup.string()
+        reportName: Yup.string().trim()
         .min(3, 'Report name must contain at least 3 characters ')
         .max(250, 'Report name must contain fewer than 250 characters')
         .required('Report name is mandatory'),
-        reportDescription: Yup.string()
+        reportDescription: Yup.string().trim()
         .max(250, 'Report description must contain fewer than 250 characters'),
         yearOverYearGrowthRatePercentage: Yup.number()
         .typeError('Invalid number')
@@ -217,8 +217,8 @@ class ReportsUpload extends React.Component<Props, State> {
 
         const upload: Upload = {
             file: this.props.file,
-            reportName: values.reportName,
-            reportDescription: values.reportDescription,
+            reportName: values.reportName.trim(),
+            reportDescription: values.reportDescription ? values.reportDescription.trim() : '',
             yearOverYearGrowthRatePercentage: values.yearOverYearGrowthRatePercentage,
             percentageOfHypervisorsMigratedOnYear1: values.percentageOfHypervisorsMigratedOnYear1,
             percentageOfHypervisorsMigratedOnYear2: values.percentageOfHypervisorsMigratedOnYear2,
