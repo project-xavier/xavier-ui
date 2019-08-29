@@ -130,7 +130,7 @@ class WorkloadsDetectedTable extends React.Component<Props, State> {
     ) => {
         const { reportId, fetchReportWorkloadsDetected } = this.props;
 
-        const column = index ? this.state.columns[index - 1].key : undefined;
+        const column = index ? this.state.columns[index].key : undefined;
         const orderDirection = direction ? direction : undefined;
         fetchReportWorkloadsDetected(reportId, page, perPage, column, orderDirection).then(() => {
             this.filtersInRowsAndCells();
