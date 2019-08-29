@@ -319,9 +319,9 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
                     <StackItem isFilled={ false }>
                         { this.renderFlagsTable() }
                     </StackItem>
-                    <StackItem isFilled={ false }>
+                    {/* <StackItem isFilled={ false }>
                         { this.renderScansRun() }
-                    </StackItem>
+                    </StackItem> */}
                 </Stack>
             </React.Fragment>
         );
