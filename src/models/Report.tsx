@@ -17,7 +17,7 @@ export interface ReportWorkloadSummary {
     summaryModels: Summary[];
     complexityModel: ComplexityModel;
     recommendedTargetsIMSModel: RecommendedTargetsIMSModel;
-    workloadOsTypesDetectedModel: WorkloadOsTypesDetectedModel;
+    workloadsDetectedOSTypeModels: WorkloadDetectedOSTypeModel[];
     scanRunModels: ScanRunModel[];
 }
 
@@ -45,11 +45,9 @@ export interface RecommendedTargetsIMSModel {
     rhel: number;
 }
 
-export interface WorkloadOsTypesDetectedModel {
-    rhel: number;
-    sles: number;
-    windows: number;
-    oel: number;
+export interface WorkloadDetectedOSTypeModel {
+    total: number;
+    osName: string;
 }
 
 export interface ScanRunModel {

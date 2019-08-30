@@ -213,26 +213,21 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
         const { reportWorkloadSummary } = this.props;        
 
         const title="Workloads detected (OS Types)";
-        const workloadOsTypesDetected = reportWorkloadSummary.workloadOsTypesDetectedModel;
+        const workloadsDetectedOSTypeModels = reportWorkloadSummary.workloadsDetectedOSTypeModels;
 
-        if (!workloadOsTypesDetected) {
+        if (!workloadsDetectedOSTypeModels) {
             return this.renderErrorCard(title);
         }
 
         //
-        const pieValues = [
-            workloadOsTypesDetected.rhel,
-            workloadOsTypesDetected.sles,
-            workloadOsTypesDetected.windows,
-            workloadOsTypesDetected.oel
-        ];
+        const pieValues = workloadsDetectedOSTypeModels.map(element => element.total);
 
         const total = pieValues.reduce(sumReducer, 0);
         const percentages = pieValues.map((val: number) => val / total);
 
         const chartProps = {
-            title: formatPercentage(1, 0),
-            subTitle: 'Total',
+            title: formatNumber(total, 0),
+            subTitle: 'Total workloads',
             height: 300,
             width: 300
         };
@@ -243,12 +238,10 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
             y: 60
         };
 
-        const chartData: FancyChartDonutData[] = [
-            { label: 'RHEL', value: percentages[0] },
-            { label: 'SLES', value: percentages[1] },
-            { label: 'Windows', value: percentages[2] },
-            { label: 'OEL', value: percentages[3] }
-        ];
+        const chartData: FancyChartDonutData[] = workloadsDetectedOSTypeModels.map((element, index: number) => ({
+            label: element.osName,
+            value: percentages[index]
+        }));
 
         const tickFormat = (label: string, value: number) => `${label}: ${formatPercentage(value, 2)}`;
         return (
