@@ -138,9 +138,9 @@ const primaryFilters = [
     { name: 'Provider', value: FilterTypeKeyEnum.PROVIDER },
     { name: 'Datacenter', value: FilterTypeKeyEnum.DATACENTER },
     { name: 'Cluster', value: FilterTypeKeyEnum.CLUSTER },
-    { name: 'Vm name', value: FilterTypeKeyEnum.VM_NAME },
+    { name: 'VM name', value: FilterTypeKeyEnum.VM_NAME },
     { name: 'Workload', value: FilterTypeKeyEnum.WORKLOAD },
-    { name: 'Os name', value: FilterTypeKeyEnum.OS_NAME },
+    { name: 'OS type', value: FilterTypeKeyEnum.OS_NAME },
     { name: 'Effort', value: FilterTypeKeyEnum.EFFORT },
     { name: 'Recommended targets', value: FilterTypeKeyEnum.RECOMMENDED_TARGETS_IMS },
     { name: 'Flags IMS', value: FilterTypeKeyEnum.FLAGS_IMS }
@@ -533,23 +533,23 @@ class WorkloadInventory extends React.Component<Props, State> {
 
         switch(filterType.value) {
             case FilterTypeKeyEnum.PROVIDER:
-                return this.renderSecondaryFilterDropdownd(filterType, reportWorkloadInventoryAvailableFilters.providers);
+                return this.renderSecondaryFilterDropdown(filterType, reportWorkloadInventoryAvailableFilters.providers);
             case FilterTypeKeyEnum.DATACENTER:
-                return this.renderSecondaryFilterDropdownd(filterType, reportWorkloadInventoryAvailableFilters.datacenters);
+                return this.renderSecondaryFilterDropdown(filterType, reportWorkloadInventoryAvailableFilters.datacenters);
             case FilterTypeKeyEnum.CLUSTER:
-                return this.renderSecondaryFilterDropdownd(filterType, reportWorkloadInventoryAvailableFilters.clusters);
+                return this.renderSecondaryFilterDropdown(filterType, reportWorkloadInventoryAvailableFilters.clusters);
             case FilterTypeKeyEnum.WORKLOAD:
-                return this.renderSecondaryFilterDropdownd(filterType, reportWorkloadInventoryAvailableFilters.workloads);
+                return this.renderSecondaryFilterDropdown(filterType, reportWorkloadInventoryAvailableFilters.workloads);
             case FilterTypeKeyEnum.EFFORT:
-                return this.renderSecondaryFilterDropdownd(filterType, reportWorkloadInventoryAvailableFilters.complexities);
+                return this.renderSecondaryFilterDropdown(filterType, reportWorkloadInventoryAvailableFilters.complexities);
             case FilterTypeKeyEnum.RECOMMENDED_TARGETS_IMS:
-                return this.renderSecondaryFilterDropdownd(filterType, reportWorkloadInventoryAvailableFilters.recommendedTargetsIMS);
+                return this.renderSecondaryFilterDropdown(filterType, reportWorkloadInventoryAvailableFilters.recommendedTargetsIMS);
             case FilterTypeKeyEnum.FLAGS_IMS:
-                return this.renderSecondaryFilterDropdownd(filterType, reportWorkloadInventoryAvailableFilters.flagsIMS);
+                return this.renderSecondaryFilterDropdown(filterType, reportWorkloadInventoryAvailableFilters.flagsIMS);
             case FilterTypeKeyEnum.VM_NAME:
                 return this.renderSecondaryFilterInputText(filterType);
             case FilterTypeKeyEnum.OS_NAME:
-                return this.renderSecondaryFilterDropdownd(filterType, reportWorkloadInventoryAvailableFilters.osNames);
+                return this.renderSecondaryFilterDropdown(filterType, reportWorkloadInventoryAvailableFilters.osNames);
             default:
                 return (
                     <TextInput
@@ -618,14 +618,32 @@ class WorkloadInventory extends React.Component<Props, State> {
         this.applyFilterAndSearch(newFilterValue);
     };
 
-    public renderSecondaryFilterDropdownd = (filterType: { name: string, value: FilterTypeKeyEnum }, options: string[]) => {
+    public renderSecondaryFilterDropdown = (filterType: { name: string, value: FilterTypeKeyEnum }, options: string[]) => {
         const { secondaryFilterDropDownOpen, filterValue } = this.state;
         const selections: string[] = this.getMapValue(filterType.value, filterValue);
+
+        if (options.length === 0) {
+            const onEmptySelect = () => {return;};
+            return (
+                <Select
+                    variant={SelectVariant.single}
+                    aria-label={`Select ${filterType.name} Input`}
+                    onToggle={this.onSecondaryFilterDropdownToggle}
+                    onSelect={onEmptySelect}
+                    isExpanded={secondaryFilterDropDownOpen}
+                    placeholderText={`Filter by ${filterType.name}`}
+                    ariaLabelledBy={filterType.name}
+                >
+                    {[
+                        <SelectOption key="EmptyKey" value="No values available" />
+                    ]}
+                </Select>
+            );
+        }
 
         const onSelect = (event: any, selection: string) => {
             this.onSecondaryFilterDropdownSelect(selection, filterType);
         };
-
         return (
             <Select
                 variant={SelectVariant.checkbox}
