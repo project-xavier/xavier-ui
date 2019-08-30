@@ -133,7 +133,7 @@ class FlagsTable extends React.Component<Props, State> {
     ) => {
         const { reportId, fetchReportFlags } = this.props;
 
-        const column = index ? this.state.columns[index - 1].key : undefined;
+        const column = index ? this.state.columns[index].key : undefined;
         const orderDirection = direction ? direction : undefined;
         fetchReportFlags(reportId, page, perPage, column, orderDirection).then(() => {
             this.filtersInRowsAndCells();
@@ -168,7 +168,7 @@ class FlagsTable extends React.Component<Props, State> {
         const { reportId } = this.props;
         const { perPage } = this.state;
 
-        const column = index ? this.state.columns[index-1].key : undefined;
+        const column = index ? this.state.columns[index].key : undefined;
         const orderDirection = direction ? direction : undefined;
         this.props.fetchReportFlags(reportId, page, perPage, column, orderDirection).then(() => {
             this.setState({
