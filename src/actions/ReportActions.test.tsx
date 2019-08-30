@@ -27,7 +27,7 @@ describe('deleteReport', () => {
 
 describe('fetchReportWorkloadMigrationSummary', () => {
     it('returns a state object', () => {
-        expect(actionGenerator.fetchReportWorkloadMigrationSummary(1)).toMatchSnapshot();
+        expect(actionGenerator.fetchReportWorkloadSummary(1)).toMatchSnapshot();
     });
 });
 
