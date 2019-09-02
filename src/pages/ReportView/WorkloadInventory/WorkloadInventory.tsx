@@ -707,6 +707,12 @@ class WorkloadInventory extends React.Component<Props, State> {
     };
 
     public clearChips = () => {
+        this.setState({
+            filterType: {
+                name: 'Filter',
+                value: FilterTypeKeyEnum.NONE,
+            }
+        });
         this.applyFilterAndSearch(new Map());
     };
 
