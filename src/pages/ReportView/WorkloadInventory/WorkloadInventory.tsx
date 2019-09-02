@@ -556,7 +556,7 @@ class WorkloadInventory extends React.Component<Props, State> {
                         type="text"
                         aria-label="filter text input"
                         readOnly={true}
-                        placeholder="Select a filter..."
+                        placeholder="Filter by..."
                     />
                 );
         }
