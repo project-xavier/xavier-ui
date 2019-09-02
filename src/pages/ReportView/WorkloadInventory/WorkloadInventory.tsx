@@ -33,26 +33,38 @@ import {
     Stack,
     StackItem,
     Card,
-    CardBody
+    CardBody,
+    Dropdown,
+    DropdownToggle,
+    DropdownItem,
+    TextInput,
+    DropdownPosition,
+    Select,
+    SelectVariant,
+    SelectOption,
+    ChipGroup,
+    ChipGroupToolbarItem,
+    Chip,
+    ButtonVariant
 } from '@patternfly/react-core';
-import { ErrorCircleOIcon, SearchIcon } from '@patternfly/react-icons';
+import { ErrorCircleOIcon, SearchIcon, FilterIcon } from '@patternfly/react-icons';
 import './WorkloadInventory.scss';
-import { Report, ReportWorkloadInventory } from '../../../models';
+import { ReportWorkloadInventory, WorkloadInventoryReportFiltersModel } from '../../../models';
 import { ObjectFetchStatus } from '../../../models/state';
-import ReportCard from '../../../PresentationalComponents/ReportCard';
 import debounce from 'lodash/debounce';
 import { formatValue, formatNumber } from '../../../Utilities/formatValue';
 import { bytesToGb } from '../../../Utilities/unitConvertors';
 import { extractFilenameFromContentDispositionHeaderValue } from 'src/Utilities/extractUtils';
 
 interface StateToProps extends RouterGlobalProps {
-    report: Report;
     reportWorkloadInventory: {
         total: number;
         items: ReportWorkloadInventory[]
     };
     reportWorkloadInventoryFetchStatus: ObjectFetchStatus;
     reportWorkloadInventoryCSVFetchStatus: ObjectFetchStatus;
+    reportWorkloadInventoryAvailableFilters: WorkloadInventoryReportFiltersModel;
+    reportWorkloadInventoryAvailableFiltersFetchStatus: ObjectFetchStatus;
 }
 
 interface DispatchToProps {
@@ -61,9 +73,11 @@ interface DispatchToProps {
         page: number,
         perPage: number,
         orderBy: string | undefined,
-        orderDirection: 'asc' | 'desc' | undefined
+        orderDirection: 'asc' | 'desc' | undefined,
+        filterValue: Map<FilterTypeKeyEnum, string[]>
     ) => any;
     fetchReportWorkloadInventoryCSV:(reportId: number) => any;
+    fetchReportWorkloadInventoryAvailableFilters: (reportId: number) => any;
 }
 
 interface Props extends StateToProps, DispatchToProps {
@@ -86,7 +100,51 @@ interface State {
     columns: Column[];
     rows: Row[];
     sortBy: ISortBy;
+    filterDropDownOpen: boolean;
+    filterType: {
+        name: string,
+        value: FilterTypeKeyEnum
+    };
+    filterValue: Map<FilterTypeKeyEnum, string[]>;
+    secondaryFilterDropDownOpen: boolean;
 };
+
+enum FilterTypeKeyEnum {
+    NONE = "NONE",
+    PROVIDER = "provider",
+    DATACENTER = "datacenter",
+    CLUSTER = "cluster",
+    VM_NAME = "vmName",
+    WORKLOAD = "workload",
+    OS_NAME = "osName",
+    EFFORT = "complexity",
+    RECOMMENDED_TARGETS_IMS = "recommendedTargetIMS",
+    FLAGS_IMS = "flagIMS"
+}
+
+const chipLabelsMap: Map<FilterTypeKeyEnum, string> = new Map([
+    [FilterTypeKeyEnum.PROVIDER, "Provider"],
+    [FilterTypeKeyEnum.DATACENTER, "Datacenter"],
+    [FilterTypeKeyEnum.CLUSTER, "Cluster"],
+    [FilterTypeKeyEnum.VM_NAME, "Vm name"],
+    [FilterTypeKeyEnum.WORKLOAD, "Workload"],
+    [FilterTypeKeyEnum.OS_NAME, "OS name"],
+    [FilterTypeKeyEnum.EFFORT, "Effort"],
+    [FilterTypeKeyEnum.RECOMMENDED_TARGETS_IMS, "Rec. Targets"],
+    [FilterTypeKeyEnum.FLAGS_IMS, "flags IMS"],
+]);
+
+const primaryFilters = [
+    { name: 'Provider', value: FilterTypeKeyEnum.PROVIDER },
+    { name: 'Datacenter', value: FilterTypeKeyEnum.DATACENTER },
+    { name: 'Cluster', value: FilterTypeKeyEnum.CLUSTER },
+    { name: 'VM name', value: FilterTypeKeyEnum.VM_NAME },
+    { name: 'Workload', value: FilterTypeKeyEnum.WORKLOAD },
+    { name: 'OS type', value: FilterTypeKeyEnum.OS_NAME },
+    { name: 'Effort', value: FilterTypeKeyEnum.EFFORT },
+    { name: 'Recommended targets', value: FilterTypeKeyEnum.RECOMMENDED_TARGETS_IMS },
+    { name: 'Flags IMS', value: FilterTypeKeyEnum.FLAGS_IMS }
+];
 
 class WorkloadInventory extends React.Component<Props, State> {
 
@@ -180,17 +238,25 @@ class WorkloadInventory extends React.Component<Props, State> {
                 }
             ],
             rows: [],
-            sortBy: { }
+            sortBy: { },
+            filterDropDownOpen: false,
+            secondaryFilterDropDownOpen: false,
+            filterType: {
+                name: 'Filter',
+                value: FilterTypeKeyEnum.NONE,
+            },
+            filterValue: new Map()
         };
     }
 
     public componentDidMount() {
         this.refreshData();
+        this.refreshFilters();
     }
 
     public handleDownloadCSV = () => {
-         const {reportId, fetchReportWorkloadInventoryCSV} = this.props;
-         fetchReportWorkloadInventoryCSV(reportId).then((response: any) => {
+        const {reportId, fetchReportWorkloadInventoryCSV} = this.props;
+        fetchReportWorkloadInventoryCSV(reportId).then((response: any) => {
             const contentDispositionHeader = response.value.headers['content-disposition'];
             const fileName = extractFilenameFromContentDispositionHeaderValue(contentDispositionHeader);
 
@@ -201,22 +267,28 @@ class WorkloadInventory extends React.Component<Props, State> {
             document.body.appendChild(link);
             link.click();
             link.remove();
-         });
-    }
+        });
+    };
+
+    public refreshFilters = () => {
+        const { reportId, fetchReportWorkloadInventoryAvailableFilters } = this.props;
+        fetchReportWorkloadInventoryAvailableFilters(reportId);
+    };
 
     public refreshData = (
         page: number = this.state.page,
         perPage: number = this.state.perPage,
-        { direction, index } = this.state.sortBy
+        { direction, index } = this.state.sortBy,
+        filterValue: Map<FilterTypeKeyEnum, string[]> = this.state.filterValue
     ) => {
         const { reportId, fetchReportWorkloadInventory } = this.props;
 
-        const column = index ? this.state.columns[index - 1].key : undefined;
+        const column = index ? this.state.columns[index-1].key : undefined;
         const orderDirection = direction ? direction : undefined;
-        fetchReportWorkloadInventory(reportId, page, perPage, column, orderDirection).then(() => {
+        fetchReportWorkloadInventory(reportId, page, perPage, column, orderDirection, filterValue).then(() => {
             this.filtersInRowsAndCells();
         });
-    }
+    };
 
     public filtersInRowsAndCells = () => {
         const items: ReportWorkloadInventory[] = this.props.reportWorkloadInventory.items
@@ -289,26 +361,27 @@ class WorkloadInventory extends React.Component<Props, State> {
         }
 
         this.setState({ rows });
-    }
+    };
 
     /**
      * Allways will reset the page to 1
      */
     public onSort = (event: any, index: number, direction: any) => {
         const page = 1;
+
         const { reportId } = this.props;
-        const { perPage } = this.state;
+        const { perPage, filterValue } = this.state;
 
         const column = index ? this.state.columns[index-1].key : undefined;
         const orderDirection = direction ? direction : undefined;
-        this.props.fetchReportWorkloadInventory(reportId, page, perPage, column, orderDirection).then(() => {
+        this.props.fetchReportWorkloadInventory(reportId, page, perPage, column, orderDirection, filterValue).then(() => {
             this.setState({
                 page,
                 sortBy: { index, direction }
             });
             this.filtersInRowsAndCells();
         });
-    }
+    };
 
     public onPageChange = (_event: any, page: number, shouldDebounce: boolean) => {
         this.setState({ page });
@@ -347,7 +420,7 @@ class WorkloadInventory extends React.Component<Props, State> {
         this.setState({
             rows
         });
-    }
+    };
 
     public renderPagination = () => {
         const { page, perPage } = this.state;
@@ -409,46 +482,288 @@ class WorkloadInventory extends React.Component<Props, State> {
         );
     };
 
-    public renderWorkloadInventory = () => {
-        const { reportWorkloadInventory, reportWorkloadInventoryCSVFetchStatus } = this.props;
+    public renderFilterTypeDropdown = () => {
+        const { filterDropDownOpen, filterType } = this.state;
+        return (
+            <Dropdown
+                onToggle={this.onFilterDropDownToggle}
+                position={DropdownPosition.left}
+                className="topology-view-filter-dropdown"
+                toggle={
+                <DropdownToggle onToggle={this.onFilterDropDownToggle}>
+                    <FilterIcon className="pf-u-mr-sm" />
+                    {filterType.name}
+                </DropdownToggle>
+                }
+                isOpen={filterDropDownOpen}
+                dropdownItems={primaryFilters.map((element, index) => {
+                    const onDropdownItemClick = (event) => {
+                        this.onFilterTypeSelect(event, element.name, element.value)
+                    };
+
+                    return (
+                        <DropdownItem key={index} onClick={onDropdownItemClick}>
+                            {element.name}
+                        </DropdownItem>
+                    );
+                })}
+            />
+        );
+    };
+
+    public onFilterDropDownToggle = (isOpen: boolean) => {
+        this.setState({ filterDropDownOpen: isOpen });
+    };
+
+    public onFilterTypeSelect = (e: any, filterName: string, filterValue: FilterTypeKeyEnum) => {
+        e.preventDefault();
+        this.setState({
+            filterType: {
+                name: filterName,
+                value: filterValue
+            },
+            filterDropDownOpen: false,
+            // filterValue: filterType === this.state.filterType ? this.state.filterValue : ''
+        });
+    };
+
+    public renderFilterInput = () => {
+        const { filterType } = this.state;
+        const { reportWorkloadInventoryAvailableFilters } = this.props;
+
+        switch(filterType.value) {
+            case FilterTypeKeyEnum.PROVIDER:
+                return this.renderSecondaryFilterDropdown(filterType, reportWorkloadInventoryAvailableFilters.providers);
+            case FilterTypeKeyEnum.DATACENTER:
+                return this.renderSecondaryFilterDropdown(filterType, reportWorkloadInventoryAvailableFilters.datacenters);
+            case FilterTypeKeyEnum.CLUSTER:
+                return this.renderSecondaryFilterDropdown(filterType, reportWorkloadInventoryAvailableFilters.clusters);
+            case FilterTypeKeyEnum.WORKLOAD:
+                return this.renderSecondaryFilterDropdown(filterType, reportWorkloadInventoryAvailableFilters.workloads);
+            case FilterTypeKeyEnum.EFFORT:
+                return this.renderSecondaryFilterDropdown(filterType, reportWorkloadInventoryAvailableFilters.complexities);
+            case FilterTypeKeyEnum.RECOMMENDED_TARGETS_IMS:
+                return this.renderSecondaryFilterDropdown(filterType, reportWorkloadInventoryAvailableFilters.recommendedTargetsIMS);
+            case FilterTypeKeyEnum.FLAGS_IMS:
+                return this.renderSecondaryFilterDropdown(filterType, reportWorkloadInventoryAvailableFilters.flagsIMS);
+            case FilterTypeKeyEnum.VM_NAME:
+                return this.renderSecondaryFilterInputText(filterType);
+            case FilterTypeKeyEnum.OS_NAME:
+                return this.renderSecondaryFilterDropdown(filterType, reportWorkloadInventoryAvailableFilters.osNames);
+            default:
+                return (
+                    <TextInput
+                        type="text"
+                        aria-label="filter text input"
+                        readOnly={true}
+                        placeholder="Filter by..."
+                    />
+                );
+        }
+    };
+
+    public onSecondaryFilterDropdownToggle = (isExpanded: boolean) => {
+        this.setState({
+            secondaryFilterDropDownOpen: isExpanded
+        });
+    };
+
+    public getMapValue = (key: FilterTypeKeyEnum, map: Map<FilterTypeKeyEnum, string[]>): string[] => {
+        if (!map.has(key)) {
+            map.set(key, []);
+        }
+        return map.get(key);
+    };
+
+    public applyFilterAndSearch = (filterValue: Map<FilterTypeKeyEnum, string[]>) => {
+        this.setState({
+            filterValue
+        });
+
+        //
+        const page = 1;
+        const { reportId } = this.props;
+        const { perPage } = this.state;
+        const { direction, index } = this.state.sortBy;
+
+        const column = index ? this.state.columns[index-1].key : undefined;
+        const orderDirection = direction ? direction : undefined;
+
+        this.props.fetchReportWorkloadInventory(reportId, page, perPage, column, orderDirection, filterValue).then(() => {
+            this.setState({
+                page
+            });
+            this.filtersInRowsAndCells();
+        });
+    };
+
+    public onSecondaryFilterDropdownSelect = (selection: string, filterType: { name: string, value: FilterTypeKeyEnum }) => {
+        const { filterValue } = this.state;
+
+        const currentFilterSelections: string[] = this.getMapValue(filterType.value, filterValue);
+
+        // determine newFilterValue
+        const newFilterValue: Map<FilterTypeKeyEnum, string[]> = new Map(filterValue);
+
+        const previousElement: string | undefined = currentFilterSelections.find((elem: string) => elem === selection);
+        if (previousElement) {
+            newFilterValue.set(filterType.value, currentFilterSelections.filter((elem: string) => elem !== selection));
+        } else {
+            newFilterValue.set(filterType.value, [
+                ...currentFilterSelections,
+                selection
+            ]);
+        }
+
+        this.applyFilterAndSearch(newFilterValue);
+    };
+
+    public renderSecondaryFilterDropdown = (filterType: { name: string, value: FilterTypeKeyEnum }, options: string[]) => {
+        const { secondaryFilterDropDownOpen, filterValue } = this.state;
+        const selections: string[] = this.getMapValue(filterType.value, filterValue);
+
+        if (options.length === 0) {
+            const onEmptySelect = () => {return;};
+            return (
+                <Select
+                    variant={SelectVariant.single}
+                    aria-label={`Select ${filterType.name} Input`}
+                    onToggle={this.onSecondaryFilterDropdownToggle}
+                    onSelect={onEmptySelect}
+                    isExpanded={secondaryFilterDropDownOpen}
+                    placeholderText={`Filter by ${filterType.name}`}
+                    ariaLabelledBy={filterType.name}
+                >
+                    {[
+                        <SelectOption key="EmptyKey" value="No values available" />
+                    ]}
+                </Select>
+            );
+        }
+
+        const onSelect = (event: any, selection: string) => {
+            this.onSecondaryFilterDropdownSelect(selection, filterType);
+        };
+        return (
+            <Select
+                variant={SelectVariant.checkbox}
+                aria-label={`Select ${filterType.name} Input`}
+                onToggle={this.onSecondaryFilterDropdownToggle}
+                onSelect={onSelect}
+                isExpanded={secondaryFilterDropDownOpen}
+                selections={selections}
+                placeholderText={`Filter by ${filterType.name}`}
+                ariaLabelledBy={filterType.name}
+            >
+                {options.map((val, index) => {
+                    return <SelectOption key={index} value={val} />;
+                })}
+            </Select>
+        );
+    };
+
+    public renderSecondaryFilterInputText = (filterType: { name: string, value: FilterTypeKeyEnum }) => {
+        const { filterValue } = this.state;
+
+        const onKeyDown = (e: any) => {
+            if (e.key === 'Enter') {
+                const selection = e.target.value;
+                const currentFilterSelections: string[] = this.getMapValue(filterType.value, filterValue);
+
+                // determine newFilterValue
+                const newFilterValue: Map<FilterTypeKeyEnum, string[]> = new Map(filterValue);
+
+                const previousElement: string | undefined = currentFilterSelections.find((elem: string) => elem === selection);
+                if (!previousElement) {
+                    newFilterValue.set(filterType.value, [
+                        ...currentFilterSelections,
+                        selection
+                    ]);
+
+                    this.applyFilterAndSearch(newFilterValue);
+                }
+            }
+        };
+
+        return (
+            <TextInput
+                type="search"
+                aria-label="filter text input"
+                placeholder={`Filter by ${filterType.name}...`}
+                onKeyDown={onKeyDown}
+            />
+        );
+    };
+
+    public deleteChipItem = (filterTypeKey: FilterTypeKeyEnum, element: string) => {
+        const currentFilterValue = this.state.filterValue;
+        const currentChipValues = this.getMapValue(filterTypeKey, this.state.filterValue);
+
+        const newFilterValue = new Map(currentFilterValue);
+        const newChipValues = currentChipValues.filter((e) => e !== element);
+        newFilterValue.set(filterTypeKey, newChipValues);
+
+        this.applyFilterAndSearch(newFilterValue);
+    };
+
+    public clearChips = () => {
+        this.setState({
+            filterType: {
+                name: 'Filter',
+                value: FilterTypeKeyEnum.NONE,
+            }
+        });
+        this.applyFilterAndSearch(new Map());
+    };
+
+    public reportFilterChips = () => {
+        const { filterValue } = this.state;
+
+        const filterValueArray: Array<{key: FilterTypeKeyEnum, value: string[]}> = [];
+        filterValue.forEach((value: string[], key: FilterTypeKeyEnum) => {
+            if (value.length > 0) {
+                filterValueArray.push({
+                    key,
+                    value
+                });
+            }
+        });
 
         return (
             <React.Fragment>
-                <TableToolbar className="pf-u-justify-content-space-between">
-                    <ToolbarGroup>
-                        <ToolbarItem className="pf-u-mr-xl">
-                            { /* <InputGroup>
-                                <TextInput
-                                    type="search"
-                                    id="filterText"
-                                    name="filterText"
-                                    aria-label="search text input"
-                                    placeholder="Filter by name..."
-                                />
-                                <Button type="submit" variant={ ButtonVariant.tertiary } aria-label="search button for search input">
-                                    <SearchIcon />
-                                </Button>
-                            </InputGroup> */ }
-                        </ToolbarItem>
-                        <ToolbarItem className="pf-u-mr-md">
-                            <Button
-                                variant={"primary"}
-                                onClick={this.handleDownloadCSV}
-                                isDisabled={reportWorkloadInventoryCSVFetchStatus.status==='inProgress'}
-                            >
-                                {
-                                    reportWorkloadInventoryCSVFetchStatus.status==='inProgress' ?
-                                        'Exporting CSV' : 'Export as CSV'
-                                }
-                            </Button>
-                        </ToolbarItem>
-                    </ToolbarGroup>
-                    <ToolbarGroup>
-                        <ToolbarItem>
-                            { this.renderPagination() }
-                        </ToolbarItem>
-                    </ToolbarGroup>
-                </TableToolbar>
+                <ChipGroup withToolbar={true}>
+                    { filterValueArray.map((group) => {
+                        return (
+                            <ChipGroupToolbarItem key={group.key} categoryName={chipLabelsMap.get(group.key)}>
+                                { group.value.map((chip: string) => {
+                                    const onDeleteChipItem = () => {
+                                        this.deleteChipItem(group.key, chip);
+                                    };
+
+                                    return (
+                                        <Chip key={chip} onClick={onDeleteChipItem}>
+                                            {chip}
+                                        </Chip>
+                                    );
+                                })}
+                            </ChipGroupToolbarItem>
+                        );
+                    })}
+                </ChipGroup>
+                {
+                    filterValueArray.length > 0 && <React.Fragment>
+                        &nbsp;<Button variant={ButtonVariant.link} onClick={ this.clearChips }>Clear filters</Button>
+                    </React.Fragment>
+                }
+            </React.Fragment>
+        );
+    };
+
+    public renderWorkloadInventory = () => {
+        const { reportWorkloadInventory } = this.props;
+
+        return (
+            <React.Fragment>
                 { (reportWorkloadInventory. total > 0 ? this.renderResultsTable() : this.renderNoResults()) }
             </React.Fragment>
         );
@@ -459,11 +774,7 @@ class WorkloadInventory extends React.Component<Props, State> {
             <React.Fragment>
                 <Stack gutter='md'>
                     <StackItem isFilled={ false }>
-                        <ReportCard
-                            title={ <Skeleton size="sm" /> }
-                        >
-                            <SkeletonTable colSize={ 9 } rowSize={ 10 }/>
-                        </ReportCard>
+                        <SkeletonTable colSize={ 9 } rowSize={ 10 }/>
                     </StackItem>
                 </Stack>
             </React.Fragment>
@@ -492,7 +803,7 @@ class WorkloadInventory extends React.Component<Props, State> {
     };
 
     public render() {
-        const { reportWorkloadInventoryFetchStatus } = this.props;
+        const { reportWorkloadInventoryFetchStatus, reportWorkloadInventoryCSVFetchStatus } = this.props;
 
         if (reportWorkloadInventoryFetchStatus.error) {
             return this.renderFetchError();
@@ -502,6 +813,36 @@ class WorkloadInventory extends React.Component<Props, State> {
 
         return (
             <React.Fragment>
+                <TableToolbar className="pf-u-justify-content-space-between">
+                    <ToolbarGroup>
+                        <ToolbarItem>{this.renderFilterTypeDropdown()}</ToolbarItem>
+                        <ToolbarItem className="pf-u-mr-md">{this.renderFilterInput()}</ToolbarItem>
+                        <ToolbarItem className="pf-u-mr-md">
+                            <Button
+                                variant={"primary"}
+                                onClick={this.handleDownloadCSV}
+                                isDisabled={reportWorkloadInventoryCSVFetchStatus.status==='inProgress'}
+                            >
+                                {
+                                    reportWorkloadInventoryCSVFetchStatus.status==='inProgress' ?
+                                        'Exporting CSV' : 'Export as CSV'
+                                }
+                            </Button>
+                        </ToolbarItem>
+                    </ToolbarGroup>
+                    <ToolbarGroup>
+                        <ToolbarItem>
+                            { this.renderPagination() }
+                        </ToolbarItem>
+                    </ToolbarGroup>
+                </TableToolbar>
+                <TableToolbar className="pf-u-justify-content-space-between">
+                    <ToolbarGroup>
+                        <ToolbarItem>
+                            { this.reportFilterChips() }
+                        </ToolbarItem>
+                    </ToolbarGroup>
+                </TableToolbar>
                 { isFetchComplete ? this.renderWorkloadInventory() : this.renderWorkloadInventorySkeleton() }
             </React.Fragment>
         );

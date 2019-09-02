@@ -7,7 +7,8 @@ import {
     getReportFlags,
     getReportInitialSavingestimation,
     getReportWorkloadInventory,
-    getReportWorkloadInventoryCSV
+    getReportWorkloadInventoryCSV,
+    getReportWorkloadInventoryAvailableFilters
 } from '../api/report';
 import { GenericAction } from '../models/action';
 
@@ -20,7 +21,8 @@ export const ActionTypes = {
     FETCH_REPORT_FLAGS: 'FETCH_REPORT_FLAGS',
     FETCH_REPORT_INITIAL_SAVING_ESTIMATION: 'FETCH_REPORT_INITIAL_SAVING_ESTIMATION',
     FETCH_REPORT_WOKLOAD_INVENTORY: 'FETCH_REPORT_WOKLOAD_INVENTORY',
-    FETCH_REPORT_WOKLOAD_INVENTORY_CSV: 'FETCH_REPORT_WOKLOAD_INVENTORY_CSV'
+    FETCH_REPORT_WOKLOAD_INVENTORY_CSV: 'FETCH_REPORT_WOKLOAD_INVENTORY_CSV',
+    FETCH_REPORT_WOKLOAD_INVENTORY_AVAILABLE_FILTERS: 'FETCH_REPORT_WOKLOAD_INVENTORY_AVAILABLE_FILTERS'
 };
 
 /**
@@ -144,10 +146,11 @@ export const fetchReportWorkloadInventory = (
     page: number,
     perPage: number,
     orderBy: string,
-    orderDirection: 'asc' | 'desc' | undefined
+    orderDirection: 'asc' | 'desc' | undefined,
+    filters: Map<string, string[]>
 ): GenericAction => ({
     type: ActionTypes.FETCH_REPORT_WOKLOAD_INVENTORY,
-    payload: getReportWorkloadInventory(id, page, perPage, orderBy, orderDirection),
+    payload: getReportWorkloadInventory(id, page, perPage, orderBy, orderDirection, filters),
     meta: {
         notifications: {
             rejected: {
@@ -166,6 +169,19 @@ export const fetchReportWorkloadInventoryCSV = (id: number): GenericAction => ({
             rejected: {
                 variant: 'danger',
                 title: `Failed to load report workload inventory ${id}`
+            }
+        }
+    }
+});
+
+export const fetchReportWorkloadInventoryAvailableFilters = (id: number): GenericAction => ({
+    type: ActionTypes.FETCH_REPORT_WOKLOAD_INVENTORY_AVAILABLE_FILTERS,
+    payload: getReportWorkloadInventoryAvailableFilters(id),
+    meta: {
+        notifications: {
+            rejected: {
+                variant: 'danger',
+                title: `Failed to load report workload inventory filters ${id}`
             }
         }
     }

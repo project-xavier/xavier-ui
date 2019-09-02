@@ -4,7 +4,8 @@ import {
     ReportInitialSavingEstimation,
     ReportWorkloadInventory,
     WorkloadModel,
-    FlagModel
+    FlagModel,
+    WorkloadInventoryReportFiltersModel
 } from '../Report';
 import { User } from '../User';
 
@@ -55,6 +56,9 @@ export interface ReportState {
     };
     reportWorkloadInventoryFetchStatus: ObjectFetchStatus;
     reportWorkloadInventoryCSVFetchStatus: ObjectFetchStatus;
+
+    reportWorkloadInventoryAvailableFilters: WorkloadInventoryReportFiltersModel | null;
+    reportWorkloadInventoryAvailableFiltersFetchStatus: ObjectFetchStatus;
 }
 
 export interface UploadState {

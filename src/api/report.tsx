@@ -7,7 +7,8 @@ import {
     SearchResult,
     ReportWorkloadInventory,
     WorkloadModel,
-    FlagModel
+    FlagModel,
+    WorkloadInventoryReportFiltersModel
 } from '../models';
 
 export function getAllReports(page: number, perPage: number, filterText: string): AxiosPromise<SearchResult<Report>> {
@@ -101,7 +102,8 @@ export function getReportWorkloadInventory(
     page: number,
     perPage: number,
     orderBy: string,
-    orderDirection: 'asc' | 'desc' | undefined
+    orderDirection: 'asc' | 'desc' | undefined,
+    filters: Map<string, string[]>
 ): AxiosPromise<SearchResult<ReportWorkloadInventory>> {
     // Using page-1 because the backend considers page 0 as the first one
     const params = {
@@ -119,6 +121,14 @@ export function getReportWorkloadInventory(
         }
     });
 
+    filters.forEach((arrayValue: string[], key: string) => {
+        if (arrayValue.length > 0) {
+            arrayValue.forEach(value => {
+                query.push(`${key}=${value}`);
+            });
+        }
+    });
+
     const url = `/report/${id}/workload-inventory?${query.join('&')}`;
     return ApiClient.get<SearchResult<ReportWorkloadInventory>>(url);
 }
@@ -128,4 +138,10 @@ export function getReportWorkloadInventoryCSV(id: number): AxiosPromise<any> {
     return ApiClient.request<any>(url, null, 'get', {
         responseType: 'blob'
     });
+}
+
+export function getReportWorkloadInventoryAvailableFilters(
+    id: number
+): AxiosPromise<WorkloadInventoryReportFiltersModel> {
+    return ApiClient.get<WorkloadInventoryReportFiltersModel>(`/report/${id}/workload-inventory/available-filters`);
 }
