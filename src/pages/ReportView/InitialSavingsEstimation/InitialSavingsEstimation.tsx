@@ -406,7 +406,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
                             { this.renderProjectCostBreakdownTable() }
                         </div>
                     </StackItem>
-                    <StackItem isFilled={ false }>
+                    {/* <StackItem isFilled={ false }>
                         <Card>
                             <CardHeader>Disclaimer</CardHeader>
                             <CardBody>
@@ -417,7 +417,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
                                 </p>
                             </CardBody>
                         </Card>
-                    </StackItem>
+                    </StackItem> */}
                 </Stack>
             </React.Fragment>
         );
