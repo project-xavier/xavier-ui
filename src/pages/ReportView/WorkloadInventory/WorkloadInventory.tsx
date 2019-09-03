@@ -686,28 +686,30 @@ class WorkloadInventory extends React.Component<Props, State> {
     public renderSecondaryFilterInputText = (filterType: { name: string, value: FilterTypeKeyEnum }) => {
         const { filterValue } = this.state;
 
+        const onSubmit = (values: { filterText: string }, { resetForm }) => {
+            const selection = values.filterText;
+            const currentFilterSelections: string[] = this.getMapValue(filterType.value, filterValue);
+
+            // determine newFilterValue
+            const newFilterValue: Map<FilterTypeKeyEnum, string[]> = new Map(filterValue);
+
+            const previousElement: string | undefined = currentFilterSelections.find((elem: string) => elem === selection);
+            if (!previousElement) {
+                newFilterValue.set(filterType.value, [
+                    ...currentFilterSelections,
+                    selection
+                ]);
+
+                this.applyFilterAndSearch(newFilterValue);
+            }
+
+            resetForm();
+        };
+
         return (
             <Formik
                 initialValues={ { filterText: '' } }
-                onSubmit={(values, { resetForm }) => {
-                    const selection = values.filterText;
-                    const currentFilterSelections: string[] = this.getMapValue(filterType.value, filterValue);
-
-                    // determine newFilterValue
-                    const newFilterValue: Map<FilterTypeKeyEnum, string[]> = new Map(filterValue);
-
-                    const previousElement: string | undefined = currentFilterSelections.find((elem: string) => elem === selection);
-                    if (!previousElement) {
-                        newFilterValue.set(filterType.value, [
-                            ...currentFilterSelections,
-                            selection
-                        ]);
-
-                        this.applyFilterAndSearch(newFilterValue);
-                    }
-
-                    resetForm();
-                }}
+                onSubmit={ onSubmit }
             >
                 {
                     ({
