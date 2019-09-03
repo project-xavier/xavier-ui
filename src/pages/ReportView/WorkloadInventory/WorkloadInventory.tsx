@@ -45,7 +45,8 @@ import {
     ChipGroup,
     ChipGroupToolbarItem,
     Chip,
-    ButtonVariant
+    ButtonVariant,
+    Form
 } from '@patternfly/react-core';
 import { ErrorCircleOIcon, SearchIcon, FilterIcon } from '@patternfly/react-icons';
 import './WorkloadInventory.scss';
@@ -55,6 +56,7 @@ import debounce from 'lodash/debounce';
 import { formatValue, formatNumber } from '../../../Utilities/formatValue';
 import { bytesToGb } from '../../../Utilities/unitConvertors';
 import { extractFilenameFromContentDispositionHeaderValue } from 'src/Utilities/extractUtils';
+import { Formik } from 'formik';
 
 interface StateToProps extends RouterGlobalProps {
     reportWorkloadInventory: {
@@ -575,6 +577,7 @@ class WorkloadInventory extends React.Component<Props, State> {
                         aria-label="filter text input"
                         readOnly={true}
                         placeholder="Filter by..."
+                        value=""
                     />
                 );
         }
@@ -683,33 +686,58 @@ class WorkloadInventory extends React.Component<Props, State> {
     public renderSecondaryFilterInputText = (filterType: { name: string, value: FilterTypeKeyEnum }) => {
         const { filterValue } = this.state;
 
-        const onKeyDown = (e: any) => {
-            if (e.key === 'Enter') {
-                const selection = e.target.value;
-                const currentFilterSelections: string[] = this.getMapValue(filterType.value, filterValue);
-
-                // determine newFilterValue
-                const newFilterValue: Map<FilterTypeKeyEnum, string[]> = new Map(filterValue);
-
-                const previousElement: string | undefined = currentFilterSelections.find((elem: string) => elem === selection);
-                if (!previousElement) {
-                    newFilterValue.set(filterType.value, [
-                        ...currentFilterSelections,
-                        selection
-                    ]);
-
-                    this.applyFilterAndSearch(newFilterValue);
-                }
-            }
-        };
-
         return (
-            <TextInput
-                type="search"
-                aria-label="filter text input"
-                placeholder={`Filter by ${filterType.name}...`}
-                onKeyDown={onKeyDown}
-            />
+            <Formik
+                initialValues={ { filterText: '' } }
+                onSubmit={(values, { resetForm }) => {
+                    const selection = values.filterText;
+                    const currentFilterSelections: string[] = this.getMapValue(filterType.value, filterValue);
+
+                    // determine newFilterValue
+                    const newFilterValue: Map<FilterTypeKeyEnum, string[]> = new Map(filterValue);
+
+                    const previousElement: string | undefined = currentFilterSelections.find((elem: string) => elem === selection);
+                    if (!previousElement) {
+                        newFilterValue.set(filterType.value, [
+                            ...currentFilterSelections,
+                            selection
+                        ]);
+
+                        this.applyFilterAndSearch(newFilterValue);
+                    }
+
+                    resetForm();
+                }}
+            >
+                {
+                    ({
+                        values,
+                        handleChange,
+                        handleBlur,
+                        handleSubmit
+                    }) =>
+                        {
+                            const customHandleChange = (_value: any, event: any) => {
+                                handleChange(event);
+                            };
+
+                            return (
+                                <Form onSubmit={ handleSubmit }>
+                                    <TextInput
+                                        type="search"
+                                        name="filterText"
+                                        aria-label="search text input"
+                                        onChange={ customHandleChange }
+                                        onBlur={ handleBlur }
+                                        value={ values.filterText }
+                                        placeholder={`Filter by ${filterType.name}...`}
+                                    />
+                                    <Button type="submit" className="pf-u-hidden">Submit</Button>
+                                </Form>
+                            );
+                        }
+                }
+            </Formik>
         );
     };
 
