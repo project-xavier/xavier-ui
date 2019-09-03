@@ -240,10 +240,13 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
 
         const chartData: FancyChartDonutData[] = workloadsDetectedOSTypeModels.map((element, index: number) => ({
             label: element.osName,
-            value: percentages[index]
+            value: percentages[index],
+            data: pieValues[index]
         }));
 
         const tickFormat = (label: string, value: number) => `${label}: ${formatPercentage(value, 2)}`;
+        const tooltipFormat = (datum: any, active: boolean) => `${datum.x}: ${formatPercentage(datum.y, 2)} \n Workloads: ${formatNumber(datum.data, 0)}`;
+
         return (
             <ReportCard
                 title={title}
@@ -253,6 +256,7 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
                     chartProps={ chartProps }
                     chartLegendProps={ chartLegendProps }
                     tickFormat={ tickFormat }
+                    tooltipFormat={ tooltipFormat }
                 />
             </ReportCard>
         );
