@@ -19,6 +19,12 @@ export interface GlobalState {
     dialogDeleteState: DialogDeleteState
 }
 
+export const enum FetchStatus {
+    'none',
+    'inProgress',
+    'complete',
+}
+
 export interface ObjectFetchStatus {
     error: string | null;
     status: 'none' | 'inProgress' | 'complete';
