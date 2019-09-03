@@ -27,7 +27,7 @@ export const mappingsReducer = (state: FlagAssessmentState = defaultState, actio
             const nextState: FlagAssessmentState = {
                 ...state,
                 fetchStatus: new Map(state.fetchStatus).set(
-                    action.payload.flag,
+                    action.meta.flag,
                     FetchStatus.inProgress
                 ),
             };

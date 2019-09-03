@@ -31,12 +31,13 @@ import {
     CardBody
 } from '@patternfly/react-core';
 import { ErrorCircleOIcon, SearchIcon } from '@patternfly/react-icons';
-import { FlagModel } from '../../../models';
-import { ObjectFetchStatus } from '../../../models/state';
+import { FlagModel, FlagAssessment } from '../../../models';
+import { ObjectFetchStatus, FetchStatus } from '../../../models/state';
 import debounce from 'lodash/debounce';
 import { formatNumber } from '../../../Utilities/formatValue';
 import './FlagsTable.scss';
 import { isNullOrUndefined } from '../../../Utilities/formUtils';
+import { AxiosError } from 'axios';
 
 interface StateToProps extends RouterGlobalProps {
     reportFlags: {
@@ -44,6 +45,11 @@ interface StateToProps extends RouterGlobalProps {
         items: FlagModel[]
     };
     reportFlagsFetchStatus: ObjectFetchStatus;
+    flagAssessment: {
+        byFlag: Map<string, FlagAssessment>,
+        fetchStatus: Map<string, FetchStatus>,
+        errors: Map<string, AxiosError | null>,
+    };
 }
 
 interface DispatchToProps {
@@ -54,6 +60,7 @@ interface DispatchToProps {
         orderBy: string | undefined,
         orderDirection: 'asc' | 'desc' | undefined
     ) => any;
+    fetchFlagAssessment: (flag: string) => any;
 }
 
 interface Props extends StateToProps, DispatchToProps {
@@ -140,16 +147,29 @@ class FlagsTable extends React.Component<Props, State> {
         });
     }
 
+    public renderPipe = () => {
+        const items: FlagModel[] = this.props.reportFlags.items ? this.props.reportFlags.items : [];
+        const flags = new Set(items.map(element => element.flag));
+        flags.forEach(flag => {
+            this.props.fetchFlagAssessment(flag);
+        });
+    };
+
     public filtersInRowsAndCells = () => {
+        this.renderPipe();
+
+        const { flagAssessment } = this.props;
+
         const items: FlagModel[] = this.props.reportFlags.items
             ? Object.values(this.props.reportFlags.items) : [];
 
         let rows: any[][] = [];
         if (items.length > 0) {
             rows = items.map((row: FlagModel) => {
+                const assessment = flagAssessment.byFlag.get(row.flag);
                 return [
                     row.flag ? row.flag : '',
-                    row.assessment ? row.assessment : '',
+                    assessment ? assessment : '',
                     row.osName ? row.osName : '',
                     !isNullOrUndefined(row.clusters) ? formatNumber(row.clusters, 0) : '',
                     !isNullOrUndefined(row.vms) ? formatNumber(row.vms, 0) : ''
