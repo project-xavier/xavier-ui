@@ -76,7 +76,7 @@ interface DispatchToProps {
         perPage: number,
         orderBy: string | undefined,
         orderDirection: 'asc' | 'desc' | undefined,
-        filterValue: Map<FilterTypeKeyEnum, string[]>
+        filterValue: Map<string, string[]>
     ) => any;
     fetchReportWorkloadInventoryCSV:(reportId: number) => any;
     fetchReportWorkloadInventoryAvailableFilters: (reportId: number) => any;
@@ -179,8 +179,8 @@ class WorkloadInventory extends React.Component<Props, State> {
             perPage: 10,
             columns: [
                 {
-                    title: 'Provider',
-                    key: 'provider',
+                    title: filtersConfig.provider.label,
+                    key: filtersConfig.provider.key,
                     props: {
                         className: 'vertical-align-middle'
                     },
@@ -188,32 +188,32 @@ class WorkloadInventory extends React.Component<Props, State> {
                     transforms: [ cellWidth('10') ]
                 },
                 {
-                    title: 'Datacenter',
-                    key: 'datacenter',
+                    title: filtersConfig.datacenter.label,
+                    key: filtersConfig.datacenter.key,
                     props: {
                         className: 'vertical-align-middle'
                     },
                     transforms: [ cellWidth('10') ]
                 },
                 {
-                    title: 'Cluster',
-                    key: 'cluster',
+                    title: filtersConfig.cluster.label,
+                    key: filtersConfig.cluster.key,
                     props: {
                         className: 'vertical-align-middle'
                     },
                     transforms: [ cellWidth('10') ]
                 },
                 {
-                    title: 'VM name',
-                    key: 'vmName',
+                    title: filtersConfig.vmName.label,
+                    key: filtersConfig.vmName.key,
                     props: {
                         className: 'vertical-align-middle'
                     },
                     transforms: [ sortable, cellWidth('20') ]
                 },
                 {
-                    title: 'Workload',
-                    key: 'workload',
+                    title: filtersConfig.workload.label,
+                    key: filtersConfig.workload.key,
                     props: {
                         className: 'vertical-align-middle'
                     },
@@ -221,8 +221,8 @@ class WorkloadInventory extends React.Component<Props, State> {
                     columnTransforms: [classNames(Visibility.hiddenOnMd, Visibility.visibleOnLg)]
                 },
                 {
-                    title: 'OS type',
-                    key: 'osName',
+                    title: filtersConfig.osName.label,
+                    key: filtersConfig.osName.key,
                     props: {
                         className: 'vertical-align-middle'
                     },
@@ -230,8 +230,8 @@ class WorkloadInventory extends React.Component<Props, State> {
                     columnTransforms: [classNames(Visibility.hiddenOnMd, Visibility.visibleOnLg)]
                 },
                 {
-                    title: 'Effort',
-                    key: 'complexity',
+                    title: filtersConfig.effort.label,
+                    key: filtersConfig.effort.key,
                     props: {
                         className: 'vertical-align-middle'
                     },
@@ -239,8 +239,8 @@ class WorkloadInventory extends React.Component<Props, State> {
                     columnTransforms: [classNames(Visibility.hiddenOnMd, Visibility.visibleOnLg)]
                 },
                 {
-                    title: 'Recommended targets',
-                    key: 'recommendedTargetsIMS',
+                    title: filtersConfig.recommendedTargetIMS.label,
+                    key: filtersConfig.recommendedTargetIMS.key,
                     props: {
                         className: 'vertical-align-middle'
                     },
@@ -248,8 +248,8 @@ class WorkloadInventory extends React.Component<Props, State> {
                     columnTransforms: [classNames(Visibility.hiddenOnMd, Visibility.visibleOnLg)]
                 },
                 {
-                    title: 'Flags IMS',
-                    key: 'flagsIMS',
+                    title: filtersConfig.flagIMS.label,
+                    key: filtersConfig.flagIMS.key,
                     props: {
                         className: 'vertical-align-middle'
                     },
@@ -305,7 +305,9 @@ class WorkloadInventory extends React.Component<Props, State> {
 
         const column = index ? this.state.columns[index-1].key : undefined;
         const orderDirection = direction ? direction : undefined;
-        fetchReportWorkloadInventory(reportId, page, perPage, column, orderDirection, filterValue).then(() => {
+
+        const mappedFilterValue = this.prepareFiltersToBeSended(filterValue);
+        fetchReportWorkloadInventory(reportId, page, perPage, column, orderDirection, mappedFilterValue).then(() => {
             this.filtersInRowsAndCells();
         });
     };
@@ -394,7 +396,9 @@ class WorkloadInventory extends React.Component<Props, State> {
 
         const column = index ? this.state.columns[index-1].key : undefined;
         const orderDirection = direction ? direction : undefined;
-        this.props.fetchReportWorkloadInventory(reportId, page, perPage, column, orderDirection, filterValue).then(() => {
+
+        const mappedFilterValue = this.prepareFiltersToBeSended(filterValue);
+        this.props.fetchReportWorkloadInventory(reportId, page, perPage, column, orderDirection, mappedFilterValue).then(() => {
             this.setState({
                 page,
                 sortBy: { index, direction }
@@ -596,6 +600,46 @@ class WorkloadInventory extends React.Component<Props, State> {
         return map.get(key);
     };
 
+    public prepareFiltersToBeSended = (filterValue: Map<FilterTypeKeyEnum, string[]>) => {
+        const mappedFilterValue: Map<string, string[]> = new Map();
+        filterValue.forEach((value: string[], key: FilterTypeKeyEnum) => {
+            let keyFilter: string;
+            switch(key) {
+                case FilterTypeKeyEnum.PROVIDER:
+                    keyFilter = filtersConfig.provider.key;
+                    break;
+                case FilterTypeKeyEnum.DATACENTER:
+                    keyFilter = filtersConfig.datacenter.key;
+                    break;
+                case FilterTypeKeyEnum.CLUSTER:
+                    keyFilter = filtersConfig.cluster.key;
+                    break;
+                case FilterTypeKeyEnum.WORKLOAD:
+                    keyFilter = filtersConfig.workload.key;
+                    break;
+                case FilterTypeKeyEnum.EFFORT:
+                    keyFilter = filtersConfig.effort.key;
+                    break;
+                case FilterTypeKeyEnum.RECOMMENDED_TARGETS_IMS:
+                    keyFilter = filtersConfig.recommendedTargetIMS.key;
+                    break;
+                case FilterTypeKeyEnum.FLAGS_IMS:
+                    keyFilter = filtersConfig.flagIMS.key;
+                    break;
+                case FilterTypeKeyEnum.VM_NAME:
+                    keyFilter = filtersConfig.vmName.key;
+                    break;
+                case FilterTypeKeyEnum.OS_NAME:
+                    keyFilter = filtersConfig.osName.key;
+                    break;
+                default:
+                    keyFilter = key;
+            }
+            mappedFilterValue.set(keyFilter, value);
+        });
+        return mappedFilterValue;
+    }
+
     public applyFilterAndSearch = (filterValue: Map<FilterTypeKeyEnum, string[]>) => {
         this.setState({
             filterValue
@@ -610,7 +654,8 @@ class WorkloadInventory extends React.Component<Props, State> {
         const column = index ? this.state.columns[index-1].key : undefined;
         const orderDirection = direction ? direction : undefined;
 
-        this.props.fetchReportWorkloadInventory(reportId, page, perPage, column, orderDirection, filterValue).then(() => {
+        const mappedFilterValue = this.prepareFiltersToBeSended(filterValue);
+        this.props.fetchReportWorkloadInventory(reportId, page, perPage, column, orderDirection, mappedFilterValue).then(() => {
             this.setState({
                 page
             });
