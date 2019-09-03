@@ -188,7 +188,7 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
                             { formatPercentage(percentages[2], 0) } RHEL
                         </h2>
                         <h3 className="pf-c-title pf-m-1xl">
-                            Workloads possible to migrate to RHEL
+                            Workloads possible to migrate to Red Hat Enterprise Linux
                         </h3>
                     </div>
                 </div>
