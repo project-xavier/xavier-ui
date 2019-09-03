@@ -109,42 +109,60 @@ interface State {
     secondaryFilterDropDownOpen: boolean;
 };
 
+interface FilterConfig {
+    key: string;
+    label: string;
+    abbreviation?: string;
+};
+
+const filtersConfig = {
+    provider: { key: 'provider', label: 'Provider' } as FilterConfig,
+    datacenter: { key: 'datacenter', label: 'Datacenter' } as FilterConfig,
+    cluster: { key: 'cluster', label: 'Cluster' } as FilterConfig,
+    vmName: { key: 'vmName', label: 'VM name' } as FilterConfig,
+    workload: { key: 'workload', label: 'Workload' } as FilterConfig,
+    osName: { key: 'osName', label: 'OS type' } as FilterConfig,
+    effort: { key: 'complexity', label: 'Effort' } as FilterConfig,
+    recommendedTargetIMS: { key: 'recommendedTargetIMS', label: 'Recommended targets', abbreviation: 'Rec. Targets' } as FilterConfig,
+    flagIMS: { key: 'flagIMS', label: 'Flags IMS' } as FilterConfig,
+};
+
 enum FilterTypeKeyEnum {
     NONE = "NONE",
-    PROVIDER = "provider",
-    DATACENTER = "datacenter",
-    CLUSTER = "cluster",
-    VM_NAME = "vmName",
-    WORKLOAD = "workload",
-    OS_NAME = "osName",
-    EFFORT = "complexity",
-    RECOMMENDED_TARGETS_IMS = "recommendedTargetIMS",
-    FLAGS_IMS = "flagIMS"
+    PROVIDER = "PROVIDER",
+    DATACENTER = "DATACENTER",
+    CLUSTER = "CLUSTER",
+    VM_NAME = "VM_NAME",
+    WORKLOAD = "WORKLOAD",
+    OS_NAME = "OS_NAME",
+    EFFORT = "EFFORT",
+    RECOMMENDED_TARGETS_IMS = "RECOMMENDED_TARGETS_IMS",
+    FLAGS_IMS = "FLAGS_IMS"
 }
 
-const chipLabelsMap: Map<FilterTypeKeyEnum, string> = new Map([
-    [FilterTypeKeyEnum.PROVIDER, "Provider"],
-    [FilterTypeKeyEnum.DATACENTER, "Datacenter"],
-    [FilterTypeKeyEnum.CLUSTER, "Cluster"],
-    [FilterTypeKeyEnum.VM_NAME, "Vm name"],
-    [FilterTypeKeyEnum.WORKLOAD, "Workload"],
-    [FilterTypeKeyEnum.OS_NAME, "OS name"],
-    [FilterTypeKeyEnum.EFFORT, "Effort"],
-    [FilterTypeKeyEnum.RECOMMENDED_TARGETS_IMS, "Rec. Targets"],
-    [FilterTypeKeyEnum.FLAGS_IMS, "flags IMS"],
-]);
-
 const primaryFilters = [
-    { name: 'Provider', value: FilterTypeKeyEnum.PROVIDER },
-    { name: 'Datacenter', value: FilterTypeKeyEnum.DATACENTER },
-    { name: 'Cluster', value: FilterTypeKeyEnum.CLUSTER },
-    { name: 'VM name', value: FilterTypeKeyEnum.VM_NAME },
-    { name: 'Workload', value: FilterTypeKeyEnum.WORKLOAD },
-    { name: 'OS type', value: FilterTypeKeyEnum.OS_NAME },
-    { name: 'Effort', value: FilterTypeKeyEnum.EFFORT },
-    { name: 'Recommended targets', value: FilterTypeKeyEnum.RECOMMENDED_TARGETS_IMS },
-    { name: 'Flags IMS', value: FilterTypeKeyEnum.FLAGS_IMS }
+    { name: filtersConfig.provider.label, value: FilterTypeKeyEnum.PROVIDER },
+    { name: filtersConfig.datacenter.label, value: FilterTypeKeyEnum.DATACENTER },
+    { name: filtersConfig.cluster.label, value: FilterTypeKeyEnum.CLUSTER },
+    { name: filtersConfig.vmName.label, value: FilterTypeKeyEnum.VM_NAME },
+    { name: filtersConfig.workload.label, value: FilterTypeKeyEnum.WORKLOAD },
+    { name: filtersConfig.osName.label, value: FilterTypeKeyEnum.OS_NAME },
+    { name: filtersConfig.effort.label, value: FilterTypeKeyEnum.EFFORT },
+    { name: filtersConfig.recommendedTargetIMS.label, value: FilterTypeKeyEnum.RECOMMENDED_TARGETS_IMS },
+    { name: filtersConfig.flagIMS.label, value: FilterTypeKeyEnum.FLAGS_IMS }
 ];
+
+const chipLabelsMap: Map<FilterTypeKeyEnum, string> = new Map([
+    [FilterTypeKeyEnum.PROVIDER, filtersConfig.provider.label],
+    [FilterTypeKeyEnum.DATACENTER, filtersConfig.datacenter.label],
+    [FilterTypeKeyEnum.CLUSTER, filtersConfig.cluster.label],
+    [FilterTypeKeyEnum.VM_NAME, filtersConfig.vmName.label],
+    [FilterTypeKeyEnum.WORKLOAD, filtersConfig.workload.label],
+    [FilterTypeKeyEnum.OS_NAME, filtersConfig.osName.label],
+    [FilterTypeKeyEnum.EFFORT, filtersConfig.effort.label],
+    [FilterTypeKeyEnum.RECOMMENDED_TARGETS_IMS, filtersConfig.recommendedTargetIMS.abbreviation],
+    [FilterTypeKeyEnum.FLAGS_IMS, filtersConfig.flagIMS.label],
+]);
 
 class WorkloadInventory extends React.Component<Props, State> {
 
