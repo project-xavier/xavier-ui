@@ -1,4 +1,4 @@
-export const isNotNullOrUndefined = (...value: any[]): boolean => {
+export const isNullOrUndefined = (...value: any[]): boolean => {
     return value.some((element: any) => element === undefined || element === null);
 };
 
