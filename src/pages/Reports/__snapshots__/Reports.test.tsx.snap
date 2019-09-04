@@ -154,11 +154,9 @@ exports[`Reports should render list depending of TOTAL value expect to render li
       Array [
         Array [
           Object {
-            "title": <Button
-              variant="link"
-            >
+            "title": <span>
               My report name 36
-            </Button>,
+            </span>,
           },
           Object {
             "title": <p>
@@ -178,11 +176,9 @@ exports[`Reports should render list depending of TOTAL value expect to render li
         ],
         Array [
           Object {
-            "title": <Button
-              variant="link"
-            >
+            "title": <span>
               My report name 37
-            </Button>,
+            </span>,
           },
           Object {
             "title": <p>
