@@ -2,12 +2,12 @@ import { ActionTypes } from '../actions/MappingsActions';
 import { pendingMessage, successMessage, failureMessage } from './reducerHelper';
 import { FetchStatus, MappingsState } from '../models/state';
 import { GenericAction } from '../models/action';
-  
+
 const defaultState: MappingsState = {
     flagAssessment: {
         byFlag: new Map(),
         fetchStatus: new Map(),
-        errors: new Map(),
+        errors: new Map()
     }
 };
 
@@ -18,10 +18,7 @@ export const mappingsReducer = (state: MappingsState = defaultState, action: Gen
                 ...state,
                 flagAssessment: {
                     ...state.flagAssessment,
-                    fetchStatus: new Map(state.flagAssessment.fetchStatus).set(
-                        action.meta.flag,
-                        FetchStatus.inProgress
-                    )
+                    fetchStatus: new Map(state.flagAssessment.fetchStatus).set(action.meta.flag, FetchStatus.inProgress)
                 }
             };
 
@@ -33,15 +30,12 @@ export const mappingsReducer = (state: MappingsState = defaultState, action: Gen
                 ...state,
                 flagAssessment: {
                     ...state.flagAssessment,
-                    fetchStatus: new Map(state.flagAssessment.fetchStatus).set(
-                        action.meta.flag,
-                        FetchStatus.complete
-                    ),
+                    fetchStatus: new Map(state.flagAssessment.fetchStatus).set(action.meta.flag, FetchStatus.complete),
                     byFlag: new Map(state.flagAssessment.byFlag).set(action.meta.flag, {
                         ...action.payload.data,
-                        timeRequested: Date.now(),
+                        timeRequested: Date.now()
                     }),
-                    errors: new Map(state.flagAssessment.errors).set(action.meta.flag, null),
+                    errors: new Map(state.flagAssessment.errors).set(action.meta.flag, null)
                 }
             };
 
@@ -53,11 +47,8 @@ export const mappingsReducer = (state: MappingsState = defaultState, action: Gen
                 ...state,
                 flagAssessment: {
                     ...state.flagAssessment,
-                    fetchStatus: new Map(state.flagAssessment.fetchStatus).set(
-                        action.meta.flag,
-                        FetchStatus.complete
-                    ),
-                    errors: new Map(state.flagAssessment.errors).set(action.meta.flag, action.payload),
+                    fetchStatus: new Map(state.flagAssessment.fetchStatus).set(action.meta.flag, FetchStatus.complete),
+                    errors: new Map(state.flagAssessment.errors).set(action.meta.flag, action.payload)
                 }
             };
 

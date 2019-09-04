@@ -129,7 +129,7 @@ class FlagsTable extends React.Component<Props, State> {
     }
 
     public componentDidUpdate(prevProps: Props) {
-        if (prevProps.flagAssessment != this.props.flagAssessment) {
+        if (prevProps.flagAssessment !== this.props.flagAssessment) {
             this.filtersInRowsAndCells(false);
         }
     }

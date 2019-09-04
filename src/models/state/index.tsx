@@ -8,7 +8,7 @@ import {
     WorkloadInventoryReportFiltersModel
 } from '../Report';
 import { User } from '../User';
-import { FlagAssessment, FlagAssessmentCached } from '../Mappings';
+import { FlagAssessment } from '../Mappings';
 import { AxiosError } from 'axios';
 
 /**
@@ -113,7 +113,7 @@ export type DialogDeleteState = Readonly<{
 }>;
 
 export interface FlagAssessmentState {
-    byFlag: Map<string, FlagAssessmentCached>;
+    byFlag: Map<string, FlagAssessment>;
     fetchStatus: Map<string, FetchStatus>;
     errors: Map<string, AxiosError | null>;
 };
