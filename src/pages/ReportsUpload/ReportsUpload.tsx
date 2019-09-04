@@ -92,6 +92,7 @@ const formValidationSchema = (values: FormValues) => {
         yearOverYearGrowthRatePercentage: Yup.number()
         .typeError('Invalid number')
         .min(0, 'Value must be greater than or equal to 0')
+        .max(99999, 'Value must be less than or equal to 99999')
         .required('Growth rate percentage is mandatory'),
         percentageOfHypervisorsMigratedOnYear1: Yup.number()
         .typeError('Invalid number')
@@ -100,7 +101,7 @@ const formValidationSchema = (values: FormValues) => {
         .required('Percentage of hypervisors migrated is mandatory'),
         percentageOfHypervisorsMigratedOnYear2: Yup.number()
         .typeError('Invalid number')
-        .min(0, 'Vaaslue must be greater than or equal to 0')
+        .min(0, 'Value must be greater than or equal to 0')
         .max(100, 'Value must be less than or equal to 100')
         .required('Percentage of hypervisors migrated is mandatory'),
         percentageOfHypervisorsMigratedOnYear3: Yup.number()
@@ -314,6 +315,7 @@ class ReportsUpload extends React.Component<Props, State> {
 
     public render() {
         const { success, user } = this.props;
+        const { showForm } = this.state;
         if (success && user.firstTimeCreatingReports) {
             const { updateUser } = this.props;
             updateUser({ firstTimeCreatingReports: false });
@@ -327,7 +329,8 @@ class ReportsUpload extends React.Component<Props, State> {
                 <Main>
                     <Modal
                         title='Report options'
-                        isLarge={true}
+                        isSmall={ showForm }
+                        isLarge={ !showForm }
                         isOpen={ true }
                         onClose={ this.handleCloseModel }
                         ariaDescribedById="Report options"

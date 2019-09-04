@@ -186,7 +186,7 @@ class Reports extends React.Component<Props, State> {
             rows = reports.map((report) => (
                 [
                     {
-                        title: <Link to={ `/reports/${report.id}` }>{ report.reportName }</Link>
+                        title: this.renderReportName(report)
                     },
                     {
                         title: this.renderReportStatus(report)
@@ -268,6 +268,15 @@ class Reports extends React.Component<Props, State> {
     };
 
     // Render section
+
+    public renderReportName = (report: Report) => {
+        switch (report.status) {
+            case 'CREATED':
+                return <Link to={ `/reports/${report.id}` }>{ report.reportName }</Link>;
+            default:
+                return <span>{ report.reportName }</span>;
+        }
+    };
 
     public renderReportStatus = (report: Report) => {
         switch (report.status) {
