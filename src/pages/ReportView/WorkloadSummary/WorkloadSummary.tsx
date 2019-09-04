@@ -60,27 +60,45 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
         fetchReportWorkloadSummary(reportId);
     };
 
+    public renderErrorCard = (title: string) => {
+        return (
+            <ReportCard title={title}>
+                There is no enough data to render this card.
+            </ReportCard>
+        );
+    };
     public renderSummary = () => {
         const { reportWorkloadSummary } = this.props;
 
+        const title="Summary";
+        const summary = reportWorkloadSummary.summaryModels;
+
+        if (!summary) {
+            return this.renderErrorCard(title);
+        }
+
         return (
-            <ReportCard title="Summary">
-                <SummaryTable
-                    summary={ reportWorkloadSummary.summary }
-                />
+            <ReportCard title={title}>
+                <SummaryTable summary={ summary } />
             </ReportCard>
         );
     };
 
     public renderMigrationComplexity = () => {
         const { reportWorkloadSummary } = this.props;
-        const complexity = reportWorkloadSummary.complexity;
+
+        const title="Migration complexity";
+        const complexity = reportWorkloadSummary.complexityModel;
+
+        if (!complexity) {
+            return this.renderErrorCard(title);
+        }
 
         //
         const pieValues = [
             complexity.easy,
             complexity.medium,
-            complexity.difficult,
+            complexity.hard,
             complexity.unknown
         ];
 
@@ -88,10 +106,10 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
         const percentages = pieValues.map((val: number) => val / total);
 
         const chartProps = {
-            title: formatPercentage(1, 0),
-            subTitle: 'total',
-            height: 300,
-            width: 300
+            title: formatNumber(total, 0),
+            subTitle: 'Total VMs',
+            height: 250,
+            width: 250
         };
         const chartLegendProps = {
             height: 300,
@@ -103,11 +121,13 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
         const chartData: FancyChartDonutData[] = [
             { label: 'Easy', value: percentages[0], data: pieValues[0] },
             { label: 'Medium', value: percentages[1], data: pieValues[1] },
-            { label: 'Difficult', value: percentages[2], data: pieValues[2] },
+            { label: 'Hard', value: percentages[2], data: pieValues[2] },
             { label: 'Unknow', value: percentages[3], data: pieValues[3] }
         ];
 
-        const tickFormat = (label: string, value: number, data: any) => `${label}: ${formatPercentage(value, 2)} - VMs: ${formatNumber(data, 0)}`;
+        const tickFormat = (label: string, value: number, data: any) => `${label}: ${formatPercentage(value, 2)}`;
+        const tooltipFormat = (datum: any, active: boolean) => `${datum.x}: ${formatPercentage(datum.y, 2)} \n VMs: ${formatNumber(datum.data, 0)}`;
+
         return (
             <ReportCard
                 title='Migration complexity'
@@ -117,6 +137,7 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
                     chartProps={ chartProps }
                     chartLegendProps={ chartLegendProps }
                     tickFormat={ tickFormat }
+                    tooltipFormat={ tooltipFormat }
                 />
             </ReportCard>
         );
@@ -124,19 +145,25 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
 
     public renderTargetRecommendation = () => {
         const { reportWorkloadSummary } = this.props;
-        const targetsRecommendation = reportWorkloadSummary.targetsRecommendation;
 
-        const pieValues = [
-            targetsRecommendation.rhv,
-            targetsRecommendation.osp,
-            targetsRecommendation.rhel
+        const title="Target recommendation";
+        const recommendedTargetsIMS = reportWorkloadSummary.recommendedTargetsIMSModel;
+
+        if (!recommendedTargetsIMS) {
+            return this.renderErrorCard(title);
+        }
+
+        const values = [
+            recommendedTargetsIMS.rhv,
+            recommendedTargetsIMS.osp,
+            recommendedTargetsIMS.rhel
         ];
-        const total = pieValues.reduce(sumReducer, 0);
-        const percentages = pieValues.map((val: number) => val / total);
+        const total = recommendedTargetsIMS.total;
+        const percentages = values.map((val: number) => val / total);
         
         return (
             <ReportCard
-                title='Target recommendation'
+                title={title}
                 skipBullseye={ true }
             >
                 <div className="pf-l-grid pf-m-all-6-col-on-md pf-m-all-4-col-on-lg pf-m-gutter">
@@ -161,7 +188,7 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
                             { formatPercentage(percentages[2], 0) } RHEL
                         </h2>
                         <h3 className="pf-c-title pf-m-1xl">
-                            Workloads running, or possible to migrate to Red Hat Enterprise Linux
+                            Workloads possible to migrate to Red Hat Enterprise Linux
                         </h3>
                     </div>
                 </div>
@@ -183,23 +210,24 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
     };
 
     public renderWorkloadsDetected = () => {
-        const { reportWorkloadSummary } = this.props;
-        const complexity = reportWorkloadSummary.complexity;
+        const { reportWorkloadSummary } = this.props;        
+
+        const title="Workloads detected (OS Types)";
+        const workloadsDetectedOSTypeModels = reportWorkloadSummary.workloadsDetectedOSTypeModels;
+
+        if (!workloadsDetectedOSTypeModels) {
+            return this.renderErrorCard(title);
+        }
 
         //
-        const pieValues = [
-            complexity.easy,
-            complexity.medium,
-            complexity.difficult,
-            complexity.unknown
-        ];
+        const pieValues = workloadsDetectedOSTypeModels.map(element => element.total);
 
         const total = pieValues.reduce(sumReducer, 0);
         const percentages = pieValues.map((val: number) => val / total);
 
         const chartProps = {
-            title: formatPercentage(1, 0),
-            subTitle: 'Total',
+            title: formatNumber(total, 0),
+            subTitle: 'Total workloads',
             height: 300,
             width: 300
         };
@@ -210,23 +238,25 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
             y: 60
         };
 
-        const chartData: FancyChartDonutData[] = [
-            { label: 'RHEL', value: percentages[0] },
-            { label: 'SLES', value: percentages[1] },
-            { label: 'Windows', value: percentages[2] },
-            { label: 'OEL', value: percentages[3] }
-        ];
+        const chartData: FancyChartDonutData[] = workloadsDetectedOSTypeModels.map((element, index: number) => ({
+            label: element.osName,
+            value: percentages[index],
+            data: pieValues[index]
+        }));
 
         const tickFormat = (label: string, value: number) => `${label}: ${formatPercentage(value, 2)}`;
+        const tooltipFormat = (datum: any, active: boolean) => `${datum.x}: ${formatPercentage(datum.y, 2)} \n Workloads: ${formatNumber(datum.data, 0)}`;
+
         return (
             <ReportCard
-                title='Workloads detected (OS Types)'
+                title={title}
             >
                 <FancyChartDonut
                     data={ chartData }
                     chartProps={ chartProps }
                     chartLegendProps={ chartLegendProps }
                     tickFormat={ tickFormat }
+                    tooltipFormat={ tooltipFormat }
                 />
             </ReportCard>
         );
@@ -247,11 +277,18 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
 
     public renderScansRun = () => {
         const { reportWorkloadSummary } = this.props;
+       
+        const title="Scans run";
+        const scanRuns = reportWorkloadSummary.scanRunModels;
+
+        if (!scanRuns) {
+            return this.renderErrorCard(title);
+        }
 
         return (
-            <ReportCard title="Scans run">
+            <ReportCard title={title}>
                 <ScansRunTable
-                    scanRuns={ reportWorkloadSummary.scanRuns }
+                    scanRuns={ scanRuns }
                 />
             </ReportCard>
         );
@@ -279,9 +316,9 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
                     <StackItem isFilled={ false }>
                         { this.renderFlagsTable() }
                     </StackItem>
-                    <StackItem isFilled={ false }>
+                    {/* <StackItem isFilled={ false }>
                         { this.renderScansRun() }
-                    </StackItem>
+                    </StackItem> */}
                 </Stack>
             </React.Fragment>
         );

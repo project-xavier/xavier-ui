@@ -34,17 +34,17 @@ import {
     CardBody
 } from '@patternfly/react-core';
 import { ErrorCircleOIcon, SearchIcon } from '@patternfly/react-icons';
-import { WorkloadDetected } from '../../../models';
+import { WorkloadModel } from '../../../models';
 import { ObjectFetchStatus } from '../../../models/state';
-import ReportCard from '../../../PresentationalComponents/ReportCard';
 import debounce from 'lodash/debounce';
 import { formatNumber } from '../../../Utilities/formatValue';
 import './WorkloadsDetectedTable.scss';
+import { isNullOrUndefined } from '../../../Utilities/formUtils';
 
 interface StateToProps extends RouterGlobalProps {
     reportWorkloadsDetected: {
         total: number;
-        items: WorkloadDetected[]
+        items: WorkloadModel[]
     };
     reportWorkloadsDetectedFetchStatus: ObjectFetchStatus;
 }
@@ -130,7 +130,7 @@ class WorkloadsDetectedTable extends React.Component<Props, State> {
     ) => {
         const { reportId, fetchReportWorkloadsDetected } = this.props;
 
-        const column = index ? this.state.columns[index - 1].key : undefined;
+        const column = index ? this.state.columns[index].key : undefined;
         const orderDirection = direction ? direction : undefined;
         fetchReportWorkloadsDetected(reportId, page, perPage, column, orderDirection).then(() => {
             this.filtersInRowsAndCells();
@@ -138,17 +138,17 @@ class WorkloadsDetectedTable extends React.Component<Props, State> {
     }
 
     public filtersInRowsAndCells = () => {
-        const items: WorkloadDetected[] = this.props.reportWorkloadsDetected.items
+        const items: WorkloadModel[] = this.props.reportWorkloadsDetected.items
             ? Object.values(this.props.reportWorkloadsDetected.items) : [];
 
         let rows: any[][] = [];
         if (items.length > 0) {
-            rows = items.map((row: WorkloadDetected) => {
+            rows = items.map((row: WorkloadModel) => {
                 return [
-                    row.workload,
-                    row.osName,
-                    formatNumber(row.clusters, 0),
-                    formatNumber(row.vms, 0)
+                    row.workload ? row.workload : '',
+                    row.osName ? row.osName : '',
+                    !isNullOrUndefined(row.clusters) ? formatNumber(row.clusters, 0) : '',
+                    !isNullOrUndefined(row.vms) ? formatNumber(row.vms, 0) : ''
                 ];
             });
         }
@@ -164,7 +164,7 @@ class WorkloadsDetectedTable extends React.Component<Props, State> {
         const { reportId } = this.props;
         const { perPage } = this.state;
 
-        const column = index ? this.state.columns[index-1].key : undefined;
+        const column = index ? this.state.columns[index].key : undefined;
         const orderDirection = direction ? direction : undefined;
         this.props.fetchReportWorkloadsDetected(reportId, page, perPage, column, orderDirection).then(() => {
             this.setState({

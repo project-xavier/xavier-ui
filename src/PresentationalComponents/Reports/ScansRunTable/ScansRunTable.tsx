@@ -6,11 +6,11 @@ import {
     ICell,
     TableHeader
 } from '@patternfly/react-table';
-import { formatValue, formatDate } from '../../../Utilities/formatValue';
-import { ScanRun } from '../../../models';
+import { formatDate } from '../../../Utilities/formatValue';
+import { ScanRunModel } from '../../../models';
 
 interface Props {
-    scanRuns: ScanRun[];
+    scanRuns: ScanRunModel[];
 }
 
 interface State {

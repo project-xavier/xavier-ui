@@ -31,16 +31,17 @@ import {
     CardBody
 } from '@patternfly/react-core';
 import { ErrorCircleOIcon, SearchIcon } from '@patternfly/react-icons';
-import { Flag } from '../../../models';
+import { FlagModel } from '../../../models';
 import { ObjectFetchStatus } from '../../../models/state';
 import debounce from 'lodash/debounce';
 import { formatNumber } from '../../../Utilities/formatValue';
 import './FlagsTable.scss';
+import { isNullOrUndefined } from '../../../Utilities/formUtils';
 
 interface StateToProps extends RouterGlobalProps {
     reportFlags: {
         total: number;
-        items: Flag[]
+        items: FlagModel[]
     };
     reportFlagsFetchStatus: ObjectFetchStatus;
 }
@@ -132,7 +133,7 @@ class FlagsTable extends React.Component<Props, State> {
     ) => {
         const { reportId, fetchReportFlags } = this.props;
 
-        const column = index ? this.state.columns[index - 1].key : undefined;
+        const column = index ? this.state.columns[index].key : undefined;
         const orderDirection = direction ? direction : undefined;
         fetchReportFlags(reportId, page, perPage, column, orderDirection).then(() => {
             this.filtersInRowsAndCells();
@@ -140,18 +141,18 @@ class FlagsTable extends React.Component<Props, State> {
     }
 
     public filtersInRowsAndCells = () => {
-        const items: Flag[] = this.props.reportFlags.items
+        const items: FlagModel[] = this.props.reportFlags.items
             ? Object.values(this.props.reportFlags.items) : [];
 
         let rows: any[][] = [];
         if (items.length > 0) {
-            rows = items.map((row: Flag) => {
+            rows = items.map((row: FlagModel) => {
                 return [
-                    row.flag,
-                    row.assessment,
-                    row.osName,
-                    formatNumber(row.clusters, 0),
-                    formatNumber(row.vms, 0)
+                    row.flag ? row.flag : '',
+                    row.assessment ? row.assessment : '',
+                    row.osName ? row.osName : '',
+                    !isNullOrUndefined(row.clusters) ? formatNumber(row.clusters, 0) : '',
+                    !isNullOrUndefined(row.vms) ? formatNumber(row.vms, 0) : ''
                 ];
             });
         }
@@ -167,7 +168,7 @@ class FlagsTable extends React.Component<Props, State> {
         const { reportId } = this.props;
         const { perPage } = this.state;
 
-        const column = index ? this.state.columns[index-1].key : undefined;
+        const column = index ? this.state.columns[index].key : undefined;
         const orderDirection = direction ? direction : undefined;
         this.props.fetchReportFlags(reportId, page, perPage, column, orderDirection).then(() => {
             this.setState({

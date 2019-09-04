@@ -5,8 +5,8 @@ import {
     TableVariant
 } from '@patternfly/react-table';
 import { EnvironmentModel } from '../../../models';
-import { isNotNullOrUndefined } from '../../../Utilities/formUtils';
-import { formatNumber, formatPercentage } from '../../../Utilities/formatValue';
+import { isNullOrUndefined } from '../../../Utilities/formUtils';
+import { formatNumber } from '../../../Utilities/formatValue';
 
 interface Props {
     data: EnvironmentModel
@@ -40,27 +40,27 @@ class Environment extends Component<Props, State> {
             [
                 'ESXi hypervisors (2-socket servers)',
                 '',
-                isNotNullOrUndefined(hypervisors) ? 'Unknown' : formatNumber(hypervisors, 0)
+                isNullOrUndefined(hypervisors) ? 'Unknown' : formatNumber(hypervisors, 0)
             ],
             [
                 'ESXi hypervisors would be migrated to RH technologies',
                 'Year1 (incremental)',
-                isNotNullOrUndefined(year1Hypervisor) ? 'Unknown' : formatNumber(year1Hypervisor, 0)
+                isNullOrUndefined(year1Hypervisor) ? 'Unknown' : formatNumber(year1Hypervisor, 0)
             ],
             [
                 '',
                 'Year2 (incremental)',
-                isNotNullOrUndefined(year2Hypervisor) ? 'Unknown' : formatNumber(year2Hypervisor, 0)
+                isNullOrUndefined(year2Hypervisor) ? 'Unknown' : formatNumber(year2Hypervisor, 0)
             ],
             [
                 '',
                 'Year3 (incremental)',
-                isNotNullOrUndefined(year3Hypervisor) ? 'Unknown' : formatNumber(year3Hypervisor, 0)
+                isNullOrUndefined(year3Hypervisor) ? 'Unknown' : formatNumber(year3Hypervisor, 0)
             ],
             [
                 'Year-over-year growth rate for new hypervisors',
                 '',
-                isNotNullOrUndefined(growthRatePercentage) ? 'Unknown' : `${(growthRatePercentage * 100).toLocaleString()}%`
+                isNullOrUndefined(growthRatePercentage) ? 'Unknown' : `${(growthRatePercentage * 100).toLocaleString()}%`
             ]
         ];
 

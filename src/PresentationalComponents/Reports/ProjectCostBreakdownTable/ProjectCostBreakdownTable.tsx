@@ -6,7 +6,7 @@ import {
 } from '@patternfly/react-table';
 import { formatValue } from '../../../Utilities/formatValue';
 import { RHVRampUpCostsModel, SourceRampDownCostsModel } from '../../../models';
-import { isNotNullOrUndefined } from '../../../Utilities/formUtils';
+import { isNullOrUndefined } from '../../../Utilities/formUtils';
 
 interface Props {
     rhvRampUpCostsModel: RHVRampUpCostsModel;
@@ -25,7 +25,7 @@ class ProjectCostBreakdownTable extends Component<Props, State> {
     public getSourceMaintenanceTotal = (): number | undefined => {
         const { sourceRampDownCostsModel } = this.props;
 
-        if (isNotNullOrUndefined(
+        if (isNullOrUndefined(
             sourceRampDownCostsModel.year1SourceMaintenanceTotalValue,
             sourceRampDownCostsModel.year2SourceMaintenanceTotalValue,
             sourceRampDownCostsModel.year3SourceMaintenanceTotalValue
@@ -41,7 +41,7 @@ class ProjectCostBreakdownTable extends Component<Props, State> {
     public getHypervisorSubscriptions = (): number | undefined => {
         const { rhvRampUpCostsModel } = this.props;
 
-        if (isNotNullOrUndefined(
+        if (isNullOrUndefined(
             rhvRampUpCostsModel.year1RhvTotalValue,
             rhvRampUpCostsModel.year1RhvTotalValue,
             rhvRampUpCostsModel.year1RhvTotalValue
@@ -57,7 +57,7 @@ class ProjectCostBreakdownTable extends Component<Props, State> {
     public gethypervisorGrowthSubscriptions = (): number | undefined => {
         const { rhvRampUpCostsModel } = this.props;
 
-        if (isNotNullOrUndefined(
+        if (isNullOrUndefined(
             rhvRampUpCostsModel.year1RhvTotalGrowthValue,
             rhvRampUpCostsModel.year2RhvTotalGrowthValue,
             rhvRampUpCostsModel.year3RhvTotalGrowthValue
@@ -84,7 +84,7 @@ class ProjectCostBreakdownTable extends Component<Props, State> {
         const rhvSwitchTAndEValue = rhvRampUpCostsModel.rhvSwitchTAndEValue;
 
         let total: number | undefined;
-        if (!isNotNullOrUndefined(
+        if (!isNullOrUndefined(
             sourceMaintenanceTotal,
             hypervisorSubscriptions,
             hypervisorGrowthSubscriptions,
@@ -110,7 +110,7 @@ class ProjectCostBreakdownTable extends Component<Props, State> {
             [
                 'VMware maintenance',
                 'VMware support costs (during migration)',
-                isNotNullOrUndefined(sourceMaintenanceTotal) ? 'Unknown' : formatValue(sourceMaintenanceTotal, 'usd', { fractionDigits: 0 })
+                isNullOrUndefined(sourceMaintenanceTotal) ? 'Unknown' : formatValue(sourceMaintenanceTotal, 'usd', { fractionDigits: 0 })
             ],
             [
                 {
@@ -131,12 +131,12 @@ class ProjectCostBreakdownTable extends Component<Props, State> {
             [
                 '',
                 'RHV hypervisor subscriptions',
-                isNotNullOrUndefined(hypervisorSubscriptions) ? 'Unknown' : formatValue(hypervisorSubscriptions, 'usd', { fractionDigits: 0 })
+                isNullOrUndefined(hypervisorSubscriptions) ? 'Unknown' : formatValue(hypervisorSubscriptions, 'usd', { fractionDigits: 0 })
             ],
             [
                 '',
                 'RHV hypervisor growth subscriptions',
-                isNotNullOrUndefined(hypervisorGrowthSubscriptions) ? 'Unknown' : formatValue(hypervisorGrowthSubscriptions, 'usd', { fractionDigits: 0 })
+                isNullOrUndefined(hypervisorGrowthSubscriptions) ? 'Unknown' : formatValue(hypervisorGrowthSubscriptions, 'usd', { fractionDigits: 0 })
             ],
             [
                 'Red Hat training and services',
@@ -146,17 +146,17 @@ class ProjectCostBreakdownTable extends Component<Props, State> {
             [
                 '',
                 'Red Hat training',
-                isNotNullOrUndefined(rhvSwitchLearningSubsValue) ? 'Unknown' : formatValue(rhvSwitchLearningSubsValue, 'usd', { fractionDigits: 0 })
+                isNullOrUndefined(rhvSwitchLearningSubsValue) ? 'Unknown' : formatValue(rhvSwitchLearningSubsValue, 'usd', { fractionDigits: 0 })
             ],
             [
                 '',
                 'Red Hat consulting',
-                isNotNullOrUndefined(rhvSwitchConsultValue) ? 'Unknown' : formatValue(rhvSwitchConsultValue, 'usd', { fractionDigits: 0 })
+                isNullOrUndefined(rhvSwitchConsultValue) ? 'Unknown' : formatValue(rhvSwitchConsultValue, 'usd', { fractionDigits: 0 })
             ],
             [
                 '',
                 'Travel and lodging',
-                isNotNullOrUndefined(rhvSwitchTAndEValue) ? 'Unknown' : formatValue(rhvSwitchTAndEValue, 'usd', { fractionDigits: 0 })
+                isNullOrUndefined(rhvSwitchTAndEValue) ? 'Unknown' : formatValue(rhvSwitchTAndEValue, 'usd', { fractionDigits: 0 })
             ],
             [
                 {
@@ -164,7 +164,7 @@ class ProjectCostBreakdownTable extends Component<Props, State> {
                 },
                 '',
                 {
-                    title: <strong>{ isNotNullOrUndefined(total) ? 'Unknown' : formatValue(total, 'usd', { fractionDigits: 0 }) }</strong>
+                    title: <strong>{ isNullOrUndefined(total) ? 'Unknown' : formatValue(total, 'usd', { fractionDigits: 0 }) }</strong>
                 }
             ]
         ];

@@ -4,6 +4,9 @@ import {
     SkeletonTable
 } from '@redhat-cloud-services/frontend-components';
 import {
+    Card,
+    CardBody,
+    CardHeader,
     Stack,
     StackItem,
     Bullseye,
@@ -243,6 +246,8 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
         ];
 
         const tickFormat = (label: string, value: number) => `${label}: ${value.toFixed(2)}%`;
+        const tooltipFormat = (datum: any, active: boolean) => `${datum.x} \n ${datum.y.toFixed(2)}%`;
+
         return (
             <ReportCard
                 title={
@@ -266,6 +271,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
                     chartProps={ chartProps }
                     chartLegendProps={ chartLegendProps }
                     tickFormat={ tickFormat }
+                    tooltipFormat={ tooltipFormat }
                 />
             </ReportCard>
         );
@@ -400,15 +406,18 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
                             { this.renderProjectCostBreakdownTable() }
                         </div>
                     </StackItem>
-                    <StackItem isFilled={ false }>
-                        <ReportCard title="Disclaimer" skipBullseye={true}>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                                labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                                laboris nisi ut aliquip ex ea commodo consequat. Learn more about this in the documentation.
-                            </p>
-                        </ReportCard>
-                    </StackItem>
+                    {/* <StackItem isFilled={ false }>
+                        <Card>
+                            <CardHeader>Disclaimer</CardHeader>
+                            <CardBody>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                                    labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                                    laboris nisi ut aliquip ex ea commodo consequat. Learn more about this in the documentation.
+                                </p>
+                            </CardBody>
+                        </Card>
+                    </StackItem> */}
                 </Stack>
             </React.Fragment>
         );

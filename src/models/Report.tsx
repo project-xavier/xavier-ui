@@ -14,11 +14,11 @@ export interface Report {
 }
 
 export interface ReportWorkloadSummary {
-    summary: Summary[];
-    complexity: Complexity;
-    targetsRecommendation: TargetRecommendation;
-    workloadsDetected: WorkloadsDetectedOSTypes;
-    scanRuns: ScanRun[];
+    summaryModels: Summary[];
+    complexityModel: ComplexityModel;
+    recommendedTargetsIMSModel: RecommendedTargetsIMSModel;
+    workloadsDetectedOSTypeModels: WorkloadDetectedOSTypeModel[];
+    scanRunModels: ScanRunModel[];
 }
 
 export interface Summary {
@@ -31,40 +31,39 @@ export interface Summary {
     vms: number;
 }
 
-export interface Complexity {
+export interface ComplexityModel {
     unknown: number;
-    difficult: number;
+    hard: number;
     medium: number;
     easy: number;
 }
 
-export interface TargetRecommendation {
+export interface RecommendedTargetsIMSModel {
+    total: number;
     rhv: number;
     osp: number;
     rhel: number;
 }
 
-export interface WorkloadsDetectedOSTypes {
-    rhel: number;
-    sles: number;
-    windows: number;
-    oel: number;
+export interface WorkloadDetectedOSTypeModel {
+    total: number;
+    osName: string;
 }
 
-export interface ScanRun {
+export interface ScanRunModel {
     target: string;
     type: string;
     date: number;
 }
 
-export interface WorkloadDetected {
+export interface WorkloadModel {
     workload: string;
     osName: string;
     clusters: number;
     vms: number;
 }
 
-export interface Flag {
+export interface FlagModel {
     workload: string;
     flag: string;
     assessment: string;
@@ -256,4 +255,15 @@ export interface ReportWorkloadInventory {
     diskSpace: number;
     memory: number;
     cpuCores: number;
+}
+
+export interface WorkloadInventoryReportFiltersModel {
+    providers: string[];
+    datacenters: string[];
+    clusters: string[];
+    workloads: string[];
+    complexities: string[];
+    recommendedTargetsIMS: string[];
+    flagsIMS: string[];
+    osNames: string[];
 }
