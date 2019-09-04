@@ -7,7 +7,7 @@ import {
 } from '@patternfly/react-table';
 import { formatValue } from '../../../Utilities/formatValue';
 import { SourceCostsModel } from '../../../models';
-import { isNotNullOrUndefined } from '../../../Utilities/formUtils';
+import { isNullOrUndefined } from '../../../Utilities/formUtils';
 
 interface Props {
     data: SourceCostsModel
@@ -37,15 +37,15 @@ class RenewalEstimation extends Component<Props, State> {
         const rows = [
             [
                 '-- As high as...',
-                isNotNullOrUndefined(sourceRenewHighValue) ? 'Unknown' : formatValue(sourceRenewHighValue, 'usd', { fractionDigits: 0 })
+                isNullOrUndefined(sourceRenewHighValue) ? 'Unknown' : formatValue(sourceRenewHighValue, 'usd', { fractionDigits: 0 })
             ],
             [
                 '-- Most likely...',
-                isNotNullOrUndefined(sourceRenewLikelyValue) ? 'Unknown' : formatValue(sourceRenewLikelyValue, 'usd', { fractionDigits: 0 })
+                isNullOrUndefined(sourceRenewLikelyValue) ? 'Unknown' : formatValue(sourceRenewLikelyValue, 'usd', { fractionDigits: 0 })
             ],
             [
                 '-- As low as...',
-                isNotNullOrUndefined(sourceRenewLowValue) ? 'Unknown' : formatValue(sourceRenewLowValue, 'usd', { fractionDigits: 0 })
+                isNullOrUndefined(sourceRenewLowValue) ? 'Unknown' : formatValue(sourceRenewLowValue, 'usd', { fractionDigits: 0 })
             ]
         ];
 

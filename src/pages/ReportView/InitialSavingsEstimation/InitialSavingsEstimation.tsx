@@ -16,7 +16,8 @@ import {
     Title,
     TitleLevel,
     EmptyStateBody,
-    Button
+    Button,
+    Tooltip
 } from '@patternfly/react-core';
 
 import { Report, ReportInitialSavingEstimation } from '../../../models';
@@ -29,17 +30,8 @@ import FancyChartDonut from '../../../PresentationalComponents/FancyChartDonut';
 import FancyGroupedBarChart from '../../../PresentationalComponents/FancyGroupedBarChart';
 import ReportCard from '../../../PresentationalComponents/ReportCard';
 import ProjectCostBreakdownTable from '../../../PresentationalComponents/Reports/ProjectCostBreakdownTable';
-import './InitialSavingsEstimation.scss';
-import {
-    VMWARE_COLORR,
-    RHVHYPERVISORS_COLOR,
-    RHVGROWRTH_COLOR,
-    RHTRAINING_COLOR,
-    RHCONSULTING_COLOR,
-    RHTRAVELANDLODGING_COLOR
-} from '../../../Utilities/constants';
 import { ObjectFetchStatus } from '../../../models/state';
-import { ErrorCircleOIcon } from '@patternfly/react-icons';
+import { ErrorCircleOIcon, HelpIcon } from '@patternfly/react-icons';
 import {
     ChartAxisProps,
     ChartLegendProps,
@@ -88,28 +80,16 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
 
         return (
             <ReportCard
-                title={ `Initial Savings Estimation (${ report ? report.reportName : '' })` }
-                headerClass="pf-m-2xl-override"
-                bodyClass="pf-c-content no-margin-bottom"
-                skipBullseye={ true }
+                title="Over 3 year(s) with Red Hat Virtualization, your initial savings estimation could be as much as:"
             >
-                <p>
-                    <span>Source:</span>&nbsp;
-                    <span>Vmware Vsphere Enterprise Plus</span><br />
-                    <span>Target:</span>&nbsp;
-                    <span>Red Hat Virtualization</span>
-                </p>
-                <p>
-                    <span>Over 3 year(s) with Red Hat Virtualization, your initial savings estimation could be as much as</span>
-                </p>
-                <p className="pf-c-title pf-m-2xl pf-u-text-align-center stack-item-border">
+                <p className="pf-c-title pf-m-4xl pf-u-text-align-center">
                     <span>
                         { formatValue(reportInitialSavingEstimation.rhvSavingsModel.rhvSaveHighValue, 'usd', { fractionDigits: 0 }) }
                     </span>
                 </p>
             </ReportCard>
         );
-    }
+    };
 
     public renderCostExpenditureComparison = () => {
         const { reportInitialSavingEstimation } = this.props;
@@ -142,7 +122,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
 
         const barChartData: FancyGroupedBarChartData = {
             legends: [ 'VMware Costs', 'RHV Costs' ],
-            colors: [ VMWARE_COLORR, RHVHYPERVISORS_COLOR ],
+            colors: undefined,
             values: [
                 [
                     { x: '1', y: vmwareCostsYear1, label: formatValue(vmwareCostsYear1, 'usd', { fractionDigits: 0 }) },
@@ -188,21 +168,21 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
         const { reportInitialSavingEstimation } = this.props;
 
         return (
-            <ReportCard title="Environment">
+            <ReportCard title="Environment" skipBullseye={true}>
                 <Environment data={ reportInitialSavingEstimation.environmentModel } />
             </ReportCard>
         );
-    }
+    };
 
     public renderRenewalEstimation = () => {
         const { reportInitialSavingEstimation } = this.props;
 
         return (
-            <ReportCard title="VMware ELA renewal estimation">
+            <ReportCard title="VMware ELA renewal estimation" skipBullseye={true}>
                 <RenewalEstimation data={ reportInitialSavingEstimation.sourceCostsModel } />
             </ReportCard>
         );
-    }
+    };
 
     public renderTotalMaintenance = () => {
         const { reportInitialSavingEstimation } = this.props;
@@ -257,28 +237,45 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
         };
 
         const chartData: FancyChartDonutData[] = [
-            { label: 'VMware', value: percentages[0], color: VMWARE_COLORR },
-            { label: 'RHV Hypervisors', value: percentages[1], color: RHVHYPERVISORS_COLOR },
-            { label: 'RHV Growth', value: percentages[2], color: RHVGROWRTH_COLOR },
-            { label: 'Red Hat Training', value: percentages[3], color: RHTRAINING_COLOR },
-            { label: 'Red Hat Consulting', value: percentages[4], color: RHCONSULTING_COLOR },
-            { label: 'Travel and Lodging', value: percentages[5], color: RHTRAVELANDLODGING_COLOR }
+            { label: 'VMware', value: percentages[0] },
+            { label: 'RHV Hypervisors', value: percentages[1] },
+            { label: 'RHV Growth', value: percentages[2] },
+            { label: 'Red Hat Training', value: percentages[3] },
+            { label: 'Red Hat Consulting', value: percentages[4] },
+            { label: 'Travel and Lodging', value: percentages[5] }
         ];
 
         const tickFormat = (label: string, value: number) => `${label}: ${value.toFixed(2)}%`;
+        const tooltipFormat = (datum: any, active: boolean) => `${datum.x} \n ${datum.y.toFixed(2)}%`;
+
         return (
             <ReportCard
-                title='Total VMware maintenance, Red Hat Virtualization, training and services costs during a 3 year migration)'
+                title={
+                    <span>
+                        <span>Total costs during 3 years migration</span>
+                        <span style={{float: 'right'}}>
+                            <Tooltip
+                                position="right"
+                                content={
+                                    <div>Includes VMWare maintenance, Red Hat virtualization subscriptions, training and services</div>
+                                }
+                            >
+                                <HelpIcon />
+                            </Tooltip>
+                        </span>
+                    </span>
+                }
             >
                 <FancyChartDonut
                     data={ chartData }
                     chartProps={ chartProps }
                     chartLegendProps={ chartLegendProps }
                     tickFormat={ tickFormat }
+                    tooltipFormat={ tooltipFormat }
                 />
             </ReportCard>
         );
-    }
+    };
 
     public renderProjectCostBreakdown = () => {
         const { reportInitialSavingEstimation } = this.props;
@@ -324,7 +321,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
 
         const barChartData: FancyGroupedBarChartData = {
             legends: undefined,
-            colors: [ VMWARE_COLORR, RHVHYPERVISORS_COLOR, RHVGROWRTH_COLOR, RHTRAINING_COLOR, RHCONSULTING_COLOR, RHTRAVELANDLODGING_COLOR ],
+            colors: undefined,
             values: [
                 [{ x: 'VMware', y: vmwareTotal, label: formatValue(vmwareTotal, 'usd', { fractionDigits: 0 }) }],
                 [{ x: 'RVH Hypervisors', y: rhvHypervisorsTotal, label: formatValue(rhvHypervisorsTotal, 'usd', { fractionDigits: 0 }) }],
@@ -369,20 +366,20 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
                 />
             </ReportCard>
         );
-    }
+    };
 
     public renderProjectCostBreakdownTable = () => {
         const { reportInitialSavingEstimation } = this.props;
 
         return (
-            <ReportCard title="Project cost breakdown">
+            <ReportCard title="Project cost breakdown" skipBullseye={true}>
                 <ProjectCostBreakdownTable
                     rhvRampUpCostsModel={ reportInitialSavingEstimation.rhvRampUpCostsModel }
                     sourceRampDownCostsModel={ reportInitialSavingEstimation.sourceRampDownCostsModel }
                 />
             </ReportCard>
         );
-    }
+    };
 
     public renderReports = () => {
         return (
@@ -392,25 +389,25 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
                         { this.renderInfo() }
                     </StackItem>
                     <StackItem isFilled={ false }>
-                        { this.renderCostExpenditureComparison() }
+                        <div className="pf-l-grid pf-m-all-6-col-on-lg pf-m-gutter">
+                            { this.renderCostExpenditureComparison() }
+                            { this.renderEnvironment() }
+                        </div>
                     </StackItem>
                     <StackItem isFilled={ false }>
-                        { this.renderEnvironment() }
+                        <div className="pf-l-grid pf-m-all-6-col-on-lg pf-m-gutter">
+                            { this.renderTotalMaintenance() }
+                            { this.renderRenewalEstimation() }
+                        </div>
                     </StackItem>
                     <StackItem isFilled={ false }>
-                        { this.renderRenewalEstimation() }
+                        <div className="pf-l-grid pf-m-all-6-col-on-lg pf-m-gutter">
+                            { this.renderProjectCostBreakdown() }
+                            { this.renderProjectCostBreakdownTable() }
+                        </div>
                     </StackItem>
-                    <StackItem isFilled={ false }>
-                        { this.renderTotalMaintenance() }
-                    </StackItem>
-                    <StackItem isFilled={ false }>
-                        { this.renderProjectCostBreakdown() }
-                    </StackItem>
-                    <StackItem isFilled={ false }>
-                        { this.renderProjectCostBreakdownTable() }
-                    </StackItem>
-                    <StackItem isFilled={ false }>
-                        <Card className="disclaimer">
+                    {/* <StackItem isFilled={ false }>
+                        <Card>
                             <CardHeader>Disclaimer</CardHeader>
                             <CardBody>
                                 <p>
@@ -420,7 +417,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
                                 </p>
                             </CardBody>
                         </Card>
-                    </StackItem>
+                    </StackItem> */}
                 </Stack>
             </React.Fragment>
         );
@@ -437,36 +434,52 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
                         >
                             <Stack gutter="md">
                                 <StackItem isFilled={ false }>
-                                    <Skeleton size="sm" /><br />
-                                    <Skeleton size="sm" style={ { height: '60px' } } /><br />
-                                    <Skeleton size="sm" />
-                                </StackItem>
-                                <StackItem isFilled={ false } className="stack-item-border">
                                     <Skeleton size="lg"/>
                                 </StackItem>
                             </Stack>
                         </ReportCard>
                     </StackItem>
                     <StackItem isFilled={ false }>
-                        <ReportCard
-                            title={ <Skeleton size="sm" /> }
-                        >
-                            <Skeleton size="sm" style={ { height: '300px' } }/>
-                        </ReportCard>
+                        <div className="pf-l-grid pf-m-all-6-col-on-lg pf-m-gutter">
+                            <ReportCard
+                                title={ <Skeleton size="sm" /> }
+                            >
+                                <Skeleton size="sm" style={ { height: '300px' } }/>
+                            </ReportCard>
+                            <ReportCard
+                                title={ <Skeleton size="sm" /> }
+                            >
+                                <SkeletonTable colSize={ 3 } rowSize={ 3 }/>
+                            </ReportCard>
+                        </div>
                     </StackItem>
                     <StackItem isFilled={ false }>
-                        <ReportCard
-                            title={ <Skeleton size="sm" /> }
-                        >
-                            <SkeletonTable colSize={ 3 } rowSize={ 3 }/>
-                        </ReportCard>
+                        <div className="pf-l-grid pf-m-all-6-col-on-lg pf-m-gutter">
+                            <ReportCard
+                                title={ <Skeleton size="sm" /> }
+                            >
+                                <Skeleton size="sm" style={ { height: '300px' } }/>
+                            </ReportCard>
+                            <ReportCard
+                                title={ <Skeleton size="sm" /> }
+                            >
+                                <SkeletonTable colSize={ 2 } rowSize={ 2 }/>
+                            </ReportCard>
+                        </div>
                     </StackItem>
                     <StackItem isFilled={ false }>
-                        <ReportCard
-                            title={ <Skeleton size="sm" /> }
-                        >
-                            <SkeletonTable colSize={ 2 } rowSize={ 2 }/>
-                        </ReportCard>
+                        <div className="pf-l-grid pf-m-all-6-col-on-lg pf-m-gutter">
+                            <ReportCard
+                                title={ <Skeleton size="sm" /> }
+                            >
+                                <Skeleton size="sm" style={ { height: '300px' } }/>
+                            </ReportCard>
+                            <ReportCard
+                                title={ <Skeleton size="sm" /> }
+                            >
+                                <SkeletonTable colSize={ 3 } rowSize={ 3 }/>
+                            </ReportCard>
+                        </div>
                     </StackItem>
                 </Stack>
             </React.Fragment>

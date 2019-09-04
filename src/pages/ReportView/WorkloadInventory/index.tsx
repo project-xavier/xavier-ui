@@ -6,22 +6,25 @@ import * as reportActions from '../../../actions/ReportActions';
 
 const mapStateToProps = (state: GlobalState) => {
     const {
-        report,
         reportWorkloadInventory,
         reportWorkloadInventoryFetchStatus,
-        reportWorkloadInventoryCSVFetchStatus
+        reportWorkloadInventoryCSVFetchStatus,
+        reportWorkloadInventoryAvailableFilters,
+        reportWorkloadInventoryAvailableFiltersFetchStatus
     } = state.reportState;
     return {
-        report,
         reportWorkloadInventory,
         reportWorkloadInventoryFetchStatus,
-        reportWorkloadInventoryCSVFetchStatus
+        reportWorkloadInventoryCSVFetchStatus,
+        reportWorkloadInventoryAvailableFilters,
+        reportWorkloadInventoryAvailableFiltersFetchStatus
     };
 };
 
 const mapDispatchToProps = {
     fetchReportWorkloadInventory: reportActions.fetchReportWorkloadInventory,
-    fetchReportWorkloadInventoryCSV: reportActions.fetchReportWorkloadInventoryCSV
+    fetchReportWorkloadInventoryCSV: reportActions.fetchReportWorkloadInventoryCSV,
+    fetchReportWorkloadInventoryAvailableFilters: reportActions.fetchReportWorkloadInventoryAvailableFilters
 };
 
 export default withRouter(
