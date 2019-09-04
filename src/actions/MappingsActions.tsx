@@ -9,6 +9,8 @@ export const fetchFlagAssessment = (flag: string): GenericAction => ({
     type: ActionTypes.FETCH_FLAG_ASSESSMENT,
     payload: getFlagAssessment(flag),
     meta: {
-        flag
+        flag,
+        noError: true,
+        notifications: {}
     }
 });

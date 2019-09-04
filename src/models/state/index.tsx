@@ -8,7 +8,7 @@ import {
     WorkloadInventoryReportFiltersModel
 } from '../Report';
 import { User } from '../User';
-import { FlagAssessment } from '../Mappings';
+import { FlagAssessment, FlagAssessmentCached } from '../Mappings';
 import { AxiosError } from 'axios';
 
 /**
@@ -23,9 +23,9 @@ export interface GlobalState {
 }
 
 export const enum FetchStatus {
-    'none',
-    'inProgress',
-    'complete',
+    none = 'none',
+    inProgress = 'inProgress',
+    complete = 'complete',
 }
 
 export interface ObjectFetchStatus {
@@ -112,10 +112,12 @@ export type DialogDeleteState = Readonly<{
     onCancel: () => void;
 }>;
 
+export interface FlagAssessmentState {
+    byFlag: Map<string, FlagAssessmentCached>;
+    fetchStatus: Map<string, FetchStatus>;
+    errors: Map<string, AxiosError | null>;
+};
+
 export interface MappingsState {
-    flagAssessment: {
-        byFlag: Map<string, FlagAssessment>,
-        fetchStatus: Map<string, FetchStatus>,
-        errors: Map<string, AxiosError | null>,
-    };
+    flagAssessment: FlagAssessmentState;
 }

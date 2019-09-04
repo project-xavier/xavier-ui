@@ -1,65 +1,64 @@
 import { ActionTypes } from '../actions/MappingsActions';
 import { pendingMessage, successMessage, failureMessage } from './reducerHelper';
-import { UserState, FetchStatus } from '../models/state';
+import { FetchStatus, MappingsState } from '../models/state';
 import { GenericAction } from '../models/action';
-import { FlagAssessment } from 'src/models';
-import { AxiosError } from 'axios';
-
-export interface FlagAssessmentCached extends FlagAssessment {
-    timeRequested: number;
-}
   
-export type FlagAssessmentState = Readonly<{
-    byFlag: Map<string, FlagAssessmentCached>;
-    fetchStatus: Map<string, FetchStatus>;
-    errors: Map<string, AxiosError | null>;
-}>;
-  
-const defaultState: FlagAssessmentState = {
-    byFlag: new Map(),
-    fetchStatus: new Map(),
-    errors: new Map(),
+const defaultState: MappingsState = {
+    flagAssessment: {
+        byFlag: new Map(),
+        fetchStatus: new Map(),
+        errors: new Map(),
+    }
 };
 
-export const mappingsReducer = (state: FlagAssessmentState = defaultState, action: GenericAction) => {
+export const mappingsReducer = (state: MappingsState = defaultState, action: GenericAction) => {
     switch (action.type) {
         case pendingMessage(ActionTypes.FETCH_FLAG_ASSESSMENT): {
-            const nextState: FlagAssessmentState = {
+            const nextState: MappingsState = {
                 ...state,
-                fetchStatus: new Map(state.fetchStatus).set(
-                    action.meta.flag,
-                    FetchStatus.inProgress
-                ),
+                flagAssessment: {
+                    ...state.flagAssessment,
+                    fetchStatus: new Map(state.flagAssessment.fetchStatus).set(
+                        action.meta.flag,
+                        FetchStatus.inProgress
+                    )
+                }
             };
 
             return nextState;
         }
 
         case successMessage(ActionTypes.FETCH_FLAG_ASSESSMENT): {
-            const nextState: FlagAssessmentState = {
+            const nextState: MappingsState = {
                 ...state,
-                fetchStatus: new Map(state.fetchStatus).set(
-                    action.meta.flag,
-                    FetchStatus.complete
-                ),
-                byFlag: new Map(state.byFlag).set(action.meta.flag, {
-                    ...action.payload,
-                    timeRequested: Date.now(),
-                }),
-                errors: new Map(state.errors).set(action.meta.flag, null),
+                flagAssessment: {
+                    ...state.flagAssessment,
+                    fetchStatus: new Map(state.flagAssessment.fetchStatus).set(
+                        action.meta.flag,
+                        FetchStatus.complete
+                    ),
+                    byFlag: new Map(state.flagAssessment.byFlag).set(action.meta.flag, {
+                        ...action.payload.data,
+                        timeRequested: Date.now(),
+                    }),
+                    errors: new Map(state.flagAssessment.errors).set(action.meta.flag, null),
+                }
             };
 
             return nextState;
         }
 
         case failureMessage(ActionTypes.FETCH_FLAG_ASSESSMENT): {
-            const nextState: FlagAssessmentState = {
+            const nextState: MappingsState = {
                 ...state,
-                fetchStatus: new Map(state.fetchStatus).set(
-                    action.meta.flag,
-                    FetchStatus.complete
-                ),
-                errors: new Map(state.errors).set(action.meta.flag, action.payload),
+                flagAssessment: {
+                    ...state.flagAssessment,
+                    fetchStatus: new Map(state.flagAssessment.fetchStatus).set(
+                        action.meta.flag,
+                        FetchStatus.complete
+                    ),
+                    errors: new Map(state.flagAssessment.errors).set(action.meta.flag, action.payload),
+                }
             };
 
             return nextState;

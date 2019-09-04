@@ -32,12 +32,11 @@ import {
 } from '@patternfly/react-core';
 import { ErrorCircleOIcon, SearchIcon } from '@patternfly/react-icons';
 import { FlagModel, FlagAssessment } from '../../../models';
-import { ObjectFetchStatus, FetchStatus } from '../../../models/state';
+import { ObjectFetchStatus, FlagAssessmentState } from '../../../models/state';
 import debounce from 'lodash/debounce';
 import { formatNumber } from '../../../Utilities/formatValue';
 import './FlagsTable.scss';
 import { isNullOrUndefined } from '../../../Utilities/formUtils';
-import { AxiosError } from 'axios';
 
 interface StateToProps extends RouterGlobalProps {
     reportFlags: {
@@ -45,11 +44,7 @@ interface StateToProps extends RouterGlobalProps {
         items: FlagModel[]
     };
     reportFlagsFetchStatus: ObjectFetchStatus;
-    flagAssessment: {
-        byFlag: Map<string, FlagAssessment>,
-        fetchStatus: Map<string, FetchStatus>,
-        errors: Map<string, AxiosError | null>,
-    };
+    flagAssessment: FlagAssessmentState;
 }
 
 interface DispatchToProps {
@@ -133,6 +128,12 @@ class FlagsTable extends React.Component<Props, State> {
         this.refreshData();
     }
 
+    public componentDidUpdate(prevProps: Props) {
+        if (prevProps.flagAssessment != this.props.flagAssessment) {
+            this.filtersInRowsAndCells(false);
+        }
+    }
+
     public refreshData = (
         page: number = this.state.page,
         perPage: number = this.state.perPage,
@@ -143,33 +144,29 @@ class FlagsTable extends React.Component<Props, State> {
         const column = index ? this.state.columns[index].key : undefined;
         const orderDirection = direction ? direction : undefined;
         fetchReportFlags(reportId, page, perPage, column, orderDirection).then(() => {
-            this.filtersInRowsAndCells();
+            this.filtersInRowsAndCells(true);
         });
     }
 
-    public renderPipe = () => {
-        const items: FlagModel[] = this.props.reportFlags.items ? this.props.reportFlags.items : [];
-        const flags = new Set(items.map(element => element.flag));
-        flags.forEach(flag => {
-            this.props.fetchFlagAssessment(flag);
-        });
-    };
+    public filtersInRowsAndCells = (fetchFlags: boolean) => {
+        const { flagAssessment, reportFlags, fetchFlagAssessment } = this.props;
+        const items: FlagModel[] = reportFlags.items ? Object.values(reportFlags.items) : [];
 
-    public filtersInRowsAndCells = () => {
-        this.renderPipe();
-
-        const { flagAssessment } = this.props;
-
-        const items: FlagModel[] = this.props.reportFlags.items
-            ? Object.values(this.props.reportFlags.items) : [];
+        // Fetch Flag-Assessment column
+        if (fetchFlags) {
+            const flags = new Set(items.map(element => element.flag));
+            flags.forEach((flag: string) => {
+                fetchFlagAssessment(flag);
+            });
+        }
 
         let rows: any[][] = [];
         if (items.length > 0) {
             rows = items.map((row: FlagModel) => {
-                const assessment = flagAssessment.byFlag.get(row.flag);
+                const byFlag: FlagAssessment | undefined = flagAssessment.byFlag.get(row.flag);
                 return [
                     row.flag ? row.flag : '',
-                    assessment ? assessment : '',
+                    byFlag ? byFlag.assessment : '',
                     row.osName ? row.osName : '',
                     !isNullOrUndefined(row.clusters) ? formatNumber(row.clusters, 0) : '',
                     !isNullOrUndefined(row.vms) ? formatNumber(row.vms, 0) : ''
@@ -195,7 +192,7 @@ class FlagsTable extends React.Component<Props, State> {
                 page,
                 sortBy: { index, direction }
             });
-            this.filtersInRowsAndCells();
+            this.filtersInRowsAndCells(true);
         });
     }
 
