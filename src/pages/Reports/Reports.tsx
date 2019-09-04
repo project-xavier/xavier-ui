@@ -164,7 +164,7 @@ class Reports extends React.Component<Props, State> {
             case 'CREATED':
                 return <Link to={ `/reports/${report.id}` }>{ report.reportName }</Link>;
             default:
-                return <Button variant={ ButtonVariant.link }>{ report.reportName }</Button>;
+                return <span>{ report.reportName }</span>;
         }
     };
 
