@@ -75,7 +75,7 @@ Object {
     },
   },
   "payload": Promise {},
-  "type": "FETCH_REPORT_WORKLOAD_MIGRATION_SUMMARY",
+  "type": "FETCH_REPORT_WORKLOAD_SUMMARY",
 }
 `;
 
