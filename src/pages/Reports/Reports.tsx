@@ -160,17 +160,19 @@ class Reports extends React.Component<Props, State> {
     // Table data management section
 
     public refreshData = (page: number = this.state.page, perPage: number = this.state.perPage, filterText: string = this.state.filterText) => {
-        const { renderInProgresFetchStatus } = this.state;
+        
         this.props.fetchReports(page, perPage, filterText).then(() => {
             this.filtersInRowsAndCells();
 
+            // Change renderInProgresFetchStatus to false
+            const { renderInProgresFetchStatus } = this.state;
             if (renderInProgresFetchStatus) {
                 this.setState({
                     renderInProgresFetchStatus: false
                 });
             }
 
-            // Change isFirstFetchReportsCall to false to indicate
+            // Change isFirstFetchReportsCall to false
             const { isFirstFetchReportsCall } = this.state;
             if (isFirstFetchReportsCall) {
                 this.setState({ isFirstFetchReportsCall: false });
@@ -336,7 +338,30 @@ class Reports extends React.Component<Props, State> {
                 gridBreakPoint={ TableGridBreakpoint.gridMd } >
                 <TableHeader />
                 <TableBody />
+                <tfoot>
+                    <tr>
+                        <td colSpan={ 10 }>
+                            { this.renderPagination() }
+                        </td>
+                    </tr>
+                </tfoot>
             </Table>
+        );
+    };
+
+    public renderPagination = () => {
+        const { reports } = this.props;
+        const { page, perPage } = this.state;
+
+        return (
+            <Pagination
+                itemCount={ reports.total }
+                perPage={ perPage }
+                page={ page }
+                onSetPage={ this.onSetPage }
+                onPageInput={ this.onPageInput }
+                onPerPageSelect={ this.onPerPageSelect }
+            />
         );
     };
 
@@ -395,7 +420,7 @@ class Reports extends React.Component<Props, State> {
     };
 
     public render() {
-        const { page, perPage, isFirstFetchReportsCall, renderInProgresFetchStatus } = this.state;
+        const { isFirstFetchReportsCall, renderInProgresFetchStatus } = this.state;
         const { reports, reportsFetchStatus } = this.props;
 
         let toolbar: React.ReactNode;
@@ -412,14 +437,7 @@ class Reports extends React.Component<Props, State> {
                     </ToolbarGroup>
                     <ToolbarGroup>
                         <ToolbarItem>
-                            <Pagination
-                                itemCount={ reports.total }
-                                perPage={ perPage }
-                                page={ page }
-                                onSetPage={ this.onSetPage }
-                                onPageInput={ this.onPageInput }
-                                onPerPageSelect={ this.onPerPageSelect }
-                            />
+                            { this.renderPagination() }
                         </ToolbarItem>
                     </ToolbarGroup>
                 </TableToolbar>
