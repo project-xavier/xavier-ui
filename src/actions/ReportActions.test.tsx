@@ -27,7 +27,7 @@ describe('deleteReport', () => {
 
 describe('fetchReportWorkloadMigrationSummary', () => {
     it('returns a state object', () => {
-        expect(actionGenerator.fetchReportWorkloadMigrationSummary(1)).toMatchSnapshot();
+        expect(actionGenerator.fetchReportWorkloadSummary(1)).toMatchSnapshot();
     });
 });
 
@@ -39,6 +39,6 @@ describe('fetchReportInitialSavingEstimation', () => {
 
 describe('fetchReportWorkloadInventory', () => {
     it('returns a state object', () => {
-        expect(actionGenerator.fetchReportWorkloadInventory(1, 1, 10, 'vmName', 'asc')).toMatchSnapshot();
+        expect(actionGenerator.fetchReportWorkloadInventory(1, 1, 10, 'vmName', 'asc', new Map())).toMatchSnapshot();
     });
 });
