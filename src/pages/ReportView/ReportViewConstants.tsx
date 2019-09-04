@@ -1,7 +1,7 @@
 import asyncComponent from '../../Utilities/asyncComponent';
 
 const WorkloadMigrationSummary = asyncComponent(() =>
-    import(/* webpackChunkName: "WorkloadMigrationSummary" */ './WorkloadMigrationSummary'));
+    import(/* webpackChunkName: "WorkloadMigrationSummary" */ './WorkloadSummary'));
 const InitialSavingsEstimation = asyncComponent(() =>
     import(/* webpackChunkName: "InitialSavingsEstimation" */ './InitialSavingsEstimation'));
 const WorkloadInventory = asyncComponent(() =>

@@ -56,3 +56,19 @@ export const formatDate = value => {
 
     return day + ' ' + month + ' ' + year;
 };
+
+export const formatNumber = (value, fractionDigits = 2) => {
+    return value.toLocaleString('en', {
+        style: 'decimal',
+        minimumFractionDigits: fractionDigits,
+        maximumFractionDigits: fractionDigits
+    });
+};
+
+export const formatPercentage = (value, fractionDigits = 2) => {
+    return value.toLocaleString('en', {
+        style: 'percent',
+        minimumFractionDigits: fractionDigits,
+        maximumFractionDigits: fractionDigits
+    });
+};
