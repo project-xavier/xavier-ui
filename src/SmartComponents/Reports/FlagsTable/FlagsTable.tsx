@@ -155,7 +155,7 @@ class FlagsTable extends React.Component<Props, State> {
         // Fetch Flag-Assessment column
         if (fetchFlags) {
             const flags = new Set(items.map(element => element.flag));
-            flags.forEach((flag: string) => {
+            Array.from(flags).filter((element) => !flagAssessment.byFlag.has(element)).forEach((flag: string) => {
                 fetchFlagAssessment(flag);
             });
         }
