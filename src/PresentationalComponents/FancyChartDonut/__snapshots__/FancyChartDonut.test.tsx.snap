@@ -20,23 +20,28 @@ exports[`FancyChartDonut expect to render with minimun props 1`] = `
         data={
           Array [
             Object {
+              "data": Object {},
               "x": "year1",
               "y": 10,
             },
             Object {
+              "data": Object {},
               "x": "year2",
               "y": 20,
             },
             Object {
+              "data": Object {},
               "x": "year3",
               "y": 30,
             },
             Object {
+              "data": Object {},
               "x": "year4",
               "y": 40,
             },
           ]
         }
+        labelComponent={<ChartTooltip />}
         labels={[Function]}
       />
     </div>

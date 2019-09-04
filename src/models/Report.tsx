@@ -13,26 +13,63 @@ export interface Report {
     status: 'CREATED' | 'IN_PROGRESS' | 'FAILED';
 }
 
-export interface ReportWorkloadMigrationSummary {
-    summary: Summary[];
-    complexity: Complexity;
+export interface ReportWorkloadSummary {
+    summaryModels: Summary[];
+    complexityModel: ComplexityModel;
+    recommendedTargetsIMSModel: RecommendedTargetsIMSModel;
+    workloadsDetectedOSTypeModels: WorkloadDetectedOSTypeModel[];
+    scanRunModels: ScanRunModel[];
 }
 
 export interface Summary {
     provider: string;
     product: string;
     version: string;
-    hypervisors: number;
+    hosts: number;
     sockets: number;
     clusters: number;
     vms: number;
 }
 
-export interface Complexity {
+export interface ComplexityModel {
     unknown: number;
     hard: number;
     medium: number;
     easy: number;
+}
+
+export interface RecommendedTargetsIMSModel {
+    total: number;
+    rhv: number;
+    osp: number;
+    rhel: number;
+}
+
+export interface WorkloadDetectedOSTypeModel {
+    total: number;
+    osName: string;
+}
+
+export interface ScanRunModel {
+    target: string;
+    type: string;
+    date: number;
+}
+
+export interface WorkloadModel {
+    workload: string;
+    osName: string;
+    clusters: number;
+    vms: number;
+}
+
+export interface FlagModel {
+    workload: string;
+    flag: string;
+    assessment: string;
+    osName: string;
+    clusters: number;
+    vms: number;
 }
 
 export interface ReportInitialSavingEstimation {
@@ -218,4 +255,15 @@ export interface ReportWorkloadInventory {
     diskSpace: number;
     memory: number;
     cpuCores: number;
+}
+
+export interface WorkloadInventoryReportFiltersModel {
+    providers: string[];
+    datacenters: string[];
+    clusters: string[];
+    workloads: string[];
+    complexities: string[];
+    recommendedTargetsIMS: string[];
+    flagsIMS: string[];
+    osNames: string[];
 }
