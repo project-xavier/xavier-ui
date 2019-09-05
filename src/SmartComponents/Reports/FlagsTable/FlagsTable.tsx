@@ -32,7 +32,7 @@ import {
 } from '@patternfly/react-core';
 import { ErrorCircleOIcon, SearchIcon } from '@patternfly/react-icons';
 import { FlagModel, FlagAssessmentModel, FlagAssessmentOSModel } from '../../../models';
-import { ObjectFetchStatus, FlagAssessmentState } from '../../../models/state';
+import { ObjectFetchStatus } from '../../../models/state';
 import debounce from 'lodash/debounce';
 import { formatNumber } from '../../../Utilities/formatValue';
 import './FlagsTable.scss';
@@ -44,7 +44,8 @@ interface StateToProps extends RouterGlobalProps {
         items: FlagModel[]
     };
     reportFlagsFetchStatus: ObjectFetchStatus;
-    flagAssessment: FlagAssessmentState;
+    allFlags: FlagAssessmentModel[],
+    allFlagsFetchStatus: ObjectFetchStatus;
 }
 
 interface DispatchToProps {
@@ -55,7 +56,7 @@ interface DispatchToProps {
         orderBy: string | undefined,
         orderDirection: 'asc' | 'desc' | undefined
     ) => any;
-    fetchFlagAssessment: (flag: string) => any;
+    fetchAllFlagAssessments: () => any;
 }
 
 interface Props extends StateToProps, DispatchToProps {
@@ -125,12 +126,18 @@ class FlagsTable extends React.Component<Props, State> {
     }
 
     public componentDidMount() {
+        // Fetch Flag-Assessment column
+        const { allFlags, fetchAllFlagAssessments } = this.props;
+        if (allFlags && allFlags.length === 0) {
+            fetchAllFlagAssessments();
+        }
+
         this.refreshData();
     }
 
     public componentDidUpdate(prevProps: Props) {
-        if (prevProps.flagAssessment !== this.props.flagAssessment) {
-            this.filtersInRowsAndCells(false);
+        if (prevProps.allFlags !== this.props.allFlags) {
+            this.filtersInRowsAndCells();
         }
     }
 
@@ -144,26 +151,20 @@ class FlagsTable extends React.Component<Props, State> {
         const column = index ? this.state.columns[index].key : undefined;
         const orderDirection = direction ? direction : undefined;
         fetchReportFlags(reportId, page, perPage, column, orderDirection).then(() => {
-            this.filtersInRowsAndCells(true);
+            this.filtersInRowsAndCells();
         });
     }
 
-    public filtersInRowsAndCells = (fetchFlags: boolean) => {
-        const { flagAssessment, reportFlags, fetchFlagAssessment } = this.props;
+    public filtersInRowsAndCells = () => {
+        const { allFlags, reportFlags } = this.props;
         const items: FlagModel[] = reportFlags.items ? Object.values(reportFlags.items) : [];
-
-        // Fetch Flag-Assessment column
-        if (fetchFlags) {
-            const flags = new Set(items.map(element => element.flag));
-            Array.from(flags).filter((element) => !flagAssessment.byFlag.has(element)).forEach((flag: string) => {
-                fetchFlagAssessment(flag);
-            });
-        }
 
         let rows: any[][] = [];
         if (items.length > 0) {
+            const flagAssessmentMap = new Map(allFlags.map(element => [element.flag, element]));
+
             rows = items.map((row: FlagModel) => {
-                const flagAssessmentModel: FlagAssessmentModel | undefined = flagAssessment.byFlag.get(row.flag);
+                const flagAssessmentModel: FlagAssessmentModel | undefined = flagAssessmentMap.get(row.flag);
                 let flagAssessmentOSModel: FlagAssessmentOSModel | undefined;
                 if (flagAssessmentModel) {
                     const flagAssessmentOSModels = flagAssessmentModel.flagAssessmentOSModels;
@@ -172,7 +173,7 @@ class FlagsTable extends React.Component<Props, State> {
                     });
                     if (!flagAssessmentOSModel) {
                         flagAssessmentOSModel = flagAssessmentOSModels.find(element => {
-                            return element.osName === undefined || element.osName === null;
+                            return element.osName === undefined || element.osName === null || element.osName === '';
                         })
                     }
                 }
@@ -204,7 +205,7 @@ class FlagsTable extends React.Component<Props, State> {
                 page,
                 sortBy: { index, direction }
             });
-            this.filtersInRowsAndCells(true);
+            this.filtersInRowsAndCells();
         });
     }
 

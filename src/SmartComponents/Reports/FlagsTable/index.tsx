@@ -10,18 +10,22 @@ const mapStateToProps = (state: GlobalState) => {
         reportFlagsFetchStatus
     } = state.reportState;
     const {
-        flagAssessment
+        flagAssessment: {
+            allFlags,
+            allFlagsFetchStatus
+        }
     } = state.mappingsState;
     return {
         reportFlags,
         reportFlagsFetchStatus,
-        flagAssessment
+        allFlags,
+        allFlagsFetchStatus
     };
 };
 
 const mapDispatchToProps = {
     fetchReportFlags: reportActions.fetchReportFlags,
-    fetchFlagAssessment: mappingActions.fetchFlagAssessment
+    fetchAllFlagAssessments: mappingActions.fetchAllFlagAssessments
 };
 
 export default connect(

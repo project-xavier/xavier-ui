@@ -5,3 +5,7 @@ import ApiClient from './apiClient';
 export function getFlagAssessment(flag: string): AxiosPromise<FlagAssessmentModel> {
     return ApiClient.get<FlagAssessmentModel>(`/mappings/flag-assessment/${flag}`);
 }
+
+export function getAllFlagAssessments(): AxiosPromise<FlagAssessmentModel[]> {
+    return ApiClient.get<FlagAssessmentModel[]>('/mappings/flag-assessment');
+}

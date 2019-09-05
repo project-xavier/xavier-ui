@@ -116,6 +116,8 @@ export interface FlagAssessmentState {
     byFlag: Map<string, FlagAssessmentModel>;
     fetchStatus: Map<string, FetchStatus>;
     errors: Map<string, AxiosError | null>;
+    allFlags: FlagAssessmentModel[];
+    allFlagsFetchStatus: ObjectFetchStatus;
 };
 
 export interface MappingsState {
