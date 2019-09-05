@@ -1,7 +1,7 @@
 import { AxiosPromise } from 'axios';
-import { FlagAssessment } from '../models';
+import { FlagAssessmentModel } from '../models';
 import ApiClient from './apiClient';
 
-export function getFlagAssessment(flag: string): AxiosPromise<FlagAssessment> {
-    return ApiClient.get<FlagAssessment>(`/mappings/flag-assessment/${flag}`);
+export function getFlagAssessment(flag: string): AxiosPromise<FlagAssessmentModel> {
+    return ApiClient.get<FlagAssessmentModel>(`/mappings/flag-assessment/${flag}`);
 }

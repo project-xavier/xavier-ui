@@ -1,5 +1,10 @@
-export interface FlagAssessment {
-    id: number;
+export interface FlagAssessmentModel {
     flag: string;
+    label: string;
+    flagAssessmentOSModels: FlagAssessmentOSModel[]
+}
+
+export interface FlagAssessmentOSModel {
+    osName: string | undefined;
     assessment: string;
 }

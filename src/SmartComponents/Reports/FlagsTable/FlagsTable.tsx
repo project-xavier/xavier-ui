@@ -31,7 +31,7 @@ import {
     CardBody
 } from '@patternfly/react-core';
 import { ErrorCircleOIcon, SearchIcon } from '@patternfly/react-icons';
-import { FlagModel, FlagAssessment } from '../../../models';
+import { FlagModel, FlagAssessmentModel, FlagAssessmentOSModel } from '../../../models';
 import { ObjectFetchStatus, FlagAssessmentState } from '../../../models/state';
 import debounce from 'lodash/debounce';
 import { formatNumber } from '../../../Utilities/formatValue';
@@ -163,10 +163,22 @@ class FlagsTable extends React.Component<Props, State> {
         let rows: any[][] = [];
         if (items.length > 0) {
             rows = items.map((row: FlagModel) => {
-                const byFlag: FlagAssessment | undefined = flagAssessment.byFlag.get(row.flag);
+                const flagAssessmentModel: FlagAssessmentModel | undefined = flagAssessment.byFlag.get(row.flag);
+                let flagAssessmentOSModel: FlagAssessmentOSModel | undefined;
+                if (flagAssessmentModel) {
+                    const flagAssessmentOSModels = flagAssessmentModel.flagAssessmentOSModels;
+                    flagAssessmentOSModel = flagAssessmentOSModels.find(element => {
+                        return (element.osName || '').toLowerCase() === row.osName.toLowerCase()
+                    });
+                    if (!flagAssessmentOSModel) {
+                        flagAssessmentOSModel = flagAssessmentOSModels.find(element => {
+                            return element.osName === undefined || element.osName === null;
+                        })
+                    }
+                }
                 return [
-                    row.flag ? row.flag : '',
-                    byFlag ? byFlag.assessment : '',
+                    flagAssessmentModel ? flagAssessmentModel.label : row.flag,
+                    flagAssessmentOSModel ? flagAssessmentOSModel.assessment : '',
                     row.osName ? row.osName : '',
                     !isNullOrUndefined(row.clusters) ? formatNumber(row.clusters, 0) : '',
                     !isNullOrUndefined(row.vms) ? formatNumber(row.vms, 0) : ''
