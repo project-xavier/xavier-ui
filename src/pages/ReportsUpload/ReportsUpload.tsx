@@ -245,7 +245,10 @@ class ReportsUpload extends React.Component<Props, State> {
     };
 
     public onFileSelected = (files: File[]): void => {
-        this.props.selectUploadFile(files[0]);
+        const selectedFile = files[0];
+        if (selectedFile) {
+            this.props.selectUploadFile(selectedFile);
+        }
     };
 
     public renderProgress() {

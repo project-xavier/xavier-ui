@@ -92,13 +92,7 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                         onDrop={ onDrop }
                         noClick={true} noKeyboard={true}
                         multiple={ false }
-                        accept={ [
-                            'application/zip',
-                            'application/json',
-                            'application/gzip',
-                            'application/tar',
-                            'application/tar+gzip'
-                        ] }
+                        maxSize={ 1073741824 }
                     >
                         { ({ getRootProps, getInputProps, open }) => {
                             return (
