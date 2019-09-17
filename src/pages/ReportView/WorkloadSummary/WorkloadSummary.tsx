@@ -169,7 +169,7 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
         ];
         const total = recommendedTargetsIMS.total;
         const percentages = values.map((val: number) => val / total);
-        
+
         return (
             <ReportCard
                 title={title}
@@ -197,7 +197,7 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
                             { formatPercentage(percentages[2], 0) } RHEL
                         </h2>
                         <h3 className="pf-c-title pf-m-1xl">
-                            Workloads running, or possible to migrate to Red Hat Enterprise Linux
+                            Workloads possible to migrate to Red Hat Enterprise Linux
                         </h3>
                     </div>
                 </div>
@@ -207,7 +207,7 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
 
     public renderWorkloadsDetectedTable = () => {
         const { reportId } = this.props;
-        
+
         return (
             <ReportCard
                 title='Workloads detected'
@@ -219,7 +219,7 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
     };
 
     public renderWorkloadsDetected = () => {
-        const { reportWorkloadSummary } = this.props;        
+        const { reportWorkloadSummary } = this.props;
 
         const title="Workloads detected (OS Types)";
         const workloadsDetectedOSTypeModels = reportWorkloadSummary.workloadsDetectedOSTypeModels;
@@ -249,10 +249,13 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
 
         const chartData: FancyChartDonutData[] = workloadsDetectedOSTypeModels.map((element, index: number) => ({
             label: element.osName,
-            value: percentages[index]
+            value: percentages[index],
+            data: pieValues[index]
         }));
 
         const tickFormat = (label: string, value: number) => `${label}: ${formatPercentage(value, 2)}`;
+        const tooltipFormat = (datum: any, active: boolean) => `${datum.x}: ${formatPercentage(datum.y, 2)} \n Workloads: ${formatNumber(datum.data, 0)}`;
+
         return (
             <ReportCard
                 title={title}
@@ -262,6 +265,7 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
                     chartProps={ chartProps }
                     chartLegendProps={ chartLegendProps }
                     tickFormat={ tickFormat }
+                    tooltipFormat={ tooltipFormat }
                 />
             </ReportCard>
         );
@@ -282,7 +286,7 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
 
     public renderScansRun = () => {
         const { reportWorkloadSummary } = this.props;
-       
+
         const title="Scans run";
         const scanRuns = reportWorkloadSummary.scanRunModels;
 
@@ -321,9 +325,9 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
                     <StackItem isFilled={ false }>
                         { this.renderFlagsTable() }
                     </StackItem>
-                    {/* <StackItem isFilled={ false }>
+                    <StackItem isFilled={ false }>
                         { this.renderScansRun() }
-                    </StackItem> */}
+                    </StackItem>
                 </Stack>
             </React.Fragment>
         );
@@ -392,7 +396,7 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
             </Bullseye>
         );
     };
-    
+
     public render() {
         const { isCurrentFetchReportWorkloadSummaryCompletedSuccessfully } = this.state;
         const { reportWorkloadSummary, reportWorkloadSummaryFetchStatus } = this.props;

@@ -45,7 +45,8 @@ import {
     ChipGroup,
     ChipGroupToolbarItem,
     Chip,
-    ButtonVariant
+    ButtonVariant,
+    Form
 } from '@patternfly/react-core';
 import { ErrorCircleOIcon, SearchIcon, FilterIcon } from '@patternfly/react-icons';
 import './WorkloadInventory.scss';
@@ -55,6 +56,7 @@ import debounce from 'lodash/debounce';
 import { formatValue, formatNumber } from '../../../Utilities/formatValue';
 import { bytesToGb } from '../../../Utilities/unitConvertors';
 import { extractFilenameFromContentDispositionHeaderValue } from 'src/Utilities/extractUtils';
+import { Formik } from 'formik';
 
 interface StateToProps extends RouterGlobalProps {
     reportWorkloadInventory: {
@@ -74,7 +76,7 @@ interface DispatchToProps {
         perPage: number,
         orderBy: string | undefined,
         orderDirection: 'asc' | 'desc' | undefined,
-        filterValue: Map<FilterTypeKeyEnum, string[]>
+        filterValue: Map<string, string[]>
     ) => any;
     fetchReportWorkloadInventoryCSV:(reportId: number) => any;
     fetchReportWorkloadInventoryAvailableFilters: (reportId: number) => any;
@@ -109,42 +111,60 @@ interface State {
     secondaryFilterDropDownOpen: boolean;
 };
 
+interface FilterConfig {
+    key: string;
+    label: string;
+    abbreviation?: string;
+};
+
+const filtersConfig = {
+    provider: { key: 'provider', label: 'Provider' } as FilterConfig,
+    datacenter: { key: 'datacenter', label: 'Datacenter' } as FilterConfig,
+    cluster: { key: 'cluster', label: 'Cluster' } as FilterConfig,
+    vmName: { key: 'vmName', label: 'VM name' } as FilterConfig,
+    workload: { key: 'workload', label: 'Workload' } as FilterConfig,
+    osName: { key: 'osName', label: 'OS type' } as FilterConfig,
+    effort: { key: 'complexity', label: 'Effort' } as FilterConfig,
+    recommendedTargetIMS: { key: 'recommendedTargetIMS', label: 'Recommended targets', abbreviation: 'Rec. Targets' } as FilterConfig,
+    flagIMS: { key: 'flagIMS', label: 'Flags IMS' } as FilterConfig,
+};
+
 enum FilterTypeKeyEnum {
     NONE = "NONE",
-    PROVIDER = "provider",
-    DATACENTER = "datacenter",
-    CLUSTER = "cluster",
-    VM_NAME = "vmName",
-    WORKLOAD = "workload",
-    OS_NAME = "osName",
-    EFFORT = "complexity",
-    RECOMMENDED_TARGETS_IMS = "recommendedTargetIMS",
-    FLAGS_IMS = "flagIMS"
+    PROVIDER = "PROVIDER",
+    DATACENTER = "DATACENTER",
+    CLUSTER = "CLUSTER",
+    VM_NAME = "VM_NAME",
+    WORKLOAD = "WORKLOAD",
+    OS_NAME = "OS_NAME",
+    EFFORT = "EFFORT",
+    RECOMMENDED_TARGETS_IMS = "RECOMMENDED_TARGETS_IMS",
+    FLAGS_IMS = "FLAGS_IMS"
 }
 
-const chipLabelsMap: Map<FilterTypeKeyEnum, string> = new Map([
-    [FilterTypeKeyEnum.PROVIDER, "Provider"],
-    [FilterTypeKeyEnum.DATACENTER, "Datacenter"],
-    [FilterTypeKeyEnum.CLUSTER, "Cluster"],
-    [FilterTypeKeyEnum.VM_NAME, "Vm name"],
-    [FilterTypeKeyEnum.WORKLOAD, "Workload"],
-    [FilterTypeKeyEnum.OS_NAME, "OS name"],
-    [FilterTypeKeyEnum.EFFORT, "Effort"],
-    [FilterTypeKeyEnum.RECOMMENDED_TARGETS_IMS, "Rec. Targets"],
-    [FilterTypeKeyEnum.FLAGS_IMS, "flags IMS"],
-]);
-
 const primaryFilters = [
-    { name: 'Provider', value: FilterTypeKeyEnum.PROVIDER },
-    { name: 'Datacenter', value: FilterTypeKeyEnum.DATACENTER },
-    { name: 'Cluster', value: FilterTypeKeyEnum.CLUSTER },
-    { name: 'VM name', value: FilterTypeKeyEnum.VM_NAME },
-    { name: 'Workload', value: FilterTypeKeyEnum.WORKLOAD },
-    { name: 'OS type', value: FilterTypeKeyEnum.OS_NAME },
-    { name: 'Effort', value: FilterTypeKeyEnum.EFFORT },
-    { name: 'Recommended targets', value: FilterTypeKeyEnum.RECOMMENDED_TARGETS_IMS },
-    { name: 'Flags IMS', value: FilterTypeKeyEnum.FLAGS_IMS }
+    { name: filtersConfig.provider.label, value: FilterTypeKeyEnum.PROVIDER },
+    { name: filtersConfig.datacenter.label, value: FilterTypeKeyEnum.DATACENTER },
+    { name: filtersConfig.cluster.label, value: FilterTypeKeyEnum.CLUSTER },
+    { name: filtersConfig.vmName.label, value: FilterTypeKeyEnum.VM_NAME },
+    { name: filtersConfig.workload.label, value: FilterTypeKeyEnum.WORKLOAD },
+    { name: filtersConfig.osName.label, value: FilterTypeKeyEnum.OS_NAME },
+    { name: filtersConfig.effort.label, value: FilterTypeKeyEnum.EFFORT },
+    { name: filtersConfig.recommendedTargetIMS.label, value: FilterTypeKeyEnum.RECOMMENDED_TARGETS_IMS },
+    { name: filtersConfig.flagIMS.label, value: FilterTypeKeyEnum.FLAGS_IMS }
 ];
+
+const chipLabelsMap: Map<FilterTypeKeyEnum, string> = new Map([
+    [FilterTypeKeyEnum.PROVIDER, filtersConfig.provider.label],
+    [FilterTypeKeyEnum.DATACENTER, filtersConfig.datacenter.label],
+    [FilterTypeKeyEnum.CLUSTER, filtersConfig.cluster.label],
+    [FilterTypeKeyEnum.VM_NAME, filtersConfig.vmName.label],
+    [FilterTypeKeyEnum.WORKLOAD, filtersConfig.workload.label],
+    [FilterTypeKeyEnum.OS_NAME, filtersConfig.osName.label],
+    [FilterTypeKeyEnum.EFFORT, filtersConfig.effort.label],
+    [FilterTypeKeyEnum.RECOMMENDED_TARGETS_IMS, filtersConfig.recommendedTargetIMS.abbreviation],
+    [FilterTypeKeyEnum.FLAGS_IMS, filtersConfig.flagIMS.label],
+]);
 
 class WorkloadInventory extends React.Component<Props, State> {
 
@@ -159,8 +179,8 @@ class WorkloadInventory extends React.Component<Props, State> {
             perPage: 10,
             columns: [
                 {
-                    title: 'Provider',
-                    key: 'provider',
+                    title: filtersConfig.provider.label,
+                    key: filtersConfig.provider.key,
                     props: {
                         className: 'vertical-align-middle'
                     },
@@ -168,32 +188,32 @@ class WorkloadInventory extends React.Component<Props, State> {
                     transforms: [ cellWidth('10') ]
                 },
                 {
-                    title: 'Datacenter',
-                    key: 'datacenter',
+                    title: filtersConfig.datacenter.label,
+                    key: filtersConfig.datacenter.key,
                     props: {
                         className: 'vertical-align-middle'
                     },
                     transforms: [ cellWidth('10') ]
                 },
                 {
-                    title: 'Cluster',
-                    key: 'cluster',
+                    title: filtersConfig.cluster.label,
+                    key: filtersConfig.cluster.key,
                     props: {
                         className: 'vertical-align-middle'
                     },
                     transforms: [ cellWidth('10') ]
                 },
                 {
-                    title: 'VM name',
-                    key: 'vmName',
+                    title: filtersConfig.vmName.label,
+                    key: filtersConfig.vmName.key,
                     props: {
                         className: 'vertical-align-middle'
                     },
                     transforms: [ sortable, cellWidth('20') ]
                 },
                 {
-                    title: 'Workload',
-                    key: 'workload',
+                    title: filtersConfig.workload.label,
+                    key: filtersConfig.workload.key,
                     props: {
                         className: 'vertical-align-middle'
                     },
@@ -201,8 +221,8 @@ class WorkloadInventory extends React.Component<Props, State> {
                     columnTransforms: [classNames(Visibility.hiddenOnMd, Visibility.visibleOnLg)]
                 },
                 {
-                    title: 'OS type',
-                    key: 'osName',
+                    title: filtersConfig.osName.label,
+                    key: filtersConfig.osName.key,
                     props: {
                         className: 'vertical-align-middle'
                     },
@@ -210,8 +230,8 @@ class WorkloadInventory extends React.Component<Props, State> {
                     columnTransforms: [classNames(Visibility.hiddenOnMd, Visibility.visibleOnLg)]
                 },
                 {
-                    title: 'Effort',
-                    key: 'complexity',
+                    title: filtersConfig.effort.label,
+                    key: filtersConfig.effort.key,
                     props: {
                         className: 'vertical-align-middle'
                     },
@@ -219,8 +239,8 @@ class WorkloadInventory extends React.Component<Props, State> {
                     columnTransforms: [classNames(Visibility.hiddenOnMd, Visibility.visibleOnLg)]
                 },
                 {
-                    title: 'Recommended targets',
-                    key: 'recommendedTargetsIMS',
+                    title: filtersConfig.recommendedTargetIMS.label,
+                    key: filtersConfig.recommendedTargetIMS.key,
                     props: {
                         className: 'vertical-align-middle'
                     },
@@ -228,8 +248,8 @@ class WorkloadInventory extends React.Component<Props, State> {
                     columnTransforms: [classNames(Visibility.hiddenOnMd, Visibility.visibleOnLg)]
                 },
                 {
-                    title: 'Flags IMS',
-                    key: 'flagsIMS',
+                    title: filtersConfig.flagIMS.label,
+                    key: filtersConfig.flagIMS.key,
                     props: {
                         className: 'vertical-align-middle'
                     },
@@ -285,7 +305,9 @@ class WorkloadInventory extends React.Component<Props, State> {
 
         const column = index ? this.state.columns[index-1].key : undefined;
         const orderDirection = direction ? direction : undefined;
-        fetchReportWorkloadInventory(reportId, page, perPage, column, orderDirection, filterValue).then(() => {
+
+        const mappedFilterValue = this.prepareFiltersToBeSended(filterValue);
+        fetchReportWorkloadInventory(reportId, page, perPage, column, orderDirection, mappedFilterValue).then(() => {
             this.filtersInRowsAndCells();
         });
     };
@@ -374,7 +396,9 @@ class WorkloadInventory extends React.Component<Props, State> {
 
         const column = index ? this.state.columns[index-1].key : undefined;
         const orderDirection = direction ? direction : undefined;
-        this.props.fetchReportWorkloadInventory(reportId, page, perPage, column, orderDirection, filterValue).then(() => {
+
+        const mappedFilterValue = this.prepareFiltersToBeSended(filterValue);
+        this.props.fetchReportWorkloadInventory(reportId, page, perPage, column, orderDirection, mappedFilterValue).then(() => {
             this.setState({
                 page,
                 sortBy: { index, direction }
@@ -557,6 +581,7 @@ class WorkloadInventory extends React.Component<Props, State> {
                         aria-label="filter text input"
                         readOnly={true}
                         placeholder="Filter by..."
+                        value=""
                     />
                 );
         }
@@ -575,6 +600,46 @@ class WorkloadInventory extends React.Component<Props, State> {
         return map.get(key);
     };
 
+    public prepareFiltersToBeSended = (filterValue: Map<FilterTypeKeyEnum, string[]>) => {
+        const mappedFilterValue: Map<string, string[]> = new Map();
+        filterValue.forEach((value: string[], key: FilterTypeKeyEnum) => {
+            let keyFilter: string;
+            switch(key) {
+                case FilterTypeKeyEnum.PROVIDER:
+                    keyFilter = filtersConfig.provider.key;
+                    break;
+                case FilterTypeKeyEnum.DATACENTER:
+                    keyFilter = filtersConfig.datacenter.key;
+                    break;
+                case FilterTypeKeyEnum.CLUSTER:
+                    keyFilter = filtersConfig.cluster.key;
+                    break;
+                case FilterTypeKeyEnum.WORKLOAD:
+                    keyFilter = filtersConfig.workload.key;
+                    break;
+                case FilterTypeKeyEnum.EFFORT:
+                    keyFilter = filtersConfig.effort.key;
+                    break;
+                case FilterTypeKeyEnum.RECOMMENDED_TARGETS_IMS:
+                    keyFilter = filtersConfig.recommendedTargetIMS.key;
+                    break;
+                case FilterTypeKeyEnum.FLAGS_IMS:
+                    keyFilter = filtersConfig.flagIMS.key;
+                    break;
+                case FilterTypeKeyEnum.VM_NAME:
+                    keyFilter = filtersConfig.vmName.key;
+                    break;
+                case FilterTypeKeyEnum.OS_NAME:
+                    keyFilter = filtersConfig.osName.key;
+                    break;
+                default:
+                    keyFilter = key;
+            }
+            mappedFilterValue.set(keyFilter, value);
+        });
+        return mappedFilterValue;
+    }
+
     public applyFilterAndSearch = (filterValue: Map<FilterTypeKeyEnum, string[]>) => {
         this.setState({
             filterValue
@@ -589,7 +654,8 @@ class WorkloadInventory extends React.Component<Props, State> {
         const column = index ? this.state.columns[index-1].key : undefined;
         const orderDirection = direction ? direction : undefined;
 
-        this.props.fetchReportWorkloadInventory(reportId, page, perPage, column, orderDirection, filterValue).then(() => {
+        const mappedFilterValue = this.prepareFiltersToBeSended(filterValue);
+        this.props.fetchReportWorkloadInventory(reportId, page, perPage, column, orderDirection, mappedFilterValue).then(() => {
             this.setState({
                 page
             });
@@ -665,33 +731,60 @@ class WorkloadInventory extends React.Component<Props, State> {
     public renderSecondaryFilterInputText = (filterType: { name: string, value: FilterTypeKeyEnum }) => {
         const { filterValue } = this.state;
 
-        const onKeyDown = (e: any) => {
-            if (e.key === 'Enter') {
-                const selection = e.target.value;
-                const currentFilterSelections: string[] = this.getMapValue(filterType.value, filterValue);
+        const onSubmit = (values: { filterText: string }, { resetForm }) => {
+            const selection = values.filterText;
+            const currentFilterSelections: string[] = this.getMapValue(filterType.value, filterValue);
 
-                // determine newFilterValue
-                const newFilterValue: Map<FilterTypeKeyEnum, string[]> = new Map(filterValue);
+            // determine newFilterValue
+            const newFilterValue: Map<FilterTypeKeyEnum, string[]> = new Map(filterValue);
 
-                const previousElement: string | undefined = currentFilterSelections.find((elem: string) => elem === selection);
-                if (!previousElement) {
-                    newFilterValue.set(filterType.value, [
-                        ...currentFilterSelections,
-                        selection
-                    ]);
+            const previousElement: string | undefined = currentFilterSelections.find((elem: string) => elem === selection);
+            if (!previousElement) {
+                newFilterValue.set(filterType.value, [
+                    ...currentFilterSelections,
+                    selection
+                ]);
 
-                    this.applyFilterAndSearch(newFilterValue);
-                }
+                this.applyFilterAndSearch(newFilterValue);
             }
+
+            resetForm();
         };
 
         return (
-            <TextInput
-                type="search"
-                aria-label="filter text input"
-                placeholder={`Filter by ${filterType.name}...`}
-                onKeyDown={onKeyDown}
-            />
+            <Formik
+                initialValues={ { filterText: '' } }
+                onSubmit={ onSubmit }
+            >
+                {
+                    ({
+                        values,
+                        handleChange,
+                        handleBlur,
+                        handleSubmit
+                    }) =>
+                        {
+                            const customHandleChange = (_value: any, event: any) => {
+                                handleChange(event);
+                            };
+
+                            return (
+                                <Form onSubmit={ handleSubmit }>
+                                    <TextInput
+                                        type="search"
+                                        name="filterText"
+                                        aria-label="search text input"
+                                        onChange={ customHandleChange }
+                                        onBlur={ handleBlur }
+                                        value={ values.filterText }
+                                        placeholder={`Filter by ${filterType.name}...`}
+                                    />
+                                    <Button type="submit" className="pf-u-hidden">Submit</Button>
+                                </Form>
+                            );
+                        }
+                }
+            </Formik>
         );
     };
 
