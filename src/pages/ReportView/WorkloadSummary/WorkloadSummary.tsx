@@ -160,7 +160,7 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
         ];
         const total = recommendedTargetsIMS.total;
         const percentages = values.map((val: number) => val / total);
-        
+
         return (
             <ReportCard
                 title={title}
@@ -198,7 +198,7 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
 
     public renderWorkloadsDetectedTable = () => {
         const { reportId } = this.props;
-        
+
         return (
             <ReportCard
                 title='Workloads detected'
@@ -210,7 +210,7 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
     };
 
     public renderWorkloadsDetected = () => {
-        const { reportWorkloadSummary } = this.props;        
+        const { reportWorkloadSummary } = this.props;
 
         const title="Workloads detected (OS Types)";
         const workloadsDetectedOSTypeModels = reportWorkloadSummary.workloadsDetectedOSTypeModels;
@@ -264,7 +264,7 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
 
     public renderFlagsTable = () => {
         const { reportId } = this.props;
-        
+
         return (
             <ReportCard
                 title='Flags (Considerations to be migrated)'
@@ -277,7 +277,7 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
 
     public renderScansRun = () => {
         const { reportWorkloadSummary } = this.props;
-       
+
         const title="Scans run";
         const scanRuns = reportWorkloadSummary.scanRunModels;
 
@@ -316,9 +316,9 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
                     <StackItem isFilled={ false }>
                         { this.renderFlagsTable() }
                     </StackItem>
-                    {/* <StackItem isFilled={ false }>
+                    <StackItem isFilled={ false }>
                         { this.renderScansRun() }
-                    </StackItem> */}
+                    </StackItem>
                 </Stack>
             </React.Fragment>
         );
@@ -387,7 +387,7 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
             </Bullseye>
         );
     };
-    
+
     public render() {
         const { reportWorkloadSummary, reportWorkloadSummaryFetchStatus } = this.props;
 

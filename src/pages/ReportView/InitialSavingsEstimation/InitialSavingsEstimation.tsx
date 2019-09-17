@@ -115,7 +115,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
                 x: 110,
                 y: 60
             },
-            padding: { left: 150, right: 20, bottom: 30, top: 0 }
+            padding: { left: 110, right: 20, bottom: 30, top: 0 }
         };
         const chartGroupProps: ChartGroupProps = { offset: 50 };
         const chartBarProps: ChartBarProps = { barWidth: 50 };
@@ -143,7 +143,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
 
         const footer = (
             <div className="pf-u-text-align-center">
-                <span style={ { marginLeft: 130 } }>Year</span>
+                <span style={ { marginLeft: 95 } }>Year</span>
             </div>
         );
 
@@ -314,7 +314,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
                 x: 50,
                 y: 60
             },
-            padding: { left: 150, right: 0, bottom: 100, top: 0 }
+            padding: { left: 110, right: 0, bottom: 100, top: 0 }
         };
         const chartGroupProps: ChartGroupProps = { offset: 0 };
         const chartBarProps: ChartBarProps = { barWidth: 50 };
@@ -347,7 +347,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
 
         const footer = (
             <div className="pf-u-text-align-center">
-                <span style={ { marginLeft: 130 } }>Migration Cost Breakdown</span>
+                <span style={ { marginLeft: 70 } }>Migration Cost Breakdown</span>
             </div>
         );
 
