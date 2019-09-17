@@ -3,7 +3,7 @@
 exports[`FancyGroupedBarChart expect to render footer 1`] = `
 <Fragment>
   <div
-    className="bar-chart-container"
+    className="fancy-groupped-bar-chart-container"
   >
     <ChartLegend
       colorScale={
@@ -26,7 +26,7 @@ exports[`FancyGroupedBarChart expect to render footer 1`] = `
       style={
         Object {
           "labels": Object {
-            "fontSize": 12,
+            "fontSize": 9,
           },
         }
       }
@@ -118,7 +118,7 @@ exports[`FancyGroupedBarChart expect to render footer 1`] = `
 exports[`FancyGroupedBarChart expect to render with minimun props 1`] = `
 <Fragment>
   <div
-    className="bar-chart-container"
+    className="fancy-groupped-bar-chart-container"
   >
     <ChartLegend
       colorScale={
@@ -141,7 +141,7 @@ exports[`FancyGroupedBarChart expect to render with minimun props 1`] = `
       style={
         Object {
           "labels": Object {
-            "fontSize": 12,
+            "fontSize": 9,
           },
         }
       }
