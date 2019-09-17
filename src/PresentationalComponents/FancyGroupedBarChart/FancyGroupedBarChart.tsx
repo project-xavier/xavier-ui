@@ -42,7 +42,7 @@ interface State {
 
 const baseLegendStyle = {
     labels: {
-        fontSize: 12
+        fontSize: 9
     }
 };
 
@@ -79,7 +79,7 @@ class FancyGroupedBarChart extends Component<Props, State> {
 
         return (
             <React.Fragment>
-                <div className="bar-chart-container">
+                <div className="fancy-groupped-bar-chart-container">
                     {
                         data.legends &&
                         <ChartLegend
