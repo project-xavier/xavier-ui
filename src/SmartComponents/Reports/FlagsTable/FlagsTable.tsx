@@ -31,7 +31,7 @@ import {
     CardBody
 } from '@patternfly/react-core';
 import { ErrorCircleOIcon, SearchIcon } from '@patternfly/react-icons';
-import { FlagModel } from '../../../models';
+import { FlagModel, FlagAssessmentModel } from '../../../models';
 import { ObjectFetchStatus } from '../../../models/state';
 import debounce from 'lodash/debounce';
 import { formatNumber } from '../../../Utilities/formatValue';
@@ -44,6 +44,8 @@ interface StateToProps extends RouterGlobalProps {
         items: FlagModel[]
     };
     reportFlagsFetchStatus: ObjectFetchStatus;
+    allFlags: FlagAssessmentModel[],
+    allFlagsFetchStatus: ObjectFetchStatus;
 }
 
 interface DispatchToProps {
@@ -54,6 +56,7 @@ interface DispatchToProps {
         orderBy: string | undefined,
         orderDirection: 'asc' | 'desc' | undefined
     ) => any;
+    fetchAllFlagAssessments: () => any;
 }
 
 interface Props extends StateToProps, DispatchToProps {
@@ -123,7 +126,19 @@ class FlagsTable extends React.Component<Props, State> {
     }
 
     public componentDidMount() {
+        // Fetch Flag-Assessment column
+        const { allFlags, fetchAllFlagAssessments } = this.props;
+        if (allFlags && allFlags.length === 0) {
+            fetchAllFlagAssessments();
+        }
+
         this.refreshData();
+    }
+
+    public componentDidUpdate(prevProps: Props) {
+        if (prevProps.allFlags !== this.props.allFlags) {
+            this.filtersInRowsAndCells();
+        }
     }
 
     public refreshData = (
@@ -141,15 +156,25 @@ class FlagsTable extends React.Component<Props, State> {
     }
 
     public filtersInRowsAndCells = () => {
-        const items: FlagModel[] = this.props.reportFlags.items
-            ? Object.values(this.props.reportFlags.items) : [];
+        const { allFlags, reportFlags } = this.props;
+        const items: FlagModel[] = reportFlags.items ? Object.values(reportFlags.items) : [];
 
         let rows: any[][] = [];
         if (items.length > 0) {
             rows = items.map((row: FlagModel) => {
+                let flagAssessmentModel = allFlags.find((element: FlagAssessmentModel) => {
+                    return (element.flag === row.flag && element.osName === row.osName)
+                });
+                
+                if (!flagAssessmentModel) {
+                    flagAssessmentModel = allFlags.find((element: FlagAssessmentModel) => {
+                        return (element.flag === row.flag && element.osName === '')
+                    }); 
+                }
+                
                 return [
-                    row.flag ? row.flag : '',
-                    row.assessment ? row.assessment : '',
+                    flagAssessmentModel ? flagAssessmentModel.flagLabel : row.flag,
+                    flagAssessmentModel ? flagAssessmentModel.assessment : '',
                     row.osName ? row.osName : '',
                     !isNullOrUndefined(row.clusters) ? formatNumber(row.clusters, 0) : '',
                     !isNullOrUndefined(row.vms) ? formatNumber(row.vms, 0) : ''

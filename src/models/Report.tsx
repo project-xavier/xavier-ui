@@ -66,7 +66,6 @@ export interface WorkloadModel {
 export interface FlagModel {
     workload: string;
     flag: string;
-    assessment: string;
     osName: string;
     clusters: number;
     vms: number;
