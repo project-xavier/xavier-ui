@@ -162,13 +162,13 @@ class FlagsTable extends React.Component<Props, State> {
         let rows: any[][] = [];
         if (items.length > 0) {
             rows = items.map((row: FlagModel) => {
-                let flagAssessmentModel = allFlags.find((flagAssessmentModel: FlagAssessmentModel) => {
-                    return (flagAssessmentModel.flag === row.flag && flagAssessmentModel.osName === row.osName)
+                let flagAssessmentModel = allFlags.find((element: FlagAssessmentModel) => {
+                    return (element.flag === row.flag && element.osName === row.osName)
                 });
                 
                 if (!flagAssessmentModel) {
-                    flagAssessmentModel = allFlags.find((flagAssessmentModel: FlagAssessmentModel) => {
-                        return (flagAssessmentModel.flag === row.flag && flagAssessmentModel.osName === '')
+                    flagAssessmentModel = allFlags.find((element: FlagAssessmentModel) => {
+                        return (element.flag === row.flag && element.osName === '')
                     }); 
                 }
                 

@@ -1,6 +1,4 @@
-import {
-    getAllFlagAssessments
-} from '../api/mappings';
+import { getAllFlagAssessments } from '../api/mappings';
 import { GenericAction } from '../models/action';
 
 export const ActionTypes = {
