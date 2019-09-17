@@ -41,6 +41,7 @@ interface Props extends StateToProps, DispatchToProps {
 };
 
 interface State {
+    isCurrentFetchReportWorkloadSummaryCompletedSuccessfully: boolean;
 };
 
 const sumReducer = (a: number, b: number) => a + b;
@@ -49,6 +50,9 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
 
     constructor(props: Props) {
         super(props);
+        this.state = {
+            isCurrentFetchReportWorkloadSummaryCompletedSuccessfully: false
+        };
     }
 
     public componentDidMount() {
@@ -57,7 +61,11 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
 
     public refreshData = () => {
         const { reportId, fetchReportWorkloadSummary } = this.props;
-        fetchReportWorkloadSummary(reportId);
+        fetchReportWorkloadSummary(reportId).then(() => {
+            this.setState({ isCurrentFetchReportWorkloadSummaryCompletedSuccessfully: true });
+        }).catch(() => {
+            this.setState({ isCurrentFetchReportWorkloadSummaryCompletedSuccessfully: false });
+        });
     };
 
     public renderErrorCard = (title: string) => {
@@ -67,6 +75,7 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
             </ReportCard>
         );
     };
+
     public renderSummary = () => {
         const { reportWorkloadSummary } = this.props;
 
@@ -260,7 +269,7 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
 
     public renderFlagsTable = () => {
         const { reportId } = this.props;
-        
+
         return (
             <ReportCard
                 title='Flags (Considerations to be migrated)'
@@ -385,6 +394,7 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
     };
     
     public render() {
+        const { isCurrentFetchReportWorkloadSummaryCompletedSuccessfully } = this.state;
         const { reportWorkloadSummary, reportWorkloadSummaryFetchStatus } = this.props;
 
         const isFetchComplete: boolean = reportWorkloadSummaryFetchStatus.status === 'complete';
@@ -395,7 +405,7 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
 
         return (
             <React.Fragment>
-                { isFetchComplete ? this.renderReports() : this.renderReportSkeleton() }
+                { isFetchComplete && isCurrentFetchReportWorkloadSummaryCompletedSuccessfully ? this.renderReports() : this.renderReportSkeleton() }
             </React.Fragment>
         );
     }

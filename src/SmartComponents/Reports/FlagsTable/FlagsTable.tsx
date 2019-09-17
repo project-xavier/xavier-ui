@@ -31,7 +31,7 @@ import {
     CardBody
 } from '@patternfly/react-core';
 import { ErrorCircleOIcon, SearchIcon } from '@patternfly/react-icons';
-import { FlagModel, FlagAssessmentModel, FlagAssessmentOSModel } from '../../../models';
+import { FlagModel, FlagAssessmentModel } from '../../../models';
 import { ObjectFetchStatus } from '../../../models/state';
 import debounce from 'lodash/debounce';
 import { formatNumber } from '../../../Utilities/formatValue';
@@ -161,25 +161,20 @@ class FlagsTable extends React.Component<Props, State> {
 
         let rows: any[][] = [];
         if (items.length > 0) {
-            const flagAssessmentMap = new Map(allFlags.map(element => [element.flag, element]));
-
             rows = items.map((row: FlagModel) => {
-                const flagAssessmentModel: FlagAssessmentModel | undefined = flagAssessmentMap.get(row.flag);
-                let flagAssessmentOSModel: FlagAssessmentOSModel | undefined;
-                if (flagAssessmentModel) {
-                    const flagAssessmentOSModels = flagAssessmentModel.flagAssessmentOSModels;
-                    flagAssessmentOSModel = flagAssessmentOSModels.find(element => {
-                        return (element.osName || '').toLowerCase() === row.osName.toLowerCase()
-                    });
-                    if (!flagAssessmentOSModel) {
-                        flagAssessmentOSModel = flagAssessmentOSModels.find(element => {
-                            return element.osName === undefined || element.osName === null || element.osName === '';
-                        })
-                    }
+                let flagAssessmentModel = allFlags.find((flagAssessmentModel: FlagAssessmentModel) => {
+                    return (flagAssessmentModel.flag === row.flag && flagAssessmentModel.osName === row.osName)
+                });
+                
+                if (!flagAssessmentModel) {
+                    flagAssessmentModel = allFlags.find((flagAssessmentModel: FlagAssessmentModel) => {
+                        return (flagAssessmentModel.flag === row.flag && flagAssessmentModel.osName === '')
+                    }); 
                 }
+                
                 return [
-                    flagAssessmentModel ? flagAssessmentModel.label : row.flag,
-                    flagAssessmentOSModel ? flagAssessmentOSModel.assessment : '',
+                    flagAssessmentModel ? flagAssessmentModel.flagLabel : row.flag,
+                    flagAssessmentModel ? flagAssessmentModel.assessment : '',
                     row.osName ? row.osName : '',
                     !isNullOrUndefined(row.clusters) ? formatNumber(row.clusters, 0) : '',
                     !isNullOrUndefined(row.vms) ? formatNumber(row.vms, 0) : ''
