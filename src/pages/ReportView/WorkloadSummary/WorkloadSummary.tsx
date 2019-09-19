@@ -340,18 +340,8 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
                     <StackItem isFilled={ false }>
                         <ReportCard
                             title={ <Skeleton size="sm" /> }
-                            skipBullseye={ true }
                         >
-                            <Stack gutter="md">
-                                <StackItem isFilled={ false }>
-                                    <Skeleton size="sm" /><br />
-                                    <Skeleton size="sm" style={ { height: '60px' } } /><br />
-                                    <Skeleton size="sm" />
-                                </StackItem>
-                                <StackItem isFilled={ false } className="stack-item-border">
-                                    <Skeleton size="lg"/>
-                                </StackItem>
-                            </Stack>
+                            <SkeletonTable colSize={ 7 } rowSize={ 3 }/>
                         </ReportCard>
                     </StackItem>
                     <StackItem isFilled={ false }>
@@ -365,14 +355,7 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
                         <ReportCard
                             title={ <Skeleton size="sm" /> }
                         >
-                            <SkeletonTable colSize={ 3 } rowSize={ 3 }/>
-                        </ReportCard>
-                    </StackItem>
-                    <StackItem isFilled={ false }>
-                        <ReportCard
-                            title={ <Skeleton size="sm" /> }
-                        >
-                            <SkeletonTable colSize={ 2 } rowSize={ 2 }/>
+                            <SkeletonTable colSize={ 3 } rowSize={ 1  }/>
                         </ReportCard>
                     </StackItem>
                 </Stack>
