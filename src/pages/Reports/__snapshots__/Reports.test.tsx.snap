@@ -208,6 +208,22 @@ exports[`Reports should render list depending of TOTAL value expect to render li
       onRowClick={[Function]}
       rowKey="id"
     />
+    <tfoot>
+      <tr>
+        <td
+          colSpan={10}
+        >
+          <Pagination
+            itemCount={2}
+            onPageInput={[Function]}
+            onPerPageSelect={[Function]}
+            onSetPage={[Function]}
+            page={1}
+            perPage={10}
+          />
+        </td>
+      </tr>
+    </tfoot>
   </Table>
 </ReportsPage>
 `;
