@@ -26,10 +26,7 @@ import {
     EmptyStateVariant,
     Title,
     TitleLevel,
-    EmptyStateBody,
-    Card,
-    CardBody
-} from '@patternfly/react-core';
+    EmptyStateBody} from '@patternfly/react-core';
 import { ErrorCircleOIcon, SearchIcon } from '@patternfly/react-icons';
 import { FlagModel, FlagAssessmentModel } from '../../../models';
 import { ObjectFetchStatus } from '../../../models/state';
@@ -279,17 +276,15 @@ class FlagsTable extends React.Component<Props, State> {
     public renderNoResults = () => {
         return (
             <React.Fragment>
-                <Card>
-                    <CardBody>
-                        <EmptyState variant={ EmptyStateVariant.full }>
-                            <EmptyStateIcon icon={ SearchIcon } />
-                            <Title headingLevel="h5" size="lg">No results found</Title>
-                            <EmptyStateBody>
-                                No results match the search criteria
-                            </EmptyStateBody>
-                        </EmptyState>
-                    </CardBody>
-                </Card>
+                <Bullseye>
+                    <EmptyState variant={ EmptyStateVariant.full }>
+                        <EmptyStateIcon icon={ SearchIcon } />
+                        <Title headingLevel="h5" size="lg">No results found</Title>
+                        <EmptyStateBody>
+                            No results match the search criteria
+                        </EmptyStateBody>
+                    </EmptyState>
+                </Bullseye>
             </React.Fragment>
         );
     };
