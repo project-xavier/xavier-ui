@@ -24,7 +24,7 @@ exports[`ReportsUpload expect to render form 1`] = `
         enableReinitialize={false}
         initialValues={
           Object {
-            "file": "",
+            "file": undefined,
             "percentageOfHypervisorsMigratedOnYear1": 50,
             "percentageOfHypervisorsMigratedOnYear2": 30,
             "percentageOfHypervisorsMigratedOnYear3": 20,
