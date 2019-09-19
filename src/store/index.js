@@ -5,6 +5,7 @@ import { reportsReducer } from '../reducers/ReportsReducer';
 import { uploadsReducer } from '../reducers/UploadsReducer';
 import { userReducer } from '../reducers/UserReducer';
 import { dialogDeleteReducer } from '../reducers/DialogDeleteReducer';
+import { mappingsReducer } from '../reducers/MappingsReducer';
 
 let registry;
 
@@ -25,7 +26,8 @@ export function init(...middleware) {
         reportState: reportsReducer,
         uploadState: uploadsReducer,
         userState: userReducer,
-        dialogDeleteState: dialogDeleteReducer
+        dialogDeleteState: dialogDeleteReducer,
+        mappingsState: mappingsReducer
     });
 
     return registry;

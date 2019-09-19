@@ -8,6 +8,8 @@ import {
     WorkloadInventoryReportFiltersModel
 } from '../Report';
 import { User } from '../User';
+import { FlagAssessmentModel } from '../Mappings';
+import { AxiosError } from 'axios';
 
 /**
  * The fields of this interface should match the /store/index.js
@@ -16,7 +18,14 @@ export interface GlobalState {
     reportState: ReportState,
     uploadState: UploadState,
     userState: UserState,
-    dialogDeleteState: DialogDeleteState
+    dialogDeleteState: DialogDeleteState,
+    mappingsState: MappingsState,
+}
+
+export const enum FetchStatus {
+    none = 'none',
+    inProgress = 'inProgress',
+    complete = 'complete',
 }
 
 export interface ObjectFetchStatus {
@@ -102,3 +111,15 @@ export type DialogDeleteState = Readonly<{
     onDelete: () => void;
     onCancel: () => void;
 }>;
+
+export interface FlagAssessmentState {
+    byFlag: Map<string, FlagAssessmentModel>;
+    fetchStatus: Map<string, FetchStatus>;
+    errors: Map<string, AxiosError | null>;
+    allFlags: FlagAssessmentModel[];
+    allFlagsFetchStatus: ObjectFetchStatus;
+};
+
+export interface MappingsState {
+    flagAssessment: FlagAssessmentState;
+}
