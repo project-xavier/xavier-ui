@@ -48,11 +48,11 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
 
     public updateFieldValues() {
         if (this.props.file) {
-            const fileName = this.props.file.name;
+            const file: File = this.props.file;
             setTimeout(() => {
-                this.props.setFieldValue('file', fileName);
+                this.props.setFieldValue('file', file);
                 if (!this.props.values.reportName) {
-                    const fileNameWithoutExtension = fileName.replace(/\.[^/.]+$/, "");
+                    const fileNameWithoutExtension = file.name.replace(/\.[^/.]+$/, "");
                     this.props.setFieldValue('reportName', fileNameWithoutExtension);
                 }
             }, 0);
@@ -85,14 +85,14 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                     fieldId="file"
                     helperTextInvalid={ errors.file }
                     isValid={
-                        (errors.file && touched.file) ? false : true
+                        (errors.file) ? false : true
                     }
                 >
                     <Dropzone
                         onDrop={ onDrop }
-                        noClick={true} noKeyboard={true}
+                        noClick={ true }
+                        noKeyboard={ true }
                         multiple={ false }
-                        maxSize={ 1073741824 }
                     >
                         { ({ getRootProps, getInputProps, open }) => {
                             return (
@@ -105,7 +105,7 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                                                 name="file"
                                                 type="text"
                                                 aria-label="Select a File"
-                                                value={ values.file }
+                                                value={ values.file ? values.file.name : '' }
                                                 isValid={
                                                     (errors.file && touched.file) ? false : true
                                                 } />
