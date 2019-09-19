@@ -32,7 +32,7 @@ import UploadForm from './UploadForm';
 import { validateForm } from '../../Utilities/formUtils';
 
 interface FormValues {
-    file: string;
+    file: File | undefined;
     reportName: string;
     reportDescription: string;
     yearOverYearGrowthRatePercentage: number;
@@ -69,7 +69,7 @@ interface State {
 }
 
 const initialFormValue: FormValues = {
-    file: '',
+    file: undefined,
     reportName: '',
     reportDescription: '',
     yearOverYearGrowthRatePercentage: 5,
@@ -81,8 +81,17 @@ const initialFormValue: FormValues = {
 
 const formValidationSchema = (values: FormValues) => {
     return Yup.object().shape({
-        file: Yup.string().trim()
-        .required('File is mandatory'),
+        file: Yup.mixed()
+        .required('File is mandatory')
+        .test('validFileSize', 'File size must not exceed 1GB', () => {
+            if (values.file) {
+                const fileSize = values.file.size;
+                return fileSize > 0 && fileSize <= 1073741824;
+            }
+
+            // If there is no file then 'validFileSize' is valid
+            return true;
+        }),
         reportName: Yup.string().trim()
         .min(3, 'Report name must contain at least 3 characters ')
         .max(250, 'Report name must contain fewer than 250 characters')
@@ -245,7 +254,10 @@ class ReportsUpload extends React.Component<Props, State> {
     };
 
     public onFileSelected = (files: File[]): void => {
-        this.props.selectUploadFile(files[0]);
+        const selectedFile = files[0];
+        if (selectedFile) {
+            this.props.selectUploadFile(selectedFile);
+        }
     };
 
     public renderProgress() {

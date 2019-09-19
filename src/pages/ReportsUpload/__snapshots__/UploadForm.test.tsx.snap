@@ -11,15 +11,6 @@ exports[`UploadForm expect to render 1`] = `
     label="Inventory data file"
   >
     <Dropzone
-      accept={
-        Array [
-          "application/zip",
-          "application/json",
-          "application/gzip",
-          "application/tar",
-          "application/tar+gzip",
-        ]
-      }
       multiple={false}
       noClick={true}
       noKeyboard={true}
@@ -248,15 +239,6 @@ exports[`UploadForm expect to render errors 1`] = `
     label="Inventory data file"
   >
     <Dropzone
-      accept={
-        Array [
-          "application/zip",
-          "application/json",
-          "application/gzip",
-          "application/tar",
-          "application/tar+gzip",
-        ]
-      }
       multiple={false}
       noClick={true}
       noKeyboard={true}
