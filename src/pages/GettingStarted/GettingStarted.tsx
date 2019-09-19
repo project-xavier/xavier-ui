@@ -43,17 +43,16 @@ class GettingStarted extends React.Component<Props, State> {
             <ReportsPage>
                 <Bullseye>
                     <EmptyState variant={ EmptyStateVariant.full }>
-                        <div className="pf-c-empty-state__icon" style={ { opacity: 0.6 } }>
-                            <ProcessImprovementSvg height="80px" />
+                        <div>
+                            <ProcessImprovementSvg height="80px" className="pf-c-empty-state__icon" style={ { opacity: 0.6 } } />
                         </div>
                         <Title size="lg">Let Red Hat Migration Analytics suggest ways to optimize your environment</Title>
                         <EmptyStateBody>
-                                    See how you can optimize your virtual environment by
-                                    uploading a Red Hat CloudForms generated inventory file
-                                    and then letting Red Hat Migration Analytics create
-                                    reports showing how you can save money and optimize
-                                    workloads - whether by migrating virtual machines or
-                                    migrating application to RHEL.
+                            See how you can optimize your virtual environment by uploading a Red Hat <br />
+                            CloudForms generated Inventory file and then letting Red Hat <br />
+                            Migration Analytics create reports showing how you can save money and <br />
+                            optimize workloads - whether by migrating virtual machines or migrating <br />
+                            application to RHEL.
                         </EmptyStateBody>
                         <Link to={ '/reports/upload' } className="pf-c-button pf-m-primary">Get Started</Link>
                     </EmptyState>
