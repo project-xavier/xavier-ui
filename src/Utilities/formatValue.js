@@ -48,13 +48,20 @@ export const formatValue = (value, unit, options = {}) => {
     }
 };
 
-export const formatDate = value => {
+export const formatDate = (value, includeTime = true) => {
     /*eslint new-cap: 0*/
     const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     const dateOptions = { timeZone, year: 'numeric', month: 'long', day: 'numeric' };
     const timeOptions = { timeZone, hour: '2-digit', minute: '2-digit' };
 
-    return value.toLocaleDateString('en', dateOptions) + ' ' + value.toLocaleTimeString('en', timeOptions);
+    let result = value.toLocaleDateString('en', dateOptions);
+
+    if (includeTime) {
+        const timeString = value.toLocaleTimeString('en', timeOptions);
+        result += ' ' + timeString;
+    }
+
+    return result;
 };
 
 export const formatNumber = (value, fractionDigits = 2) => {

@@ -38,7 +38,7 @@ class ScansRunTable extends Component<Props, State> {
             return [
                 element.target,
                 element.type,
-                formatDate(new Date(element.date))
+                formatDate(new Date(element.date), false)
             ];
         });
 
