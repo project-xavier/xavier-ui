@@ -48,11 +48,12 @@ class GettingStarted extends React.Component<Props, State> {
                         </div>
                         <Title size="lg">Let Red Hat Migration Analytics suggest ways to optimize your environment</Title>
                         <EmptyStateBody>
-                            See how you can optimize your virtual environment by uploading a Red Hat <br />
-                            CloudForms generated Inventory file and then letting Red Hat <br />
-                            Migration Analytics create reports showing how you can save money and <br />
-                            optimize workloads - whether by migrating virtual machines or migrating <br />
-                            application to RHEL.
+                            See how you can optimize your virtual environment <br />
+                            by uploading a Red Hat CloudForms generated Inventory file <br />
+                            and then letting Red Hat Migration Analytics create reports <br />
+                            showing how you can save money and optimize workloads <br />
+                            whether by migrating virtual machines or <br />
+                            migrating applications to Red Hat Enterprise Linux.
                         </EmptyStateBody>
                         <Link to={ '/reports/upload' } className="pf-c-button pf-m-primary">Get Started</Link>
                     </EmptyState>
