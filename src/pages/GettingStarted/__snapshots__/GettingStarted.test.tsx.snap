@@ -30,15 +30,17 @@ exports[`GettingStarted expect to render 1`] = `
         Let Red Hat Migration Analytics suggest ways to optimize your environment
       </Title>
       <EmptyStateBody>
-        See how you can optimize your virtual environment by uploading a Red Hat 
+        See how you can optimize your virtual environment 
         <br />
-        CloudForms generated Inventory file and then letting Red Hat 
+        by uploading a Red Hat CloudForms generated Inventory file 
         <br />
-        Migration Analytics create reports showing how you can save money and 
+        and then letting Red Hat Migration Analytics create reports 
         <br />
-        optimize workloads - whether by migrating virtual machines or migrating 
+        showing how you can save money and optimize workloads 
         <br />
-        application to RHEL.
+        whether by migrating virtual machines or 
+        <br />
+        migrating applications to Red Hat Enterprise Linux.
       </EmptyStateBody>
       <Link
         className="pf-c-button pf-m-primary"
