@@ -49,12 +49,12 @@ export const formatValue = (value, unit, options = {}) => {
 };
 
 export const formatDate = value => {
-    const locale = 'default';
-    const day = value.getDate();
-    const month = value.toLocaleString(locale, { month: 'long' });
-    const year = value.getFullYear();
+    /*eslint new-cap: 0*/
+    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const dateOptions = { timeZone, year: 'numeric', month: 'long', day: 'numeric' };
+    const timeOptions = { timeZone, hour: '2-digit', minute: '2-digit' };
 
-    return day + ' ' + month + ' ' + year;
+    return value.toLocaleDateString('en', dateOptions) + ' ' + value.toLocaleTimeString('en', timeOptions);
 };
 
 export const formatNumber = (value, fractionDigits = 2) => {
