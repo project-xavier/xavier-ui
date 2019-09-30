@@ -128,6 +128,7 @@ exports[`Reports should render list depending of TOTAL value expect to render li
   <Table
     aria-label="Reports list"
     borders={true}
+    canSelectAll={true}
     cells={
       Array [
         "Name",
@@ -146,68 +147,64 @@ exports[`Reports should render list depending of TOTAL value expect to render li
     dropdownPosition="right"
     expandId="expandable-toggle"
     gridBreakPoint="grid-md"
-    onCollapse={null}
-    onExpand={null}
     role="grid"
     rowLabeledBy="simple-node"
     rows={
       Array [
-        Array [
-          Object {
-            "title": <span>
-              My report name 36
-            </span>,
-          },
-          Object {
-            "title": <p>
-              <InProgressIcon
-                className="progress"
-                color="currentColor"
-                noVerticalAlign={false}
-                size="sm"
-                title={null}
-              />
-               Analyzing the upload file
-            </p>,
-          },
-          Object {
-            "title": "",
-          },
-        ],
-        Array [
-          Object {
-            "title": <span>
-              My report name 37
-            </span>,
-          },
-          Object {
-            "title": <p>
-              <InProgressIcon
-                className="progress"
-                color="currentColor"
-                noVerticalAlign={false}
-                size="sm"
-                title={null}
-              />
-               Analyzing the upload file
-            </p>,
-          },
-          Object {
-            "title": "",
-          },
-        ],
+        Object {
+          "cells": Array [
+            Object {
+              "title": <span>
+                My report name 36
+              </span>,
+            },
+            Object {
+              "title": <p>
+                <InProgressIcon
+                  className="progress"
+                  color="currentColor"
+                  noVerticalAlign={false}
+                  size="sm"
+                  title={null}
+                />
+                 Analyzing the upload file
+              </p>,
+            },
+            Object {
+              "title": "",
+            },
+          ],
+        },
+        Object {
+          "cells": Array [
+            Object {
+              "title": <span>
+                My report name 37
+              </span>,
+            },
+            Object {
+              "title": <p>
+                <InProgressIcon
+                  className="progress"
+                  color="currentColor"
+                  noVerticalAlign={false}
+                  size="sm"
+                  title={null}
+                />
+                 Analyzing the upload file
+              </p>,
+            },
+            Object {
+              "title": "",
+            },
+          ],
+        },
       ]
     }
     variant={null}
   >
-    <TableHeader
-      className=""
-    />
-    <TableBody
-      className=""
-      onRowClick={[Function]}
-      rowKey="id"
-    />
+    <TableHeader />
+    <TableBody />
     <tfoot>
       <tr>
         <td

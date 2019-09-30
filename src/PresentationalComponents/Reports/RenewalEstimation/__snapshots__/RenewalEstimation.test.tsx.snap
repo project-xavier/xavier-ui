@@ -5,6 +5,7 @@ exports[`RenewalEstimation expect to render 1`] = `
   <Table
     aria-label="Renewal estimation"
     borders={false}
+    canSelectAll={true}
     cells={
       Array [
         "For vSphere Enterprise Plus",
@@ -22,8 +23,6 @@ exports[`RenewalEstimation expect to render 1`] = `
     dropdownPosition="right"
     expandId="expandable-toggle"
     gridBreakPoint="grid-md"
-    onCollapse={null}
-    onExpand={null}
     role="grid"
     rowLabeledBy="simple-node"
     rows={
@@ -44,14 +43,8 @@ exports[`RenewalEstimation expect to render 1`] = `
     }
     variant="compact"
   >
-    <TableHeader
-      className=""
-    />
-    <TableBody
-      className=""
-      onRowClick={[Function]}
-      rowKey="id"
-    />
+    <TableHeader />
+    <TableBody />
   </Table>
 </Fragment>
 `;
@@ -61,6 +54,7 @@ exports[`RenewalEstimation expect to render using null and undefined data 1`] = 
   <Table
     aria-label="Renewal estimation"
     borders={false}
+    canSelectAll={true}
     cells={
       Array [
         "For vSphere Enterprise Plus",
@@ -78,8 +72,6 @@ exports[`RenewalEstimation expect to render using null and undefined data 1`] = 
     dropdownPosition="right"
     expandId="expandable-toggle"
     gridBreakPoint="grid-md"
-    onCollapse={null}
-    onExpand={null}
     role="grid"
     rowLabeledBy="simple-node"
     rows={
@@ -100,14 +92,8 @@ exports[`RenewalEstimation expect to render using null and undefined data 1`] = 
     }
     variant="compact"
   >
-    <TableHeader
-      className=""
-    />
-    <TableBody
-      className=""
-      onRowClick={[Function]}
-      rowKey="id"
-    />
+    <TableHeader />
+    <TableBody />
   </Table>
 </Fragment>
 `;
@@ -117,6 +103,7 @@ exports[`RenewalEstimation expect to render using null and undefined data 2`] = 
   <Table
     aria-label="Renewal estimation"
     borders={false}
+    canSelectAll={true}
     cells={
       Array [
         "For vSphere Enterprise Plus",
@@ -134,8 +121,6 @@ exports[`RenewalEstimation expect to render using null and undefined data 2`] = 
     dropdownPosition="right"
     expandId="expandable-toggle"
     gridBreakPoint="grid-md"
-    onCollapse={null}
-    onExpand={null}
     role="grid"
     rowLabeledBy="simple-node"
     rows={
@@ -156,14 +141,8 @@ exports[`RenewalEstimation expect to render using null and undefined data 2`] = 
     }
     variant="compact"
   >
-    <TableHeader
-      className=""
-    />
-    <TableBody
-      className=""
-      onRowClick={[Function]}
-      rowKey="id"
-    />
+    <TableHeader />
+    <TableBody />
   </Table>
 </Fragment>
 `;
@@ -173,6 +152,7 @@ exports[`RenewalEstimation expect to render using values equal to 0 1`] = `
   <Table
     aria-label="Renewal estimation"
     borders={false}
+    canSelectAll={true}
     cells={
       Array [
         "For vSphere Enterprise Plus",
@@ -190,8 +170,6 @@ exports[`RenewalEstimation expect to render using values equal to 0 1`] = `
     dropdownPosition="right"
     expandId="expandable-toggle"
     gridBreakPoint="grid-md"
-    onCollapse={null}
-    onExpand={null}
     role="grid"
     rowLabeledBy="simple-node"
     rows={
@@ -212,14 +190,8 @@ exports[`RenewalEstimation expect to render using values equal to 0 1`] = `
     }
     variant="compact"
   >
-    <TableHeader
-      className=""
-    />
-    <TableBody
-      className=""
-      onRowClick={[Function]}
-      rowKey="id"
-    />
+    <TableHeader />
+    <TableBody />
   </Table>
 </Fragment>
 `;

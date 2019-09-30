@@ -5,6 +5,7 @@ exports[`Environment expect to render 1`] = `
   <Table
     aria-label="Environment"
     borders={true}
+    canSelectAll={true}
     cells={
       Array [
         "",
@@ -18,8 +19,6 @@ exports[`Environment expect to render 1`] = `
     dropdownPosition="right"
     expandId="expandable-toggle"
     gridBreakPoint="grid-md"
-    onCollapse={null}
-    onExpand={null}
     role="grid"
     rowLabeledBy="simple-node"
     rows={
@@ -53,11 +52,7 @@ exports[`Environment expect to render 1`] = `
     }
     variant="compact"
   >
-    <TableBody
-      className=""
-      onRowClick={[Function]}
-      rowKey="id"
-    />
+    <TableBody />
   </Table>
 </Fragment>
 `;
@@ -67,6 +62,7 @@ exports[`Environment expect to render using null and undefined data 1`] = `
   <Table
     aria-label="Environment"
     borders={true}
+    canSelectAll={true}
     cells={
       Array [
         "",
@@ -80,8 +76,6 @@ exports[`Environment expect to render using null and undefined data 1`] = `
     dropdownPosition="right"
     expandId="expandable-toggle"
     gridBreakPoint="grid-md"
-    onCollapse={null}
-    onExpand={null}
     role="grid"
     rowLabeledBy="simple-node"
     rows={
@@ -115,11 +109,7 @@ exports[`Environment expect to render using null and undefined data 1`] = `
     }
     variant="compact"
   >
-    <TableBody
-      className=""
-      onRowClick={[Function]}
-      rowKey="id"
-    />
+    <TableBody />
   </Table>
 </Fragment>
 `;
@@ -129,6 +119,7 @@ exports[`Environment expect to render using null and undefined data 2`] = `
   <Table
     aria-label="Environment"
     borders={true}
+    canSelectAll={true}
     cells={
       Array [
         "",
@@ -142,8 +133,6 @@ exports[`Environment expect to render using null and undefined data 2`] = `
     dropdownPosition="right"
     expandId="expandable-toggle"
     gridBreakPoint="grid-md"
-    onCollapse={null}
-    onExpand={null}
     role="grid"
     rowLabeledBy="simple-node"
     rows={
@@ -177,11 +166,7 @@ exports[`Environment expect to render using null and undefined data 2`] = `
     }
     variant="compact"
   >
-    <TableBody
-      className=""
-      onRowClick={[Function]}
-      rowKey="id"
-    />
+    <TableBody />
   </Table>
 </Fragment>
 `;
@@ -191,6 +176,7 @@ exports[`Environment expect to render using values equal to 0 1`] = `
   <Table
     aria-label="Environment"
     borders={true}
+    canSelectAll={true}
     cells={
       Array [
         "",
@@ -204,8 +190,6 @@ exports[`Environment expect to render using values equal to 0 1`] = `
     dropdownPosition="right"
     expandId="expandable-toggle"
     gridBreakPoint="grid-md"
-    onCollapse={null}
-    onExpand={null}
     role="grid"
     rowLabeledBy="simple-node"
     rows={
@@ -239,11 +223,7 @@ exports[`Environment expect to render using values equal to 0 1`] = `
     }
     variant="compact"
   >
-    <TableBody
-      className=""
-      onRowClick={[Function]}
-      rowKey="id"
-    />
+    <TableBody />
   </Table>
 </Fragment>
 `;
