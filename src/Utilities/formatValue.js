@@ -51,17 +51,15 @@ export const formatValue = (value, unit, options = {}) => {
 export const formatDate = (value, includeTime = true) => {
     /*eslint new-cap: 0*/
     const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    const dateOptions = { timeZone, year: 'numeric', month: 'long', day: 'numeric' };
-    const timeOptions = { timeZone, hour: '2-digit', minute: '2-digit' };
+    const dateOptions = { timeZone, timeZoneName: 'short', year: 'numeric', month: 'long', day: 'numeric' };
+    const timeOptions = { timeZone, timeZoneName: 'short', hour: '2-digit', minute: '2-digit' };
 
-    let result = value.toLocaleDateString('en', dateOptions);
-
+    let options = dateOptions;
     if (includeTime) {
-        const timeString = value.toLocaleTimeString('en', timeOptions);
-        result += ' ' + timeString;
+        options = Object.assign({}, dateOptions, timeOptions);
     }
 
-    return result;
+    return value.toLocaleDateString('en', options);
 };
 
 export const formatNumber = (value, fractionDigits = 2) => {
