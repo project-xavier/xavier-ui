@@ -406,18 +406,19 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
                             { this.renderProjectCostBreakdownTable() }
                         </div>
                     </StackItem>
-                    {/* <StackItem isFilled={ false }>
+                    <StackItem isFilled={ false }>
                         <Card>
                             <CardHeader>Disclaimer</CardHeader>
                             <CardBody>
                                 <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                                    labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                                    laboris nisi ut aliquip ex ea commodo consequat. Learn more about this in the documentation.
+                                    This website does not constitute an offer to sell, a solicitation of an offer to buy,
+                                    or a recommendation of any security or any other product or service by Red Hat, Inc.
+                                    or any other third party regardless of whether such product or service is referenced
+                                    in this report.
                                 </p>
                             </CardBody>
                         </Card>
-                    </StackItem> */}
+                    </StackItem>
                 </Stack>
             </React.Fragment>
         );
