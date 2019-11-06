@@ -20,7 +20,10 @@ import {
     Title,
     EmptyStateBody,
     Card,
-    CardBody
+    CardBody,
+    Dropdown,
+    KebabToggle,
+    DropdownItem
 } from '@patternfly/react-core';
 import {
     Table,
@@ -46,6 +49,7 @@ import debounce from 'lodash/debounce';
 import { Formik } from 'formik';
 import { ObjectFetchStatus } from '../../models/state';
 import { formatDate } from '../../Utilities/formatValue';
+import { extractFilenameFromContentDispositionHeaderValue } from '../../Utilities/extractUtils';
 
 interface StateToProps {
     reports: {
@@ -60,6 +64,7 @@ interface DispatchToProps {
     deleteReport: (id: number, name: string) => any;
     showDeleteDialog: typeof deleteActions.openModal;
     closeDeleteDialog: typeof deleteActions.closeModal;
+    fetchReportPayloadFile: (reportId: number) => any;
 }
 
 export interface Props extends StateToProps, DispatchToProps, RouterGlobalProps {
@@ -73,6 +78,7 @@ export interface State {
     rows: Array<IRow | string[]>;
     isFirstFetchReportsCall: boolean;
     renderInProgresFetchStatus: boolean;
+    toggleReportsIDS: Set<number>;
 };
 
 const PULL_INTERVAL_TIME = 5000;
@@ -103,7 +109,8 @@ class Reports extends React.Component<Props, State> {
             ],
             rows: [],
             isFirstFetchReportsCall: true,
-            renderInProgresFetchStatus: false
+            renderInProgresFetchStatus: false,
+            toggleReportsIDS: new Set()
         };
     }
 
@@ -205,6 +212,42 @@ class Reports extends React.Component<Props, State> {
 
     // Actions
 
+    public handleReportKebabToggle = (report: Report, isOpen: boolean) => {
+        const { toggleReportsIDS } = this.state;
+
+        const newValue = new Set(toggleReportsIDS);
+        if (isOpen) {
+            newValue.add(report.id);
+        }  else {
+            newValue.delete(report.id);
+        }
+        this.setState({
+            toggleReportsIDS: newValue
+        }, () => {
+            this.filtersInRowsAndCells();
+        });
+    };
+
+    public handleDownloadReportPayload = (report: Report) => {
+        const {fetchReportPayloadFile} = this.props;
+
+        // close kebab
+        this.handleReportKebabToggle(report, false);
+        
+        fetchReportPayloadFile(report.id).then((response: any) => {
+            const contentDispositionHeader = response.value.headers['content-disposition'];
+            const fileName = extractFilenameFromContentDispositionHeaderValue(contentDispositionHeader);
+
+            const downloadUrl = window.URL.createObjectURL(new Blob([response.value.data]));
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.setAttribute('download', fileName || 'payload.json');
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+        });
+    };
+
     public handleDeleteReport = (report: Report) => {
         const { deleteReport, showDeleteDialog, closeDeleteDialog } = this.props;
 
@@ -294,15 +337,41 @@ class Reports extends React.Component<Props, State> {
     };
 
     public renderReportActions = (report: Report) => {
+        const { toggleReportsIDS } = this.state;
+        const isOpen = toggleReportsIDS.has(report.id);
+
         const onDelete = (_event: any): void => {
             this.handleDeleteReport(report);
         };
 
+        const onDownload = (_event: any): void => {
+            this.handleDownloadReportPayload(report);
+        };
+
+        const onKebabToggle = (isOpen: boolean) => {
+            this.handleReportKebabToggle(report, isOpen);
+        };
+
+        const dropdownItems = [
+            <DropdownItem key="download" component="button" onClick={onDownload}>Download</DropdownItem>,
+            <DropdownItem key="delete" component="button" onClick={onDelete}>Delete</DropdownItem>,
+        ];
+
+        const dropdown = (
+            <Dropdown
+                position={'right'}
+                toggle={<KebabToggle onToggle={onKebabToggle} />}
+                isOpen={isOpen}
+                isPlain
+                dropdownItems={dropdownItems}
+            />
+        );
+
         switch (report.status) {
             case 'CREATED':
-                return <Button variant={ ButtonVariant.secondary } onClick={ onDelete }>Delete</Button>;
+                return dropdown;
             case 'FAILED':
-                return <Button variant={ ButtonVariant.secondary } onClick={ onDelete }>Delete</Button>;;
+                return dropdown;
             case 'IN_PROGRESS':
                 return '';
             default:

@@ -22,7 +22,8 @@ const mapDispatchToProps = {
     fetchReports: reportActions.fetchReports,
     deleteReport: reportActions.deleteReport,
     showDeleteDialog: dialogDeleteActions.openModal,
-    closeDeleteDialog: dialogDeleteActions.closeModal
+    closeDeleteDialog: dialogDeleteActions.closeModal,
+    fetchReportPayloadFile: reportActions.fetchReportPayloadFile,
 };
 
 export default withRouter(

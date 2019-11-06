@@ -476,6 +476,44 @@ export const reportsReducer = (state: ReportState = initialState, action: Generi
             return nextState;
         }
 
+        // FETCH_REPORT_PAYLOAD_FILE
+        case pendingMessage(ActionTypes.FETCH_REPORT_PAYLOAD_FILE): {
+            const nextState: ReportState = {
+                ...state,
+                reportPayloadFileFetchStatus: {
+                    ...state.reportPayloadFileFetchStatus,
+                    error: null,
+                    status: 'inProgress'
+                }
+            };
+
+            return nextState;
+        }
+
+        case successMessage(ActionTypes.FETCH_REPORT_PAYLOAD_FILE): {
+            const nextState: ReportState = {
+                ...state,
+                reportPayloadFileFetchStatus: {
+                    ...state.reportPayloadFileFetchStatus,
+                    error: null,
+                    status: 'complete'
+                }
+            };
+            return nextState;
+        }
+
+        case failureMessage(ActionTypes.FETCH_REPORT_PAYLOAD_FILE): {
+            const nextState: ReportState = {
+                ...state,
+                reportPayloadFileFetchStatus: {
+                    ...state.reportPayloadFileFetchStatus,
+                    error: action.payload.message,
+                    status: 'complete'
+                }
+            };
+            return nextState;
+        }
+
         default:
             return state;
     }

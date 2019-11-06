@@ -145,3 +145,10 @@ export function getReportWorkloadInventoryAvailableFilters(
 ): AxiosPromise<WorkloadInventoryReportFiltersModel> {
     return ApiClient.get<WorkloadInventoryReportFiltersModel>(`/report/${id}/workload-inventory/available-filters`);
 }
+
+export function getReportPayloadFile(id: number): AxiosPromise<any> {
+    const url = `/report/${id}/payload`;
+    return ApiClient.request<any>(url, null, 'get', {
+        responseType: 'blob'
+    });
+}
