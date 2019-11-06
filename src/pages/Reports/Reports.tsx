@@ -348,8 +348,8 @@ class Reports extends React.Component<Props, State> {
             this.handleDownloadReportPayload(report);
         };
 
-        const onKebabToggle = (isOpen: boolean) => {
-            this.handleReportKebabToggle(report, isOpen);
+        const onKebabToggle = (newIsOpen: boolean) => {
+            this.handleReportKebabToggle(report, newIsOpen);
         };
 
         const dropdownItems = [
@@ -362,7 +362,7 @@ class Reports extends React.Component<Props, State> {
                 position={'right'}
                 toggle={<KebabToggle onToggle={onKebabToggle} />}
                 isOpen={isOpen}
-                isPlain
+                isPlain={true}
                 dropdownItems={dropdownItems}
             />
         );

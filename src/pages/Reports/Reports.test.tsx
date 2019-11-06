@@ -30,6 +30,9 @@ const props: Props = {
     error: null,
     status: 'complete'
   },
+  fetchReportPayloadFile: () => ({
+    then: (fn: () => any) => fn()
+  }),
 
   fetchReports: () => ({
     then: (fn: () => any) => fn()

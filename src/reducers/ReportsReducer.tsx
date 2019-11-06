@@ -59,6 +59,10 @@ export const initialState: ReportState = {
     reportWorkloadInventoryAvailableFilters: null,
     reportWorkloadInventoryAvailableFiltersFetchStatus: {
         ...defaultFetchStatus
+    },
+
+    reportPayloadFileFetchStatus: {
+        ...defaultFetchStatus
     }
 };
 
