@@ -297,7 +297,8 @@ class WorkloadInventory extends React.Component<Props, State> {
         const orderByColumn = sortBy.index ? this.state.columns[sortBy.index-1].key : undefined;
         const orderDirection = sortBy.direction ? sortBy.direction : undefined;
         
-        fetchReportWorkloadInventoryFilteredCSV(reportId, orderByColumn, orderDirection, filterValue).then((response: any) => {
+        const mappedFilterValue = this.prepareFiltersToBeSended(filterValue);
+        fetchReportWorkloadInventoryFilteredCSV(reportId, orderByColumn, orderDirection, mappedFilterValue).then((response: any) => {
             const contentDispositionHeader = response.value.headers['content-disposition'];
             const fileName = extractFilenameFromContentDispositionHeaderValue(contentDispositionHeader);
 

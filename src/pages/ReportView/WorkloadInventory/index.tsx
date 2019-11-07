@@ -25,7 +25,7 @@ const mapStateToProps = (state: GlobalState) => {
 
 const mapDispatchToProps = {
     fetchReportWorkloadInventory: reportActions.fetchReportWorkloadInventory,
-    fetchReportWorkloadInventoryCSV: reportActions.fetchReportWorkloadInventoryAllCSV,
+    fetchReportWorkloadInventoryAllCSV: reportActions.fetchReportWorkloadInventoryAllCSV,
     fetchReportWorkloadInventoryFilteredCSV: reportActions.fetchReportWorkloadInventoryFilteredCSV,
     fetchReportWorkloadInventoryAvailableFilters: reportActions.fetchReportWorkloadInventoryAvailableFilters
 };
