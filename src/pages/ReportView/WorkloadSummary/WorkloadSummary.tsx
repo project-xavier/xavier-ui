@@ -128,14 +128,14 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
         };
 
         const chartData: FancyChartDonutData[] = [
-            { label: 'Easy', value: percentages[0], data: pieValues[0] },
-            { label: 'Medium', value: percentages[1], data: pieValues[1] },
-            { label: 'Hard', value: percentages[2], data: pieValues[2] },
-            { label: 'Unknow', value: percentages[3], data: pieValues[3] }
+            { label: 'Easy', value: percentages[0], extraData: pieValues[0] },
+            { label: 'Medium', value: percentages[1], extraData: pieValues[1] },
+            { label: 'Hard', value: percentages[2], extraData: pieValues[2] },
+            { label: 'Unknow', value: percentages[3], extraData: pieValues[3] }
         ];
 
         const tickFormat = (label: string, value: number, data: any) => `${label}: ${formatPercentage(value, 2)}`;
-        const tooltipFormat = (datum: any, active: boolean) => `${datum.x}: ${formatPercentage(datum.y, 2)} \n VMs: ${formatNumber(datum.data, 0)}`;
+        const tooltipFormat = ({datum}) => `${datum.x}: ${formatPercentage(datum.y, 2)} \n VMs: ${formatNumber(datum.extraData, 0)}`;
 
         return (
             <ReportCard
@@ -250,11 +250,11 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
         const chartData: FancyChartDonutData[] = workloadsDetectedOSTypeModels.map((element, index: number) => ({
             label: element.osName,
             value: percentages[index],
-            data: pieValues[index]
+            extraData: pieValues[index]
         }));
 
         const tickFormat = (label: string, value: number) => `${label}: ${formatPercentage(value, 2)}`;
-        const tooltipFormat = (datum: any, active: boolean) => `${datum.x}: ${formatPercentage(datum.y, 2)} \n Workloads: ${formatNumber(datum.data, 0)}`;
+        const tooltipFormat = ({datum}) => `${datum.x}: ${formatPercentage(datum.y, 2)} \n Workloads: ${formatNumber(datum.extraData, 0)}`;
 
         return (
             <ReportCard

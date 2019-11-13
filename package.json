@@ -5,9 +5,9 @@
   "dependencies": {
     "@babel/runtime": "^7.1.2",
     "@patternfly/patternfly": "^1.0.219",
-    "@patternfly/react-charts": "^4.7.2",
+    "@patternfly/react-charts": "^5.0.12",
     "@patternfly/react-core": "^3.82.2",
-    "@patternfly/react-table": "^2.15.3",
+    "@patternfly/react-table": "^2.22.17",
     "@redhat-cloud-services/frontend-components": "^0.0.5",
     "@redhat-cloud-services/frontend-components-notifications": "0.0.6",
     "@redhat-cloud-services/frontend-components-utilities": "^0.0.5",
