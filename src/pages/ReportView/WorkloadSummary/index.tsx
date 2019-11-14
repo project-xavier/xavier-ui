@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
 import WorkloadMigrationSummary from './WorkloadSummary';
 import { GlobalState } from 'src/models/state';
 import * as reportActions from '../../../actions/ReportActions';
@@ -19,9 +18,7 @@ const mapDispatchToProps = {
     fetchReportWorkloadSummary: reportActions.fetchReportWorkloadSummary
 };
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(WorkloadMigrationSummary)
-);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(WorkloadMigrationSummary);

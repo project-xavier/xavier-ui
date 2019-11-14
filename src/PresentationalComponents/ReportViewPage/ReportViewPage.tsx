@@ -10,8 +10,7 @@ import {
     Tabs,
     Tab,
     Breadcrumb,
-    BreadcrumbItem,
-    Title
+    BreadcrumbItem
 } from '@patternfly/react-core';
 import { Report } from '../../models';
 import { Link } from 'react-router-dom';

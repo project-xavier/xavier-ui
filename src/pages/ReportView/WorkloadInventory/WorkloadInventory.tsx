@@ -2,7 +2,6 @@ import React from 'react';
 import { RouterGlobalProps } from '../../../models/router';
 import {
     TableToolbar,
-    Skeleton,
     SkeletonTable
 } from '@redhat-cloud-services/frontend-components';
 import {
@@ -55,7 +54,7 @@ import { ObjectFetchStatus } from '../../../models/state';
 import debounce from 'lodash/debounce';
 import { formatValue, formatNumber } from '../../../Utilities/formatValue';
 import { bytesToGb } from '../../../Utilities/unitConvertors';
-import { extractFilenameFromContentDispositionHeaderValue } from 'src/Utilities/extractUtils';
+import { extractFilenameFromContentDispositionHeaderValue } from '../../../Utilities/extractUtils';
 import { Formik } from 'formik';
 
 interface StateToProps extends RouterGlobalProps {
@@ -65,7 +64,7 @@ interface StateToProps extends RouterGlobalProps {
     };
     reportWorkloadInventoryFetchStatus: ObjectFetchStatus;
     reportWorkloadInventoryCSVFetchStatus: ObjectFetchStatus;
-    reportWorkloadInventoryAvailableFilters: WorkloadInventoryReportFiltersModel;
+    reportWorkloadInventoryAvailableFilters: WorkloadInventoryReportFiltersModel | null;
     reportWorkloadInventoryAvailableFiltersFetchStatus: ObjectFetchStatus;
 }
 
@@ -162,7 +161,7 @@ const chipLabelsMap: Map<FilterTypeKeyEnum, string> = new Map([
     [FilterTypeKeyEnum.WORKLOAD, filtersConfig.workload.label],
     [FilterTypeKeyEnum.OS_NAME, filtersConfig.osName.label],
     [FilterTypeKeyEnum.EFFORT, filtersConfig.effort.label],
-    [FilterTypeKeyEnum.RECOMMENDED_TARGETS_IMS, filtersConfig.recommendedTargetIMS.abbreviation],
+    [FilterTypeKeyEnum.RECOMMENDED_TARGETS_IMS, filtersConfig.recommendedTargetIMS.abbreviation || filtersConfig.recommendedTargetIMS.label],
     [FilterTypeKeyEnum.FLAGS_IMS, filtersConfig.flagIMS.label],
 ]);
 
@@ -510,7 +509,6 @@ class WorkloadInventory extends React.Component<Props, State> {
         const { filterDropDownOpen, filterType } = this.state;
         return (
             <Dropdown
-                onToggle={this.onFilterDropDownToggle}
                 position={DropdownPosition.left}
                 className="topology-view-filter-dropdown"
                 toggle={
@@ -554,6 +552,9 @@ class WorkloadInventory extends React.Component<Props, State> {
     public renderFilterInput = () => {
         const { filterType } = this.state;
         const { reportWorkloadInventoryAvailableFilters } = this.props;
+        if (!reportWorkloadInventoryAvailableFilters) {
+            return;
+        }
 
         switch(filterType.value) {
             case FilterTypeKeyEnum.PROVIDER:
@@ -597,7 +598,7 @@ class WorkloadInventory extends React.Component<Props, State> {
         if (!map.has(key)) {
             map.set(key, []);
         }
-        return map.get(key);
+        return map.get(key) || [];
     };
 
     public prepareFiltersToBeSended = (filterValue: Map<FilterTypeKeyEnum, string[]>) => {
@@ -707,8 +708,8 @@ class WorkloadInventory extends React.Component<Props, State> {
             );
         }
 
-        const onSelect = (event: any, selection: string) => {
-            this.onSecondaryFilterDropdownSelect(selection, filterType);
+        const onSelect = (event: React.MouseEvent | React.ChangeEvent, value: any) => {
+            this.onSecondaryFilterDropdownSelect(value, filterType);
         };
         return (
             <Select

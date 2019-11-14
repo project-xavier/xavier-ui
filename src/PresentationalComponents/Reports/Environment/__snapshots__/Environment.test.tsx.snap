@@ -2,10 +2,8 @@
 
 exports[`Environment expect to render 1`] = `
 <Fragment>
-  <Table
+  <Component
     aria-label="Environment"
-    borders={true}
-    canSelectAll={true}
     cells={
       Array [
         "",
@@ -13,14 +11,6 @@ exports[`Environment expect to render 1`] = `
         "",
       ]
     }
-    className=""
-    contentId="expanded-content"
-    dropdownDirection="down"
-    dropdownPosition="right"
-    expandId="expandable-toggle"
-    gridBreakPoint="grid-md"
-    role="grid"
-    rowLabeledBy="simple-node"
     rows={
       Array [
         Array [
@@ -53,16 +43,14 @@ exports[`Environment expect to render 1`] = `
     variant="compact"
   >
     <TableBody />
-  </Table>
+  </Component>
 </Fragment>
 `;
 
 exports[`Environment expect to render using null and undefined data 1`] = `
 <Fragment>
-  <Table
+  <Component
     aria-label="Environment"
-    borders={true}
-    canSelectAll={true}
     cells={
       Array [
         "",
@@ -70,14 +58,6 @@ exports[`Environment expect to render using null and undefined data 1`] = `
         "",
       ]
     }
-    className=""
-    contentId="expanded-content"
-    dropdownDirection="down"
-    dropdownPosition="right"
-    expandId="expandable-toggle"
-    gridBreakPoint="grid-md"
-    role="grid"
-    rowLabeledBy="simple-node"
     rows={
       Array [
         Array [
@@ -110,16 +90,14 @@ exports[`Environment expect to render using null and undefined data 1`] = `
     variant="compact"
   >
     <TableBody />
-  </Table>
+  </Component>
 </Fragment>
 `;
 
 exports[`Environment expect to render using null and undefined data 2`] = `
 <Fragment>
-  <Table
+  <Component
     aria-label="Environment"
-    borders={true}
-    canSelectAll={true}
     cells={
       Array [
         "",
@@ -127,14 +105,6 @@ exports[`Environment expect to render using null and undefined data 2`] = `
         "",
       ]
     }
-    className=""
-    contentId="expanded-content"
-    dropdownDirection="down"
-    dropdownPosition="right"
-    expandId="expandable-toggle"
-    gridBreakPoint="grid-md"
-    role="grid"
-    rowLabeledBy="simple-node"
     rows={
       Array [
         Array [
@@ -167,16 +137,14 @@ exports[`Environment expect to render using null and undefined data 2`] = `
     variant="compact"
   >
     <TableBody />
-  </Table>
+  </Component>
 </Fragment>
 `;
 
 exports[`Environment expect to render using values equal to 0 1`] = `
 <Fragment>
-  <Table
+  <Component
     aria-label="Environment"
-    borders={true}
-    canSelectAll={true}
     cells={
       Array [
         "",
@@ -184,14 +152,6 @@ exports[`Environment expect to render using values equal to 0 1`] = `
         "",
       ]
     }
-    className=""
-    contentId="expanded-content"
-    dropdownDirection="down"
-    dropdownPosition="right"
-    expandId="expandable-toggle"
-    gridBreakPoint="grid-md"
-    role="grid"
-    rowLabeledBy="simple-node"
     rows={
       Array [
         Array [
@@ -224,6 +184,6 @@ exports[`Environment expect to render using values equal to 0 1`] = `
     variant="compact"
   >
     <TableBody />
-  </Table>
+  </Component>
 </Fragment>
 `;

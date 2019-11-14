@@ -94,7 +94,7 @@ export const fetchReportWorkloadsDetected = (
     id: number,
     page: number,
     perPage: number,
-    orderBy: string,
+    orderBy: string | undefined,
     orderDirection: 'asc' | 'desc' | undefined
 ): GenericAction => ({
     type: ActionTypes.FETCH_REPORT_WORKLOADS_DETECTED,
@@ -113,7 +113,7 @@ export const fetchReportFlags = (
     id: number,
     page: number,
     perPage: number,
-    orderBy: string,
+    orderBy: string | undefined,
     orderDirection: 'asc' | 'desc' | undefined
 ): GenericAction => ({
     type: ActionTypes.FETCH_REPORT_FLAGS,
@@ -145,7 +145,7 @@ export const fetchReportWorkloadInventory = (
     id: number,
     page: number,
     perPage: number,
-    orderBy: string,
+    orderBy: string | undefined,
     orderDirection: 'asc' | 'desc' | undefined,
     filters: Map<string, string[]>
 ): GenericAction => ({

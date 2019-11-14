@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
 import WorkloadInventory from './WorkloadInventory';
 import { GlobalState } from '../../../models/state';
 import * as reportActions from '../../../actions/ReportActions';
@@ -27,9 +26,7 @@ const mapDispatchToProps = {
     fetchReportWorkloadInventoryAvailableFilters: reportActions.fetchReportWorkloadInventoryAvailableFilters
 };
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(WorkloadInventory)
-);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(WorkloadInventory);

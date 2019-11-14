@@ -208,21 +208,21 @@ exports[`UploadForm expect to render 1`] = `
     </StackItem>
   </Stack>
   <ActionGroup>
-    <Button
+    <Component
       disabled={false}
       isDisabled={false}
       type="submit"
       variant="primary"
     >
       Create report
-    </Button>
-    <Button
+    </Component>
+    <Component
       onClick={[MockFunction]}
       type="button"
       variant="secondary"
     >
       Cancel
-    </Button>
+    </Component>
   </ActionGroup>
 </Form>
 `;
@@ -442,21 +442,21 @@ exports[`UploadForm expect to render errors 1`] = `
     </StackItem>
   </Stack>
   <ActionGroup>
-    <Button
+    <Component
       disabled={false}
       isDisabled={false}
       type="submit"
       variant="primary"
     >
       Create report
-    </Button>
-    <Button
+    </Component>
+    <Component
       onClick={[MockFunction]}
       type="button"
       variant="secondary"
     >
       Cancel
-    </Button>
+    </Component>
   </ActionGroup>
 </Form>
 `;

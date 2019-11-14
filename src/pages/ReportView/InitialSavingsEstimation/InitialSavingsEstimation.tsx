@@ -42,8 +42,8 @@ import {
 import { FancyChartDonutData } from '../../../PresentationalComponents/FancyChartDonut/FancyChartDonut';
 
 interface StateToProps {
-    report: Report;
-    reportInitialSavingEstimation: ReportInitialSavingEstimation;
+    report: Report | null;
+    reportInitialSavingEstimation: ReportInitialSavingEstimation | null;
     reportInitialSavingEstimationFetchStatus: ObjectFetchStatus;
 }
 
@@ -58,7 +58,7 @@ interface Props extends StateToProps, DispatchToProps {
 interface State {
 };
 
-const sumReducer = (a: number, b: number) => a + b;
+const sumReducer = (a: number, b: number): number => a + b;
 
 class InitialSavingsEstimation extends React.Component<Props, State> {
 
@@ -75,12 +75,25 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
         fetchReportInitialSavingEstimation(reportId);
     };
 
+    public renderErrorCard = (title: any) => {
+        return (
+            <ReportCard title={title}>
+                There is no enough data to render this card.
+            </ReportCard>
+        );
+    };
+
     public renderInfo = () => {
-        const { report, reportInitialSavingEstimation } = this.props;
+        const { reportInitialSavingEstimation } = this.props;
+        const title = "Over 3 year(s) with Red Hat Virtualization, your initial savings estimation could be as much as:";
+        
+        if (!reportInitialSavingEstimation) {
+            return this.renderErrorCard(title);
+        }
 
         return (
             <ReportCard
-                title="Over 3 year(s) with Red Hat Virtualization, your initial savings estimation could be as much as:"
+                title={title}
             >
                 <p className="pf-c-title pf-m-4xl pf-u-text-align-center">
                     <span>
@@ -93,6 +106,12 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
 
     public renderCostExpenditureComparison = () => {
         const { reportInitialSavingEstimation } = this.props;
+        const title = "Cost expenditure comparison during the 3 year migration";
+
+        if (!reportInitialSavingEstimation) {
+            return this.renderErrorCard(title);
+        }
+
         const sourceRampDownCostsModel = reportInitialSavingEstimation.sourceRampDownCostsModel;
         const rhvRampUpCostsModel = reportInitialSavingEstimation.rhvRampUpCostsModel;
 
@@ -149,7 +168,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
 
         return (
             <ReportCard
-                title="Cost expenditure comparison during the 3 year migration"
+                title={title}
             >
                 <FancyGroupedBarChart
                     data={ barChartData }
@@ -166,9 +185,14 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
 
     public renderEnvironment = () => {
         const { reportInitialSavingEstimation } = this.props;
+        const title = "Environment";
+        
+        if (!reportInitialSavingEstimation) {
+            return this.renderErrorCard(title);
+        }
 
         return (
-            <ReportCard title="Environment" skipBullseye={true}>
+            <ReportCard title={title} skipBullseye={true}>
                 <Environment data={ reportInitialSavingEstimation.environmentModel } />
             </ReportCard>
         );
@@ -176,9 +200,14 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
 
     public renderRenewalEstimation = () => {
         const { reportInitialSavingEstimation } = this.props;
+        const title = "VMware ELA renewal estimation";
+        
+        if (!reportInitialSavingEstimation) {
+            return this.renderErrorCard(title);
+        }
 
         return (
-            <ReportCard title="VMware ELA renewal estimation" skipBullseye={true}>
+            <ReportCard title={title} skipBullseye={true}>
                 <RenewalEstimation data={ reportInitialSavingEstimation.sourceCostsModel } />
             </ReportCard>
         );
@@ -186,6 +215,23 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
 
     public renderTotalMaintenance = () => {
         const { reportInitialSavingEstimation } = this.props;
+        const title = (<span>
+            <span>Total costs during 3 years migration</span>
+            <span style={{float: 'right'}}>
+                <Tooltip
+                    position="right"
+                    content={
+                        <div>Includes VMWare maintenance, Red Hat virtualization subscriptions, training and services</div>
+                    }
+                >
+                    <HelpIcon />
+                </Tooltip>
+            </span>
+        </span>);
+
+        if (!reportInitialSavingEstimation) {
+            return this.renderErrorCard(title);
+        }
 
         const sourceRampDownCostsModel = reportInitialSavingEstimation.sourceRampDownCostsModel;
         const rhvRampUpCostsModel = reportInitialSavingEstimation.rhvRampUpCostsModel;
@@ -249,23 +295,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
         const tooltipFormat = ({datum}) => `${datum.x} \n ${datum.y.toFixed(2)}%`;
 
         return (
-            <ReportCard
-                title={
-                    <span>
-                        <span>Total costs during 3 years migration</span>
-                        <span style={{float: 'right'}}>
-                            <Tooltip
-                                position="right"
-                                content={
-                                    <div>Includes VMWare maintenance, Red Hat virtualization subscriptions, training and services</div>
-                                }
-                            >
-                                <HelpIcon />
-                            </Tooltip>
-                        </span>
-                    </span>
-                }
-            >
+            <ReportCard title={title}>
                 <FancyChartDonut
                     data={ chartData }
                     chartProps={ chartProps }
@@ -279,6 +309,11 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
 
     public renderProjectCostBreakdown = () => {
         const { reportInitialSavingEstimation } = this.props;
+        const title = "Project cost breakdown";
+
+        if (!reportInitialSavingEstimation) {
+            return this.renderErrorCard(title);
+        }
 
         const sourceRampDownCostsModel = reportInitialSavingEstimation.sourceRampDownCostsModel;
         const rhvRampUpCostsModel = reportInitialSavingEstimation.rhvRampUpCostsModel;
@@ -297,9 +332,9 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
         ].reduce(sumReducer, 0);
 
         const rhvGrowthTotal = [
-            rhvRampUpCostsModel.year1RhvTotalGrowthValue,
-            rhvRampUpCostsModel.year2RhvTotalGrowthValue,
-            rhvRampUpCostsModel.year3RhvTotalGrowthValue
+            rhvRampUpCostsModel.year1RhvTotalGrowthValue || 0,
+            rhvRampUpCostsModel.year2RhvTotalGrowthValue || 0,
+            rhvRampUpCostsModel.year3RhvTotalGrowthValue || 0
         ].reduce(sumReducer, 0);
 
         const rhTrainingTotal = rhvRampUpCostsModel.rhvSwitchLearningSubsValue;
@@ -332,15 +367,17 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
             ]
         };
 
+        const tickLabels = {
+            angle: -45,
+            padding: 1,
+            textAnchor: 'end'
+        };
         const independentChartAxisProps: ChartAxisProps = {
             style: {
-                tickLabels: {
-                    angle: -45,
-                    padding: 1,
-                    textAnchor: 'end'
-                }
+                tickLabels
             }
         };
+
         const dependentChartAxisProps: ChartAxisProps = {
             tickFormat: (tick: any) =>  `${formatValue(tick, 'usd', { fractionDigits: 0 })}`
         };
@@ -352,9 +389,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
         );
 
         return (
-            <ReportCard
-                title="Project cost breakdown"
-            >
+            <ReportCard title={title}>
                 <FancyGroupedBarChart
                     data={ barChartData }
                     chartProps={ chartProps }
@@ -370,9 +405,14 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
 
     public renderProjectCostBreakdownTable = () => {
         const { reportInitialSavingEstimation } = this.props;
+        const title = "Project cost breakdown";
+
+        if (!reportInitialSavingEstimation) {
+            return this.renderErrorCard(title);
+        }
 
         return (
-            <ReportCard title="Project cost breakdown" skipBullseye={true}>
+            <ReportCard title={title} skipBullseye={true}>
                 <ProjectCostBreakdownTable
                     rhvRampUpCostsModel={ reportInitialSavingEstimation.rhvRampUpCostsModel }
                     sourceRampDownCostsModel={ reportInitialSavingEstimation.sourceRampDownCostsModel }

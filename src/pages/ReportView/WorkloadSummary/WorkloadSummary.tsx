@@ -28,7 +28,7 @@ import WorkloadsDetectedTable from '../../../SmartComponents/Reports/WorkloadsDe
 import FlagsTable from '../../../SmartComponents/Reports/FlagsTable';
 
 interface StateToProps {
-    reportWorkloadSummary: ReportWorkloadSummary;
+    reportWorkloadSummary: ReportWorkloadSummary | null;
     reportWorkloadSummaryFetchStatus: ObjectFetchStatus;
 }
 
@@ -78,10 +78,15 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
 
     public renderSummary = () => {
         const { reportWorkloadSummary } = this.props;
-
         const title="Summary";
-        const summary = reportWorkloadSummary.summaryModels;
 
+        if (!reportWorkloadSummary) {
+            return this.renderErrorCard(title);
+        }
+
+        // TODO this validation was created when Models were not complete in the backend
+        // It should be safe to remove this
+        const summary = reportWorkloadSummary.summaryModels;
         if (!summary) {
             return this.renderErrorCard(title);
         }
@@ -95,10 +100,15 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
 
     public renderMigrationComplexity = () => {
         const { reportWorkloadSummary } = this.props;
-
         const title="Migration complexity";
-        const complexity = reportWorkloadSummary.complexityModel;
 
+        if (!reportWorkloadSummary) {
+            return this.renderErrorCard(title);
+        }
+        
+        // TODO this validation was created when Models were not complete in the backend
+        // It should be safe to remove this
+        const complexity = reportWorkloadSummary.complexityModel;
         if (!complexity) {
             return this.renderErrorCard(title);
         }
@@ -154,10 +164,15 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
 
     public renderTargetRecommendation = () => {
         const { reportWorkloadSummary } = this.props;
-
         const title="Target recommendation";
-        const recommendedTargetsIMS = reportWorkloadSummary.recommendedTargetsIMSModel;
 
+        if (!reportWorkloadSummary) {
+            return this.renderErrorCard(title);
+        }
+
+        // TODO this validation was created when Models were not complete in the backend
+        // It should be safe to remove this
+        const recommendedTargetsIMS = reportWorkloadSummary.recommendedTargetsIMSModel;
         if (!recommendedTargetsIMS) {
             return this.renderErrorCard(title);
         }
@@ -213,17 +228,22 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
                 title='Workloads detected'
                 skipBullseye={ true }
             >
-                <WorkloadsDetectedTable reportId={ reportId }/>
+                <WorkloadsDetectedTable reportId={ reportId } />
             </ReportCard>
         );
     };
 
     public renderWorkloadsDetected = () => {
         const { reportWorkloadSummary } = this.props;
-
         const title="Workloads detected (OS Types)";
-        const workloadsDetectedOSTypeModels = reportWorkloadSummary.workloadsDetectedOSTypeModels;
 
+        if (!reportWorkloadSummary) {
+            return this.renderErrorCard(title);
+        }
+
+        // TODO this validation was created when Models were not complete in the backend
+        // It should be safe to remove this
+        const workloadsDetectedOSTypeModels = reportWorkloadSummary.workloadsDetectedOSTypeModels;
         if (!workloadsDetectedOSTypeModels) {
             return this.renderErrorCard(title);
         }
@@ -286,10 +306,15 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
 
     public renderScansRun = () => {
         const { reportWorkloadSummary } = this.props;
-
         const title="Scans run";
-        const scanRuns = reportWorkloadSummary.scanRunModels;
 
+        if (!reportWorkloadSummary) {
+            return this.renderErrorCard(title);
+        }
+
+        // TODO this validation was created when Models were not complete in the backend
+        // It should be safe to remove this
+        const scanRuns = reportWorkloadSummary.scanRunModels;
         if (!scanRuns) {
             return this.renderErrorCard(title);
         }
