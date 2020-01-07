@@ -37,7 +37,7 @@ class ScansRunTable extends Component<Props, State> {
         const rows = scanRuns.map((element) => {
             return [
                 element.target,
-                element.smartStateEnabled ? 'Virt Platform SmartState' : 'Virt Platform',
+                element.smartStateEnabled ? 'Virt Platform + SmartState' : 'Virt Platform',
                 formatDate(new Date(element.date), false)
             ];
         });
