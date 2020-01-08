@@ -17,6 +17,7 @@ import {
 } from '@patternfly/react-core';
 import Dropzone from 'react-dropzone';
 import './UploadForm.scss';
+import { getFilenameWithoutExtensions } from '../../Utilities/extractUtils';
 
 export interface UploadFormProps extends FormikState<FormikValues>, FormikHandlers {
     file: File | null;
@@ -52,7 +53,7 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
             setTimeout(() => {
                 this.props.setFieldValue('file', file);
                 if (!this.props.values.reportName) {
-                    const fileNameWithoutExtension = file.name.replace(/(\.[^/.]+)+$/, "");
+                    const fileNameWithoutExtension = getFilenameWithoutExtensions(file.name);
                     this.props.setFieldValue('reportName', fileNameWithoutExtension);
                 }
             }, 0);
