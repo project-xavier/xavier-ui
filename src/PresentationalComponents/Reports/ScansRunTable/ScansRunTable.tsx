@@ -9,7 +9,7 @@ import {
 import { formatDate } from '../../../Utilities/formatValue';
 import { ScanRunModel } from '../../../models';
 
-interface Props {
+export interface Props {
     scanRuns: ScanRunModel[];
 }
 
