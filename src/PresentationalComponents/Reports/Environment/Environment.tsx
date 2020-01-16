@@ -38,12 +38,12 @@ class Environment extends Component<Props, State> {
 
         const rows = [
             [
-                'ESXi hypervisors (2-socket servers)',
+                'Licenses for ESXi Hypervisors (2 socket)',
                 '',
                 isNullOrUndefined(hypervisors) ? 'Unknown' : formatNumber(hypervisors, 0)
             ],
             [
-                'ESXi hypervisors would be migrated to RH technologies',
+                'VMware licenses (2 socket) to migrated to RH technologies',
                 'Year1 (incremental)',
                 isNullOrUndefined(year1Hypervisor) ? 'Unknown' : formatNumber(year1Hypervisor, 0)
             ],

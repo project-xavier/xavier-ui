@@ -110,6 +110,7 @@
   "scripts": {
     "build": "webpack --config config/prod.webpack.config.js",
     "test": "TZ=UTC jest --verbose",
+    "update:snapshots": "TZ=UTC jest -u",
     "lint": "npm-run-all lint:*",
     "lint:js": "eslint config src",
     "lint:js:fix": "eslint config src --fix",
