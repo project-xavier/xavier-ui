@@ -43,7 +43,7 @@ class Environment extends Component<Props, State> {
                 isNullOrUndefined(hypervisors) ? 'Unknown' : formatNumber(hypervisors, 0)
             ],
             [
-                'VMware licenses (2 socket) to migrated to RH technologies',
+                'VMware licenses (2 socket) to migrate to RH technologies',
                 'Year1 (incremental)',
                 isNullOrUndefined(year1Hypervisor) ? 'Unknown' : formatNumber(year1Hypervisor, 0)
             ],
