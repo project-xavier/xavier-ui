@@ -31,6 +31,8 @@ const ReportView = asyncComponent(() =>
     import(/* webpackChunkName: "ReportView" */ './pages/ReportView'));
 const ErrorPage = asyncComponent(() =>
     import(/* webpackChunkName: "ErrorPage" */ './pages/ErrorPage'));
+const ErrorPage403 = asyncComponent(() =>
+    import(/* webpackChunkName: "ErrorPage403" */ './pages/ErrorPage403'));
 
 const paths = {
     gettingStarted: '/getting-started',
@@ -38,7 +40,8 @@ const paths = {
     noReports: '/no-reports',
     reportsUpload: '/reports/upload',
     reportView: '/reports/:reportId',
-    error: '/error'
+    error: '/error',
+    error403: '/error403'
 };
 
 type Props = {
@@ -83,6 +86,7 @@ export const Routes = (props: Props) => {
             <InsightsRoute component={ ReportsUpload } rootClass='reports-upload' path={ paths.reportsUpload } />
             <InsightsRoute component={ ReportView } rootClass='report-view' path={ paths.reportView } />
             <InsightsRoute component={ ErrorPage } rootClass='error' path={ paths.error } skipLoadUser={ true }/>
+            <InsightsRoute component={ ErrorPage403 } rootClass='error403' path={ paths.error403 } skipLoadUser={ true }/>
 
             { /* Finally, catch all unmatched routes */ }
             <Route render={ () => some(paths, p => p === path) ? null : (<Redirect to={ paths.gettingStarted }/>) }/>
