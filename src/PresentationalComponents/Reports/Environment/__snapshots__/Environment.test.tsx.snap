@@ -14,12 +14,12 @@ exports[`Environment expect to render 1`] = `
     rows={
       Array [
         Array [
-          "ESXi hypervisors (2-socket servers)",
+          "Licenses for ESXi Hypervisors (2 socket)",
           "",
           "1",
         ],
         Array [
-          "ESXi hypervisors would be migrated to RH technologies",
+          "VMware licenses (2 socket) to migrate to RH technologies",
           "Year1 (incremental)",
           "12",
         ],
@@ -61,12 +61,12 @@ exports[`Environment expect to render using null and undefined data 1`] = `
     rows={
       Array [
         Array [
-          "ESXi hypervisors (2-socket servers)",
+          "Licenses for ESXi Hypervisors (2 socket)",
           "",
           "Unknown",
         ],
         Array [
-          "ESXi hypervisors would be migrated to RH technologies",
+          "VMware licenses (2 socket) to migrate to RH technologies",
           "Year1 (incremental)",
           "Unknown",
         ],
@@ -108,12 +108,12 @@ exports[`Environment expect to render using null and undefined data 2`] = `
     rows={
       Array [
         Array [
-          "ESXi hypervisors (2-socket servers)",
+          "Licenses for ESXi Hypervisors (2 socket)",
           "",
           "Unknown",
         ],
         Array [
-          "ESXi hypervisors would be migrated to RH technologies",
+          "VMware licenses (2 socket) to migrate to RH technologies",
           "Year1 (incremental)",
           "Unknown",
         ],
@@ -155,12 +155,12 @@ exports[`Environment expect to render using values equal to 0 1`] = `
     rows={
       Array [
         Array [
-          "ESXi hypervisors (2-socket servers)",
+          "Licenses for ESXi Hypervisors (2 socket)",
           "",
           "0",
         ],
         Array [
-          "ESXi hypervisors would be migrated to RH technologies",
+          "VMware licenses (2 socket) to migrate to RH technologies",
           "Year1 (incremental)",
           "0",
         ],

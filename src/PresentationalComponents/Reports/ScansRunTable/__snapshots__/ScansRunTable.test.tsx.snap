@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ScansRunTable should render table expect to render table using smartStateEnabled mapping 1`] = `
+<Fragment>
+  <Table
+    aria-label="Scans run table"
+    borders={false}
+    cells={
+      Array [
+        "Target",
+        "Type",
+        "Date",
+      ]
+    }
+    className=""
+    contentId="expanded-content"
+    dropdownDirection="down"
+    dropdownPosition="right"
+    expandId="expandable-toggle"
+    gridBreakPoint="grid-md"
+    onCollapse={null}
+    onExpand={null}
+    role="grid"
+    rowLabeledBy="simple-node"
+    rows={
+      Array [
+        Array [
+          "vSphere1",
+          "Virt Platform + SmartState",
+          "July 19, 2016, UTC",
+        ],
+        Array [
+          "vSphere2",
+          "Virt Platform",
+          "September 18, 2019, UTC",
+        ],
+      ]
+    }
+    variant="compact"
+  >
+    <TableHeader
+      className=""
+    />
+    <TableBody
+      className=""
+      onRowClick={[Function]}
+      rowKey="id"
+    />
+  </Table>
+</Fragment>
+`;

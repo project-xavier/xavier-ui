@@ -52,7 +52,7 @@ export interface WorkloadDetectedOSTypeModel {
 
 export interface ScanRunModel {
     target: string;
-    type: string;
+    smartStateEnabled: boolean;
     date: number;
 }
 
