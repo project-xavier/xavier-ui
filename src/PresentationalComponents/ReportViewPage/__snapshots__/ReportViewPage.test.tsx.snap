@@ -20,6 +20,7 @@ exports[`ReportViewPage expect to render skeleton 1`] = `
               className="pf-l-stack__item"
             >
               <Skeleton
+                isDark={false}
                 size="sm"
               />
             </div>
@@ -27,6 +28,7 @@ exports[`ReportViewPage expect to render skeleton 1`] = `
               className="pf-l-stack__item"
             >
               <Skeleton
+                isDark={false}
                 size="sm"
               />
             </div>
@@ -34,6 +36,7 @@ exports[`ReportViewPage expect to render skeleton 1`] = `
               className="pf-l-stack__item"
             >
               <Skeleton
+                isDark={false}
                 size="sm"
               />
             </div>
@@ -47,6 +50,7 @@ exports[`ReportViewPage expect to render skeleton 1`] = `
                   className="pf-l-grid__item pf-m-4-col"
                 >
                   <Skeleton
+                    isDark={false}
                     size="md"
                   />
                 </div>
@@ -54,6 +58,7 @@ exports[`ReportViewPage expect to render skeleton 1`] = `
                   className="pf-l-grid__item pf-m-4-col"
                 >
                   <Skeleton
+                    isDark={false}
                     size="md"
                   />
                 </div>
@@ -61,6 +66,7 @@ exports[`ReportViewPage expect to render skeleton 1`] = `
                   className="pf-l-grid__item pf-m-4-col"
                 >
                   <Skeleton
+                    isDark={false}
                     size="md"
                   />
                 </div>
