@@ -82,7 +82,7 @@ class ReportViewPage extends Component<Props, State> {
                                 <span>Target:</span>&nbsp;<span>Red Hat Virtualization</span><br/>
                             </React.Fragment>
                         }
-                        <span>Date:</span>&nbsp;<span>{ report ? formatDate(new Date(report.lastUpdate)) : 'Unknow' }</span>
+                        <span>Date:</span>&nbsp;<span>{ report ? formatDate(new Date(report.lastUpdate)) : 'Unknown' }</span>
                     </p>
                 </div>
                 <Tabs

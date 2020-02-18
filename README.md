@@ -52,6 +52,7 @@ npm run start
 
 ```shell
 cd insights-chrome
+npm run build
 npm run start
 ```
 

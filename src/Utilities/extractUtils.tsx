@@ -10,3 +10,7 @@ export const extractFilenameFromContentDispositionHeaderValue = (disposition: st
 
     return filename;
 };
+
+export const getFilenameWithoutExtensions = (filename: string) => {
+    return filename.replace(/(\.[^/.]+)+$/, "");
+};
