@@ -105,10 +105,11 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
 
         //
         const pieValues = [
-            complexity.easy,
-            complexity.medium,
-            complexity.hard,
-            complexity.unknown
+            complexity.easy || 0,
+            complexity.medium  || 0,
+            complexity.hard  || 0,
+            complexity.unknown  || 0,
+            complexity.unsupported  || 0
         ];
 
         const total = pieValues.reduce(sumReducer, 0);
@@ -131,7 +132,8 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
             { label: 'Easy', value: percentages[0], data: pieValues[0] },
             { label: 'Medium', value: percentages[1], data: pieValues[1] },
             { label: 'Hard', value: percentages[2], data: pieValues[2] },
-            { label: 'Unknow', value: percentages[3], data: pieValues[3] }
+            { label: 'Unknown', value: percentages[3], data: pieValues[3] },
+            { label: 'Unsupported', value: percentages[4], data: pieValues[4] }
         ];
 
         const tickFormat = (label: string, value: number, data: any) => `${label}: ${formatPercentage(value, 2)}`;

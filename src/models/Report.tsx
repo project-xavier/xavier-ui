@@ -36,6 +36,7 @@ export interface ComplexityModel {
     hard: number;
     medium: number;
     easy: number;
+    unsupported: number;
 }
 
 export interface RecommendedTargetsIMSModel {
@@ -52,7 +53,7 @@ export interface WorkloadDetectedOSTypeModel {
 
 export interface ScanRunModel {
     target: string;
-    type: string;
+    smartStateEnabled: boolean;
     date: number;
 }
 

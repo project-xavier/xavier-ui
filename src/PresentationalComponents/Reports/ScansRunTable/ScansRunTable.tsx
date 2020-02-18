@@ -9,7 +9,7 @@ import {
 import { formatDate } from '../../../Utilities/formatValue';
 import { ScanRunModel } from '../../../models';
 
-interface Props {
+export interface Props {
     scanRuns: ScanRunModel[];
 }
 
@@ -37,7 +37,7 @@ class ScansRunTable extends Component<Props, State> {
         const rows = scanRuns.map((element) => {
             return [
                 element.target,
-                element.type,
+                element.smartStateEnabled ? 'Virt Platform + SmartState' : 'Virt Platform',
                 formatDate(new Date(element.date), false)
             ];
         });

@@ -28,7 +28,7 @@ class SummaryTable extends Component<Props, State> {
                 'Provider',
                 'Product',
                 'Version',
-                'Host',
+                'Hosts',
                 'Sockets',
                 'Clusters',
                 'VMs'
