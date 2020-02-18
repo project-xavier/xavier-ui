@@ -36,6 +36,7 @@ export interface ComplexityModel {
     hard: number;
     medium: number;
     easy: number;
+    unsupported: number;
 }
 
 export interface RecommendedTargetsIMSModel {

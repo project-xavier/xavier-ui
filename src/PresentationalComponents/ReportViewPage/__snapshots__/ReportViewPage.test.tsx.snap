@@ -263,7 +263,7 @@ exports[`ReportViewPage expect to render tabs when fetch status is complete and 
               </span>
                
               <span>
-                Unknow
+                Unknown
               </span>
             </p>
           </div>
