@@ -61,7 +61,7 @@ export const initialState: ReportState = {
         ...defaultFetchStatus
     },
 
-    reportPayloadFileFetchStatus: {
+    reportPayloadDownloadLinkFetchStatus: {
         ...defaultFetchStatus
     }
 };

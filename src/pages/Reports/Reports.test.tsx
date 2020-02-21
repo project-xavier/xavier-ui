@@ -30,7 +30,10 @@ const props: Props = {
     error: null,
     status: 'complete'
   },
-  fetchReportPayloadFile: () => ({
+  fetchReportPayloadDownloadLink: () => ({
+    then: (fn: () => any) => fn()
+  }),
+  addNotification: (notification: any) => ({
     then: (fn: () => any) => fn()
   }),
 

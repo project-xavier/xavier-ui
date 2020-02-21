@@ -64,7 +64,7 @@ interface DispatchToProps {
     showDeleteDialog: typeof deleteActions.openModal;
     closeDeleteDialog: typeof deleteActions.closeModal;
     fetchReportPayloadDownloadLink: (reportId: number) => any;
-    addNotification(nada: any);
+    addNotification(notification: any);
 }
 
 export interface Props extends StateToProps, DispatchToProps, RouterGlobalProps {
