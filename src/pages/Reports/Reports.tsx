@@ -59,12 +59,12 @@ interface StateToProps {
 }
 
 interface DispatchToProps {
-    addNotification(nada: any);
     fetchReports: (page: number, perPage: number, filterText: string) => any;
     deleteReport: (id: number, name: string) => any;
     showDeleteDialog: typeof deleteActions.openModal;
     closeDeleteDialog: typeof deleteActions.closeModal;
     fetchReportPayloadDownloadLink: (reportId: number) => any;
+    addNotification(nada: any);
 }
 
 export interface Props extends StateToProps, DispatchToProps, RouterGlobalProps {
@@ -254,7 +254,7 @@ class Reports extends React.Component<Props, State> {
                     });
                 }
             } else {
-                throw "No valid response found";
+                throw new Error("No valid response found");
             }
         });
     };

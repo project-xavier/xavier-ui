@@ -20,7 +20,7 @@ const mapStateToProps = (state: GlobalState)  => {
 };
 
 const mapDispatchToProps = {
-    addNotification: addNotification,
+    addNotification,
     fetchReports: reportActions.fetchReports,
     deleteReport: reportActions.deleteReport,
     showDeleteDialog: dialogDeleteActions.openModal,
