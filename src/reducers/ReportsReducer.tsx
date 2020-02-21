@@ -480,12 +480,12 @@ export const reportsReducer = (state: ReportState = initialState, action: Generi
             return nextState;
         }
 
-        // FETCH_REPORT_PAYLOAD_FILE
-        case pendingMessage(ActionTypes.FETCH_REPORT_PAYLOAD_FILE): {
+        // FETCH_REPORT_PAYLOAD_DOWNLOAD_LINK
+        case pendingMessage(ActionTypes.FETCH_REPORT_PAYLOAD_DOWNLOAD_LINK): {
             const nextState: ReportState = {
                 ...state,
-                reportPayloadFileFetchStatus: {
-                    ...state.reportPayloadFileFetchStatus,
+                reportPayloadDownloadLinkFetchStatus: {
+                    ...state.reportPayloadDownloadLinkFetchStatus,
                     error: null,
                     status: 'inProgress'
                 }
@@ -494,11 +494,11 @@ export const reportsReducer = (state: ReportState = initialState, action: Generi
             return nextState;
         }
 
-        case successMessage(ActionTypes.FETCH_REPORT_PAYLOAD_FILE): {
+        case successMessage(ActionTypes.FETCH_REPORT_PAYLOAD_DOWNLOAD_LINK): {
             const nextState: ReportState = {
                 ...state,
-                reportPayloadFileFetchStatus: {
-                    ...state.reportPayloadFileFetchStatus,
+                reportPayloadDownloadLinkFetchStatus: {
+                    ...state.reportPayloadDownloadLinkFetchStatus,
                     error: null,
                     status: 'complete'
                 }
@@ -506,11 +506,11 @@ export const reportsReducer = (state: ReportState = initialState, action: Generi
             return nextState;
         }
 
-        case failureMessage(ActionTypes.FETCH_REPORT_PAYLOAD_FILE): {
+        case failureMessage(ActionTypes.FETCH_REPORT_PAYLOAD_DOWNLOAD_LINK): {
             const nextState: ReportState = {
                 ...state,
-                reportPayloadFileFetchStatus: {
-                    ...state.reportPayloadFileFetchStatus,
+                reportPayloadDownloadLinkFetchStatus: {
+                    ...state.reportPayloadDownloadLinkFetchStatus,
                     error: action.payload.message,
                     status: 'complete'
                 }

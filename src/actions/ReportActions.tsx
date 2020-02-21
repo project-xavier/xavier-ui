@@ -9,7 +9,7 @@ import {
     getReportWorkloadInventory,
     getReportWorkloadInventoryCSV,
     getReportWorkloadInventoryAvailableFilters,
-    getReportPayloadFile
+    getReportPayloadDownloadLink
 } from '../api/report';
 import { GenericAction } from '../models/action';
 
@@ -24,7 +24,7 @@ export const ActionTypes = {
     FETCH_REPORT_WOKLOAD_INVENTORY: 'FETCH_REPORT_WOKLOAD_INVENTORY',
     FETCH_REPORT_WOKLOAD_INVENTORY_CSV: 'FETCH_REPORT_WOKLOAD_INVENTORY_CSV',
     FETCH_REPORT_WOKLOAD_INVENTORY_AVAILABLE_FILTERS: 'FETCH_REPORT_WOKLOAD_INVENTORY_AVAILABLE_FILTERS',
-    FETCH_REPORT_PAYLOAD_FILE: 'FETCH_REPORT_PAYLOAD_FILE'
+    FETCH_REPORT_PAYLOAD_DOWNLOAD_LINK: 'FETCH_REPORT_PAYLOAD_DOWNLOAD_LINK'
 };
 
 /**
@@ -189,14 +189,14 @@ export const fetchReportWorkloadInventoryAvailableFilters = (id: number): Generi
     }
 });
 
-export const fetchReportPayloadFile = (id: number): GenericAction => ({
-    type: ActionTypes.FETCH_REPORT_PAYLOAD_FILE,
-    payload: getReportPayloadFile(id),
+export const fetchReportPayloadDownloadLink = (id: number): GenericAction => ({
+    type: ActionTypes.FETCH_REPORT_PAYLOAD_DOWNLOAD_LINK,
+    payload: getReportPayloadDownloadLink(id),
     meta: {
         notifications: {
             rejected: {
                 variant: 'danger',
-                title: `Failed to fetch report ${id} payload file`
+                title: `Failed to fetch report ${id} payload download link`
             }
         }
     }

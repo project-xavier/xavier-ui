@@ -146,9 +146,7 @@ export function getReportWorkloadInventoryAvailableFilters(
     return ApiClient.get<WorkloadInventoryReportFiltersModel>(`/report/${id}/workload-inventory/available-filters`);
 }
 
-export function getReportPayloadFile(id: number): AxiosPromise<any> {
-    const url = `/report/${id}/payload`;
-    return ApiClient.request<any>(url, null, 'get', {
-        responseType: 'blob'
-    });
+export function getReportPayloadDownloadLink(id: number): AxiosPromise<string> {
+    const url = `/report/${id}/payload-link`;
+    return ApiClient.get<string>(url);
 }

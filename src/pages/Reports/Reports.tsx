@@ -49,7 +49,6 @@ import debounce from 'lodash/debounce';
 import { Formik } from 'formik';
 import { ObjectFetchStatus } from '../../models/state';
 import { formatDate } from '../../Utilities/formatValue';
-import { extractFilenameFromContentDispositionHeaderValue } from '../../Utilities/extractUtils';
 
 interface StateToProps {
     reports: {
@@ -60,11 +59,12 @@ interface StateToProps {
 }
 
 interface DispatchToProps {
+    addNotification(nada: any);
     fetchReports: (page: number, perPage: number, filterText: string) => any;
     deleteReport: (id: number, name: string) => any;
     showDeleteDialog: typeof deleteActions.openModal;
     closeDeleteDialog: typeof deleteActions.closeModal;
-    fetchReportPayloadFile: (reportId: number) => any;
+    fetchReportPayloadDownloadLink: (reportId: number) => any;
 }
 
 export interface Props extends StateToProps, DispatchToProps, RouterGlobalProps {
@@ -229,22 +229,33 @@ class Reports extends React.Component<Props, State> {
     };
 
     public handleDownloadReportPayload = (report: Report) => {
-        const {fetchReportPayloadFile} = this.props;
+        const {fetchReportPayloadDownloadLink, addNotification} = this.props;
 
         // close kebab
         this.handleReportKebabToggle(report, false);
         
-        fetchReportPayloadFile(report.id).then((response: any) => {
-            const contentDispositionHeader = response.value.headers['content-disposition'];
-            const fileName = extractFilenameFromContentDispositionHeaderValue(contentDispositionHeader);
 
-            const downloadUrl = window.URL.createObjectURL(new Blob([response.value.data]));
-            const link = document.createElement('a');
-            link.href = downloadUrl;
-            link.setAttribute('download', fileName || 'payload.json');
-            document.body.appendChild(link);
-            link.click();
-            link.remove();
+        fetchReportPayloadDownloadLink(report.id).then((response: any) => {
+            if (response && response.value && response.value.data) {
+                const data = response.value.data;
+                if (data.downloadLink) {
+                    const link = document.createElement('a');
+                    link.href = data.downloadLink;
+                    link.setAttribute('download', data.filename);
+                    document.body.appendChild(link);
+                    link.click();
+                    link.remove();
+                } else {
+                    addNotification({
+                        variant: 'danger',
+                        title: 'Could not download payload file',
+                        description: 'Analysis does not have a payload file',
+                        dismissable: true
+                    });
+                }
+            } else {
+                throw "No valid response found";
+            }
         });
     };
 

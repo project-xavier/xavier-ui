@@ -69,7 +69,7 @@ export interface ReportState {
     reportWorkloadInventoryAvailableFilters: WorkloadInventoryReportFiltersModel | null;
     reportWorkloadInventoryAvailableFiltersFetchStatus: ObjectFetchStatus;
 
-    reportPayloadFileFetchStatus: ObjectFetchStatus;
+    reportPayloadDownloadLinkFetchStatus: ObjectFetchStatus;
 }
 
 export interface UploadState {
