@@ -64,7 +64,9 @@ const reportTestInitialState: ReportState = {
     reportWorkloadInventoryAllCSVFetchStatus: { ...defaultFetchStatus },
     reportWorkloadInventoryFilteredCSVFetchStatus: { ...defaultFetchStatus },
     reportWorkloadInventoryAvailableFilters: null,
-    reportWorkloadInventoryAvailableFiltersFetchStatus: { ...defaultFetchStatus }
+    reportWorkloadInventoryAvailableFiltersFetchStatus: { ...defaultFetchStatus },
+
+    reportPayloadDownloadLinkFetchStatus: { ...defaultFetchStatus }
 };
 
 const fromRequest = (type: string, payload: any, meta = {}) => ({
