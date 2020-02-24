@@ -365,7 +365,7 @@ class Reports extends React.Component<Props, State> {
 
         const dropdownItems = [
             <DropdownItem key="download" component="button" onClick={onDownload}>Download</DropdownItem>,
-            <DropdownItem key="delete" component="button" onClick={onDelete}>Delete</DropdownItem>,
+            <DropdownItem key="delete" component="button" onClick={onDelete} style={{color: 'var(--pf-global--danger-color--100)'}}>Delete</DropdownItem>,
         ];
 
         const dropdown = (
