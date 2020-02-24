@@ -59,6 +59,10 @@ export const initialState: ReportState = {
     reportWorkloadInventoryAvailableFilters: null,
     reportWorkloadInventoryAvailableFiltersFetchStatus: {
         ...defaultFetchStatus
+    },
+
+    reportPayloadDownloadLinkFetchStatus: {
+        ...defaultFetchStatus
     }
 };
 
@@ -469,6 +473,44 @@ export const reportsReducer = (state: ReportState = initialState, action: Generi
                 reportWorkloadInventoryAvailableFilters: null,
                 reportWorkloadInventoryAvailableFiltersFetchStatus: {
                     ...state.reportWorkloadInventoryAvailableFiltersFetchStatus,
+                    error: action.payload.message,
+                    status: 'complete'
+                }
+            };
+            return nextState;
+        }
+
+        // FETCH_REPORT_PAYLOAD_DOWNLOAD_LINK
+        case pendingMessage(ActionTypes.FETCH_REPORT_PAYLOAD_DOWNLOAD_LINK): {
+            const nextState: ReportState = {
+                ...state,
+                reportPayloadDownloadLinkFetchStatus: {
+                    ...state.reportPayloadDownloadLinkFetchStatus,
+                    error: null,
+                    status: 'inProgress'
+                }
+            };
+
+            return nextState;
+        }
+
+        case successMessage(ActionTypes.FETCH_REPORT_PAYLOAD_DOWNLOAD_LINK): {
+            const nextState: ReportState = {
+                ...state,
+                reportPayloadDownloadLinkFetchStatus: {
+                    ...state.reportPayloadDownloadLinkFetchStatus,
+                    error: null,
+                    status: 'complete'
+                }
+            };
+            return nextState;
+        }
+
+        case failureMessage(ActionTypes.FETCH_REPORT_PAYLOAD_DOWNLOAD_LINK): {
+            const nextState: ReportState = {
+                ...state,
+                reportPayloadDownloadLinkFetchStatus: {
+                    ...state.reportPayloadDownloadLinkFetchStatus,
                     error: action.payload.message,
                     status: 'complete'
                 }
