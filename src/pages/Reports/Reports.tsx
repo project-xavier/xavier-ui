@@ -249,7 +249,7 @@ class Reports extends React.Component<Props, State> {
                     addNotification({
                         variant: 'danger',
                         title: 'Could not download payload file',
-                        description: 'Analysis does not have a payload file',
+                        description: 'The retention period for the payload file has expired',
                         dismissable: true
                     });
                 }
