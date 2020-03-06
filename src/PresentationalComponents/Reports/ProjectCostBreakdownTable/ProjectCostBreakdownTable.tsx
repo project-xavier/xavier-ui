@@ -103,7 +103,7 @@ class ProjectCostBreakdownTable extends Component<Props, State> {
         const columns = [
             '',
             '',
-            { title: '', props: { className: 'pf-u-text-align-right' }}
+            { title: '', props: { className: 'pf-u-text-align-right pf-m-width-30' }}
         ];
 
         const rows = [
