@@ -133,7 +133,40 @@ export function getReportWorkloadInventory(
     return ApiClient.get<SearchResult<ReportWorkloadInventory>>(url);
 }
 
-export function getReportWorkloadInventoryCSV(id: number): AxiosPromise<any> {
+export function getReportWorkloadInventoryFilteredCSV(
+    id: number,
+    orderBy: string,
+    orderDirection: 'asc' | 'desc' | undefined,
+    filters: Map<string, string[]>
+): AxiosPromise<any> {
+    const params = {
+        orderBy,
+        orderAsc: orderDirection ? orderDirection === 'asc' : undefined
+    };
+    const query: string[] = [];
+
+    Object.keys(params).map(key => {
+        const value = params[key];
+        if (value !== undefined) {
+            query.push(`${key}=${value}`);
+        }
+    });
+
+    filters.forEach((arrayValue: string[], key: string) => {
+        if (arrayValue.length > 0) {
+            arrayValue.forEach(value => {
+                query.push(`${key}=${value}`);
+            });
+        }
+    });
+
+    const url = `/report/${id}/workload-inventory/filtered-csv?${query.join('&')}`;
+    return ApiClient.request<any>(url, null, 'get', {
+        responseType: 'blob'
+    });
+}
+
+export function getReportWorkloadInventoryAllCSV(id: number): AxiosPromise<any> {
     const url = `/report/${id}/workload-inventory/csv`;
     return ApiClient.request<any>(url, null, 'get', {
         responseType: 'blob'

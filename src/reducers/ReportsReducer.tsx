@@ -53,7 +53,10 @@ export const initialState: ReportState = {
     reportWorkloadInventoryFetchStatus: {
         ...defaultFetchStatus
     },
-    reportWorkloadInventoryCSVFetchStatus: {
+    reportWorkloadInventoryAllCSVFetchStatus: {
+        ...defaultFetchStatus
+    },
+    reportWorkloadInventoryFilteredCSVFetchStatus: {
         ...defaultFetchStatus
     },
     reportWorkloadInventoryAvailableFilters: null,
@@ -401,12 +404,12 @@ export const reportsReducer = (state: ReportState = initialState, action: Generi
             return nextState;
         }
 
-        // FETCH_REPORT_WOKLOAD_INVENTORY_CSV single report
-        case pendingMessage(ActionTypes.FETCH_REPORT_WOKLOAD_INVENTORY_CSV): {
+        // FETCH_REPORT_WOKLOAD_INVENTORY_ALL_CSV single report
+        case pendingMessage(ActionTypes.FETCH_REPORT_WOKLOAD_INVENTORY_ALL_CSV): {
             const nextState: ReportState = {
                 ...state,
-                reportWorkloadInventoryCSVFetchStatus: {
-                    ...state.reportWorkloadInventoryCSVFetchStatus,
+                reportWorkloadInventoryAllCSVFetchStatus: {
+                    ...state.reportWorkloadInventoryAllCSVFetchStatus,
                     error: null,
                     status: 'inProgress'
                 }
@@ -415,11 +418,11 @@ export const reportsReducer = (state: ReportState = initialState, action: Generi
             return nextState;
         }
 
-        case successMessage(ActionTypes.FETCH_REPORT_WOKLOAD_INVENTORY_CSV): {
+        case successMessage(ActionTypes.FETCH_REPORT_WOKLOAD_INVENTORY_ALL_CSV): {
             const nextState: ReportState = {
                 ...state,
-                reportWorkloadInventoryCSVFetchStatus: {
-                    ...state.reportWorkloadInventoryCSVFetchStatus,
+                reportWorkloadInventoryAllCSVFetchStatus: {
+                    ...state.reportWorkloadInventoryAllCSVFetchStatus,
                     error: null,
                     status: 'complete'
                 }
@@ -427,11 +430,49 @@ export const reportsReducer = (state: ReportState = initialState, action: Generi
             return nextState;
         }
 
-        case failureMessage(ActionTypes.FETCH_REPORT_WOKLOAD_INVENTORY_CSV): {
+        case failureMessage(ActionTypes.FETCH_REPORT_WOKLOAD_INVENTORY_ALL_CSV): {
             const nextState: ReportState = {
                 ...state,
-                reportWorkloadInventoryCSVFetchStatus: {
-                    ...state.reportWorkloadInventoryCSVFetchStatus,
+                reportWorkloadInventoryAllCSVFetchStatus: {
+                    ...state.reportWorkloadInventoryAllCSVFetchStatus,
+                    error: action.payload.message,
+                    status: 'complete'
+                }
+            };
+            return nextState;
+        }
+
+        // FETCH_REPORT_WOKLOAD_INVENTORY_FILTERED_CSV single report
+        case pendingMessage(ActionTypes.FETCH_REPORT_WOKLOAD_INVENTORY_FILTERED_CSV): {
+            const nextState: ReportState = {
+                ...state,
+                reportWorkloadInventoryFilteredCSVFetchStatus: {
+                    ...state.reportWorkloadInventoryFilteredCSVFetchStatus,
+                    error: null,
+                    status: 'inProgress'
+                }
+            };
+
+            return nextState;
+        }
+
+        case successMessage(ActionTypes.FETCH_REPORT_WOKLOAD_INVENTORY_FILTERED_CSV): {
+            const nextState: ReportState = {
+                ...state,
+                reportWorkloadInventoryFilteredCSVFetchStatus: {
+                    ...state.reportWorkloadInventoryFilteredCSVFetchStatus,
+                    error: null,
+                    status: 'complete'
+                }
+            };
+            return nextState;
+        }
+
+        case failureMessage(ActionTypes.FETCH_REPORT_WOKLOAD_INVENTORY_FILTERED_CSV): {
+            const nextState: ReportState = {
+                ...state,
+                reportWorkloadInventoryFilteredCSVFetchStatus: {
+                    ...state.reportWorkloadInventoryFilteredCSVFetchStatus,
                     error: action.payload.message,
                     status: 'complete'
                 }
