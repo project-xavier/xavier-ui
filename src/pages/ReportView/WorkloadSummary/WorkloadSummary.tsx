@@ -15,7 +15,9 @@ import {
     Button,
     TitleLevel,
     Stack,
-    StackItem
+    StackItem,
+    Card,
+    CardBody
 } from '@patternfly/react-core';
 import { ErrorCircleOIcon } from '@patternfly/react-icons';
 import ReportCard from '../../../PresentationalComponents/ReportCard';
@@ -165,9 +167,10 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
         }
 
         const values = [
-            recommendedTargetsIMS.rhv,
-            recommendedTargetsIMS.osp,
-            recommendedTargetsIMS.rhel
+            recommendedTargetsIMS.rhv || 0,
+            recommendedTargetsIMS.osp || 0,
+            recommendedTargetsIMS.rhel || 0,
+            recommendedTargetsIMS.cnv || 0
         ];
         const total = recommendedTargetsIMS.total;
         const percentages = values.map((val: number) => val / total);
@@ -177,31 +180,47 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
                 title={title}
                 skipBullseye={ true }
             >
-                <div className="pf-l-grid pf-m-all-6-col-on-md pf-m-all-4-col-on-lg pf-m-gutter">
-                    <div>
-                        <h2 className="pf-c-title pf-m-4xl">
-                            { formatPercentage(percentages[0], 0) } RHV
-                        </h2>
-                        <h3 className="pf-c-title pf-m-1xl">
-                            Workloads suitable for Red Hat Virtualization
-                        </h3>
-                    </div>
-                    <div>
-                        <h2 className="pf-c-title pf-m-4xl">
-                            { formatPercentage(percentages[1], 0) } OSP
-                        </h2>
-                        <h3 className="pf-c-title pf-m-1xl">
-                            Workloads could be running on Red Hat OpenStack Platform
-                        </h3>
-                    </div>
-                    <div>
-                        <h2 className="pf-c-title pf-m-4xl">
-                            { formatPercentage(percentages[2], 0) } RHEL
-                        </h2>
-                        <h3 className="pf-c-title pf-m-1xl">
-                            Workloads possible to migrate to Red Hat Enterprise Linux
-                        </h3>
-                    </div>
+                <div className="pf-l-grid pf-m-all-6-col-on-md pf-m-all-3-col-on-lg pf-m-gutter">
+                    <Card className="xa-c-card-solid">
+                        <CardBody>
+                            <h2 className="pf-c-title pf-m-3xl">
+                                { formatPercentage(percentages[0], 0) } RHV
+                            </h2>
+                            <h3 className="pf-c-title pf-m-1xl">
+                                Workloads suitable for Red Hat Virtualization
+                            </h3>
+                        </CardBody>
+                    </Card>
+                    <Card className="xa-c-card-solid">
+                        <CardBody>
+                            <h2 className="pf-c-title pf-m-3xl">
+                                { formatPercentage(percentages[1], 0) } OSP
+                            </h2>
+                            <h3 className="pf-c-title pf-m-1xl">
+                                Workloads could be running on Red Hat OpenStack Platform
+                            </h3>
+                        </CardBody>
+                    </Card>
+                    <Card className="xa-c-card-solid">
+                        <CardBody>
+                            <h2 className="pf-c-title pf-m-3xl">
+                                { formatPercentage(percentages[2], 0) } RHEL
+                            </h2>
+                            <h3 className="pf-c-title pf-m-1xl">
+                                Workloads possible to migrate to Red Hat Enterprise Linux
+                            </h3>
+                        </CardBody>
+                    </Card>
+                    <Card className="xa-c-card-solid">
+                        <CardBody>
+                            <h2 className="pf-c-title pf-m-3xl">
+                                { formatPercentage(percentages[3], 0) } CNV
+                            </h2>
+                            <h3 className="pf-c-title pf-m-1xl">
+                                Workloads suitable for Container-Native Virtualization
+                            </h3>
+                        </CardBody>
+                    </Card>
                 </div>
             </ReportCard>
         );
