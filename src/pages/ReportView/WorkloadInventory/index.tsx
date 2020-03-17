@@ -7,14 +7,16 @@ const mapStateToProps = (state: GlobalState) => {
     const {
         reportWorkloadInventory,
         reportWorkloadInventoryFetchStatus,
-        reportWorkloadInventoryCSVFetchStatus,
+        reportWorkloadInventoryAllCSVFetchStatus,
+        reportWorkloadInventoryFilteredCSVFetchStatus,
         reportWorkloadInventoryAvailableFilters,
         reportWorkloadInventoryAvailableFiltersFetchStatus
     } = state.reportState;
     return {
         reportWorkloadInventory,
         reportWorkloadInventoryFetchStatus,
-        reportWorkloadInventoryCSVFetchStatus,
+        reportWorkloadInventoryAllCSVFetchStatus,
+        reportWorkloadInventoryFilteredCSVFetchStatus,
         reportWorkloadInventoryAvailableFilters,
         reportWorkloadInventoryAvailableFiltersFetchStatus
     };
@@ -22,7 +24,8 @@ const mapStateToProps = (state: GlobalState) => {
 
 const mapDispatchToProps = {
     fetchReportWorkloadInventory: reportActions.fetchReportWorkloadInventory,
-    fetchReportWorkloadInventoryCSV: reportActions.fetchReportWorkloadInventoryCSV,
+    fetchReportWorkloadInventoryAllCSV: reportActions.fetchReportWorkloadInventoryAllCSV,
+    fetchReportWorkloadInventoryFilteredCSV: reportActions.fetchReportWorkloadInventoryFilteredCSV,
     fetchReportWorkloadInventoryAvailableFilters: reportActions.fetchReportWorkloadInventoryAvailableFilters
 };
 

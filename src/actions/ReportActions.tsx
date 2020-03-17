@@ -7,8 +7,10 @@ import {
     getReportFlags,
     getReportInitialSavingestimation,
     getReportWorkloadInventory,
-    getReportWorkloadInventoryCSV,
-    getReportWorkloadInventoryAvailableFilters
+    getReportWorkloadInventoryAllCSV,
+    getReportWorkloadInventoryFilteredCSV,
+    getReportWorkloadInventoryAvailableFilters,
+    getReportPayloadDownloadLink
 } from '../api/report';
 import { GenericAction } from '../models/action';
 
@@ -21,8 +23,10 @@ export const ActionTypes = {
     FETCH_REPORT_FLAGS: 'FETCH_REPORT_FLAGS',
     FETCH_REPORT_INITIAL_SAVING_ESTIMATION: 'FETCH_REPORT_INITIAL_SAVING_ESTIMATION',
     FETCH_REPORT_WOKLOAD_INVENTORY: 'FETCH_REPORT_WOKLOAD_INVENTORY',
-    FETCH_REPORT_WOKLOAD_INVENTORY_CSV: 'FETCH_REPORT_WOKLOAD_INVENTORY_CSV',
-    FETCH_REPORT_WOKLOAD_INVENTORY_AVAILABLE_FILTERS: 'FETCH_REPORT_WOKLOAD_INVENTORY_AVAILABLE_FILTERS'
+    FETCH_REPORT_WOKLOAD_INVENTORY_ALL_CSV: 'FETCH_REPORT_WOKLOAD_INVENTORY_ALL_CSV',
+    FETCH_REPORT_WOKLOAD_INVENTORY_FILTERED_CSV: 'FETCH_REPORT_WOKLOAD_INVENTORY_FILTERED_CSV',
+    FETCH_REPORT_WOKLOAD_INVENTORY_AVAILABLE_FILTERS: 'FETCH_REPORT_WOKLOAD_INVENTORY_AVAILABLE_FILTERS',
+    FETCH_REPORT_PAYLOAD_DOWNLOAD_LINK: 'FETCH_REPORT_PAYLOAD_DOWNLOAD_LINK'
 };
 
 /**
@@ -161,14 +165,32 @@ export const fetchReportWorkloadInventory = (
     }
 });
 
-export const fetchReportWorkloadInventoryCSV = (id: number): GenericAction => ({
-    type: ActionTypes.FETCH_REPORT_WOKLOAD_INVENTORY_CSV,
-    payload: getReportWorkloadInventoryCSV(id),
+export const fetchReportWorkloadInventoryAllCSV = (id: number): GenericAction => ({
+    type: ActionTypes.FETCH_REPORT_WOKLOAD_INVENTORY_ALL_CSV,
+    payload: getReportWorkloadInventoryAllCSV(id),
     meta: {
         notifications: {
             rejected: {
                 variant: 'danger',
-                title: `Failed to load report workload inventory ${id}`
+                title: `Failed to load report workload inventory ${id} csv`
+            }
+        }
+    }
+});
+
+export const fetchReportWorkloadInventoryFilteredCSV = (
+    id: number,
+    orderBy: string,
+    orderDirection: 'asc' | 'desc' | undefined,
+    filters: Map<string, string[]>
+): GenericAction => ({
+    type: ActionTypes.FETCH_REPORT_WOKLOAD_INVENTORY_FILTERED_CSV,
+    payload: getReportWorkloadInventoryFilteredCSV(id, orderBy, orderDirection, filters),
+    meta: {
+        notifications: {
+            rejected: {
+                variant: 'danger',
+                title: `Failed to load report workload inventory ${id} csv`
             }
         }
     }
@@ -182,6 +204,19 @@ export const fetchReportWorkloadInventoryAvailableFilters = (id: number): Generi
             rejected: {
                 variant: 'danger',
                 title: `Failed to load report workload inventory filters ${id}`
+            }
+        }
+    }
+});
+
+export const fetchReportPayloadDownloadLink = (id: number): GenericAction => ({
+    type: ActionTypes.FETCH_REPORT_PAYLOAD_DOWNLOAD_LINK,
+    payload: getReportPayloadDownloadLink(id),
+    meta: {
+        notifications: {
+            rejected: {
+                variant: 'danger',
+                title: `Failed to fetch report ${id} payload download link`
             }
         }
     }

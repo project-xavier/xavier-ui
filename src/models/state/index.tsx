@@ -64,10 +64,13 @@ export interface ReportState {
         items: ReportWorkloadInventory[]
     };
     reportWorkloadInventoryFetchStatus: ObjectFetchStatus;
-    reportWorkloadInventoryCSVFetchStatus: ObjectFetchStatus;
+    reportWorkloadInventoryAllCSVFetchStatus: ObjectFetchStatus;
+    reportWorkloadInventoryFilteredCSVFetchStatus: ObjectFetchStatus;
 
     reportWorkloadInventoryAvailableFilters: WorkloadInventoryReportFiltersModel | null;
     reportWorkloadInventoryAvailableFiltersFetchStatus: ObjectFetchStatus;
+
+    reportPayloadDownloadLinkFetchStatus: ObjectFetchStatus;
 }
 
 export interface UploadState {
