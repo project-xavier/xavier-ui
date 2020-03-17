@@ -135,12 +135,12 @@ export function getReportWorkloadInventory(
 
 export function getReportWorkloadInventoryFilteredCSV(
     id: number,
-    orderBy: string,
+    orderBy: string | undefined,
     orderDirection: 'asc' | 'desc' | undefined,
     filters: Map<string, string[]>
 ): AxiosPromise<any> {
     const params = {
-        orderBy,
+        orderBy: orderBy ? orderBy : undefined,
         orderAsc: orderDirection ? orderDirection === 'asc' : undefined
     };
     const query: string[] = [];

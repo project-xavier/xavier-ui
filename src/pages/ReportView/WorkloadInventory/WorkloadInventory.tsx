@@ -550,7 +550,6 @@ class WorkloadInventory extends React.Component<Props, State> {
         return (
             <Dropdown
                 position={DropdownPosition.left}
-                onToggle={this.onFilterDropDownToggle}
                 className="topology-view-filter-dropdown"
                 toggle={
                 <DropdownToggle onToggle={this.onFilterDropDownToggle}>

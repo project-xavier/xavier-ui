@@ -180,7 +180,7 @@ export const fetchReportWorkloadInventoryAllCSV = (id: number): GenericAction =>
 
 export const fetchReportWorkloadInventoryFilteredCSV = (
     id: number,
-    orderBy: string,
+    orderBy: string | undefined,
     orderDirection: 'asc' | 'desc' | undefined,
     filters: Map<string, string[]>
 ): GenericAction => ({
