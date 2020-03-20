@@ -218,7 +218,7 @@ class WorkloadInventory extends React.Component<Props, State> {
                     props: {
                         className: 'vertical-align-middle'
                     },
-                    transforms: [ sortable, cellWidth('20') ]
+                    transforms: [ sortable, cellWidth('15') ]
                 },
                 {
                     title: filtersConfig.workload.label,
@@ -253,7 +253,7 @@ class WorkloadInventory extends React.Component<Props, State> {
                     props: {
                         className: 'vertical-align-middle'
                     },
-                    transforms: [ cellWidth('10') ],
+                    transforms: [],
                     columnTransforms: [classNames(Visibility.hiddenOnMd, Visibility.visibleOnLg)]
                 },
                 {
@@ -262,7 +262,7 @@ class WorkloadInventory extends React.Component<Props, State> {
                     props: {
                         className: 'vertical-align-middle'
                     },
-                    transforms: [ cellWidth('10') ],
+                    transforms: [],
                     columnTransforms: [classNames(Visibility.hiddenOnMd, Visibility.visibleOnLg)]
                 }
             ],
