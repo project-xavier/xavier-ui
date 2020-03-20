@@ -406,9 +406,9 @@ class WorkloadInventory extends React.Component<Props, State> {
                         fullWidth: false,
                         cells: [{
                             title: <div className="pf-c-content"><dl>
-                                <dt>Disk space (GB)</dt>
+                                <dt>Disk space (GiB)</dt>
                                 <dd>{ formatValue(bytesToGb(b.diskSpace), 'gb', { fractionDigits: 1 }) }</dd>
-                                <dt>Memory (GB)</dt>
+                                <dt>Memory (GiB)</dt>
                                 <dd>{ formatValue(bytesToGb(b.memory), 'gb', { fractionDigits: 1 }) }</dd>
                                 <dt>CPU cores</dt>
                                 <dd>{ formatNumber(b.cpuCores, 0) }</dd>
