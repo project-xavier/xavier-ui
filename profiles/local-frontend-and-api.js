@@ -13,6 +13,6 @@ routes[`/beta/apps/${APP_ID}`]       = { host: `https://localhost:${FRONTEND_POR
 routes[`/apps/${APP_ID}`]            = { host: `https://localhost:${FRONTEND_PORT}` };
 
 // routes[`/api/xavier`] = { host: `http://localhost:${API_PORT}` };
-routes[`/api/xavier`] = { host: `http://analytics-integration-migration-analytics.127.0.0.1.nip.io` };
+routes[`/api/xavier`] = { host: `https://ci.cloud.redhat.com` };
 
 module.exports = { routes };
