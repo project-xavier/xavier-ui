@@ -107,13 +107,13 @@ class FlagsTable extends React.Component<Props, State> {
                     title: 'In Clusters',
                     key: 'clusters',
                     props: { },
-                    transforms: [ cellWidth('10') ]
+                    transforms: []
                 },
                 {
                     title: 'In VMs',
                     key: 'vms',
                     props: { },
-                    transforms: [ cellWidth('10'), sortable ]
+                    transforms: [ sortable ]
                 }
             ],
             rows: [],
