@@ -54,10 +54,9 @@ import './WorkloadInventory.scss';
 import { ReportWorkloadInventory, WorkloadInventoryReportFiltersModel } from '../../../models';
 import { ObjectFetchStatus } from '../../../models/state';
 import debounce from 'lodash/debounce';
-import { formatValue, formatNumber } from '../../../Utilities/formatValue';
-import { bytesToGb } from '../../../Utilities/unitConvertors';
 import { extractFilenameFromContentDispositionHeaderValue } from 'src/Utilities/extractUtils';
 import { Formik } from 'formik';
+import { WorkloadInventoryDetails } from './WorkloadInventoryDetails';
 
 interface StateToProps extends RouterGlobalProps {
     reportWorkloadInventory: {
@@ -405,16 +404,7 @@ class WorkloadInventory extends React.Component<Props, State> {
                         parent: index * 2,
                         fullWidth: false,
                         cells: [{
-                            title: <div className="pf-c-content"><dl>
-                                <dt>Disk space (GB)</dt>
-                                <dd>{ formatValue(bytesToGb(b.diskSpace), 'gb', { fractionDigits: 1 }) }</dd>
-                                <dt>Memory (GB)</dt>
-                                <dd>{ formatValue(bytesToGb(b.memory), 'gb', { fractionDigits: 1 }) }</dd>
-                                <dt>CPU cores</dt>
-                                <dd>{ formatNumber(b.cpuCores, 0) }</dd>
-                                <dt>Operating system description</dt>
-                                <dd>{ b.osDescription }</dd>
-                            </dl></div>
+                            title: <WorkloadInventoryDetails reportWorkloadInventory={b} />
                         }]
                     }
                 );
