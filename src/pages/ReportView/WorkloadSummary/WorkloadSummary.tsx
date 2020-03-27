@@ -28,6 +28,7 @@ import { formatPercentage, formatNumber } from '../../../Utilities/formatValue';
 import ScansRunTable from '../../../PresentationalComponents/Reports/ScansRunTable';
 import WorkloadsDetectedTable from '../../../SmartComponents/Reports/WorkloadsDetectedTable';
 import FlagsTable from '../../../SmartComponents/Reports/FlagsTable';
+import { SolidCard } from 'src/PresentationalComponents/SolidCard';
 
 interface StateToProps {
     reportWorkloadSummary: ReportWorkloadSummary;
@@ -176,51 +177,24 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
         const percentages = values.map((val: number) => val / total);
 
         return (
-            <ReportCard
-                title={title}
-                skipBullseye={ true }
-            >
+            <ReportCard title={title} skipBullseye={true}>
                 <div className="pf-l-grid pf-m-all-6-col-on-md pf-m-all-3-col-on-lg pf-m-gutter">
-                    <Card className="xa-c-card-solid">
-                        <CardBody>
-                            <h2 className="pf-c-title pf-m-3xl">
-                                { formatPercentage(percentages[0], 0) } RHV
-                            </h2>
-                            <h3 className="pf-c-title pf-m-1xl">
-                                Workloads suitable for Red Hat Virtualization
-                            </h3>
-                        </CardBody>
-                    </Card>
-                    <Card className="xa-c-card-solid">
-                        <CardBody>
-                            <h2 className="pf-c-title pf-m-3xl">
-                                { formatPercentage(percentages[1], 0) } OSP
-                            </h2>
-                            <h3 className="pf-c-title pf-m-1xl">
-                                Workloads could be running on Red Hat OpenStack Platform
-                            </h3>
-                        </CardBody>
-                    </Card>
-                    <Card className="xa-c-card-solid">
-                        <CardBody>
-                            <h2 className="pf-c-title pf-m-3xl">
-                                { formatPercentage(percentages[2], 0) } RHEL
-                            </h2>
-                            <h3 className="pf-c-title pf-m-1xl">
-                                Workloads possible to migrate to Red Hat Enterprise Linux
-                            </h3>
-                        </CardBody>
-                    </Card>
-                    <Card className="xa-c-card-solid">
-                        <CardBody>
-                            <h2 className="pf-c-title pf-m-3xl">
-                                { formatPercentage(percentages[3], 0) } CNV
-                            </h2>
-                            <h3 className="pf-c-title pf-m-1xl">
-                                Workloads suitable for Container-Native Virtualization
-                            </h3>
-                        </CardBody>
-                    </Card>
+                    <SolidCard
+                        title={`${formatPercentage(percentages[0], 0)} RHV`}
+                        description="Workloads suitable for Red Hat Virtualization"
+                    />
+                    <SolidCard
+                        title={`${formatPercentage(percentages[1], 0)} OSP`}
+                        description="Workloads could be running on Red Hat OpenStack Platform"
+                    />
+                    <SolidCard
+                        title={`${formatPercentage(percentages[2], 0)} RHEL`}
+                        description="Workloads possible to migrate to Red Hat Enterprise Linux"
+                    />
+                    <SolidCard
+                        title={`${formatPercentage(percentages[3], 0)} CNV`}
+                        description="Workloads suitable for Container-Native Virtualization"
+                    />
                 </div>
             </ReportCard>
         );
