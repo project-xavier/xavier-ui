@@ -1,0 +1,160 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FlagsTable should render empty result table 1`] = `
+<Fragment>
+  <TableToolbar
+    className="pf-u-justify-content-space-between"
+    isFooter={false}
+  >
+    <ToolbarGroup>
+      <ToolbarItem
+        className="pf-u-mr-xl"
+      />
+    </ToolbarGroup>
+  </TableToolbar>
+  <Bullseye>
+    <EmptyState
+      variant="full"
+    >
+      <EmptyStateIcon
+        icon={[Function]}
+      />
+      <Title
+        headingLevel="h5"
+        size="lg"
+      >
+        No results found
+      </Title>
+      <EmptyStateBody>
+        No results match the search criteria
+      </EmptyStateBody>
+    </EmptyState>
+  </Bullseye>
+</Fragment>
+`;
+
+exports[`FlagsTable should render error 1`] = `
+<Component
+  onRetry={[Function]}
+/>
+`;
+
+exports[`FlagsTable should render result table 1`] = `
+<Fragment>
+  <TableToolbar
+    className="pf-u-justify-content-space-between"
+    isFooter={false}
+  >
+    <ToolbarGroup>
+      <ToolbarItem
+        className="pf-u-mr-xl"
+      />
+    </ToolbarGroup>
+  </TableToolbar>
+  <Table
+    aria-label="Workloads detected"
+    borders={false}
+    cells={
+      Array [
+        Object {
+          "key": "flag",
+          "props": Object {},
+          "title": "Flags",
+          "transforms": Array [
+            [Function],
+          ],
+        },
+        Object {
+          "key": "assessment",
+          "props": Object {},
+          "title": "Assessment",
+          "transforms": Array [],
+        },
+        Object {
+          "key": "osName",
+          "props": Object {},
+          "title": "OS",
+          "transforms": Array [
+            [Function],
+            [Function],
+          ],
+        },
+        Object {
+          "key": "clusters",
+          "props": Object {},
+          "title": "In Clusters",
+          "transforms": Array [],
+        },
+        Object {
+          "key": "vms",
+          "props": Object {},
+          "title": "In VMs",
+          "transforms": Array [
+            [Function],
+          ],
+        },
+      ]
+    }
+    className=""
+    contentId="expanded-content"
+    dropdownDirection="down"
+    dropdownPosition="right"
+    expandId="expandable-toggle"
+    gridBreakPoint="grid-md"
+    onCollapse={null}
+    onExpand={null}
+    onSort={[Function]}
+    role="grid"
+    rowLabeledBy="simple-node"
+    rows={Array []}
+    sortBy={Object {}}
+    variant="compact"
+  >
+    <TableHeader
+      className=""
+    />
+    <TableBody
+      className=""
+      onRowClick={[Function]}
+      rowKey="id"
+    />
+    <tfoot>
+      <tr
+        className="flags-table-footer"
+      >
+        <td
+          colSpan={10}
+        >
+          <Pagination
+            itemCount={1}
+            onPageInput={[Function]}
+            onPerPageSelect={[Function]}
+            onSetPage={[Function]}
+            page={1}
+            perPage={10}
+          />
+        </td>
+      </tr>
+    </tfoot>
+  </Table>
+</Fragment>
+`;
+
+exports[`FlagsTable should render skeleton 1`] = `
+<Fragment>
+  <TableToolbar
+    className="pf-u-justify-content-space-between"
+    isFooter={false}
+  >
+    <ToolbarGroup>
+      <ToolbarItem
+        className="pf-u-mr-xl"
+      />
+    </ToolbarGroup>
+  </TableToolbar>
+  <SkeletonTable
+    colSize={5}
+    rowSize={5}
+  />
+</Fragment>
+`;

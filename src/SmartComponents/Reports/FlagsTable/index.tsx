@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import FlagsTable from './FlagsTable';
+import { FlagsTable } from './FlagsTable';
 import { GlobalState } from '../../../models/state';
 import * as reportActions from '../../../actions/ReportActions';
 import * as mappingActions from '../../../actions/MappingsActions';

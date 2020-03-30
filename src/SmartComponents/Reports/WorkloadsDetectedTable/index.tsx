@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import WorkloadsDetectedTable from './WorkloadsDetectedTable';
+import { WorkloadsDetectedTable } from './WorkloadsDetectedTable';
 import { GlobalState } from '../../../models/state';
 import * as reportActions from '../../../actions/ReportActions';
 

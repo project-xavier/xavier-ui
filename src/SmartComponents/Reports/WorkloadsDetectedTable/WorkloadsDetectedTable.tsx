@@ -1,5 +1,4 @@
 import React from 'react';
-import { RouterGlobalProps } from '../../../models/router';
 import {
     TableToolbar,
     SkeletonTable
@@ -19,23 +18,22 @@ import {
     ToolbarGroup,
     ToolbarItem,
     Pagination,
-    Button,
     Bullseye,
     EmptyState,
     EmptyStateIcon,
     EmptyStateVariant,
     Title,
-    TitleLevel,
     EmptyStateBody} from '@patternfly/react-core';
-import { ErrorCircleOIcon, SearchIcon } from '@patternfly/react-icons';
+import { SearchIcon } from '@patternfly/react-icons';
 import { WorkloadModel } from '../../../models';
 import { ObjectFetchStatus } from '../../../models/state';
 import debounce from 'lodash/debounce';
 import { formatNumber } from '../../../Utilities/formatValue';
 import './WorkloadsDetectedTable.scss';
 import { isNullOrUndefined } from '../../../Utilities/formUtils';
+import { FetchErrorEmptyState } from '../../../PresentationalComponents/FetchErrorEmptyState';
 
-interface StateToProps extends RouterGlobalProps {
+interface StateToProps {
     reportWorkloadsDetected: {
         total: number;
         items: WorkloadModel[]
@@ -50,10 +48,10 @@ interface DispatchToProps {
         perPage: number,
         orderBy: string | undefined,
         orderDirection: 'asc' | 'desc' | undefined
-    ) => any;
+    ) => Promise<any>;
 }
 
-interface Props extends StateToProps, DispatchToProps {
+export interface WorkloadsDetectedTableProps extends StateToProps, DispatchToProps {
     reportId: number;
 };
 
@@ -71,13 +69,13 @@ interface State {
     sortBy: ISortBy;
 };
 
-class WorkloadsDetectedTable extends React.Component<Props, State> {
+export class WorkloadsDetectedTable extends React.Component<WorkloadsDetectedTableProps, State> {
 
     public changePage = debounce(() => {
         this.refreshData();
     }, 800);
 
-    constructor(props: Props) {
+    constructor(props: WorkloadsDetectedTableProps) {
         super(props);
         this.state = {
             page: 1,
@@ -117,7 +115,7 @@ class WorkloadsDetectedTable extends React.Component<Props, State> {
         this.refreshData();
     }
 
-    public refreshData = (
+    public refreshData = async (
         page: number = this.state.page,
         perPage: number = this.state.perPage,
         { direction, index } = this.state.sortBy
@@ -126,24 +124,26 @@ class WorkloadsDetectedTable extends React.Component<Props, State> {
 
         const column = index ? this.state.columns[index].key : undefined;
         const orderDirection = direction ? direction : undefined;
-        fetchReportWorkloadsDetected(reportId, page, perPage, column, orderDirection).then(() => {
-            this.filtersInRowsAndCells();
-        });
+        
+        await fetchReportWorkloadsDetected(reportId, page, perPage, column, orderDirection);
+        this.filtersInRowsAndCells();
     }
 
     public filtersInRowsAndCells = () => {
         const items: WorkloadModel[] = this.props.reportWorkloadsDetected.items
             ? Object.values(this.props.reportWorkloadsDetected.items) : [];
 
-        let rows: any[][] = [];
+        let rows: IRow[] = [];
         if (items.length > 0) {
             rows = items.map((row: WorkloadModel) => {
-                return [
-                    row.workload ? row.workload : '',
-                    row.osName ? row.osName : '',
-                    !isNullOrUndefined(row.clusters) ? formatNumber(row.clusters, 0) : '',
-                    !isNullOrUndefined(row.vms) ? formatNumber(row.vms, 0) : ''
-                ];
+                return {
+                    cells: [
+                        row.workload ? row.workload : '',
+                        row.osName ? row.osName : '',
+                        !isNullOrUndefined(row.clusters) ? formatNumber(row.clusters, 0) : '',
+                        !isNullOrUndefined(row.vms) ? formatNumber(row.vms, 0) : ''
+                    ]
+                };
             });
         }
 
@@ -153,18 +153,19 @@ class WorkloadsDetectedTable extends React.Component<Props, State> {
     /**
      * Allways will reset the page to 1
      */
-    public onSort = (event: any, index: number, direction: any) => {
+    public onSort = async (event: any, index: number, direction: any) => {
         const page = 1;
         const { reportId } = this.props;
         const { perPage } = this.state;
 
         const column = index ? this.state.columns[index].key : undefined;
         const orderDirection = direction ? direction : undefined;
-        this.props.fetchReportWorkloadsDetected(reportId, page, perPage, column, orderDirection).then(() => {
-            this.setState({
-                page,
-                sortBy: { index, direction }
-            });
+        
+        await this.props.fetchReportWorkloadsDetected(reportId, page, perPage, column, orderDirection);
+        this.setState({
+            page,
+            sortBy: { index, direction }
+        }, () => {
             this.filtersInRowsAndCells();
         });
     }
@@ -269,30 +270,13 @@ class WorkloadsDetectedTable extends React.Component<Props, State> {
 
     public renderTableSkeleton = () => {
         return (
-            <React.Fragment>
-                <SkeletonTable colSize={ 4 } rowSize={ 5 }/>
-            </React.Fragment>
+            <SkeletonTable colSize={ 4 } rowSize={ 5 }/>
         );
     };
 
     public renderFetchError = () => {
-        const onRetryClick = () => {
-            this.refreshData();
-        };
-
         return (
-            <Bullseye>
-                <EmptyState variant={ EmptyStateVariant.large }>
-                    <EmptyStateIcon icon={ ErrorCircleOIcon } />
-                    <Title headingLevel={ TitleLevel.h5 } size="lg">
-                        Error
-                    </Title>
-                    <EmptyStateBody>
-                        Something unexpected happend, please try again!
-                    </EmptyStateBody>
-                    <Button variant="primary" onClick={ onRetryClick }>Retry</Button>
-                </EmptyState>
-            </Bullseye>
+            <FetchErrorEmptyState onRetry={this.refreshData} />
         );
     };
 
@@ -311,11 +295,6 @@ class WorkloadsDetectedTable extends React.Component<Props, State> {
                     <ToolbarGroup>
                         <ToolbarItem className="pf-u-mr-xl"/>
                     </ToolbarGroup>
-                    <ToolbarGroup>
-                        <ToolbarItem>
-                            { this.renderPagination() }
-                        </ToolbarItem>
-                    </ToolbarGroup>
                 </TableToolbar>
                 { isFetchComplete ? this.renderTable() : this.renderTableSkeleton() }
             </React.Fragment>
@@ -323,5 +302,3 @@ class WorkloadsDetectedTable extends React.Component<Props, State> {
     }
 
 }
-
-export default WorkloadsDetectedTable;
