@@ -15,7 +15,9 @@ import {
     Button,
     TitleLevel,
     Stack,
-    StackItem
+    StackItem,
+    Card,
+    CardBody
 } from '@patternfly/react-core';
 import { ErrorCircleOIcon } from '@patternfly/react-icons';
 import ReportCard from '../../../PresentationalComponents/ReportCard';
@@ -26,6 +28,7 @@ import { formatPercentage, formatNumber } from '../../../Utilities/formatValue';
 import ScansRunTable from '../../../PresentationalComponents/Reports/ScansRunTable';
 import WorkloadsDetectedTable from '../../../SmartComponents/Reports/WorkloadsDetectedTable';
 import FlagsTable from '../../../SmartComponents/Reports/FlagsTable';
+import { SolidCard } from 'src/PresentationalComponents/SolidCard';
 
 interface StateToProps {
     reportWorkloadSummary: ReportWorkloadSummary | null;
@@ -180,43 +183,33 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
         }
 
         const values = [
-            recommendedTargetsIMS.rhv,
-            recommendedTargetsIMS.osp,
-            recommendedTargetsIMS.rhel
+            recommendedTargetsIMS.rhv || 0,
+            recommendedTargetsIMS.osp || 0,
+            recommendedTargetsIMS.rhel || 0,
+            recommendedTargetsIMS.cnv || 0
         ];
         const total = recommendedTargetsIMS.total;
         const percentages = values.map((val: number) => val / total);
 
         return (
-            <ReportCard
-                title={title}
-                skipBullseye={ true }
-            >
-                <div className="pf-l-grid pf-m-all-6-col-on-md pf-m-all-4-col-on-lg pf-m-gutter">
-                    <div>
-                        <h2 className="pf-c-title pf-m-4xl">
-                            { formatPercentage(percentages[0], 0) } RHV
-                        </h2>
-                        <h3 className="pf-c-title pf-m-1xl">
-                            Workloads suitable for Red Hat Virtualization
-                        </h3>
-                    </div>
-                    <div>
-                        <h2 className="pf-c-title pf-m-4xl">
-                            { formatPercentage(percentages[1], 0) } OSP
-                        </h2>
-                        <h3 className="pf-c-title pf-m-1xl">
-                            Workloads could be running on Red Hat OpenStack Platform
-                        </h3>
-                    </div>
-                    <div>
-                        <h2 className="pf-c-title pf-m-4xl">
-                            { formatPercentage(percentages[2], 0) } RHEL
-                        </h2>
-                        <h3 className="pf-c-title pf-m-1xl">
-                            Workloads possible to migrate to Red Hat Enterprise Linux
-                        </h3>
-                    </div>
+            <ReportCard title={title} skipBullseye={true}>
+                <div className="pf-l-grid pf-m-all-6-col-on-md pf-m-all-3-col-on-lg pf-m-gutter">
+                    <SolidCard
+                        title={`${formatPercentage(percentages[0], 0)} RHV`}
+                        description="Workloads suitable for Red Hat Virtualization"
+                    />
+                    <SolidCard
+                        title={`${formatPercentage(percentages[1], 0)} OSP`}
+                        description="Workloads could be running on Red Hat OpenStack Platform"
+                    />
+                    <SolidCard
+                        title={`${formatPercentage(percentages[2], 0)} RHEL`}
+                        description="Workloads possible to migrate to Red Hat Enterprise Linux"
+                    />
+                    <SolidCard
+                        title={`${formatPercentage(percentages[3], 0)} CNV`}
+                        description="Workloads suitable for Container-Native Virtualization"
+                    />
                 </div>
             </ReportCard>
         );
