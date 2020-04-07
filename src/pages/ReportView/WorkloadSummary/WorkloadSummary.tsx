@@ -193,7 +193,7 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
                     />
                     <SolidCard
                         title={`${formatPercentage(percentages[3], 0)} OCP`}
-                        description="Workloads suitable for Red Hat OpenShift Container Platform"
+                        description="Workloads suitable for Container-Native Virtualization"
                     />
                 </div>
             </ReportCard>
