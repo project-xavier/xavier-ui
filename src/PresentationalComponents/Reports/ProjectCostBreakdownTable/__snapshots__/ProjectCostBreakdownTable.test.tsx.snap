@@ -2,9 +2,8 @@
 
 exports[`ProjectCostBreakdownTable expect to render 1`] = `
 <Fragment>
-  <Table
+  <Component
     aria-label="Project cost breakdown"
-    borders={true}
     cells={
       Array [
         "",
@@ -17,106 +16,111 @@ exports[`ProjectCostBreakdownTable expect to render 1`] = `
         },
       ]
     }
-    className=""
-    contentId="expanded-content"
-    dropdownDirection="down"
-    dropdownPosition="right"
-    expandId="expandable-toggle"
-    gridBreakPoint="grid-md"
-    onCollapse={null}
-    onExpand={null}
-    role="grid"
-    rowLabeledBy="simple-node"
     rows={
       Array [
-        Array [
-          "VMware maintenance",
-          "VMware support costs (during migration)",
-          "$6,000",
-        ],
-        Array [
-          Object {
-            "title": <div>
-               
-            </div>,
-          },
-          Object {
-            "title": <div>
-               
-            </div>,
-          },
-          Object {
-            "title": <div>
-               
-            </div>,
-          },
-        ],
-        Array [
-          "Red Hat Virtualization costs",
-          "",
-          "",
-        ],
-        Array [
-          "",
-          "RHV hypervisor subscriptions",
-          "$6,000",
-        ],
-        Array [
-          "",
-          "RHV hypervisor growth subscriptions",
-          "$15,000",
-        ],
-        Array [
-          "Red Hat training and services",
-          "",
-          "",
-        ],
-        Array [
-          "",
-          "Red Hat training",
-          "$7,000",
-        ],
-        Array [
-          "",
-          "Red Hat consulting",
-          "$8,000",
-        ],
-        Array [
-          "",
-          "Travel and lodging",
-          "$9,000",
-        ],
-        Array [
-          Object {
-            "title": <strong>
-              Total
-            </strong>,
-          },
-          "",
-          Object {
-            "title": <strong>
-              $51,000
-            </strong>,
-          },
-        ],
+        Object {
+          "cells": Array [
+            "VMware maintenance",
+            "VMware support costs (during migration)",
+            "$6,000",
+          ],
+        },
+        Object {
+          "cells": Array [
+            Object {
+              "title": <div>
+                 
+              </div>,
+            },
+            Object {
+              "title": <div>
+                 
+              </div>,
+            },
+            Object {
+              "title": <div>
+                 
+              </div>,
+            },
+          ],
+        },
+        Object {
+          "cells": Array [
+            "Red Hat Virtualization costs",
+            "",
+            "",
+          ],
+        },
+        Object {
+          "cells": Array [
+            "",
+            "RHV hypervisor subscriptions",
+            "$6,000",
+          ],
+        },
+        Object {
+          "cells": Array [
+            "",
+            "RHV hypervisor growth subscriptions",
+            "$15,000",
+          ],
+        },
+        Object {
+          "cells": Array [
+            "Red Hat training and services",
+            "",
+            "",
+          ],
+        },
+        Object {
+          "cells": Array [
+            "",
+            "Red Hat training",
+            "$7,000",
+          ],
+        },
+        Object {
+          "cells": Array [
+            "",
+            "Red Hat consulting",
+            "$8,000",
+          ],
+        },
+        Object {
+          "cells": Array [
+            "",
+            "Travel and lodging",
+            "$9,000",
+          ],
+        },
+        Object {
+          "cells": Array [
+            Object {
+              "title": <strong>
+                Total
+              </strong>,
+            },
+            "",
+            Object {
+              "title": <strong>
+                $51,000
+              </strong>,
+            },
+          ],
+        },
       ]
     }
     variant="compact"
   >
-    <TableBody
-      className=""
-      onRowClick={[Function]}
-      rowKey="id"
-    />
-  </Table>
+    <TableBody />
+  </Component>
 </Fragment>
 `;
 
 exports[`ProjectCostBreakdownTable expect to render using null and undefined data 1`] = `
 <Fragment>
-  <Table
+  <Component
     aria-label="Project cost breakdown"
-    borders={true}
     cells={
       Array [
         "",
@@ -129,106 +133,111 @@ exports[`ProjectCostBreakdownTable expect to render using null and undefined dat
         },
       ]
     }
-    className=""
-    contentId="expanded-content"
-    dropdownDirection="down"
-    dropdownPosition="right"
-    expandId="expandable-toggle"
-    gridBreakPoint="grid-md"
-    onCollapse={null}
-    onExpand={null}
-    role="grid"
-    rowLabeledBy="simple-node"
     rows={
       Array [
-        Array [
-          "VMware maintenance",
-          "VMware support costs (during migration)",
-          "Unknown",
-        ],
-        Array [
-          Object {
-            "title": <div>
-               
-            </div>,
-          },
-          Object {
-            "title": <div>
-               
-            </div>,
-          },
-          Object {
-            "title": <div>
-               
-            </div>,
-          },
-        ],
-        Array [
-          "Red Hat Virtualization costs",
-          "",
-          "",
-        ],
-        Array [
-          "",
-          "RHV hypervisor subscriptions",
-          "Unknown",
-        ],
-        Array [
-          "",
-          "RHV hypervisor growth subscriptions",
-          "Unknown",
-        ],
-        Array [
-          "Red Hat training and services",
-          "",
-          "",
-        ],
-        Array [
-          "",
-          "Red Hat training",
-          "Unknown",
-        ],
-        Array [
-          "",
-          "Red Hat consulting",
-          "Unknown",
-        ],
-        Array [
-          "",
-          "Travel and lodging",
-          "Unknown",
-        ],
-        Array [
-          Object {
-            "title": <strong>
-              Total
-            </strong>,
-          },
-          "",
-          Object {
-            "title": <strong>
-              Unknown
-            </strong>,
-          },
-        ],
+        Object {
+          "cells": Array [
+            "VMware maintenance",
+            "VMware support costs (during migration)",
+            "Unknown",
+          ],
+        },
+        Object {
+          "cells": Array [
+            Object {
+              "title": <div>
+                 
+              </div>,
+            },
+            Object {
+              "title": <div>
+                 
+              </div>,
+            },
+            Object {
+              "title": <div>
+                 
+              </div>,
+            },
+          ],
+        },
+        Object {
+          "cells": Array [
+            "Red Hat Virtualization costs",
+            "",
+            "",
+          ],
+        },
+        Object {
+          "cells": Array [
+            "",
+            "RHV hypervisor subscriptions",
+            "Unknown",
+          ],
+        },
+        Object {
+          "cells": Array [
+            "",
+            "RHV hypervisor growth subscriptions",
+            "Unknown",
+          ],
+        },
+        Object {
+          "cells": Array [
+            "Red Hat training and services",
+            "",
+            "",
+          ],
+        },
+        Object {
+          "cells": Array [
+            "",
+            "Red Hat training",
+            "Unknown",
+          ],
+        },
+        Object {
+          "cells": Array [
+            "",
+            "Red Hat consulting",
+            "Unknown",
+          ],
+        },
+        Object {
+          "cells": Array [
+            "",
+            "Travel and lodging",
+            "Unknown",
+          ],
+        },
+        Object {
+          "cells": Array [
+            Object {
+              "title": <strong>
+                Total
+              </strong>,
+            },
+            "",
+            Object {
+              "title": <strong>
+                Unknown
+              </strong>,
+            },
+          ],
+        },
       ]
     }
     variant="compact"
   >
-    <TableBody
-      className=""
-      onRowClick={[Function]}
-      rowKey="id"
-    />
-  </Table>
+    <TableBody />
+  </Component>
 </Fragment>
 `;
 
 exports[`ProjectCostBreakdownTable expect to render using values equal to 0 1`] = `
 <Fragment>
-  <Table
+  <Component
     aria-label="Project cost breakdown"
-    borders={true}
     cells={
       Array [
         "",
@@ -241,97 +250,103 @@ exports[`ProjectCostBreakdownTable expect to render using values equal to 0 1`] 
         },
       ]
     }
-    className=""
-    contentId="expanded-content"
-    dropdownDirection="down"
-    dropdownPosition="right"
-    expandId="expandable-toggle"
-    gridBreakPoint="grid-md"
-    onCollapse={null}
-    onExpand={null}
-    role="grid"
-    rowLabeledBy="simple-node"
     rows={
       Array [
-        Array [
-          "VMware maintenance",
-          "VMware support costs (during migration)",
-          "$0",
-        ],
-        Array [
-          Object {
-            "title": <div>
-               
-            </div>,
-          },
-          Object {
-            "title": <div>
-               
-            </div>,
-          },
-          Object {
-            "title": <div>
-               
-            </div>,
-          },
-        ],
-        Array [
-          "Red Hat Virtualization costs",
-          "",
-          "",
-        ],
-        Array [
-          "",
-          "RHV hypervisor subscriptions",
-          "$0",
-        ],
-        Array [
-          "",
-          "RHV hypervisor growth subscriptions",
-          "$0",
-        ],
-        Array [
-          "Red Hat training and services",
-          "",
-          "",
-        ],
-        Array [
-          "",
-          "Red Hat training",
-          "$0",
-        ],
-        Array [
-          "",
-          "Red Hat consulting",
-          "$0",
-        ],
-        Array [
-          "",
-          "Travel and lodging",
-          "$0",
-        ],
-        Array [
-          Object {
-            "title": <strong>
-              Total
-            </strong>,
-          },
-          "",
-          Object {
-            "title": <strong>
-              $0
-            </strong>,
-          },
-        ],
+        Object {
+          "cells": Array [
+            "VMware maintenance",
+            "VMware support costs (during migration)",
+            "$0",
+          ],
+        },
+        Object {
+          "cells": Array [
+            Object {
+              "title": <div>
+                 
+              </div>,
+            },
+            Object {
+              "title": <div>
+                 
+              </div>,
+            },
+            Object {
+              "title": <div>
+                 
+              </div>,
+            },
+          ],
+        },
+        Object {
+          "cells": Array [
+            "Red Hat Virtualization costs",
+            "",
+            "",
+          ],
+        },
+        Object {
+          "cells": Array [
+            "",
+            "RHV hypervisor subscriptions",
+            "$0",
+          ],
+        },
+        Object {
+          "cells": Array [
+            "",
+            "RHV hypervisor growth subscriptions",
+            "$0",
+          ],
+        },
+        Object {
+          "cells": Array [
+            "Red Hat training and services",
+            "",
+            "",
+          ],
+        },
+        Object {
+          "cells": Array [
+            "",
+            "Red Hat training",
+            "$0",
+          ],
+        },
+        Object {
+          "cells": Array [
+            "",
+            "Red Hat consulting",
+            "$0",
+          ],
+        },
+        Object {
+          "cells": Array [
+            "",
+            "Travel and lodging",
+            "$0",
+          ],
+        },
+        Object {
+          "cells": Array [
+            Object {
+              "title": <strong>
+                Total
+              </strong>,
+            },
+            "",
+            Object {
+              "title": <strong>
+                $0
+              </strong>,
+            },
+          ],
+        },
       ]
     }
     variant="compact"
   >
-    <TableBody
-      className=""
-      onRowClick={[Function]}
-      rowKey="id"
-    />
-  </Table>
+    <TableBody />
+  </Component>
 </Fragment>
 `;

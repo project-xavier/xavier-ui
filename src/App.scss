@@ -5,3 +5,25 @@
 .pf-c-page__main {
     background-color: #e7e7e7;
 }
+
+// Customize Patternfly
+
+:root {
+    // .xa-c-card-solid
+    --xa-card-solid-border--Color: var(--pf-global--BorderColor--dark-100);
+    --xa-card-solid-border--Width: 1px;
+    --xa-card-solid-border--Style: solid;
+}
+
+.pf-c-card {
+    &.xa-c-card-solid {
+        --xa-c-card--BorderColor: var(--xa-card-solid-border--Color);
+        --xa-c-card--BorderWidth: var(--xa-card-solid-border--Width);
+        --xa-c-card--BorderStyle: var(--xa-card-solid-border--Style);
+
+        box-shadow: none !important;
+        border-width: var(--xa-c-card--BorderWidth) !important;
+        border-style: var(--xa-c-card--BorderStyle) !important;
+        border-color: var(--xa-c-card--BorderColor) !important;
+    }
+}

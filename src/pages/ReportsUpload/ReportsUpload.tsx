@@ -43,7 +43,7 @@ interface FormValues {
 }
 
 interface StateToProps {
-    user: User;
+    user: User | null;
     file: File | null;
     success: boolean | null;
     error: string | null;
@@ -185,7 +185,7 @@ class ReportsUpload extends React.Component<Props, State> {
         const { uploading, user } = this.props;
 
         if (!uploading) {
-            if (user.firstTimeCreatingReports) {
+            if (user && user.firstTimeCreatingReports) {
                 this.props.history.push('/getting-started');
             } else {
                 this.props.history.push('/reports');
@@ -328,7 +328,7 @@ class ReportsUpload extends React.Component<Props, State> {
     public render() {
         const { success, user } = this.props;
         const { showForm } = this.state;
-        if (success && user.firstTimeCreatingReports) {
+        if (success && user && user.firstTimeCreatingReports) {
             const { updateUser } = this.props;
             updateUser({ firstTimeCreatingReports: false });
         }

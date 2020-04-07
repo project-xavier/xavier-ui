@@ -13,7 +13,7 @@ export interface FancyChartDonutData {
     label: string;
     value: number;
     color?: string;
-    data?: any;
+    extraData?: any;
 }
 
 interface Props {
@@ -40,20 +40,20 @@ class FancyChartDonut extends Component<Props, State> {
             return {
                 x: val.label,
                 y: val.value,
-                data: val.data
+                extraData: val.extraData
             };
         });
 
         const legendData = data.map((val) => {
             return {
-                name: tickFormat ? tickFormat (val.label, val.value, val.data) : `${val.label}: ${val.value}`
+                name: tickFormat ? tickFormat (val.label, val.value, val.extraData) : `${val.label}: ${val.value}`
             };
         });
 
         const colorScale = !data.some((val) => !val.color) ? data.map((val) => val.color || '') : undefined;
 
-        const chartLabels = (datum: any): string => {
-            return tickFormat ? tickFormat(datum.x, datum.y, datum.data) : `${datum.x}: ${datum.y}`;
+        const chartLabels = ({datum}): string => {
+            return tickFormat ? tickFormat(datum.x, datum.y, datum.extraData) : `${datum.x}: ${datum.y}`;
         };
 
         return (

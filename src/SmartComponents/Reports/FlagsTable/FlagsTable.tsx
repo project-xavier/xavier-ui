@@ -1,5 +1,4 @@
 import React from 'react';
-import { RouterGlobalProps } from '../../../models/router';
 import {
     TableToolbar,
     SkeletonTable
@@ -35,7 +34,7 @@ import { formatNumber } from '../../../Utilities/formatValue';
 import './FlagsTable.scss';
 import { isNullOrUndefined } from '../../../Utilities/formUtils';
 
-interface StateToProps extends RouterGlobalProps {
+interface StateToProps {
     reportFlags: {
         total: number;
         items: FlagModel[]
@@ -108,13 +107,13 @@ class FlagsTable extends React.Component<Props, State> {
                     title: 'In Clusters',
                     key: 'clusters',
                     props: { },
-                    transforms: [ cellWidth('10') ]
+                    transforms: []
                 },
                 {
                     title: 'In VMs',
                     key: 'vms',
                     props: { },
-                    transforms: [ cellWidth('10'), sortable ]
+                    transforms: [ sortable ]
                 }
             ],
             rows: [],

@@ -7,7 +7,8 @@ import {
     getReportFlags,
     getReportInitialSavingestimation,
     getReportWorkloadInventory,
-    getReportWorkloadInventoryCSV,
+    getReportWorkloadInventoryAllCSV,
+    getReportWorkloadInventoryFilteredCSV,
     getReportWorkloadInventoryAvailableFilters,
     getReportPayloadDownloadLink
 } from '../api/report';
@@ -22,7 +23,8 @@ export const ActionTypes = {
     FETCH_REPORT_FLAGS: 'FETCH_REPORT_FLAGS',
     FETCH_REPORT_INITIAL_SAVING_ESTIMATION: 'FETCH_REPORT_INITIAL_SAVING_ESTIMATION',
     FETCH_REPORT_WOKLOAD_INVENTORY: 'FETCH_REPORT_WOKLOAD_INVENTORY',
-    FETCH_REPORT_WOKLOAD_INVENTORY_CSV: 'FETCH_REPORT_WOKLOAD_INVENTORY_CSV',
+    FETCH_REPORT_WOKLOAD_INVENTORY_ALL_CSV: 'FETCH_REPORT_WOKLOAD_INVENTORY_ALL_CSV',
+    FETCH_REPORT_WOKLOAD_INVENTORY_FILTERED_CSV: 'FETCH_REPORT_WOKLOAD_INVENTORY_FILTERED_CSV',
     FETCH_REPORT_WOKLOAD_INVENTORY_AVAILABLE_FILTERS: 'FETCH_REPORT_WOKLOAD_INVENTORY_AVAILABLE_FILTERS',
     FETCH_REPORT_PAYLOAD_DOWNLOAD_LINK: 'FETCH_REPORT_PAYLOAD_DOWNLOAD_LINK'
 };
@@ -96,7 +98,7 @@ export const fetchReportWorkloadsDetected = (
     id: number,
     page: number,
     perPage: number,
-    orderBy: string,
+    orderBy: string | undefined,
     orderDirection: 'asc' | 'desc' | undefined
 ): GenericAction => ({
     type: ActionTypes.FETCH_REPORT_WORKLOADS_DETECTED,
@@ -115,7 +117,7 @@ export const fetchReportFlags = (
     id: number,
     page: number,
     perPage: number,
-    orderBy: string,
+    orderBy: string | undefined,
     orderDirection: 'asc' | 'desc' | undefined
 ): GenericAction => ({
     type: ActionTypes.FETCH_REPORT_FLAGS,
@@ -147,7 +149,7 @@ export const fetchReportWorkloadInventory = (
     id: number,
     page: number,
     perPage: number,
-    orderBy: string,
+    orderBy: string | undefined,
     orderDirection: 'asc' | 'desc' | undefined,
     filters: Map<string, string[]>
 ): GenericAction => ({
@@ -163,14 +165,32 @@ export const fetchReportWorkloadInventory = (
     }
 });
 
-export const fetchReportWorkloadInventoryCSV = (id: number): GenericAction => ({
-    type: ActionTypes.FETCH_REPORT_WOKLOAD_INVENTORY_CSV,
-    payload: getReportWorkloadInventoryCSV(id),
+export const fetchReportWorkloadInventoryAllCSV = (id: number): GenericAction => ({
+    type: ActionTypes.FETCH_REPORT_WOKLOAD_INVENTORY_ALL_CSV,
+    payload: getReportWorkloadInventoryAllCSV(id),
     meta: {
         notifications: {
             rejected: {
                 variant: 'danger',
-                title: `Failed to load report workload inventory ${id}`
+                title: `Failed to load report workload inventory ${id} csv`
+            }
+        }
+    }
+});
+
+export const fetchReportWorkloadInventoryFilteredCSV = (
+    id: number,
+    orderBy: string | undefined,
+    orderDirection: 'asc' | 'desc' | undefined,
+    filters: Map<string, string[]>
+): GenericAction => ({
+    type: ActionTypes.FETCH_REPORT_WOKLOAD_INVENTORY_FILTERED_CSV,
+    payload: getReportWorkloadInventoryFilteredCSV(id, orderBy, orderDirection, filters),
+    meta: {
+        notifications: {
+            rejected: {
+                variant: 'danger',
+                title: `Failed to load report workload inventory ${id} csv`
             }
         }
     }
