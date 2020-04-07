@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SolidCard expect to render 1`] = `
+<Card
+  className="xa-c-card-solid"
+>
+  <CardBody>
+    <h2
+      className="pf-c-title pf-m-3xl"
+    >
+      My Title
+    </h2>
+    <h3
+      className="pf-c-title pf-m-1xl"
+    >
+      My description
+    </h3>
+  </CardBody>
+</Card>
+`;
