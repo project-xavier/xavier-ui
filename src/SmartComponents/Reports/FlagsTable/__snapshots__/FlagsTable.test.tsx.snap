@@ -51,7 +51,7 @@ exports[`FlagsTable should render result table 1`] = `
       />
     </ToolbarGroup>
   </TableToolbar>
-  <Table
+  <Component
     aria-label="Workloads detected"
     borders={false}
     cells={
@@ -95,29 +95,13 @@ exports[`FlagsTable should render result table 1`] = `
         },
       ]
     }
-    className=""
-    contentId="expanded-content"
-    dropdownDirection="down"
-    dropdownPosition="right"
-    expandId="expandable-toggle"
-    gridBreakPoint="grid-md"
-    onCollapse={null}
-    onExpand={null}
     onSort={[Function]}
-    role="grid"
-    rowLabeledBy="simple-node"
     rows={Array []}
     sortBy={Object {}}
     variant="compact"
   >
-    <TableHeader
-      className=""
-    />
-    <TableBody
-      className=""
-      onRowClick={[Function]}
-      rowKey="id"
-    />
+    <TableHeader />
+    <TableBody />
     <tfoot>
       <tr
         className="flags-table-footer"
@@ -125,7 +109,7 @@ exports[`FlagsTable should render result table 1`] = `
         <td
           colSpan={10}
         >
-          <Pagination
+          <Component
             itemCount={1}
             onPageInput={[Function]}
             onPerPageSelect={[Function]}
@@ -136,7 +120,7 @@ exports[`FlagsTable should render result table 1`] = `
         </td>
       </tr>
     </tfoot>
-  </Table>
+  </Component>
 </Fragment>
 `;
 
@@ -154,6 +138,7 @@ exports[`FlagsTable should render skeleton 1`] = `
   </TableToolbar>
   <SkeletonTable
     colSize={5}
+    paddingColumnSize={0}
     rowSize={5}
   />
 </Fragment>
