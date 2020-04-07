@@ -40,7 +40,7 @@ exports[`Reports should render list depending of TOTAL value expect to render em
     </ToolbarGroup>
     <ToolbarGroup>
       <ToolbarItem>
-        <Pagination
+        <Component
           itemCount={0}
           onPageInput={[Function]}
           onPerPageSelect={[Function]}
@@ -114,7 +114,7 @@ exports[`Reports should render list depending of TOTAL value expect to render li
     </ToolbarGroup>
     <ToolbarGroup>
       <ToolbarItem>
-        <Pagination
+        <Component
           itemCount={2}
           onPageInput={[Function]}
           onPerPageSelect={[Function]}
@@ -125,9 +125,8 @@ exports[`Reports should render list depending of TOTAL value expect to render li
       </ToolbarItem>
     </ToolbarGroup>
   </TableToolbar>
-  <Table
+  <Component
     aria-label="Reports list"
-    borders={true}
     cells={
       Array [
         "Name",
@@ -140,80 +139,68 @@ exports[`Reports should render list depending of TOTAL value expect to render li
         },
       ]
     }
-    className=""
-    contentId="expanded-content"
-    dropdownDirection="down"
-    dropdownPosition="right"
-    expandId="expandable-toggle"
     gridBreakPoint="grid-md"
-    onCollapse={null}
-    onExpand={null}
-    role="grid"
-    rowLabeledBy="simple-node"
     rows={
       Array [
-        Array [
-          Object {
-            "title": <span>
-              My report name 36
-            </span>,
-          },
-          Object {
-            "title": <p>
-              <InProgressIcon
-                className="progress"
-                color="currentColor"
-                noVerticalAlign={false}
-                size="sm"
-                title={null}
-              />
-               Analyzing the upload file
-            </p>,
-          },
-          Object {
-            "title": "",
-          },
-        ],
-        Array [
-          Object {
-            "title": <span>
-              My report name 37
-            </span>,
-          },
-          Object {
-            "title": <p>
-              <InProgressIcon
-                className="progress"
-                color="currentColor"
-                noVerticalAlign={false}
-                size="sm"
-                title={null}
-              />
-               Analyzing the upload file
-            </p>,
-          },
-          Object {
-            "title": "",
-          },
-        ],
+        Object {
+          "cells": Array [
+            Object {
+              "title": <span>
+                My report name 36
+              </span>,
+            },
+            Object {
+              "title": <p>
+                <InProgressIcon
+                  className="progress"
+                  color="currentColor"
+                  noVerticalAlign={false}
+                  size="sm"
+                  title={null}
+                />
+                 Analyzing the upload file
+              </p>,
+            },
+            Object {
+              "title": "",
+            },
+          ],
+        },
+        Object {
+          "cells": Array [
+            Object {
+              "title": <span>
+                My report name 37
+              </span>,
+            },
+            Object {
+              "title": <p>
+                <InProgressIcon
+                  className="progress"
+                  color="currentColor"
+                  noVerticalAlign={false}
+                  size="sm"
+                  title={null}
+                />
+                 Analyzing the upload file
+              </p>,
+            },
+            Object {
+              "title": "",
+            },
+          ],
+        },
       ]
     }
-    variant={null}
   >
-    <TableHeader
-      className=""
-    />
-    <TableBody
-      className=""
-      onRowClick={[Function]}
-      rowKey="id"
-    />
+    <TableHeader />
+    <TableBody />
     <tfoot>
       <tr>
         <td
           colSpan={10}
         >
-          <Pagination
+          <Component
             itemCount={2}
             onPageInput={[Function]}
             onPerPageSelect={[Function]}
@@ -224,6 +211,6 @@ exports[`Reports should render list depending of TOTAL value expect to render li
         </td>
       </tr>
     </tfoot>
-  </Table>
+  </Component>
 </ReportsPage>
 `;

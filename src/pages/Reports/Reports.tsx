@@ -190,10 +190,10 @@ class Reports extends React.Component<Props, State> {
     public filtersInRowsAndCells = () => {
         const reports: Report[] = this.props.reports.items ? Object.values(this.props.reports.items) : [];
 
-        let rows: any[][] = [];
+        let rows: Array<IRow | string[]> = [];
         if (reports.length > 0) {
-            rows = reports.map((report) => (
-                [
+            rows = reports.map((report) => ({
+                cells: [
                     {
                         title: this.renderReportName(report)
                     },
@@ -204,7 +204,7 @@ class Reports extends React.Component<Props, State> {
                         title: this.renderReportActions(report)
                     }
                 ]
-            ));
+            }));
         }
 
         this.setState({ rows });
