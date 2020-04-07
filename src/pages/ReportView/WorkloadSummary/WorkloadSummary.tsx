@@ -16,10 +16,9 @@ import {
     TitleLevel,
     Stack,
     StackItem,
-    Card,
-    CardBody
+    Tooltip
 } from '@patternfly/react-core';
-import { ErrorCircleOIcon } from '@patternfly/react-icons';
+import { ErrorCircleOIcon, HelpIcon } from '@patternfly/react-icons';
 import ReportCard from '../../../PresentationalComponents/ReportCard';
 import SummaryTable from '../../../PresentationalComponents/Reports/SummaryTable';
 import FancyChartDonut from '../../../PresentationalComponents/FancyChartDonut';
@@ -99,7 +98,7 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
     public renderMigrationComplexity = () => {
         const { reportWorkloadSummary } = this.props;
 
-        const title="Migration complexity";
+        const title="VM Migration assessment";
         const complexity = reportWorkloadSummary.complexityModel;
 
         if (!complexity) {
@@ -144,7 +143,21 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
 
         return (
             <ReportCard
-                title='Migration complexity'
+                title={
+                    <span>
+                        <span>{title}</span>&nbsp;
+                        <span>
+                            <Tooltip
+                                position="top"
+                                content={
+                                    <div>Data based on the number of flags found per VM</div>
+                                }
+                            >
+                                <HelpIcon />
+                            </Tooltip>
+                        </span>
+                    </span>
+                }
             >
                 <FancyChartDonut
                     data={ chartData }
