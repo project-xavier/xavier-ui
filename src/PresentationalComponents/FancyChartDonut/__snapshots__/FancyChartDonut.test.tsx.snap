@@ -20,22 +20,22 @@ exports[`FancyChartDonut expect to render with minimun props 1`] = `
         data={
           Array [
             Object {
-              "data": Object {},
+              "extraData": Object {},
               "x": "year1",
               "y": 10,
             },
             Object {
-              "data": Object {},
+              "extraData": Object {},
               "x": "year2",
               "y": 20,
             },
             Object {
-              "data": Object {},
+              "extraData": Object {},
               "x": "year3",
               "y": 30,
             },
             Object {
-              "data": Object {},
+              "extraData": Object {},
               "x": "year4",
               "y": 40,
             },

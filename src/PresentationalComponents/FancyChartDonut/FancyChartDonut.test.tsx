@@ -3,10 +3,10 @@ import { shallow } from "enzyme";
 import FancyChartDonut, { FancyChartDonutData } from "./FancyChartDonut";
 
 const chartData: FancyChartDonutData[] = [
-    { label: 'year1', value: 10, color: 'red', data: {} },
-    { label: 'year2', value: 20, color: 'blue', data: {} },
-    { label: 'year3', value: 30, color: 'yellow', data: {} },
-    { label: 'year4', value: 40, color: 'green', data: {} }
+    { label: 'year1', value: 10, color: 'red', extraData: {} },
+    { label: 'year2', value: 20, color: 'blue', extraData: {} },
+    { label: 'year3', value: 30, color: 'yellow', extraData: {} },
+    { label: 'year4', value: 40, color: 'green', extraData: {} }
 ];
 
 describe("FancyChartDonut", () => {
