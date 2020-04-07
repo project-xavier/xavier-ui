@@ -50,8 +50,8 @@ interface DispatchToProps {
         perPage: number,
         orderBy: string | undefined,
         orderDirection: 'asc' | 'desc' | undefined
-    ) => Promise<any>;
-    fetchAllFlagAssessments: () => Promise<any>;
+    ) => any;
+    fetchAllFlagAssessments: () => any;
 }
 
 export interface FlagsTableProps extends StateToProps, DispatchToProps {

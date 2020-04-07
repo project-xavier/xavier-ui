@@ -48,7 +48,7 @@ interface DispatchToProps {
         perPage: number,
         orderBy: string | undefined,
         orderDirection: 'asc' | 'desc' | undefined
-    ) => Promise<any>;
+    ) => any;
 }
 
 export interface WorkloadsDetectedTableProps extends StateToProps, DispatchToProps {
