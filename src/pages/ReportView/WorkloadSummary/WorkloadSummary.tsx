@@ -193,7 +193,7 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
                     />
                     <SolidCard
                         title={`${formatPercentage(percentages[3], 0)} CNV`}
-                        description="Workloads suitable for Container-Native Virtualization"
+                        description="Workloads suitable for OpenShift virtualization"
                     />
                 </div>
             </ReportCard>
