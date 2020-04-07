@@ -10,9 +10,11 @@ exports[`ReportsUpload expect to render form 1`] = `
   <Connect(Main)>
     <Modal
       actions={Array []}
+      appendTo={<body />}
       ariaDescribedById="Report options"
       className=""
       hideTitle={false}
+      isFooterLeftAligned={false}
       isLarge={false}
       isOpen={true}
       isSmall={true}

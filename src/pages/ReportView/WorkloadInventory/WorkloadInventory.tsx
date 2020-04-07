@@ -2,7 +2,6 @@ import React from 'react';
 import { RouterGlobalProps } from '../../../models/router';
 import {
     TableToolbar,
-    Skeleton,
     SkeletonTable
 } from '@redhat-cloud-services/frontend-components';
 import {
@@ -54,7 +53,7 @@ import './WorkloadInventory.scss';
 import { ReportWorkloadInventory, WorkloadInventoryReportFiltersModel } from '../../../models';
 import { ObjectFetchStatus } from '../../../models/state';
 import debounce from 'lodash/debounce';
-import { extractFilenameFromContentDispositionHeaderValue } from 'src/Utilities/extractUtils';
+import { extractFilenameFromContentDispositionHeaderValue } from '../../../Utilities/extractUtils';
 import { Formik } from 'formik';
 import { WorkloadInventoryDetails } from './WorkloadInventoryDetails';
 
@@ -66,7 +65,7 @@ interface StateToProps extends RouterGlobalProps {
     reportWorkloadInventoryFetchStatus: ObjectFetchStatus;
     reportWorkloadInventoryAllCSVFetchStatus: ObjectFetchStatus;
     reportWorkloadInventoryFilteredCSVFetchStatus: ObjectFetchStatus;
-    reportWorkloadInventoryAvailableFilters: WorkloadInventoryReportFiltersModel;
+    reportWorkloadInventoryAvailableFilters: WorkloadInventoryReportFiltersModel | null;
     reportWorkloadInventoryAvailableFiltersFetchStatus: ObjectFetchStatus;
 }
 
@@ -170,7 +169,7 @@ const chipLabelsMap: Map<FilterTypeKeyEnum, string> = new Map([
     [FilterTypeKeyEnum.WORKLOAD, filtersConfig.workload.label],
     [FilterTypeKeyEnum.OS_NAME, filtersConfig.osName.label],
     [FilterTypeKeyEnum.EFFORT, filtersConfig.effort.label],
-    [FilterTypeKeyEnum.RECOMMENDED_TARGETS_IMS, filtersConfig.recommendedTargetIMS.abbreviation],
+    [FilterTypeKeyEnum.RECOMMENDED_TARGETS_IMS, filtersConfig.recommendedTargetIMS.abbreviation || filtersConfig.recommendedTargetIMS.label],
     [FilterTypeKeyEnum.FLAGS_IMS, filtersConfig.flagIMS.label],
 ]);
 
@@ -295,7 +294,7 @@ class WorkloadInventory extends React.Component<Props, State> {
 
         const orderByColumn = sortBy.index ? this.state.columns[sortBy.index-1].key : undefined;
         const orderDirection = sortBy.direction ? sortBy.direction : undefined;
-        
+
         const mappedFilterValue = this.prepareFiltersToBeSended(filterValue);
         fetchReportWorkloadInventoryFilteredCSV(reportId, orderByColumn, orderDirection, mappedFilterValue).then((response: any) => {
             const contentDispositionHeader = response.value.headers['content-disposition'];
@@ -313,7 +312,7 @@ class WorkloadInventory extends React.Component<Props, State> {
 
     public handleDownloadAllCSV = () => {
         this.handleToolbarKebabToggle(false);
-        
+
         const {reportId, fetchReportWorkloadInventoryAllCSV} = this.props;
         fetchReportWorkloadInventoryAllCSV(reportId).then((response: any) => {
             const contentDispositionHeader = response.value.headers['content-disposition'];
@@ -540,7 +539,6 @@ class WorkloadInventory extends React.Component<Props, State> {
         const { filterDropDownOpen, filterType } = this.state;
         return (
             <Dropdown
-                onToggle={this.onFilterDropDownToggle}
                 position={DropdownPosition.left}
                 className="topology-view-filter-dropdown"
                 toggle={
@@ -584,6 +582,9 @@ class WorkloadInventory extends React.Component<Props, State> {
     public renderFilterInput = () => {
         const { filterType } = this.state;
         const { reportWorkloadInventoryAvailableFilters } = this.props;
+        if (!reportWorkloadInventoryAvailableFilters) {
+            return;
+        }
 
         switch(filterType.value) {
             case FilterTypeKeyEnum.PROVIDER:
@@ -627,7 +628,7 @@ class WorkloadInventory extends React.Component<Props, State> {
         if (!map.has(key)) {
             map.set(key, []);
         }
-        return map.get(key);
+        return map.get(key) || [];
     };
 
     public prepareFiltersToBeSended = (filterValue: Map<FilterTypeKeyEnum, string[]>) => {
@@ -737,8 +738,8 @@ class WorkloadInventory extends React.Component<Props, State> {
             );
         }
 
-        const onSelect = (event: any, selection: string) => {
-            this.onSecondaryFilterDropdownSelect(selection, filterType);
+        const onSelect = (event: React.MouseEvent | React.ChangeEvent, value: any) => {
+            this.onSecondaryFilterDropdownSelect(value, filterType);
         };
         return (
             <Select

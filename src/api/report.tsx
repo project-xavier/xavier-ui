@@ -43,14 +43,14 @@ export function getReportWorkloadsDetected(
     id: number,
     page: number,
     perPage: number,
-    orderBy: string,
+    orderBy: string | undefined,
     orderDirection: 'asc' | 'desc' | undefined
 ): AxiosPromise<SearchResult<WorkloadModel>> {
     // Using page-1 because the backend considers page 0 as the first one
     const params = {
         page: page - 1,
         size: perPage,
-        orderBy,
+        orderBy: orderBy ? orderBy : undefined,
         orderAsc: orderDirection ? orderDirection === 'asc' : undefined
     };
     const query: string[] = [];
@@ -70,14 +70,14 @@ export function getReportFlags(
     id: number,
     page: number,
     perPage: number,
-    orderBy: string,
+    orderBy: string | undefined,
     orderDirection: 'asc' | 'desc' | undefined
 ): AxiosPromise<SearchResult<FlagModel>> {
     // Using page-1 because the backend considers page 0 as the first one
     const params = {
         page: page - 1,
         size: perPage,
-        orderBy,
+        orderBy: orderBy ? orderBy : undefined,
         orderAsc: orderDirection ? orderDirection === 'asc' : undefined
     };
     const query: string[] = [];
@@ -101,7 +101,7 @@ export function getReportWorkloadInventory(
     id: number,
     page: number,
     perPage: number,
-    orderBy: string,
+    orderBy: string | undefined,
     orderDirection: 'asc' | 'desc' | undefined,
     filters: Map<string, string[]>
 ): AxiosPromise<SearchResult<ReportWorkloadInventory>> {
@@ -109,7 +109,7 @@ export function getReportWorkloadInventory(
     const params = {
         page: page - 1,
         size: perPage,
-        orderBy,
+        orderBy: orderBy ? orderBy : undefined,
         orderAsc: orderDirection ? orderDirection === 'asc' : undefined
     };
     const query: string[] = [];
@@ -135,12 +135,12 @@ export function getReportWorkloadInventory(
 
 export function getReportWorkloadInventoryFilteredCSV(
     id: number,
-    orderBy: string,
+    orderBy: string | undefined,
     orderDirection: 'asc' | 'desc' | undefined,
     filters: Map<string, string[]>
 ): AxiosPromise<any> {
     const params = {
-        orderBy,
+        orderBy: orderBy ? orderBy : undefined,
         orderAsc: orderDirection ? orderDirection === 'asc' : undefined
     };
     const query: string[] = [];

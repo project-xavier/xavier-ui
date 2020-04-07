@@ -20,6 +20,7 @@ exports[`ReportViewPage expect to render skeleton 1`] = `
               className="pf-l-stack__item"
             >
               <Skeleton
+                isDark={false}
                 size="sm"
               />
             </div>
@@ -27,6 +28,7 @@ exports[`ReportViewPage expect to render skeleton 1`] = `
               className="pf-l-stack__item"
             >
               <Skeleton
+                isDark={false}
                 size="sm"
               />
             </div>
@@ -34,6 +36,7 @@ exports[`ReportViewPage expect to render skeleton 1`] = `
               className="pf-l-stack__item"
             >
               <Skeleton
+                isDark={false}
                 size="sm"
               />
             </div>
@@ -47,6 +50,7 @@ exports[`ReportViewPage expect to render skeleton 1`] = `
                   className="pf-l-grid__item pf-m-4-col"
                 >
                   <Skeleton
+                    isDark={false}
                     size="md"
                   />
                 </div>
@@ -54,6 +58,7 @@ exports[`ReportViewPage expect to render skeleton 1`] = `
                   className="pf-l-grid__item pf-m-4-col"
                 >
                   <Skeleton
+                    isDark={false}
                     size="md"
                   />
                 </div>
@@ -61,6 +66,7 @@ exports[`ReportViewPage expect to render skeleton 1`] = `
                   className="pf-l-grid__item pf-m-4-col"
                 >
                   <Skeleton
+                    isDark={false}
                     size="md"
                   />
                 </div>
@@ -87,7 +93,7 @@ exports[`ReportViewPage expect to render tabs when fetch status is complete 1`] 
     <PageHeaderTitle
       title={
         <React.Fragment>
-          <Breadcrumb
+          <Unknown
             style={
               Object {
                 "marginBottom": "25px",
@@ -107,7 +113,7 @@ exports[`ReportViewPage expect to render tabs when fetch status is complete 1`] 
             >
               My report name 123
             </BreadcrumbItem>
-          </Breadcrumb>
+          </Unknown>
           <div
             className="pf-c-content"
             style={
@@ -157,29 +163,24 @@ exports[`ReportViewPage expect to render tabs when fetch status is complete 1`] 
               </span>
             </p>
           </div>
-          <Tabs
+          <Unknown
             activeKey={0}
-            className=""
             isFilled={true}
-            isSecondary={false}
-            leftScrollAriaLabel="Scroll left"
             onSelect={[Function]}
-            rightScrollAriaLabel="Scroll right"
-            variant="div"
           >
-            <ForwardRef
+            <Tab
               eventKey={0}
               title="Initial savings estimation"
             />
-            <ForwardRef
+            <Tab
               eventKey={1}
               title="Workload migration summary"
             />
-            <ForwardRef
+            <Tab
               eventKey={2}
               title="Workload migration inventory"
             />
-          </Tabs>
+          </Unknown>
         </React.Fragment>
       }
     />
@@ -202,7 +203,7 @@ exports[`ReportViewPage expect to render tabs when fetch status is complete and 
     <PageHeaderTitle
       title={
         <React.Fragment>
-          <Breadcrumb
+          <Unknown
             style={
               Object {
                 "marginBottom": "25px",
@@ -222,7 +223,7 @@ exports[`ReportViewPage expect to render tabs when fetch status is complete and 
             >
               
             </BreadcrumbItem>
-          </Breadcrumb>
+          </Unknown>
           <div
             className="pf-c-content"
             style={
@@ -266,29 +267,24 @@ exports[`ReportViewPage expect to render tabs when fetch status is complete and 
               </span>
             </p>
           </div>
-          <Tabs
+          <Unknown
             activeKey={0}
-            className=""
             isFilled={true}
-            isSecondary={false}
-            leftScrollAriaLabel="Scroll left"
             onSelect={[Function]}
-            rightScrollAriaLabel="Scroll right"
-            variant="div"
           >
-            <ForwardRef
+            <Tab
               eventKey={0}
               title="Initial savings estimation"
             />
-            <ForwardRef
+            <Tab
               eventKey={1}
               title="Workload migration summary"
             />
-            <ForwardRef
+            <Tab
               eventKey={2}
               title="Workload migration inventory"
             />
-          </Tabs>
+          </Unknown>
         </React.Fragment>
       }
     />
