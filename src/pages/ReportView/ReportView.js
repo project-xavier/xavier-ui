@@ -54,10 +54,12 @@ class ReportView extends React.Component {
 }
 
 ReportView.propTypes = {
-    match: PropTypes.object,
     report: PropTypes.any,
     reportFetchStatus: PropTypes.object,
-    fetchReport: PropTypes.func
+    fetchReport: PropTypes.func,
+    history: PropTypes.object,
+    location: PropTypes.object,
+    match: PropTypes.object
 };
 
 export default ReportView;

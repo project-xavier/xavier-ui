@@ -27,10 +27,10 @@ import { formatPercentage, formatNumber } from '../../../Utilities/formatValue';
 import ScansRunTable from '../../../PresentationalComponents/Reports/ScansRunTable';
 import WorkloadsDetectedTable from '../../../SmartComponents/Reports/WorkloadsDetectedTable';
 import FlagsTable from '../../../SmartComponents/Reports/FlagsTable';
-import { SolidCard } from 'src/PresentationalComponents/SolidCard';
+import { SolidCard } from '../../../PresentationalComponents/SolidCard';
 
 interface StateToProps {
-    reportWorkloadSummary: ReportWorkloadSummary;
+    reportWorkloadSummary: ReportWorkloadSummary | null;
     reportWorkloadSummaryFetchStatus: ObjectFetchStatus;
 }
 
@@ -80,10 +80,15 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
 
     public renderSummary = () => {
         const { reportWorkloadSummary } = this.props;
-
         const title="Summary";
-        const summary = reportWorkloadSummary.summaryModels;
 
+        if (!reportWorkloadSummary) {
+            return this.renderErrorCard(title);
+        }
+
+        // TODO this validation was created when Models were not complete in the backend
+        // It should be safe to remove this
+        const summary = reportWorkloadSummary.summaryModels;
         if (!summary) {
             return this.renderErrorCard(title);
         }
@@ -97,10 +102,15 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
 
     public renderMigrationComplexity = () => {
         const { reportWorkloadSummary } = this.props;
-
         const title="VM Migration assessment";
-        const complexity = reportWorkloadSummary.complexityModel;
 
+        if (!reportWorkloadSummary) {
+            return this.renderErrorCard(title);
+        }
+
+        // TODO this validation was created when Models were not complete in the backend
+        // It should be safe to remove this
+        const complexity = reportWorkloadSummary.complexityModel;
         if (!complexity) {
             return this.renderErrorCard(title);
         }
@@ -131,15 +141,15 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
         };
 
         const chartData: FancyChartDonutData[] = [
-            { label: 'Easy', value: percentages[0], data: pieValues[0] },
-            { label: 'Medium', value: percentages[1], data: pieValues[1] },
-            { label: 'Hard', value: percentages[2], data: pieValues[2] },
-            { label: 'Unknown', value: percentages[3], data: pieValues[3] },
-            { label: 'Unsupported', value: percentages[4], data: pieValues[4] }
+            { label: 'Easy', value: percentages[0], extraData: pieValues[0] },
+            { label: 'Medium', value: percentages[1], extraData: pieValues[1] },
+            { label: 'Hard', value: percentages[2], extraData: pieValues[2] },
+            { label: 'Unknown', value: percentages[3], extraData: pieValues[3] },
+            { label: 'Unsupported', value: percentages[4], extraData: pieValues[4] }
         ];
 
         const tickFormat = (label: string, value: number, data: any) => `${label}: ${formatPercentage(value, 2)}`;
-        const tooltipFormat = (datum: any, active: boolean) => `${datum.x}: ${formatPercentage(datum.y, 2)} \n VMs: ${formatNumber(datum.data, 0)}`;
+        const tooltipFormat = ({datum}) => `${datum.x}: ${formatPercentage(datum.y, 2)} \n VMs: ${formatNumber(datum.extraData, 0)}`;
 
         return (
             <ReportCard
@@ -172,10 +182,15 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
 
     public renderTargetRecommendation = () => {
         const { reportWorkloadSummary } = this.props;
-
         const title="Target recommendation";
-        const recommendedTargetsIMS = reportWorkloadSummary.recommendedTargetsIMSModel;
 
+        if (!reportWorkloadSummary) {
+            return this.renderErrorCard(title);
+        }
+
+        // TODO this validation was created when Models were not complete in the backend
+        // It should be safe to remove this
+        const recommendedTargetsIMS = reportWorkloadSummary.recommendedTargetsIMSModel;
         if (!recommendedTargetsIMS) {
             return this.renderErrorCard(title);
         }
@@ -221,17 +236,22 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
                 title='Workloads detected'
                 skipBullseye={ true }
             >
-                <WorkloadsDetectedTable reportId={ reportId }/>
+                <WorkloadsDetectedTable reportId={ reportId } />
             </ReportCard>
         );
     };
 
     public renderWorkloadsDetected = () => {
         const { reportWorkloadSummary } = this.props;
-
         const title="Workloads detected (OS Types)";
-        const workloadsDetectedOSTypeModels = reportWorkloadSummary.workloadsDetectedOSTypeModels;
 
+        if (!reportWorkloadSummary) {
+            return this.renderErrorCard(title);
+        }
+
+        // TODO this validation was created when Models were not complete in the backend
+        // It should be safe to remove this
+        const workloadsDetectedOSTypeModels = reportWorkloadSummary.workloadsDetectedOSTypeModels;
         if (!workloadsDetectedOSTypeModels) {
             return this.renderErrorCard(title);
         }
@@ -258,11 +278,11 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
         const chartData: FancyChartDonutData[] = workloadsDetectedOSTypeModels.map((element, index: number) => ({
             label: element.osName,
             value: percentages[index],
-            data: pieValues[index]
+            extraData: pieValues[index]
         }));
 
         const tickFormat = (label: string, value: number) => `${label}: ${formatPercentage(value, 2)}`;
-        const tooltipFormat = (datum: any, active: boolean) => `${datum.x}: ${formatPercentage(datum.y, 2)} \n Workloads: ${formatNumber(datum.data, 0)}`;
+        const tooltipFormat = ({datum}) => `${datum.x}: ${formatPercentage(datum.y, 2)} \n Workloads: ${formatNumber(datum.extraData, 0)}`;
 
         return (
             <ReportCard
@@ -294,10 +314,15 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
 
     public renderScansRun = () => {
         const { reportWorkloadSummary } = this.props;
-
         const title="Scans run";
-        const scanRuns = reportWorkloadSummary.scanRunModels;
 
+        if (!reportWorkloadSummary) {
+            return this.renderErrorCard(title);
+        }
+
+        // TODO this validation was created when Models were not complete in the backend
+        // It should be safe to remove this
+        const scanRuns = reportWorkloadSummary.scanRunModels;
         if (!scanRuns) {
             return this.renderErrorCard(title);
         }

@@ -107,66 +107,86 @@ class ProjectCostBreakdownTable extends Component<Props, State> {
         ];
 
         const rows = [
-            [
-                'VMware maintenance',
-                'VMware support costs (during migration)',
-                isNullOrUndefined(sourceMaintenanceTotal) ? 'Unknown' : formatValue(sourceMaintenanceTotal, 'usd', { fractionDigits: 0 })
-            ],
-            [
-                {
-                    title: <div>&nbsp;</div>
-                },
-                {
-                    title: <div>&nbsp;</div>
-                },
-                {
-                    title: <div>&nbsp;</div>
-                }
-            ],
-            [
-                'Red Hat Virtualization costs',
-                '',
-                ''
-            ],
-            [
-                '',
-                'RHV hypervisor subscriptions',
-                isNullOrUndefined(hypervisorSubscriptions) ? 'Unknown' : formatValue(hypervisorSubscriptions, 'usd', { fractionDigits: 0 })
-            ],
-            [
-                '',
-                'RHV hypervisor growth subscriptions',
-                isNullOrUndefined(hypervisorGrowthSubscriptions) ? 'Unknown' : formatValue(hypervisorGrowthSubscriptions, 'usd', { fractionDigits: 0 })
-            ],
-            [
-                'Red Hat training and services',
-                '',
-                ''
-            ],
-            [
-                '',
-                'Red Hat training',
-                isNullOrUndefined(rhvSwitchLearningSubsValue) ? 'Unknown' : formatValue(rhvSwitchLearningSubsValue, 'usd', { fractionDigits: 0 })
-            ],
-            [
-                '',
-                'Red Hat consulting',
-                isNullOrUndefined(rhvSwitchConsultValue) ? 'Unknown' : formatValue(rhvSwitchConsultValue, 'usd', { fractionDigits: 0 })
-            ],
-            [
-                '',
-                'Travel and lodging',
-                isNullOrUndefined(rhvSwitchTAndEValue) ? 'Unknown' : formatValue(rhvSwitchTAndEValue, 'usd', { fractionDigits: 0 })
-            ],
-            [
-                {
-                    title: <strong>Total</strong>
-                },
-                '',
-                {
-                    title: <strong>{ isNullOrUndefined(total) ? 'Unknown' : formatValue(total, 'usd', { fractionDigits: 0 }) }</strong>
-                }
-            ]
+            {
+                cells: [
+                    'VMware maintenance',
+                    'VMware support costs (during migration)',
+                    isNullOrUndefined(sourceMaintenanceTotal) ? 'Unknown' : formatValue(sourceMaintenanceTotal, 'usd', { fractionDigits: 0 })
+                ]
+            },
+            {
+                cells: [
+                    {
+                        title: <div>&nbsp;</div>
+                    },
+                    {
+                        title: <div>&nbsp;</div>
+                    },
+                    {
+                        title: <div>&nbsp;</div>
+                    }
+                ]
+            },
+            {
+                cells: [
+                    'Red Hat Virtualization costs',
+                    '',
+                    ''
+                ]
+            },
+            {
+                cells: [
+                    '',
+                    'RHV hypervisor subscriptions',
+                    isNullOrUndefined(hypervisorSubscriptions) ? 'Unknown' : formatValue(hypervisorSubscriptions, 'usd', { fractionDigits: 0 })
+                ]
+            },
+            {
+                cells: [
+                    '',
+                    'RHV hypervisor growth subscriptions',
+                    isNullOrUndefined(hypervisorGrowthSubscriptions) ? 'Unknown' : formatValue(hypervisorGrowthSubscriptions, 'usd', { fractionDigits: 0 })
+                ]
+            },
+            {
+                cells: [
+                    'Red Hat training and services',
+                    '',
+                    ''
+                ]
+            },
+            {
+                cells: [
+                    '',
+                    'Red Hat training',
+                    isNullOrUndefined(rhvSwitchLearningSubsValue) ? 'Unknown' : formatValue(rhvSwitchLearningSubsValue, 'usd', { fractionDigits: 0 })
+                ]
+            },
+            {
+                cells: [
+                    '',
+                    'Red Hat consulting',
+                    isNullOrUndefined(rhvSwitchConsultValue) ? 'Unknown' : formatValue(rhvSwitchConsultValue, 'usd', { fractionDigits: 0 })
+                ]
+            },
+            {
+                cells: [
+                    '',
+                    'Travel and lodging',
+                    isNullOrUndefined(rhvSwitchTAndEValue) ? 'Unknown' : formatValue(rhvSwitchTAndEValue, 'usd', { fractionDigits: 0 })
+                ]
+            },
+            {
+                cells: [
+                    {
+                        title: <strong>Total</strong>
+                    },
+                    '',
+                    {
+                        title: <strong>{ isNullOrUndefined(total) ? 'Unknown' : formatValue(total, 'usd', { fractionDigits: 0 }) }</strong>
+                    }
+                ]
+            }
         ];
 
         return (

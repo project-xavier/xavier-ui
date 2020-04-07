@@ -1,5 +1,4 @@
 import React from 'react';
-import { RouterGlobalProps } from '../../../models/router';
 import {
     TableToolbar,
     SkeletonTable
@@ -35,7 +34,7 @@ import { formatNumber } from '../../../Utilities/formatValue';
 import './WorkloadsDetectedTable.scss';
 import { isNullOrUndefined } from '../../../Utilities/formUtils';
 
-interface StateToProps extends RouterGlobalProps {
+interface StateToProps {
     reportWorkloadsDetected: {
         total: number;
         items: WorkloadModel[]
