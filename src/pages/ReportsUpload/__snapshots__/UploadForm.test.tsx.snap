@@ -25,13 +25,9 @@ exports[`UploadForm expect to render 1`] = `
     isValid={true}
     label="Report name"
   >
-    <TextInput
+    <ForwardRef
       aria-describedby="Report name"
-      aria-label={null}
-      className=""
       id="reportName"
-      isDisabled={false}
-      isReadOnly={false}
       isRequired={true}
       isValid={true}
       name="reportName"
@@ -45,14 +41,9 @@ exports[`UploadForm expect to render 1`] = `
     isValid={true}
     label="Report description"
   >
-    <TextInput
+    <ForwardRef
       aria-describedby="Report description"
-      aria-label={null}
-      className=""
       id="reportDescription"
-      isDisabled={false}
-      isReadOnly={false}
-      isRequired={false}
       isValid={true}
       name="reportDescription"
       onBlur={[MockFunction]}
@@ -70,13 +61,10 @@ exports[`UploadForm expect to render 1`] = `
       className="pf-l-grid pf-m-all-3-col-on-md"
     >
       <InputGroup>
-        <TextInput
+        <ForwardRef
           aria-describedby="Year-over-year growth rate for new hypervisors"
-          aria-label={null}
           className="pf-u-text-align-right"
           id="yearOverYearGrowthRatePercentage"
-          isDisabled={false}
-          isReadOnly={false}
           isRequired={true}
           isValid={true}
           name="yearOverYearGrowthRatePercentage"
@@ -120,12 +108,10 @@ exports[`UploadForm expect to render 1`] = `
           className="pf-l-grid pf-m-all-3-col-on-md"
         >
           <InputGroup>
-            <TextInput
+            <ForwardRef
               aria-label="Percentage of hypervisors migrated on year 1"
               className="pf-u-text-align-right"
               id="percentageOfHypervisorsMigratedOnYear1"
-              isDisabled={false}
-              isReadOnly={false}
               isRequired={true}
               isValid={true}
               name="percentageOfHypervisorsMigratedOnYear1"
@@ -153,12 +139,10 @@ exports[`UploadForm expect to render 1`] = `
           className="pf-l-grid pf-m-all-3-col-on-md"
         >
           <InputGroup>
-            <TextInput
+            <ForwardRef
               aria-label="Percentage of hypervisors migrated on year 2"
               className="pf-u-text-align-right"
               id="percentageOfHypervisorsMigratedOnYear2"
-              isDisabled={false}
-              isReadOnly={false}
               isRequired={true}
               isValid={true}
               name="percentageOfHypervisorsMigratedOnYear2"
@@ -186,12 +170,10 @@ exports[`UploadForm expect to render 1`] = `
           className="pf-l-grid pf-m-all-3-col-on-md"
         >
           <InputGroup>
-            <TextInput
+            <ForwardRef
               aria-label="Percentage of hypervisors migrated on year 3"
               className="pf-u-text-align-right"
               id="percentageOfHypervisorsMigratedOnYear3"
-              isDisabled={false}
-              isReadOnly={false}
               isRequired={true}
               isValid={true}
               name="percentageOfHypervisorsMigratedOnYear3"
@@ -208,21 +190,21 @@ exports[`UploadForm expect to render 1`] = `
     </StackItem>
   </Stack>
   <ActionGroup>
-    <Button
+    <Component
       disabled={false}
       isDisabled={false}
       type="submit"
       variant="primary"
     >
       Create report
-    </Button>
-    <Button
+    </Component>
+    <Component
       onClick={[MockFunction]}
       type="button"
       variant="secondary"
     >
       Cancel
-    </Button>
+    </Component>
   </ActionGroup>
 </Form>
 `;
@@ -254,13 +236,9 @@ exports[`UploadForm expect to render errors 1`] = `
     isValid={false}
     label="Report name"
   >
-    <TextInput
+    <ForwardRef
       aria-describedby="Report name"
-      aria-label={null}
-      className=""
       id="reportName"
-      isDisabled={false}
-      isReadOnly={false}
       isRequired={true}
       isValid={false}
       name="reportName"
@@ -275,14 +253,9 @@ exports[`UploadForm expect to render errors 1`] = `
     isValid={false}
     label="Report description"
   >
-    <TextInput
+    <ForwardRef
       aria-describedby="Report description"
-      aria-label={null}
-      className=""
       id="reportDescription"
-      isDisabled={false}
-      isReadOnly={false}
-      isRequired={false}
       isValid={false}
       name="reportDescription"
       onBlur={[MockFunction]}
@@ -301,13 +274,10 @@ exports[`UploadForm expect to render errors 1`] = `
       className="pf-l-grid pf-m-all-3-col-on-md"
     >
       <InputGroup>
-        <TextInput
+        <ForwardRef
           aria-describedby="Year-over-year growth rate for new hypervisors"
-          aria-label={null}
           className="pf-u-text-align-right"
           id="yearOverYearGrowthRatePercentage"
-          isDisabled={false}
-          isReadOnly={false}
           isRequired={true}
           isValid={false}
           name="yearOverYearGrowthRatePercentage"
@@ -352,12 +322,10 @@ exports[`UploadForm expect to render errors 1`] = `
           className="pf-l-grid pf-m-all-3-col-on-md"
         >
           <InputGroup>
-            <TextInput
+            <ForwardRef
               aria-label="Percentage of hypervisors migrated on year 1"
               className="pf-u-text-align-right"
               id="percentageOfHypervisorsMigratedOnYear1"
-              isDisabled={false}
-              isReadOnly={false}
               isRequired={true}
               isValid={false}
               name="percentageOfHypervisorsMigratedOnYear1"
@@ -386,12 +354,10 @@ exports[`UploadForm expect to render errors 1`] = `
           className="pf-l-grid pf-m-all-3-col-on-md"
         >
           <InputGroup>
-            <TextInput
+            <ForwardRef
               aria-label="Percentage of hypervisors migrated on year 2"
               className="pf-u-text-align-right"
               id="percentageOfHypervisorsMigratedOnYear2"
-              isDisabled={false}
-              isReadOnly={false}
               isRequired={true}
               isValid={false}
               name="percentageOfHypervisorsMigratedOnYear2"
@@ -420,12 +386,10 @@ exports[`UploadForm expect to render errors 1`] = `
           className="pf-l-grid pf-m-all-3-col-on-md"
         >
           <InputGroup>
-            <TextInput
+            <ForwardRef
               aria-label="Percentage of hypervisors migrated on year 3"
               className="pf-u-text-align-right"
               id="percentageOfHypervisorsMigratedOnYear3"
-              isDisabled={false}
-              isReadOnly={false}
               isRequired={true}
               isValid={true}
               name="percentageOfHypervisorsMigratedOnYear3"
@@ -442,21 +406,21 @@ exports[`UploadForm expect to render errors 1`] = `
     </StackItem>
   </Stack>
   <ActionGroup>
-    <Button
+    <Component
       disabled={false}
       isDisabled={false}
       type="submit"
       variant="primary"
     >
       Create report
-    </Button>
-    <Button
+    </Component>
+    <Component
       onClick={[MockFunction]}
       type="button"
       variant="secondary"
     >
       Cancel
-    </Button>
+    </Component>
   </ActionGroup>
 </Form>
 `;

@@ -10,8 +10,8 @@ export const defaultState: DialogDeleteState = {
     isError: false,
     name: '',
     type: '',
-    onDelete: null,
-    onCancel: null
+    onDelete: () => undefined,
+    onCancel: () => undefined
 };
 
 export type DeleteDialogAction = ActionType<typeof openModal | typeof closeModal | typeof processing | typeof error>;

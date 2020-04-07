@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
 import InitialSavingsEstimation from './InitialSavingsEstimation';
 import { GlobalState } from '../../../models/state';
 import * as reportActions from '../../../actions/ReportActions';
@@ -21,9 +20,7 @@ const mapDispatchToProps = {
     fetchReportInitialSavingEstimation: reportActions.fetchReportInitialSavingEstimation
 };
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(InitialSavingsEstimation)
-);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(InitialSavingsEstimation);

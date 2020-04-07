@@ -2,7 +2,7 @@
 
 exports[`RenewalEstimation expect to render 1`] = `
 <Fragment>
-  <Table
+  <Component
     aria-label="Renewal estimation"
     borders={false}
     cells={
@@ -16,16 +16,6 @@ exports[`RenewalEstimation expect to render 1`] = `
         },
       ]
     }
-    className=""
-    contentId="expanded-content"
-    dropdownDirection="down"
-    dropdownPosition="right"
-    expandId="expandable-toggle"
-    gridBreakPoint="grid-md"
-    onCollapse={null}
-    onExpand={null}
-    role="grid"
-    rowLabeledBy="simple-node"
     rows={
       Array [
         Array [
@@ -44,21 +34,15 @@ exports[`RenewalEstimation expect to render 1`] = `
     }
     variant="compact"
   >
-    <TableHeader
-      className=""
-    />
-    <TableBody
-      className=""
-      onRowClick={[Function]}
-      rowKey="id"
-    />
-  </Table>
+    <TableHeader />
+    <TableBody />
+  </Component>
 </Fragment>
 `;
 
 exports[`RenewalEstimation expect to render using null and undefined data 1`] = `
 <Fragment>
-  <Table
+  <Component
     aria-label="Renewal estimation"
     borders={false}
     cells={
@@ -72,16 +56,6 @@ exports[`RenewalEstimation expect to render using null and undefined data 1`] = 
         },
       ]
     }
-    className=""
-    contentId="expanded-content"
-    dropdownDirection="down"
-    dropdownPosition="right"
-    expandId="expandable-toggle"
-    gridBreakPoint="grid-md"
-    onCollapse={null}
-    onExpand={null}
-    role="grid"
-    rowLabeledBy="simple-node"
     rows={
       Array [
         Array [
@@ -100,21 +74,15 @@ exports[`RenewalEstimation expect to render using null and undefined data 1`] = 
     }
     variant="compact"
   >
-    <TableHeader
-      className=""
-    />
-    <TableBody
-      className=""
-      onRowClick={[Function]}
-      rowKey="id"
-    />
-  </Table>
+    <TableHeader />
+    <TableBody />
+  </Component>
 </Fragment>
 `;
 
 exports[`RenewalEstimation expect to render using null and undefined data 2`] = `
 <Fragment>
-  <Table
+  <Component
     aria-label="Renewal estimation"
     borders={false}
     cells={
@@ -128,16 +96,6 @@ exports[`RenewalEstimation expect to render using null and undefined data 2`] = 
         },
       ]
     }
-    className=""
-    contentId="expanded-content"
-    dropdownDirection="down"
-    dropdownPosition="right"
-    expandId="expandable-toggle"
-    gridBreakPoint="grid-md"
-    onCollapse={null}
-    onExpand={null}
-    role="grid"
-    rowLabeledBy="simple-node"
     rows={
       Array [
         Array [
@@ -156,21 +114,15 @@ exports[`RenewalEstimation expect to render using null and undefined data 2`] = 
     }
     variant="compact"
   >
-    <TableHeader
-      className=""
-    />
-    <TableBody
-      className=""
-      onRowClick={[Function]}
-      rowKey="id"
-    />
-  </Table>
+    <TableHeader />
+    <TableBody />
+  </Component>
 </Fragment>
 `;
 
 exports[`RenewalEstimation expect to render using values equal to 0 1`] = `
 <Fragment>
-  <Table
+  <Component
     aria-label="Renewal estimation"
     borders={false}
     cells={
@@ -184,16 +136,6 @@ exports[`RenewalEstimation expect to render using values equal to 0 1`] = `
         },
       ]
     }
-    className=""
-    contentId="expanded-content"
-    dropdownDirection="down"
-    dropdownPosition="right"
-    expandId="expandable-toggle"
-    gridBreakPoint="grid-md"
-    onCollapse={null}
-    onExpand={null}
-    role="grid"
-    rowLabeledBy="simple-node"
     rows={
       Array [
         Array [
@@ -212,14 +154,8 @@ exports[`RenewalEstimation expect to render using values equal to 0 1`] = `
     }
     variant="compact"
   >
-    <TableHeader
-      className=""
-    />
-    <TableBody
-      className=""
-      onRowClick={[Function]}
-      rowKey="id"
-    />
-  </Table>
+    <TableHeader />
+    <TableBody />
+  </Component>
 </Fragment>
 `;

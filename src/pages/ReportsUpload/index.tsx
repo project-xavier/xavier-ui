@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
 import ReportsUpload from './ReportsUpload';
 import * as uploadActions from '../../actions/UploadActions';
 import * as userActions from '../../actions/UserActions';
@@ -36,9 +35,7 @@ const mapDispatchToProps = {
     updateUser: userActions.updateUser
 };
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(ReportsUpload)
-);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(ReportsUpload);
