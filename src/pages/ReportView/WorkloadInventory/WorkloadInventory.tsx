@@ -53,7 +53,7 @@ import './WorkloadInventory.scss';
 import { ReportWorkloadInventory, WorkloadInventoryReportFiltersModel } from '../../../models';
 import { ObjectFetchStatus } from '../../../models/state';
 import debounce from 'lodash/debounce';
-import { extractFilenameFromContentDispositionHeaderValue } from 'src/Utilities/extractUtils';
+import { extractFilenameFromContentDispositionHeaderValue } from '../../../Utilities/extractUtils';
 import { Formik } from 'formik';
 import { WorkloadInventoryDetails } from './WorkloadInventoryDetails';
 

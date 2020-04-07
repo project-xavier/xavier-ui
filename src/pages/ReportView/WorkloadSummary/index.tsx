@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import WorkloadMigrationSummary from './WorkloadSummary';
-import { GlobalState } from 'src/models/state';
+import { GlobalState } from '../../../models/state';
 import * as reportActions from '../../../actions/ReportActions';
 
 const mapStateToProps = (state: GlobalState)  => {

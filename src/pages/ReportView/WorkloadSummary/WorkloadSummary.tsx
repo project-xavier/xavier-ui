@@ -28,7 +28,7 @@ import { formatPercentage, formatNumber } from '../../../Utilities/formatValue';
 import ScansRunTable from '../../../PresentationalComponents/Reports/ScansRunTable';
 import WorkloadsDetectedTable from '../../../SmartComponents/Reports/WorkloadsDetectedTable';
 import FlagsTable from '../../../SmartComponents/Reports/FlagsTable';
-import { SolidCard } from 'src/PresentationalComponents/SolidCard';
+import { SolidCard } from '../../../PresentationalComponents/SolidCard';
 
 interface StateToProps {
     reportWorkloadSummary: ReportWorkloadSummary | null;
