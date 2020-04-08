@@ -44,7 +44,7 @@ export interface RecommendedTargetsIMSModel {
     rhv: number;
     osp: number;
     rhel: number;
-    cnv: number;
+    ocp: number;
 }
 
 export interface WorkloadDetectedOSTypeModel {

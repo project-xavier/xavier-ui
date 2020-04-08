@@ -186,7 +186,7 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
             recommendedTargetsIMS.rhv || 0,
             recommendedTargetsIMS.osp || 0,
             recommendedTargetsIMS.rhel || 0,
-            recommendedTargetsIMS.cnv || 0
+            recommendedTargetsIMS.ocp || 0
         ];
         const total = recommendedTargetsIMS.total;
         const percentages = values.map((val: number) => val / total);
@@ -207,7 +207,7 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
                         description="Workloads possible to migrate to Red Hat Enterprise Linux"
                     />
                     <SolidCard
-                        title={`${formatPercentage(percentages[3], 0)} CNV`}
+                        title={`${formatPercentage(percentages[3], 0)} OCP`}
                         description="Workloads suitable for OpenShift virtualization"
                     />
                 </div>
