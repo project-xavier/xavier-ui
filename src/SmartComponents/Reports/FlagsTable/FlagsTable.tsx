@@ -15,24 +15,21 @@ import {
     TableVariant
 } from '@patternfly/react-table';
 import {
-    ToolbarGroup,
-    ToolbarItem,
     Pagination,
-    Button,
     Bullseye,
     EmptyState,
     EmptyStateIcon,
     EmptyStateVariant,
     Title,
-    TitleLevel,
     EmptyStateBody} from '@patternfly/react-core';
-import { ErrorCircleOIcon, SearchIcon } from '@patternfly/react-icons';
+import { SearchIcon } from '@patternfly/react-icons';
 import { FlagModel, FlagAssessmentModel } from '../../../models';
 import { ObjectFetchStatus } from '../../../models/state';
 import debounce from 'lodash/debounce';
 import { formatNumber } from '../../../Utilities/formatValue';
 import './FlagsTable.scss';
 import { isNullOrUndefined } from '../../../Utilities/formUtils';
+import { FetchErrorEmptyState } from '../../../PresentationalComponents/FetchErrorEmptyState';
 
 interface StateToProps {
     reportFlags: {
@@ -55,7 +52,7 @@ interface DispatchToProps {
     fetchAllFlagAssessments: () => any;
 }
 
-interface Props extends StateToProps, DispatchToProps {
+export interface FlagsTableProps extends StateToProps, DispatchToProps {
     reportId: number;
 };
 
@@ -73,13 +70,13 @@ interface State {
     sortBy: ISortBy;
 };
 
-class FlagsTable extends React.Component<Props, State> {
+export class FlagsTable extends React.Component<FlagsTableProps, State> {
 
     public changePage = debounce(() => {
         this.refreshData();
     }, 800);
 
-    constructor(props: Props) {
+    constructor(props: FlagsTableProps) {
         super(props);
         this.state = {
             page: 1,
@@ -122,22 +119,24 @@ class FlagsTable extends React.Component<Props, State> {
     }
 
     public componentDidMount() {
-        // Fetch Flag-Assessment column
         const { allFlags, fetchAllFlagAssessments } = this.props;
-        if (allFlags && allFlags.length === 0) {
+        
+        // Fetch Flag-Assessment column
+        // Fetch all Flags just once and the reuse the value from redux
+        if (!allFlags || allFlags.length === 0) {
             fetchAllFlagAssessments();
         }
 
         this.refreshData();
     }
 
-    public componentDidUpdate(prevProps: Props) {
+    public componentDidUpdate(prevProps: FlagsTableProps) {
         if (prevProps.allFlags !== this.props.allFlags) {
             this.filtersInRowsAndCells();
         }
     }
 
-    public refreshData = (
+    public refreshData = async (
         page: number = this.state.page,
         perPage: number = this.state.perPage,
         { direction, index } = this.state.sortBy
@@ -146,16 +145,17 @@ class FlagsTable extends React.Component<Props, State> {
 
         const column = index ? this.state.columns[index].key : undefined;
         const orderDirection = direction ? direction : undefined;
-        fetchReportFlags(reportId, page, perPage, column, orderDirection).then(() => {
-            this.filtersInRowsAndCells();
-        });
+
+        await fetchReportFlags(reportId, page, perPage, column, orderDirection);
+        fetchReportFlags(reportId, page, perPage, column, orderDirection);
+        this.filtersInRowsAndCells();
     }
 
     public filtersInRowsAndCells = () => {
         const { allFlags, reportFlags } = this.props;
         const items: FlagModel[] = reportFlags.items ? Object.values(reportFlags.items) : [];
 
-        let rows: any[][] = [];
+        let rows: IRow[] = [];
         if (items.length > 0) {
             rows = items.map((row: FlagModel) => {
                 let flagAssessmentModel = allFlags.find((element: FlagAssessmentModel) => {
@@ -167,14 +167,16 @@ class FlagsTable extends React.Component<Props, State> {
                         return (element.flag === row.flag && element.osName === '')
                     }); 
                 }
-                
-                return [
-                    flagAssessmentModel ? flagAssessmentModel.flagLabel : row.flag,
-                    flagAssessmentModel ? flagAssessmentModel.assessment : '',
-                    row.osName ? row.osName : '',
-                    !isNullOrUndefined(row.clusters) ? formatNumber(row.clusters, 0) : '',
-                    !isNullOrUndefined(row.vms) ? formatNumber(row.vms, 0) : ''
-                ];
+
+                return {
+                    cells: [
+                        flagAssessmentModel ? flagAssessmentModel.flagLabel : row.flag,
+                        flagAssessmentModel ? flagAssessmentModel.assessment : '',
+                        row.osName ? row.osName : '',
+                        !isNullOrUndefined(row.clusters) ? formatNumber(row.clusters, 0) : '',
+                        !isNullOrUndefined(row.vms) ? formatNumber(row.vms, 0) : ''
+                    ]
+                };
             });
         }
 
@@ -184,18 +186,19 @@ class FlagsTable extends React.Component<Props, State> {
     /**
      * Allways will reset the page to 1
      */
-    public onSort = (event: any, index: number, direction: any) => {
+    public onSort = async (event: any, index: number, direction: any) => {
         const page = 1;
         const { reportId } = this.props;
         const { perPage } = this.state;
 
         const column = index ? this.state.columns[index].key : undefined;
         const orderDirection = direction ? direction : undefined;
-        this.props.fetchReportFlags(reportId, page, perPage, column, orderDirection).then(() => {
-            this.setState({
-                page,
-                sortBy: { index, direction }
-            });
+        
+        await this.props.fetchReportFlags(reportId, page, perPage, column, orderDirection);
+        this.setState({
+            page,
+            sortBy: { index, direction }
+        }, () => {
             this.filtersInRowsAndCells();
         });
     }
@@ -300,30 +303,13 @@ class FlagsTable extends React.Component<Props, State> {
 
     public renderTableSkeleton = () => {
         return (
-            <React.Fragment>
-                <SkeletonTable colSize={ 5 } rowSize={ 5 }/>
-            </React.Fragment>
+            <SkeletonTable colSize={ 5 } rowSize={ 5 }/>
         );
     };
 
     public renderFetchError = () => {
-        const onRetryClick = () => {
-            this.refreshData();
-        };
-
         return (
-            <Bullseye>
-                <EmptyState variant={ EmptyStateVariant.large }>
-                    <EmptyStateIcon icon={ ErrorCircleOIcon } />
-                    <Title headingLevel={ TitleLevel.h5 } size="lg">
-                        Error
-                    </Title>
-                    <EmptyStateBody>
-                        Something unexpected happend, please try again!
-                    </EmptyStateBody>
-                    <Button variant="primary" onClick={ onRetryClick }>Retry</Button>
-                </EmptyState>
-            </Bullseye>
+            <FetchErrorEmptyState onRetry={this.refreshData} />
         );
     };
 
@@ -338,21 +324,9 @@ class FlagsTable extends React.Component<Props, State> {
 
         return (
             <React.Fragment>
-                <TableToolbar className="pf-u-justify-content-space-between">
-                    <ToolbarGroup>
-                        <ToolbarItem className="pf-u-mr-xl"/>
-                    </ToolbarGroup>
-                    <ToolbarGroup>
-                        <ToolbarItem>
-                            { this.renderPagination() }
-                        </ToolbarItem>
-                    </ToolbarGroup>
-                </TableToolbar>
                 { isFetchComplete ? this.renderTable() : this.renderTableSkeleton() }
             </React.Fragment>
         );
     }
 
 }
-
-export default FlagsTable;

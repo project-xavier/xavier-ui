@@ -1,0 +1,115 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FlagsTable should render empty result table 1`] = `
+<Fragment>
+  <Bullseye>
+    <EmptyState
+      variant="full"
+    >
+      <EmptyStateIcon
+        icon={[Function]}
+      />
+      <Title
+        headingLevel="h5"
+        size="lg"
+      >
+        No results found
+      </Title>
+      <EmptyStateBody>
+        No results match the search criteria
+      </EmptyStateBody>
+    </EmptyState>
+  </Bullseye>
+</Fragment>
+`;
+
+exports[`FlagsTable should render error 1`] = `
+<Component
+  onRetry={[Function]}
+/>
+`;
+
+exports[`FlagsTable should render result table 1`] = `
+<Fragment>
+  <Component
+    aria-label="Workloads detected"
+    borders={false}
+    cells={
+      Array [
+        Object {
+          "key": "flag",
+          "props": Object {},
+          "title": "Flags",
+          "transforms": Array [
+            [Function],
+          ],
+        },
+        Object {
+          "key": "assessment",
+          "props": Object {},
+          "title": "Assessment",
+          "transforms": Array [],
+        },
+        Object {
+          "key": "osName",
+          "props": Object {},
+          "title": "OS",
+          "transforms": Array [
+            [Function],
+            [Function],
+          ],
+        },
+        Object {
+          "key": "clusters",
+          "props": Object {},
+          "title": "In Clusters",
+          "transforms": Array [],
+        },
+        Object {
+          "key": "vms",
+          "props": Object {},
+          "title": "In VMs",
+          "transforms": Array [
+            [Function],
+          ],
+        },
+      ]
+    }
+    onSort={[Function]}
+    rows={Array []}
+    sortBy={Object {}}
+    variant="compact"
+  >
+    <TableHeader />
+    <TableBody />
+    <tfoot>
+      <tr
+        className="flags-table-footer"
+      >
+        <td
+          colSpan={10}
+        >
+          <Component
+            itemCount={1}
+            onPageInput={[Function]}
+            onPerPageSelect={[Function]}
+            onSetPage={[Function]}
+            page={1}
+            perPage={10}
+          />
+        </td>
+      </tr>
+    </tfoot>
+  </Component>
+</Fragment>
+`;
+
+exports[`FlagsTable should render skeleton 1`] = `
+<Fragment>
+  <SkeletonTable
+    colSize={5}
+    paddingColumnSize={0}
+    rowSize={5}
+  />
+</Fragment>
+`;

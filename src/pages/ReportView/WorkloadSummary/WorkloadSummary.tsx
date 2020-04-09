@@ -304,7 +304,7 @@ export class WorkloadMigrationSummary extends React.Component<WorkloadMigrationS
 
         return (
             <ReportCard
-                title='Flags (Considerations to be migrated)'
+                title='Flags (factors that could increase migration complexity)'
                 skipBullseye={ true }
             >
                 <FlagsTable reportId={ reportId }/>
