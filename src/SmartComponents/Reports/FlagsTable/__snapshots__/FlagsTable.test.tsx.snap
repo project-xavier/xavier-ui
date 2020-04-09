@@ -2,16 +2,6 @@
 
 exports[`FlagsTable should render empty result table 1`] = `
 <Fragment>
-  <TableToolbar
-    className="pf-u-justify-content-space-between"
-    isFooter={false}
-  >
-    <ToolbarGroup>
-      <ToolbarItem
-        className="pf-u-mr-xl"
-      />
-    </ToolbarGroup>
-  </TableToolbar>
   <Bullseye>
     <EmptyState
       variant="full"
@@ -41,16 +31,6 @@ exports[`FlagsTable should render error 1`] = `
 
 exports[`FlagsTable should render result table 1`] = `
 <Fragment>
-  <TableToolbar
-    className="pf-u-justify-content-space-between"
-    isFooter={false}
-  >
-    <ToolbarGroup>
-      <ToolbarItem
-        className="pf-u-mr-xl"
-      />
-    </ToolbarGroup>
-  </TableToolbar>
   <Component
     aria-label="Workloads detected"
     borders={false}
@@ -126,16 +106,6 @@ exports[`FlagsTable should render result table 1`] = `
 
 exports[`FlagsTable should render skeleton 1`] = `
 <Fragment>
-  <TableToolbar
-    className="pf-u-justify-content-space-between"
-    isFooter={false}
-  >
-    <ToolbarGroup>
-      <ToolbarItem
-        className="pf-u-mr-xl"
-      />
-    </ToolbarGroup>
-  </TableToolbar>
   <SkeletonTable
     colSize={5}
     paddingColumnSize={0}

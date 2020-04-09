@@ -15,8 +15,6 @@ import {
     TableVariant
 } from '@patternfly/react-table';
 import {
-    ToolbarGroup,
-    ToolbarItem,
     Pagination,
     Bullseye,
     EmptyState,
@@ -326,11 +324,6 @@ export class FlagsTable extends React.Component<FlagsTableProps, State> {
 
         return (
             <React.Fragment>
-                <TableToolbar className="pf-u-justify-content-space-between">
-                    <ToolbarGroup>
-                        <ToolbarItem className="pf-u-mr-xl"/>
-                    </ToolbarGroup>
-                </TableToolbar>
                 { isFetchComplete ? this.renderTable() : this.renderTableSkeleton() }
             </React.Fragment>
         );
