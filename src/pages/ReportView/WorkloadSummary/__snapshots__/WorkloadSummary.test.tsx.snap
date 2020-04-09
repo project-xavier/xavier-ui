@@ -1,0 +1,349 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WorkloadMigrationSummary expect to render error 1`] = `
+<Bullseye>
+  <EmptyState
+    variant="large"
+  >
+    <EmptyStateIcon
+      icon={[Function]}
+    />
+    <Title
+      headingLevel="h5"
+      size="lg"
+    >
+      Error
+    </Title>
+    <EmptyStateBody>
+      Something unexpected happend, please try again!
+    </EmptyStateBody>
+    <Component
+      onClick={[Function]}
+      variant="primary"
+    >
+      Retry
+    </Component>
+  </EmptyState>
+</Bullseye>
+`;
+
+exports[`WorkloadMigrationSummary expect to render reports 1`] = `
+<Fragment>
+  <Stack
+    gutter="md"
+  >
+    <StackItem
+      isFilled={false}
+    >
+      <ReportCard
+        title="Summary"
+      >
+        <SummaryTable
+          summary={
+            Array [
+              Object {
+                "clusters": 1,
+                "hosts": 2,
+                "product": "VMware vCenter",
+                "provider": "VMware",
+                "sockets": 164,
+                "version": "6.5",
+                "vms": 126,
+              },
+            ]
+          }
+        />
+      </ReportCard>
+    </StackItem>
+    <StackItem
+      isFilled={false}
+    >
+      <ReportCard
+        title={
+          <span>
+            <span>
+              VM migration assessment
+            </span>
+             
+            <span>
+              <Tooltip
+                appendTo={[Function]}
+                aria="describedby"
+                boundary="window"
+                className=""
+                content={
+                  <div>
+                    Data based on the number of flags found per VM
+                  </div>
+                }
+                distance={15}
+                enableFlip={true}
+                entryDelay={500}
+                exitDelay={500}
+                flipBehavior={
+                  Array [
+                    "top",
+                    "right",
+                    "bottom",
+                    "left",
+                    "top",
+                    "right",
+                    "bottom",
+                  ]
+                }
+                id=""
+                isAppLauncher={false}
+                isContentLeftAligned={false}
+                isVisible={false}
+                maxWidth="18.75rem"
+                position="top"
+                tippyProps={Object {}}
+                trigger="mouseenter focus"
+                zIndex={9999}
+              >
+                <HelpIcon
+                  color="currentColor"
+                  noVerticalAlign={false}
+                  size="sm"
+                  title={null}
+                />
+              </Tooltip>
+            </span>
+          </span>
+        }
+      >
+        <FancyChartDonut
+          chartLegendProps={
+            Object {
+              "height": 300,
+              "responsive": false,
+              "width": 210,
+              "y": 60,
+            }
+          }
+          chartProps={
+            Object {
+              "height": 250,
+              "subTitle": "Total VMs",
+              "title": "126",
+              "width": 250,
+            }
+          }
+          data={
+            Array [
+              Object {
+                "extraData": 111,
+                "label": "Easy",
+                "value": 0.8809523809523809,
+              },
+              Object {
+                "extraData": 11,
+                "label": "Medium",
+                "value": 0.0873015873015873,
+              },
+              Object {
+                "extraData": 0,
+                "label": "Hard",
+                "value": 0,
+              },
+              Object {
+                "extraData": 0,
+                "label": "Unknown",
+                "value": 0,
+              },
+              Object {
+                "extraData": 4,
+                "label": "Unsupported",
+                "value": 0.031746031746031744,
+              },
+            ]
+          }
+          tickFormat={[Function]}
+          tooltipFormat={[Function]}
+        />
+      </ReportCard>
+    </StackItem>
+    <StackItem
+      isFilled={false}
+    >
+      <ReportCard
+        skipBullseye={true}
+        title="Target recommendation"
+      >
+        <div
+          className="pf-l-grid pf-m-all-6-col-on-md pf-m-all-3-col-on-lg pf-m-gutter"
+        >
+          <SolidCard
+            description="Workloads suitable for Red Hat Virtualization"
+            title="97% RHV"
+          />
+          <SolidCard
+            description="Workloads could be running on Red Hat OpenStack Platform"
+            title="96% OSP"
+          />
+          <SolidCard
+            description="Workloads possible to migrate to Red Hat Enterprise Linux"
+            title="6% RHEL"
+          />
+          <SolidCard
+            description="Workloads targeted for OpenShift virtualization"
+            title="88% OCP"
+          />
+        </div>
+      </ReportCard>
+    </StackItem>
+    <StackItem
+      isFilled={false}
+    >
+      <ReportCard
+        skipBullseye={true}
+        title="Workloads detected"
+      >
+        <Connect(WorkloadsDetectedTable)
+          reportId={1}
+        />
+      </ReportCard>
+    </StackItem>
+    <StackItem
+      isFilled={false}
+    >
+      <ReportCard
+        title="Workloads detected (OS Types)"
+      >
+        <FancyChartDonut
+          chartLegendProps={
+            Object {
+              "height": 300,
+              "responsive": false,
+              "width": 210,
+              "y": 60,
+            }
+          }
+          chartProps={
+            Object {
+              "height": 300,
+              "subTitle": "Total workloads",
+              "title": "5",
+              "width": 300,
+            }
+          }
+          data={
+            Array [
+              Object {
+                "extraData": 1,
+                "label": "ServerNT",
+                "value": 0.2,
+              },
+              Object {
+                "extraData": 4,
+                "label": "Linux",
+                "value": 0.8,
+              },
+            ]
+          }
+          tickFormat={[Function]}
+          tooltipFormat={[Function]}
+        />
+      </ReportCard>
+    </StackItem>
+    <StackItem
+      isFilled={false}
+    >
+      <ReportCard
+        skipBullseye={true}
+        title="Flags (Considerations to be migrated)"
+      >
+        <Connect(FlagsTable)
+          reportId={1}
+        />
+      </ReportCard>
+    </StackItem>
+    <StackItem
+      isFilled={false}
+    >
+      <ReportCard
+        title="Scans run"
+      >
+        <ScansRunTable
+          scanRuns={
+            Array [
+              Object {
+                "date": 1580774400000,
+                "smartStateEnabled": true,
+                "target": "VMware",
+              },
+            ]
+          }
+        />
+      </ReportCard>
+    </StackItem>
+  </Stack>
+</Fragment>
+`;
+
+exports[`WorkloadMigrationSummary expect to render skeleton 1`] = `
+<Fragment>
+  <Stack
+    gutter="md"
+  >
+    <StackItem
+      isFilled={false}
+    >
+      <ReportCard
+        title={
+          <Skeleton
+            isDark={false}
+            size="sm"
+          />
+        }
+      >
+        <SkeletonTable
+          colSize={7}
+          paddingColumnSize={0}
+          rowSize={3}
+        />
+      </ReportCard>
+    </StackItem>
+    <StackItem
+      isFilled={false}
+    >
+      <ReportCard
+        title={
+          <Skeleton
+            isDark={false}
+            size="sm"
+          />
+        }
+      >
+        <Skeleton
+          isDark={false}
+          size="sm"
+          style={
+            Object {
+              "height": "300px",
+            }
+          }
+        />
+      </ReportCard>
+    </StackItem>
+    <StackItem
+      isFilled={false}
+    >
+      <ReportCard
+        title={
+          <Skeleton
+            isDark={false}
+            size="sm"
+          />
+        }
+      >
+        <SkeletonTable
+          colSize={3}
+          paddingColumnSize={0}
+          rowSize={1}
+        />
+      </ReportCard>
+    </StackItem>
+  </Stack>
+</Fragment>
+`;

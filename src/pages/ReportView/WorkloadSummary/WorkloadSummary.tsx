@@ -16,10 +16,9 @@ import {
     TitleLevel,
     Stack,
     StackItem,
-    Card,
-    CardBody
+    Tooltip
 } from '@patternfly/react-core';
-import { ErrorCircleOIcon } from '@patternfly/react-icons';
+import { ErrorCircleOIcon, HelpIcon } from '@patternfly/react-icons';
 import ReportCard from '../../../PresentationalComponents/ReportCard';
 import SummaryTable from '../../../PresentationalComponents/Reports/SummaryTable';
 import FancyChartDonut from '../../../PresentationalComponents/FancyChartDonut';
@@ -39,7 +38,7 @@ interface DispatchToProps {
     fetchReportWorkloadSummary: (reportId: number) => any;
 }
 
-interface Props extends StateToProps, DispatchToProps {
+export interface WorkloadMigrationSummaryProps extends StateToProps, DispatchToProps {
     reportId: number;
 };
 
@@ -49,9 +48,9 @@ interface State {
 
 const sumReducer = (a: number, b: number) => a + b;
 
-class WorkloadMigrationSummary extends React.Component<Props, State> {
+export class WorkloadMigrationSummary extends React.Component<WorkloadMigrationSummaryProps, State> {
 
-    constructor(props: Props) {
+    constructor(props: WorkloadMigrationSummaryProps) {
         super(props);
         this.state = {
             isCurrentFetchReportWorkloadSummaryCompletedSuccessfully: false
@@ -103,7 +102,7 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
 
     public renderMigrationComplexity = () => {
         const { reportWorkloadSummary } = this.props;
-        const title="Migration complexity";
+        const title="VM migration assessment";
 
         if (!reportWorkloadSummary) {
             return this.renderErrorCard(title);
@@ -154,7 +153,21 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
 
         return (
             <ReportCard
-                title='Migration complexity'
+                title={
+                    <span>
+                        <span>{title}</span>&nbsp;
+                        <span>
+                            <Tooltip
+                                position="top"
+                                content={
+                                    <div>Data based on the number of flags found per VM</div>
+                                }
+                            >
+                                <HelpIcon />
+                            </Tooltip>
+                        </span>
+                    </span>
+                }
             >
                 <FancyChartDonut
                     data={ chartData }
@@ -208,7 +221,7 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
                     />
                     <SolidCard
                         title={`${formatPercentage(percentages[3], 0)} OCP`}
-                        description="Workloads suitable for Container-Native Virtualization"
+                        description="Workloads targeted for OpenShift virtualization"
                     />
                 </div>
             </ReportCard>
@@ -417,5 +430,3 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
         );
     }
 }
-
-export default WorkloadMigrationSummary;
