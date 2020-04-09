@@ -10,7 +10,7 @@ exports[`ProjectCostBreakdownTable expect to render 1`] = `
         "",
         Object {
           "props": Object {
-            "className": "pf-u-text-align-right",
+            "className": "pf-u-text-align-right pf-m-width-30",
           },
           "title": "",
         },
@@ -127,7 +127,7 @@ exports[`ProjectCostBreakdownTable expect to render using null and undefined dat
         "",
         Object {
           "props": Object {
-            "className": "pf-u-text-align-right",
+            "className": "pf-u-text-align-right pf-m-width-30",
           },
           "title": "",
         },
@@ -244,7 +244,7 @@ exports[`ProjectCostBreakdownTable expect to render using values equal to 0 1`] 
         "",
         Object {
           "props": Object {
-            "className": "pf-u-text-align-right",
+            "className": "pf-u-text-align-right pf-m-width-30",
           },
           "title": "",
         },
