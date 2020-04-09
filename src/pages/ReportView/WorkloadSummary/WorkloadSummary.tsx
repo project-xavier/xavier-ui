@@ -38,7 +38,7 @@ interface DispatchToProps {
     fetchReportWorkloadSummary: (reportId: number) => any;
 }
 
-interface Props extends StateToProps, DispatchToProps {
+export interface WorkloadMigrationSummaryProps extends StateToProps, DispatchToProps {
     reportId: number;
 };
 
@@ -48,9 +48,9 @@ interface State {
 
 const sumReducer = (a: number, b: number) => a + b;
 
-class WorkloadMigrationSummary extends React.Component<Props, State> {
+export class WorkloadMigrationSummary extends React.Component<WorkloadMigrationSummaryProps, State> {
 
-    constructor(props: Props) {
+    constructor(props: WorkloadMigrationSummaryProps) {
         super(props);
         this.state = {
             isCurrentFetchReportWorkloadSummaryCompletedSuccessfully: false
@@ -221,7 +221,7 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
                     />
                     <SolidCard
                         title={`${formatPercentage(percentages[3], 0)} OCP`}
-                        description="Workloads suitable for Container-Native Virtualization"
+                        description="Workloads targeted for OpenShift virtualization"
                     />
                 </div>
             </ReportCard>
@@ -430,5 +430,3 @@ class WorkloadMigrationSummary extends React.Component<Props, State> {
         );
     }
 }
-
-export default WorkloadMigrationSummary;

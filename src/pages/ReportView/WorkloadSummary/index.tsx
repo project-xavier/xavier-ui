@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import WorkloadMigrationSummary from './WorkloadSummary';
+import { WorkloadMigrationSummary } from './WorkloadSummary';
 import { GlobalState } from '../../../models/state';
 import * as reportActions from '../../../actions/ReportActions';
 
