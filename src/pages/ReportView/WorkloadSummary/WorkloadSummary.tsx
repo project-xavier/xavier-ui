@@ -102,7 +102,7 @@ export class WorkloadMigrationSummary extends React.Component<WorkloadMigrationS
 
     public renderMigrationComplexity = () => {
         const { reportWorkloadSummary } = this.props;
-        const title="VM Migration assessment";
+        const title="VM migration assessment";
 
         if (!reportWorkloadSummary) {
             return this.renderErrorCard(title);
