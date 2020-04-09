@@ -59,7 +59,58 @@ exports[`WorkloadMigrationSummary expect to render reports 1`] = `
       isFilled={false}
     >
       <ReportCard
-        title="Migration complexity"
+        title={
+          <span>
+            <span>
+              VM Migration assessment
+            </span>
+             
+            <span>
+              <Tooltip
+                appendTo={[Function]}
+                aria="describedby"
+                boundary="window"
+                className=""
+                content={
+                  <div>
+                    Data based on the number of flags found per VM
+                  </div>
+                }
+                distance={15}
+                enableFlip={true}
+                entryDelay={500}
+                exitDelay={500}
+                flipBehavior={
+                  Array [
+                    "top",
+                    "right",
+                    "bottom",
+                    "left",
+                    "top",
+                    "right",
+                    "bottom",
+                  ]
+                }
+                id=""
+                isAppLauncher={false}
+                isContentLeftAligned={false}
+                isVisible={false}
+                maxWidth="18.75rem"
+                position="top"
+                tippyProps={Object {}}
+                trigger="mouseenter focus"
+                zIndex={9999}
+              >
+                <HelpIcon
+                  color="currentColor"
+                  noVerticalAlign={false}
+                  size="sm"
+                  title={null}
+                />
+              </Tooltip>
+            </span>
+          </span>
+        }
       >
         <FancyChartDonut
           chartLegendProps={
