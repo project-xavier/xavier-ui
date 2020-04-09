@@ -200,7 +200,7 @@ exports[`WorkloadMigrationSummary expect to render reports 1`] = `
     >
       <ReportCard
         skipBullseye={true}
-        title="Flags (Considerations to be migrated)"
+        title="Flags (factors that could increase migration complexity)"
       >
         <Connect(FlagsTable)
           reportId={1}
