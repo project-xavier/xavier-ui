@@ -13,7 +13,9 @@ import {
     InputGroupText,
     Stack,
     StackItem,
-    ActionGroup
+    ActionGroup,
+    Grid,
+    GridItem
 } from '@patternfly/react-core';
 import Dropzone from 'react-dropzone';
 import './UploadForm.scss';
@@ -175,27 +177,30 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                         (errors.yearOverYearGrowthRatePercentage && touched.yearOverYearGrowthRatePercentage) ? false : true
                     }
                 >
-                    <div className="pf-l-grid pf-m-all-3-col-on-md">
-                        <InputGroup>
-                            <TextInput
-                                isRequired={true}
-                                id="yearOverYearGrowthRatePercentage"
-                                type="number"
-                                name="yearOverYearGrowthRatePercentage"
-                                aria-describedby="Year-over-year growth rate for new hypervisors"
-                                className="pf-u-text-align-right"
-                                onChange={ customHandleChange }
-                                onBlur={ handleBlur }
-                                value={ values.yearOverYearGrowthRatePercentage }
-                                isValid={
-                                    (errors.yearOverYearGrowthRatePercentage && touched.yearOverYearGrowthRatePercentage) ? false : true
-                                }
-                            />
-                            <InputGroupText>%</InputGroupText>
-                        </InputGroup>
-                    </div>
+                    <Grid md={3}>
+                        <GridItem>
+                            <InputGroup>
+                                <TextInput
+                                    isRequired={true}
+                                    id="yearOverYearGrowthRatePercentage"
+                                    type="number"
+                                    name="yearOverYearGrowthRatePercentage"
+                                    aria-describedby="Year-over-year growth rate for new hypervisors"
+                                    className="pf-u-text-align-right"
+                                    onChange={ customHandleChange }
+                                    onBlur={ handleBlur }
+                                    value={ values.yearOverYearGrowthRatePercentage }
+                                    isValid={
+                                        (errors.yearOverYearGrowthRatePercentage && touched.yearOverYearGrowthRatePercentage) ? false : true
+                                    }
+                                />
+                                <InputGroupText>%</InputGroupText>
+                            </InputGroup>
+                        </GridItem>
+                    </Grid>
                 </FormGroup>
-                <Stack gutter="sm" className="pf-sm-gutter">
+                {/* Add  pf-sm-gutter manually until https://github.com/patternfly/patternfly-react/issues/4062 is solved*/}
+                <Stack gutter="lg" className="pf-sm-gutter">
                     <StackItem isFilled={ false }>
                         <label className="pf-c-form__label">
                             <span className="pf-c-form__label-text">Percentage of hypervisors migrated each year</span>
@@ -211,26 +216,28 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                                 (errors.percentageOfHypervisorsMigratedSum) ? false : true
                             }
                         >
-                            <div className="pf-l-grid pf-m-all-3-col-on-md">
-                                <InputGroup>
-                                    <TextInput
-                                        isRequired={true}
-                                        id="percentageOfHypervisorsMigratedOnYear1"
-                                        type="number"
-                                        name="percentageOfHypervisorsMigratedOnYear1"
-                                        aria-label="Percentage of hypervisors migrated on year 1"
-                                        className="pf-u-text-align-right"
-                                        onChange={ customHandleChange }
-                                        onBlur={ handleBlur }
-                                        value={ values.percentageOfHypervisorsMigratedOnYear1 }
-                                        isValid={
-                                            (errors.percentageOfHypervisorsMigratedOnYear1
-                                                && touched.percentageOfHypervisorsMigratedOnYear1) ? false : true
-                                        }
-                                    />
-                                    <InputGroupText>%</InputGroupText>
-                                </InputGroup>
-                            </div>
+                            <Grid md={3}>
+                                <GridItem>
+                                    <InputGroup>
+                                        <TextInput
+                                            isRequired={true}
+                                            id="percentageOfHypervisorsMigratedOnYear1"
+                                            type="number"
+                                            name="percentageOfHypervisorsMigratedOnYear1"
+                                            aria-label="Percentage of hypervisors migrated on year 1"
+                                            className="pf-u-text-align-right"
+                                            onChange={ customHandleChange }
+                                            onBlur={ handleBlur }
+                                            value={ values.percentageOfHypervisorsMigratedOnYear1 }
+                                            isValid={
+                                                (errors.percentageOfHypervisorsMigratedOnYear1
+                                                    && touched.percentageOfHypervisorsMigratedOnYear1) ? false : true
+                                            }
+                                        />
+                                        <InputGroupText>%</InputGroupText>
+                                    </InputGroup>
+                                </GridItem>
+                            </Grid>
                         </FormGroup>
                     </StackItem>
                     <StackItem isFilled={ false } className="upload-form-subform-margin-left">
@@ -243,26 +250,28 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                                 (errors.percentageOfHypervisorsMigratedSum) ? false : true
                             }
                         >
-                            <div className="pf-l-grid pf-m-all-3-col-on-md">
-                                <InputGroup>
-                                    <TextInput
-                                        isRequired={true}
-                                        id="percentageOfHypervisorsMigratedOnYear2"
-                                        type="number"
-                                        name="percentageOfHypervisorsMigratedOnYear2"
-                                        aria-label="Percentage of hypervisors migrated on year 2"
-                                        className="pf-u-text-align-right"
-                                        onChange={ customHandleChange }
-                                        onBlur={ handleBlur }
-                                        value={ values.percentageOfHypervisorsMigratedOnYear2 }
-                                        isValid={
-                                            (errors.percentageOfHypervisorsMigratedOnYear2
-                                                && touched.percentageOfHypervisorsMigratedOnYear2) ? false : true
-                                        }
-                                    />
-                                    <InputGroupText>%</InputGroupText>
-                                </InputGroup>
-                            </div>
+                            <Grid md={3}>
+                                <GridItem>
+                                    <InputGroup>
+                                        <TextInput
+                                            isRequired={true}
+                                            id="percentageOfHypervisorsMigratedOnYear2"
+                                            type="number"
+                                            name="percentageOfHypervisorsMigratedOnYear2"
+                                            aria-label="Percentage of hypervisors migrated on year 2"
+                                            className="pf-u-text-align-right"
+                                            onChange={ customHandleChange }
+                                            onBlur={ handleBlur }
+                                            value={ values.percentageOfHypervisorsMigratedOnYear2 }
+                                            isValid={
+                                                (errors.percentageOfHypervisorsMigratedOnYear2
+                                                    && touched.percentageOfHypervisorsMigratedOnYear2) ? false : true
+                                            }
+                                        />
+                                        <InputGroupText>%</InputGroupText>
+                                    </InputGroup>
+                                </GridItem>
+                            </Grid>
                         </FormGroup>
                     </StackItem>
                     <StackItem isFilled={ false } className="upload-form-subform-margin-left">
@@ -275,26 +284,28 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                                 (errors.percentageOfHypervisorsMigratedSum) ? false : true
                             }
                         >
-                            <div className="pf-l-grid pf-m-all-3-col-on-md">
-                                <InputGroup>
-                                    <TextInput
-                                        isRequired={true}
-                                        id="percentageOfHypervisorsMigratedOnYear3"
-                                        type="number"
-                                        name="percentageOfHypervisorsMigratedOnYear3"
-                                        aria-label="Percentage of hypervisors migrated on year 3"
-                                        className="pf-u-text-align-right"
-                                        onChange={ customHandleChange }
-                                        onBlur={ handleBlur }
-                                        value={ values.percentageOfHypervisorsMigratedOnYear3 }
-                                        isValid={
-                                            (errors.percentageOfHypervisorsMigratedOnYear3
-                                                && touched.percentageOfHypervisorsMigratedOnYear3) ? false : true
-                                        }
-                                    />
-                                    <InputGroupText>%</InputGroupText>
-                                </InputGroup>
-                            </div>
+                            <Grid md={3}>
+                                <GridItem>
+                                    <InputGroup>
+                                        <TextInput
+                                            isRequired={true}
+                                            id="percentageOfHypervisorsMigratedOnYear3"
+                                            type="number"
+                                            name="percentageOfHypervisorsMigratedOnYear3"
+                                            aria-label="Percentage of hypervisors migrated on year 3"
+                                            className="pf-u-text-align-right"
+                                            onChange={ customHandleChange }
+                                            onBlur={ handleBlur }
+                                            value={ values.percentageOfHypervisorsMigratedOnYear3 }
+                                            isValid={
+                                                (errors.percentageOfHypervisorsMigratedOnYear3
+                                                    && touched.percentageOfHypervisorsMigratedOnYear3) ? false : true
+                                            }
+                                        />
+                                        <InputGroupText>%</InputGroupText>
+                                    </InputGroup>
+                                </GridItem>
+                            </Grid>
                         </FormGroup>
                     </StackItem>
                 </Stack>

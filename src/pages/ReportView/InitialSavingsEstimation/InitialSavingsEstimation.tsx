@@ -13,7 +13,9 @@ import {
     TitleLevel,
     EmptyStateBody,
     Button,
-    Tooltip
+    Tooltip,
+    Grid,
+    GridItem
 } from '@patternfly/react-core';
 import { ErrorCircleOIcon, HelpIcon } from '@patternfly/react-icons';
 import {
@@ -429,22 +431,34 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
                         { this.renderInfo() }
                     </StackItem>
                     <StackItem isFilled={ false }>
-                        <div className="pf-l-grid pf-m-all-6-col-on-lg pf-m-gutter">
-                            { this.renderCostExpenditureComparison() }
-                            { this.renderEnvironment() }
-                        </div>
+                        <Grid gutter="sm" lg={6}>
+                            <GridItem>
+                                { this.renderCostExpenditureComparison() }
+                            </GridItem>
+                            <GridItem>
+                                { this.renderEnvironment() }
+                            </GridItem>
+                        </Grid>
                     </StackItem>
                     <StackItem isFilled={ false }>
-                        <div className="pf-l-grid pf-m-all-6-col-on-lg pf-m-gutter">
-                            { this.renderTotalMaintenance() }
-                            { this.renderRenewalEstimation() }
-                        </div>
+                        <Grid gutter="sm" lg={6}>
+                            <GridItem>
+                                { this.renderTotalMaintenance() }
+                            </GridItem>
+                            <GridItem>
+                                { this.renderRenewalEstimation() }
+                            </GridItem>
+                        </Grid>
                     </StackItem>
                     <StackItem isFilled={ false }>
-                        <div className="pf-l-grid pf-m-all-6-col-on-lg pf-m-gutter">
-                            { this.renderProjectCostBreakdown() }
-                            { this.renderProjectCostBreakdownTable() }
-                        </div>
+                        <Grid gutter="sm" lg={6}>
+                            <GridItem>
+                                { this.renderProjectCostBreakdown() }
+                            </GridItem>
+                            <GridItem>
+                                { this.renderProjectCostBreakdownTable() }
+                            </GridItem>
+                        </Grid>
                     </StackItem>
                     <StackItem isFilled={ false }>
                         <Card>
@@ -481,46 +495,58 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
                         </ReportCard>
                     </StackItem>
                     <StackItem isFilled={ false }>
-                        <div className="pf-l-grid pf-m-all-6-col-on-lg pf-m-gutter">
-                            <ReportCard
-                                title={ <Skeleton size="sm" /> }
-                            >
-                                <Skeleton size="sm" style={ { height: '300px' } }/>
-                            </ReportCard>
-                            <ReportCard
-                                title={ <Skeleton size="sm" /> }
-                            >
-                                <SkeletonTable colSize={ 3 } rowSize={ 3 }/>
-                            </ReportCard>
-                        </div>
+                        <Grid lg={6} gutter="sm">
+                            <GridItem>
+                                <ReportCard
+                                    title={ <Skeleton size="sm" /> }
+                                >
+                                    <Skeleton size="sm" style={ { height: '300px' } }/>
+                                </ReportCard>
+                            </GridItem>
+                            <GridItem>
+                                <ReportCard
+                                    title={ <Skeleton size="sm" /> }
+                                >
+                                    <SkeletonTable colSize={ 3 } rowSize={ 3 }/>
+                                </ReportCard>
+                            </GridItem>
+                        </Grid>
                     </StackItem>
                     <StackItem isFilled={ false }>
-                        <div className="pf-l-grid pf-m-all-6-col-on-lg pf-m-gutter">
-                            <ReportCard
-                                title={ <Skeleton size="sm" /> }
-                            >
-                                <Skeleton size="sm" style={ { height: '300px' } }/>
-                            </ReportCard>
-                            <ReportCard
-                                title={ <Skeleton size="sm" /> }
-                            >
-                                <SkeletonTable colSize={ 2 } rowSize={ 2 }/>
-                            </ReportCard>
-                        </div>
+                        <Grid lg={6} gutter="sm">
+                            <GridItem>
+                                <ReportCard
+                                    title={ <Skeleton size="sm" /> }
+                                >
+                                    <Skeleton size="sm" style={ { height: '300px' } }/>
+                                </ReportCard>
+                            </GridItem>
+                            <GridItem>
+                                <ReportCard
+                                    title={ <Skeleton size="sm" /> }
+                                >
+                                    <SkeletonTable colSize={ 2 } rowSize={ 2 }/>
+                                </ReportCard>
+                            </GridItem>
+                        </Grid>
                     </StackItem>
                     <StackItem isFilled={ false }>
-                        <div className="pf-l-grid pf-m-all-6-col-on-lg pf-m-gutter">
-                            <ReportCard
-                                title={ <Skeleton size="sm" /> }
-                            >
-                                <Skeleton size="sm" style={ { height: '300px' } }/>
-                            </ReportCard>
-                            <ReportCard
-                                title={ <Skeleton size="sm" /> }
-                            >
-                                <SkeletonTable colSize={ 3 } rowSize={ 3 }/>
-                            </ReportCard>
-                        </div>
+                        <Grid lg={6} gutter="sm">
+                            <GridItem>
+                                <ReportCard
+                                    title={ <Skeleton size="sm" /> }
+                                >
+                                    <Skeleton size="sm" style={ { height: '300px' } }/>
+                                </ReportCard>
+                            </GridItem>
+                            <GridItem>
+                                <ReportCard
+                                    title={ <Skeleton size="sm" /> }
+                                >
+                                    <SkeletonTable colSize={ 3 } rowSize={ 3 }/>
+                                </ReportCard>
+                            </GridItem>
+                        </Grid>
                     </StackItem>
                 </Stack>
             </React.Fragment>

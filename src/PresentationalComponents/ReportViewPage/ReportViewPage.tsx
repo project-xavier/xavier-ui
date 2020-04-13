@@ -4,7 +4,11 @@ import {
     Tabs,
     Tab,
     Breadcrumb,
-    BreadcrumbItem
+    BreadcrumbItem,
+    Stack,
+    StackItem,
+    Grid,
+    GridItem
 } from '@patternfly/react-core';
 import {
     Main,
@@ -101,30 +105,30 @@ class ReportViewPage extends Component<Props, State> {
     public renderTabsSkeleton = () => {
         return (
             <React.Fragment>
-                <div className="pf-l-stack pf-m-gutter">
-                    <div className="pf-l-stack__item">
+                <Stack gutter="sm">
+                    <StackItem>
                         <Skeleton size="sm" />
-                    </div>
-                    <div className="pf-l-stack__item">
+                    </StackItem>
+                    <StackItem>
                         <Skeleton size="sm" />
-                    </div>
-                    <div className="pf-l-stack__item">
+                    </StackItem>
+                    <StackItem>
                         <Skeleton size="sm" />
-                    </div>
-                    <div className="pf-l-stack__item">
-                        <div className="pf-l-grid">
-                            <div className="pf-l-grid__item pf-m-4-col">
+                    </StackItem>
+                    <StackItem>
+                        <Grid>
+                            <GridItem span={4}>
                                 <Skeleton size="md" />
-                            </div>
-                            <div className="pf-l-grid__item pf-m-4-col">
+                            </GridItem>
+                            <GridItem span={4}>
                                 <Skeleton size="md" />
-                            </div>
-                            <div className="pf-l-grid__item pf-m-4-col">
+                            </GridItem>
+                            <GridItem span={4}>
                                 <Skeleton size="md" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                            </GridItem>
+                        </Grid>
+                    </StackItem>
+                </Stack>
             </React.Fragment>
         );
     };

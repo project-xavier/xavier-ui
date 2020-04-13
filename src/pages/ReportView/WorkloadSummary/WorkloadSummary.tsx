@@ -12,7 +12,9 @@ import {
     TitleLevel,
     Stack,
     StackItem,
-    Tooltip
+    Tooltip,
+    Grid,
+    GridItem
 } from '@patternfly/react-core';
 import { ErrorCircleOIcon, HelpIcon } from '@patternfly/react-icons';
 import {
@@ -206,24 +208,32 @@ export class WorkloadMigrationSummary extends React.Component<WorkloadMigrationS
 
         return (
             <ReportCard title={title} skipBullseye={true}>
-                <div className="pf-l-grid pf-m-all-6-col-on-md pf-m-all-3-col-on-lg pf-m-gutter">
-                    <SolidCard
-                        title={`${formatPercentage(percentages[0], 0)} RHV`}
-                        description="Workloads suitable for Red Hat Virtualization"
-                    />
-                    <SolidCard
-                        title={`${formatPercentage(percentages[1], 0)} OSP`}
-                        description="Workloads could be running on Red Hat OpenStack Platform"
-                    />
-                    <SolidCard
-                        title={`${formatPercentage(percentages[2], 0)} RHEL`}
-                        description="Workloads possible to migrate to Red Hat Enterprise Linux"
-                    />
-                    <SolidCard
-                        title={`${formatPercentage(percentages[3], 0)} OCP`}
-                        description="Workloads targeted for OpenShift virtualization"
-                    />
-                </div>
+                <Grid gutter="sm" md={6} lg={3}>
+                    <GridItem>
+                        <SolidCard
+                            title={`${formatPercentage(percentages[0], 0)} RHV`}
+                            description="Workloads suitable for Red Hat Virtualization"
+                        />
+                    </GridItem>
+                    <GridItem>
+                        <SolidCard
+                            title={`${formatPercentage(percentages[1], 0)} OSP`}
+                            description="Workloads could be running on Red Hat OpenStack Platform"
+                        />
+                    </GridItem>
+                    <GridItem>
+                        <SolidCard
+                            title={`${formatPercentage(percentages[2], 0)} RHEL`}
+                            description="Workloads possible to migrate to Red Hat Enterprise Linux"
+                        />
+                    </GridItem>
+                    <GridItem>
+                        <SolidCard
+                            title={`${formatPercentage(percentages[3], 0)} OCP`}
+                            description="Workloads targeted for OpenShift virtualization"
+                        />
+                    </GridItem>
+                </Grid>
             </ReportCard>
         );
     };
