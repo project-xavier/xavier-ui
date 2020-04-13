@@ -14,8 +14,7 @@ import {
     EmptyStateBody,
     Button,
     Tooltip,
-    Grid,
-    GridItem
+    Grid
 } from '@patternfly/react-core';
 import { ErrorCircleOIcon, HelpIcon } from '@patternfly/react-icons';
 import {
@@ -431,33 +430,22 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
                         { this.renderInfo() }
                     </StackItem>
                     <StackItem isFilled={ false }>
+                        {/* Use Grid without GridItem to fill the height of panel */}
                         <Grid gutter="sm" lg={6}>
-                            <GridItem>
-                                { this.renderCostExpenditureComparison() }
-                            </GridItem>
-                            <GridItem>
-                                { this.renderEnvironment() }
-                            </GridItem>
+                            { this.renderCostExpenditureComparison() }
+                            { this.renderEnvironment() }
                         </Grid>
                     </StackItem>
                     <StackItem isFilled={ false }>
                         <Grid gutter="sm" lg={6}>
-                            <GridItem>
-                                { this.renderTotalMaintenance() }
-                            </GridItem>
-                            <GridItem>
-                                { this.renderRenewalEstimation() }
-                            </GridItem>
+                            { this.renderTotalMaintenance() }
+                            { this.renderRenewalEstimation() }
                         </Grid>
                     </StackItem>
                     <StackItem isFilled={ false }>
                         <Grid gutter="sm" lg={6}>
-                            <GridItem>
-                                { this.renderProjectCostBreakdown() }
-                            </GridItem>
-                            <GridItem>
-                                { this.renderProjectCostBreakdownTable() }
-                            </GridItem>
+                            { this.renderProjectCostBreakdown() }
+                            { this.renderProjectCostBreakdownTable() }
                         </Grid>
                     </StackItem>
                     <StackItem isFilled={ false }>
@@ -496,56 +484,44 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
                     </StackItem>
                     <StackItem isFilled={ false }>
                         <Grid lg={6} gutter="sm">
-                            <GridItem>
-                                <ReportCard
-                                    title={ <Skeleton size="sm" /> }
-                                >
-                                    <Skeleton size="sm" style={ { height: '300px' } }/>
-                                </ReportCard>
-                            </GridItem>
-                            <GridItem>
-                                <ReportCard
-                                    title={ <Skeleton size="sm" /> }
-                                >
-                                    <SkeletonTable colSize={ 3 } rowSize={ 3 }/>
-                                </ReportCard>
-                            </GridItem>
+                            <ReportCard
+                                title={ <Skeleton size="sm" /> }
+                            >
+                                <Skeleton size="sm" style={ { height: '300px' } }/>
+                            </ReportCard>                            
+                            <ReportCard
+                                title={ <Skeleton size="sm" /> }
+                            >
+                                <SkeletonTable colSize={ 3 } rowSize={ 3 }/>
+                            </ReportCard>
                         </Grid>
                     </StackItem>
                     <StackItem isFilled={ false }>
                         <Grid lg={6} gutter="sm">
-                            <GridItem>
-                                <ReportCard
-                                    title={ <Skeleton size="sm" /> }
-                                >
-                                    <Skeleton size="sm" style={ { height: '300px' } }/>
-                                </ReportCard>
-                            </GridItem>
-                            <GridItem>
-                                <ReportCard
-                                    title={ <Skeleton size="sm" /> }
-                                >
-                                    <SkeletonTable colSize={ 2 } rowSize={ 2 }/>
-                                </ReportCard>
-                            </GridItem>
+                            <ReportCard
+                                title={ <Skeleton size="sm" /> }
+                            >
+                                <Skeleton size="sm" style={ { height: '300px' } }/>
+                            </ReportCard>
+                            <ReportCard
+                                title={ <Skeleton size="sm" /> }
+                            >
+                                <SkeletonTable colSize={ 2 } rowSize={ 2 }/>
+                            </ReportCard>
                         </Grid>
                     </StackItem>
                     <StackItem isFilled={ false }>
                         <Grid lg={6} gutter="sm">
-                            <GridItem>
-                                <ReportCard
-                                    title={ <Skeleton size="sm" /> }
-                                >
-                                    <Skeleton size="sm" style={ { height: '300px' } }/>
-                                </ReportCard>
-                            </GridItem>
-                            <GridItem>
-                                <ReportCard
-                                    title={ <Skeleton size="sm" /> }
-                                >
-                                    <SkeletonTable colSize={ 3 } rowSize={ 3 }/>
-                                </ReportCard>
-                            </GridItem>
+                            <ReportCard
+                                title={ <Skeleton size="sm" /> }
+                            >
+                                <Skeleton size="sm" style={ { height: '300px' } }/>
+                            </ReportCard>
+                            <ReportCard
+                                title={ <Skeleton size="sm" /> }
+                            >
+                                <SkeletonTable colSize={ 3 } rowSize={ 3 }/>
+                            </ReportCard>
                         </Grid>
                     </StackItem>
                 </Stack>
