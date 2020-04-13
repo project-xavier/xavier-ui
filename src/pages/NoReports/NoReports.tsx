@@ -9,11 +9,11 @@ import {
     Bullseye,
     TitleLevel
 } from '@patternfly/react-core';
-import ReportsPage from '../../PresentationalComponents/ReportsPage';
 import {
     AddCircleOIcon
 } from '@patternfly/react-icons';
 import { User } from '../../models';
+import ReportsPage from '../../PresentationalComponents/ReportsPage';
 
 interface StateToProps {
     user: User | null;

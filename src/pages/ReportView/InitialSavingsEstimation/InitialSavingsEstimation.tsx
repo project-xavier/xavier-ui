@@ -1,9 +1,5 @@
 import React from 'react';
 import {
-    Skeleton,
-    SkeletonTable
-} from '@redhat-cloud-services/frontend-components';
-import {
     Card,
     CardBody,
     CardHeader,
@@ -19,6 +15,18 @@ import {
     Button,
     Tooltip
 } from '@patternfly/react-core';
+import { ErrorCircleOIcon, HelpIcon } from '@patternfly/react-icons';
+import {
+    ChartAxisProps,
+    ChartLegendProps,
+    ChartProps,
+    ChartGroupProps,
+    ChartBarProps
+} from '@patternfly/react-charts';
+import {
+    Skeleton,
+    SkeletonTable
+} from '@redhat-cloud-services/frontend-components';
 
 import { Report, ReportInitialSavingEstimation } from '../../../models';
 import { formatValue } from '../../../Utilities/formatValue';
@@ -31,14 +39,6 @@ import FancyGroupedBarChart from '../../../PresentationalComponents/FancyGrouped
 import ReportCard from '../../../PresentationalComponents/ReportCard';
 import ProjectCostBreakdownTable from '../../../PresentationalComponents/Reports/ProjectCostBreakdownTable';
 import { ObjectFetchStatus } from '../../../models/state';
-import { ErrorCircleOIcon, HelpIcon } from '@patternfly/react-icons';
-import {
-    ChartAxisProps,
-    ChartLegendProps,
-    ChartProps,
-    ChartGroupProps,
-    ChartBarProps
-} from '@patternfly/react-charts';
 import { FancyChartDonutData } from '../../../PresentationalComponents/FancyChartDonut/FancyChartDonut';
 
 interface StateToProps {

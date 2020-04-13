@@ -1,11 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {
-    TableToolbar,
-    SkeletonTable,
-    Skeleton
-} from '@redhat-cloud-services/frontend-components';
-import {
     Button,
     ToolbarGroup,
     ToolbarItem,
@@ -33,22 +28,25 @@ import {
     IRow,
     ICell
 } from '@patternfly/react-table';
-
-import './Reports.scss';
-import { Report } from '../../models';
-import { RouterGlobalProps } from '../../models/router';
-import ReportsPage from '../../PresentationalComponents/ReportsPage';
-import * as deleteActions from '../../actions/DialogDeleteActions';
 import {
     SearchIcon,
     OkIcon,
     ErrorCircleOIcon,
     InProgressIcon
 } from '@patternfly/react-icons';
+import {
+    TableToolbar,
+    SkeletonTable
+} from '@redhat-cloud-services/frontend-components';
 import debounce from 'lodash/debounce';
 import { Formik } from 'formik';
+import { Report } from '../../models';
+import { RouterGlobalProps } from '../../models/router';
 import { ObjectFetchStatus } from '../../models/state';
+import * as deleteActions from '../../actions/DialogDeleteActions';
 import { formatDate } from '../../Utilities/formatValue';
+import ReportsPage from '../../PresentationalComponents/ReportsPage';
+import './Reports.scss';
 
 interface StateToProps {
     reports: {

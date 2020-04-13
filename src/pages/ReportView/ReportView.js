@@ -1,8 +1,8 @@
 import React from 'react';
 import { Redirect, Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import ReportViewPage from '../../PresentationalComponents/ReportViewPage';
 import { REPORT_VIEW_PATHS, DEFAULT_VIEW_PATH_INDEX } from './ReportViewConstants';
+import ReportViewPage from '../../PresentationalComponents/ReportViewPage';
 
 class ReportView extends React.Component {
 

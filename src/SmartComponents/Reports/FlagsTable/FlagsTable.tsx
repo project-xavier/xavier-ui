@@ -1,8 +1,13 @@
 import React from 'react';
 import {
-    TableToolbar,
-    SkeletonTable
-} from '@redhat-cloud-services/frontend-components';
+    Pagination,
+    Bullseye,
+    EmptyState,
+    EmptyStateIcon,
+    EmptyStateVariant,
+    Title,
+    EmptyStateBody
+} from '@patternfly/react-core';
 import {
     Table,
     TableHeader,
@@ -14,22 +19,17 @@ import {
     cellWidth,
     TableVariant
 } from '@patternfly/react-table';
-import {
-    Pagination,
-    Bullseye,
-    EmptyState,
-    EmptyStateIcon,
-    EmptyStateVariant,
-    Title,
-    EmptyStateBody} from '@patternfly/react-core';
 import { SearchIcon } from '@patternfly/react-icons';
+import {
+    SkeletonTable
+} from '@redhat-cloud-services/frontend-components';
+import debounce from 'lodash/debounce';
 import { FlagModel, FlagAssessmentModel } from '../../../models';
 import { ObjectFetchStatus } from '../../../models/state';
-import debounce from 'lodash/debounce';
 import { formatNumber } from '../../../Utilities/formatValue';
-import './FlagsTable.scss';
 import { isNullOrUndefined } from '../../../Utilities/formUtils';
 import { FetchErrorEmptyState } from '../../../PresentationalComponents/FetchErrorEmptyState';
+import './FlagsTable.scss';
 
 interface StateToProps {
     reportFlags: {

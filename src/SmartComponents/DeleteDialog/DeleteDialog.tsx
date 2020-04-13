@@ -1,5 +1,5 @@
-import { Button, Modal, ButtonVariant } from '@patternfly/react-core';
 import React from 'react';
+import { Button, Modal, ButtonVariant } from '@patternfly/react-core';
 import './DeleteDialog.scss';
 
 interface Props {

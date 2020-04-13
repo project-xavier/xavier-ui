@@ -1,8 +1,4 @@
 import React from 'react';
-import {
-    Skeleton,
-    SkeletonTable
-} from '@redhat-cloud-services/frontend-components';
 import { ObjectFetchStatus } from '../../../models/state';
 import { ReportWorkloadSummary } from '../../../models';
 import {
@@ -19,6 +15,10 @@ import {
     Tooltip
 } from '@patternfly/react-core';
 import { ErrorCircleOIcon, HelpIcon } from '@patternfly/react-icons';
+import {
+    Skeleton,
+    SkeletonTable
+} from '@redhat-cloud-services/frontend-components';
 import ReportCard from '../../../PresentationalComponents/ReportCard';
 import SummaryTable from '../../../PresentationalComponents/Reports/SummaryTable';
 import FancyChartDonut from '../../../PresentationalComponents/FancyChartDonut';

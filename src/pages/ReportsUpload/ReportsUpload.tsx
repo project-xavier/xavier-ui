@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import {
     Button,
     Modal,
@@ -16,20 +17,19 @@ import {
     EmptyStateSecondaryActions
 } from '@patternfly/react-core';
 import { VolumeIcon } from '@patternfly/react-icons';
-import { Link } from 'react-router-dom';
-import Axios from 'axios';
-import { Formik } from 'formik';
-import * as Yup from 'yup';
-import { RouterGlobalProps } from '../../models/router';
 import {
     Main,
     PageHeader,
     PageHeaderTitle
 } from '@redhat-cloud-services/frontend-components';
+import Axios from 'axios';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
+import { RouterGlobalProps } from '../../models/router';
 import { Upload, User } from '../../models';
-import './ReportsUpload.scss';
-import UploadForm from './UploadForm';
 import { validateForm } from '../../Utilities/formUtils';
+import UploadForm from './UploadForm';
+import './ReportsUpload.scss';
 
 interface FormValues {
     file: File | undefined;

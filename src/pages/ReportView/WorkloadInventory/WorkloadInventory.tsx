@@ -1,10 +1,6 @@
 import React from 'react';
 import { RouterGlobalProps } from '../../../models/router';
 import {
-    TableToolbar,
-    SkeletonTable
-} from '@redhat-cloud-services/frontend-components';
-import {
     expandable,
     Table,
     TableHeader,
@@ -49,13 +45,17 @@ import {
     KebabToggle
 } from '@patternfly/react-core';
 import { ErrorCircleOIcon, SearchIcon, FilterIcon } from '@patternfly/react-icons';
-import './WorkloadInventory.scss';
-import { ReportWorkloadInventory, WorkloadInventoryReportFiltersModel } from '../../../models';
-import { ObjectFetchStatus } from '../../../models/state';
-import debounce from 'lodash/debounce';
-import { extractFilenameFromContentDispositionHeaderValue } from '../../../Utilities/extractUtils';
+import {
+    TableToolbar,
+    SkeletonTable
+} from '@redhat-cloud-services/frontend-components';
 import { Formik } from 'formik';
+import debounce from 'lodash/debounce';
+import { ObjectFetchStatus } from '../../../models/state';
+import { ReportWorkloadInventory, WorkloadInventoryReportFiltersModel } from '../../../models';
+import { extractFilenameFromContentDispositionHeaderValue } from '../../../Utilities/extractUtils';
 import { WorkloadInventoryDetails } from './WorkloadInventoryDetails';
+import './WorkloadInventory.scss';
 
 interface StateToProps extends RouterGlobalProps {
     reportWorkloadInventory: {

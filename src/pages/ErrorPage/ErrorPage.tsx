@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-    Main,
-    PageHeader,
-    PageHeaderTitle
-} from '@redhat-cloud-services/frontend-components';
+import { Link } from 'react-router-dom';
 import {
     Bullseye,
     EmptyState,
@@ -14,7 +10,11 @@ import {
     EmptyStateBody
 } from '@patternfly/react-core';
 import { ErrorCircleOIcon } from '@patternfly/react-icons';
-import { Link } from 'react-router-dom';
+import {
+    Main,
+    PageHeader,
+    PageHeaderTitle
+} from '@redhat-cloud-services/frontend-components';
 
 interface StateToProps {}
 

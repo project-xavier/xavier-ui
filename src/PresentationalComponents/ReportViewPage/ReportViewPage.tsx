@@ -1,23 +1,22 @@
 import React, { Fragment, Component } from 'react';
-import { Redirect } from 'react-router-dom';
-import {
-    Main,
-    PageHeader,
-    PageHeaderTitle,
-    Skeleton
-} from '@redhat-cloud-services/frontend-components';
+import { Link, Redirect } from 'react-router-dom';
 import {
     Tabs,
     Tab,
     Breadcrumb,
     BreadcrumbItem
 } from '@patternfly/react-core';
+import {
+    Main,
+    PageHeader,
+    PageHeaderTitle,
+    Skeleton
+} from '@redhat-cloud-services/frontend-components';
 import { Report } from '../../models';
-import { Link } from 'react-router-dom';
 import { RouterGlobalProps } from '../../models/router';
-import { REPORT_VIEW_PATHS, DEFAULT_VIEW_PATH_INDEX, INITIAL_SAVINGS_ESTIMATION_KEY } from '../../pages/ReportView/ReportViewConstants';
 import { ObjectFetchStatus } from '../../models/state';
 import { formatDate } from '../../Utilities/formatValue';
+import { REPORT_VIEW_PATHS, DEFAULT_VIEW_PATH_INDEX, INITIAL_SAVINGS_ESTIMATION_KEY } from '../../pages/ReportView/ReportViewConstants';
 
 export interface Props extends RouterGlobalProps {
     mainStyle?: any;

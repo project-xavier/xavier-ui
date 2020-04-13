@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import {
     EmptyStateBody,
     EmptyState,
@@ -7,11 +7,10 @@ import {
     Bullseye,
     EmptyStateVariant
 } from '@patternfly/react-core';
-import ProcessImprovementSvg from '../../PresentationalComponents/Icons/process-improvement_svg';
-import './GettingStarted.scss';
-import ReportsPage from '../../PresentationalComponents/ReportsPage/ReportsPage';
 import { User } from '../../models';
-import { Redirect } from 'react-router';
+import ProcessImprovementSvg from '../../PresentationalComponents/Icons/process-improvement_svg';
+import ReportsPage from '../../PresentationalComponents/ReportsPage/ReportsPage';
+import './GettingStarted.scss';
 
 interface StateToProps {
     user: User | null;
