@@ -57,30 +57,32 @@ exports[`UploadForm expect to render 1`] = `
     isValid={true}
     label="Year-over-year growth rate for new hypervisors"
   >
-    <div
-      className="pf-l-grid pf-m-all-3-col-on-md"
+    <Grid
+      md={3}
     >
-      <InputGroup>
-        <ForwardRef
-          aria-describedby="Year-over-year growth rate for new hypervisors"
-          className="pf-u-text-align-right"
-          id="yearOverYearGrowthRatePercentage"
-          isRequired={true}
-          isValid={true}
-          name="yearOverYearGrowthRatePercentage"
-          onBlur={[MockFunction]}
-          onChange={[Function]}
-          type="number"
-        />
-        <InputGroupText>
-          %
-        </InputGroupText>
-      </InputGroup>
-    </div>
+      <GridItem>
+        <InputGroup>
+          <ForwardRef
+            aria-describedby="Year-over-year growth rate for new hypervisors"
+            className="pf-u-text-align-right"
+            id="yearOverYearGrowthRatePercentage"
+            isRequired={true}
+            isValid={true}
+            name="yearOverYearGrowthRatePercentage"
+            onBlur={[MockFunction]}
+            onChange={[Function]}
+            type="number"
+          />
+          <InputGroupText>
+            %
+          </InputGroupText>
+        </InputGroup>
+      </GridItem>
+    </Grid>
   </FormGroup>
   <Stack
     className="pf-sm-gutter"
-    gutter="sm"
+    gutter="lg"
   >
     <StackItem
       isFilled={false}
@@ -104,26 +106,28 @@ exports[`UploadForm expect to render 1`] = `
         isValid={true}
         label="Year1"
       >
-        <div
-          className="pf-l-grid pf-m-all-3-col-on-md"
+        <Grid
+          md={3}
         >
-          <InputGroup>
-            <ForwardRef
-              aria-label="Percentage of hypervisors migrated on year 1"
-              className="pf-u-text-align-right"
-              id="percentageOfHypervisorsMigratedOnYear1"
-              isRequired={true}
-              isValid={true}
-              name="percentageOfHypervisorsMigratedOnYear1"
-              onBlur={[MockFunction]}
-              onChange={[Function]}
-              type="number"
-            />
-            <InputGroupText>
-              %
-            </InputGroupText>
-          </InputGroup>
-        </div>
+          <GridItem>
+            <InputGroup>
+              <ForwardRef
+                aria-label="Percentage of hypervisors migrated on year 1"
+                className="pf-u-text-align-right"
+                id="percentageOfHypervisorsMigratedOnYear1"
+                isRequired={true}
+                isValid={true}
+                name="percentageOfHypervisorsMigratedOnYear1"
+                onBlur={[MockFunction]}
+                onChange={[Function]}
+                type="number"
+              />
+              <InputGroupText>
+                %
+              </InputGroupText>
+            </InputGroup>
+          </GridItem>
+        </Grid>
       </FormGroup>
     </StackItem>
     <StackItem
@@ -135,26 +139,28 @@ exports[`UploadForm expect to render 1`] = `
         isValid={true}
         label="Year 2"
       >
-        <div
-          className="pf-l-grid pf-m-all-3-col-on-md"
+        <Grid
+          md={3}
         >
-          <InputGroup>
-            <ForwardRef
-              aria-label="Percentage of hypervisors migrated on year 2"
-              className="pf-u-text-align-right"
-              id="percentageOfHypervisorsMigratedOnYear2"
-              isRequired={true}
-              isValid={true}
-              name="percentageOfHypervisorsMigratedOnYear2"
-              onBlur={[MockFunction]}
-              onChange={[Function]}
-              type="number"
-            />
-            <InputGroupText>
-              %
-            </InputGroupText>
-          </InputGroup>
-        </div>
+          <GridItem>
+            <InputGroup>
+              <ForwardRef
+                aria-label="Percentage of hypervisors migrated on year 2"
+                className="pf-u-text-align-right"
+                id="percentageOfHypervisorsMigratedOnYear2"
+                isRequired={true}
+                isValid={true}
+                name="percentageOfHypervisorsMigratedOnYear2"
+                onBlur={[MockFunction]}
+                onChange={[Function]}
+                type="number"
+              />
+              <InputGroupText>
+                %
+              </InputGroupText>
+            </InputGroup>
+          </GridItem>
+        </Grid>
       </FormGroup>
     </StackItem>
     <StackItem
@@ -166,26 +172,28 @@ exports[`UploadForm expect to render 1`] = `
         isValid={true}
         label="Year 3"
       >
-        <div
-          className="pf-l-grid pf-m-all-3-col-on-md"
+        <Grid
+          md={3}
         >
-          <InputGroup>
-            <ForwardRef
-              aria-label="Percentage of hypervisors migrated on year 3"
-              className="pf-u-text-align-right"
-              id="percentageOfHypervisorsMigratedOnYear3"
-              isRequired={true}
-              isValid={true}
-              name="percentageOfHypervisorsMigratedOnYear3"
-              onBlur={[MockFunction]}
-              onChange={[Function]}
-              type="number"
-            />
-            <InputGroupText>
-              %
-            </InputGroupText>
-          </InputGroup>
-        </div>
+          <GridItem>
+            <InputGroup>
+              <ForwardRef
+                aria-label="Percentage of hypervisors migrated on year 3"
+                className="pf-u-text-align-right"
+                id="percentageOfHypervisorsMigratedOnYear3"
+                isRequired={true}
+                isValid={true}
+                name="percentageOfHypervisorsMigratedOnYear3"
+                onBlur={[MockFunction]}
+                onChange={[Function]}
+                type="number"
+              />
+              <InputGroupText>
+                %
+              </InputGroupText>
+            </InputGroup>
+          </GridItem>
+        </Grid>
       </FormGroup>
     </StackItem>
   </Stack>
@@ -270,30 +278,32 @@ exports[`UploadForm expect to render errors 1`] = `
     isValid={false}
     label="Year-over-year growth rate for new hypervisors"
   >
-    <div
-      className="pf-l-grid pf-m-all-3-col-on-md"
+    <Grid
+      md={3}
     >
-      <InputGroup>
-        <ForwardRef
-          aria-describedby="Year-over-year growth rate for new hypervisors"
-          className="pf-u-text-align-right"
-          id="yearOverYearGrowthRatePercentage"
-          isRequired={true}
-          isValid={false}
-          name="yearOverYearGrowthRatePercentage"
-          onBlur={[MockFunction]}
-          onChange={[Function]}
-          type="number"
-        />
-        <InputGroupText>
-          %
-        </InputGroupText>
-      </InputGroup>
-    </div>
+      <GridItem>
+        <InputGroup>
+          <ForwardRef
+            aria-describedby="Year-over-year growth rate for new hypervisors"
+            className="pf-u-text-align-right"
+            id="yearOverYearGrowthRatePercentage"
+            isRequired={true}
+            isValid={false}
+            name="yearOverYearGrowthRatePercentage"
+            onBlur={[MockFunction]}
+            onChange={[Function]}
+            type="number"
+          />
+          <InputGroupText>
+            %
+          </InputGroupText>
+        </InputGroup>
+      </GridItem>
+    </Grid>
   </FormGroup>
   <Stack
     className="pf-sm-gutter"
-    gutter="sm"
+    gutter="lg"
   >
     <StackItem
       isFilled={false}
@@ -318,26 +328,28 @@ exports[`UploadForm expect to render errors 1`] = `
         isValid={false}
         label="Year1"
       >
-        <div
-          className="pf-l-grid pf-m-all-3-col-on-md"
+        <Grid
+          md={3}
         >
-          <InputGroup>
-            <ForwardRef
-              aria-label="Percentage of hypervisors migrated on year 1"
-              className="pf-u-text-align-right"
-              id="percentageOfHypervisorsMigratedOnYear1"
-              isRequired={true}
-              isValid={false}
-              name="percentageOfHypervisorsMigratedOnYear1"
-              onBlur={[MockFunction]}
-              onChange={[Function]}
-              type="number"
-            />
-            <InputGroupText>
-              %
-            </InputGroupText>
-          </InputGroup>
-        </div>
+          <GridItem>
+            <InputGroup>
+              <ForwardRef
+                aria-label="Percentage of hypervisors migrated on year 1"
+                className="pf-u-text-align-right"
+                id="percentageOfHypervisorsMigratedOnYear1"
+                isRequired={true}
+                isValid={false}
+                name="percentageOfHypervisorsMigratedOnYear1"
+                onBlur={[MockFunction]}
+                onChange={[Function]}
+                type="number"
+              />
+              <InputGroupText>
+                %
+              </InputGroupText>
+            </InputGroup>
+          </GridItem>
+        </Grid>
       </FormGroup>
     </StackItem>
     <StackItem
@@ -350,26 +362,28 @@ exports[`UploadForm expect to render errors 1`] = `
         isValid={false}
         label="Year 2"
       >
-        <div
-          className="pf-l-grid pf-m-all-3-col-on-md"
+        <Grid
+          md={3}
         >
-          <InputGroup>
-            <ForwardRef
-              aria-label="Percentage of hypervisors migrated on year 2"
-              className="pf-u-text-align-right"
-              id="percentageOfHypervisorsMigratedOnYear2"
-              isRequired={true}
-              isValid={false}
-              name="percentageOfHypervisorsMigratedOnYear2"
-              onBlur={[MockFunction]}
-              onChange={[Function]}
-              type="number"
-            />
-            <InputGroupText>
-              %
-            </InputGroupText>
-          </InputGroup>
-        </div>
+          <GridItem>
+            <InputGroup>
+              <ForwardRef
+                aria-label="Percentage of hypervisors migrated on year 2"
+                className="pf-u-text-align-right"
+                id="percentageOfHypervisorsMigratedOnYear2"
+                isRequired={true}
+                isValid={false}
+                name="percentageOfHypervisorsMigratedOnYear2"
+                onBlur={[MockFunction]}
+                onChange={[Function]}
+                type="number"
+              />
+              <InputGroupText>
+                %
+              </InputGroupText>
+            </InputGroup>
+          </GridItem>
+        </Grid>
       </FormGroup>
     </StackItem>
     <StackItem
@@ -382,26 +396,28 @@ exports[`UploadForm expect to render errors 1`] = `
         isValid={false}
         label="Year 3"
       >
-        <div
-          className="pf-l-grid pf-m-all-3-col-on-md"
+        <Grid
+          md={3}
         >
-          <InputGroup>
-            <ForwardRef
-              aria-label="Percentage of hypervisors migrated on year 3"
-              className="pf-u-text-align-right"
-              id="percentageOfHypervisorsMigratedOnYear3"
-              isRequired={true}
-              isValid={true}
-              name="percentageOfHypervisorsMigratedOnYear3"
-              onBlur={[MockFunction]}
-              onChange={[Function]}
-              type="number"
-            />
-            <InputGroupText>
-              %
-            </InputGroupText>
-          </InputGroup>
-        </div>
+          <GridItem>
+            <InputGroup>
+              <ForwardRef
+                aria-label="Percentage of hypervisors migrated on year 3"
+                className="pf-u-text-align-right"
+                id="percentageOfHypervisorsMigratedOnYear3"
+                isRequired={true}
+                isValid={true}
+                name="percentageOfHypervisorsMigratedOnYear3"
+                onBlur={[MockFunction]}
+                onChange={[Function]}
+                type="number"
+              />
+              <InputGroupText>
+                %
+              </InputGroupText>
+            </InputGroup>
+          </GridItem>
+        </Grid>
       </FormGroup>
     </StackItem>
   </Stack>

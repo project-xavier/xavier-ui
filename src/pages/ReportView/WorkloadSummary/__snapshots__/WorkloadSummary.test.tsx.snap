@@ -170,26 +170,36 @@ exports[`WorkloadMigrationSummary expect to render reports 1`] = `
         skipBullseye={true}
         title="Target recommendation"
       >
-        <div
-          className="pf-l-grid pf-m-all-6-col-on-md pf-m-all-3-col-on-lg pf-m-gutter"
+        <Grid
+          gutter="sm"
+          lg={3}
+          md={6}
         >
-          <SolidCard
-            description="Workloads suitable for Red Hat Virtualization"
-            title="97% RHV"
-          />
-          <SolidCard
-            description="Workloads could be running on Red Hat OpenStack Platform"
-            title="96% OSP"
-          />
-          <SolidCard
-            description="Workloads possible to migrate to Red Hat Enterprise Linux"
-            title="6% RHEL"
-          />
-          <SolidCard
-            description="Workloads targeted for OpenShift virtualization"
-            title="88% OCP"
-          />
-        </div>
+          <GridItem>
+            <SolidCard
+              description="Workloads suitable for Red Hat Virtualization"
+              title="97% RHV"
+            />
+          </GridItem>
+          <GridItem>
+            <SolidCard
+              description="Workloads could be running on Red Hat OpenStack Platform"
+              title="96% OSP"
+            />
+          </GridItem>
+          <GridItem>
+            <SolidCard
+              description="Workloads possible to migrate to Red Hat Enterprise Linux"
+              title="6% RHEL"
+            />
+          </GridItem>
+          <GridItem>
+            <SolidCard
+              description="Workloads targeted for OpenShift virtualization"
+              title="88% OCP"
+            />
+          </GridItem>
+        </Grid>
       </ReportCard>
     </StackItem>
     <StackItem

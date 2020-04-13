@@ -13,66 +13,56 @@ exports[`ReportViewPage expect to render skeleton 1`] = `
     <PageHeaderTitle
       title={
         <React.Fragment>
-          <div
-            className="pf-l-stack pf-m-gutter"
+          <Stack
+            gutter="sm"
           >
-            <div
-              className="pf-l-stack__item"
-            >
+            <StackItem>
               <Skeleton
                 isDark={false}
                 size="sm"
               />
-            </div>
-            <div
-              className="pf-l-stack__item"
-            >
+            </StackItem>
+            <StackItem>
               <Skeleton
                 isDark={false}
                 size="sm"
               />
-            </div>
-            <div
-              className="pf-l-stack__item"
-            >
+            </StackItem>
+            <StackItem>
               <Skeleton
                 isDark={false}
                 size="sm"
               />
-            </div>
-            <div
-              className="pf-l-stack__item"
-            >
-              <div
-                className="pf-l-grid"
-              >
-                <div
-                  className="pf-l-grid__item pf-m-4-col"
+            </StackItem>
+            <StackItem>
+              <Grid>
+                <GridItem
+                  span={4}
                 >
                   <Skeleton
                     isDark={false}
                     size="md"
                   />
-                </div>
-                <div
-                  className="pf-l-grid__item pf-m-4-col"
+                </GridItem>
+                <GridItem
+                  span={4}
                 >
                   <Skeleton
                     isDark={false}
                     size="md"
                   />
-                </div>
-                <div
-                  className="pf-l-grid__item pf-m-4-col"
+                </GridItem>
+                <GridItem
+                  span={4}
                 >
                   <Skeleton
                     isDark={false}
                     size="md"
                   />
-                </div>
-              </div>
-            </div>
-          </div>
+                </GridItem>
+              </Grid>
+            </StackItem>
+          </Stack>
         </React.Fragment>
       }
     />
