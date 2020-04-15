@@ -28,6 +28,8 @@ export class WorkloadInventoryDetails extends React.Component<WorkloadInventoryD
                     <dd>{formatNumber(reportWorkloadInventory.cpuCores, 0)}</dd>
                     <dt>Operating system description</dt>
                     <dd>{reportWorkloadInventory.osDescription}</dd>
+                    <dt>Red Hat Insights</dt>
+                    <dd>{reportWorkloadInventory.insightsEnabled ? 'Enabled' : 'Disabled'}</dd>
                 </dl>
             </div>
         );

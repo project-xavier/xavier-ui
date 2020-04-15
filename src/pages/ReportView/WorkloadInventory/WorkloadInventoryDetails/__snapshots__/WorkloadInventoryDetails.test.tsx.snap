@@ -29,6 +29,12 @@ exports[`WorkloadInventoryDetails expect to render 1`] = `
     <dd>
       My description
     </dd>
+    <dt>
+      Red Hat Insights
+    </dt>
+    <dd>
+      Enabled
+    </dd>
   </dl>
 </div>
 `;
