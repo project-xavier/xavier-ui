@@ -63,7 +63,6 @@ interface StateToProps extends RouterGlobalProps {
         items: ReportWorkloadInventory[]
     };
     reportWorkloadInventoryFetchStatus: ObjectFetchStatus;
-    reportWorkloadInventoryAllCSVFetchStatus: ObjectFetchStatus;
     reportWorkloadInventoryFilteredCSVFetchStatus: ObjectFetchStatus;
     reportWorkloadInventoryAvailableFilters: WorkloadInventoryReportFiltersModel | null;
     reportWorkloadInventoryAvailableFiltersFetchStatus: ObjectFetchStatus;
@@ -78,7 +77,6 @@ interface DispatchToProps {
         orderDirection: 'asc' | 'desc' | undefined,
         filterValue: Map<string, string[]>
     ) => any;
-    fetchReportWorkloadInventoryAllCSV:(reportId: number) => any;
     fetchReportWorkloadInventoryFilteredCSV:(
         id: number,
         orderBy: string | undefined,
@@ -115,7 +113,6 @@ interface State {
     };
     filterValue: Map<FilterTypeKeyEnum, string[]>;
     secondaryFilterDropDownOpen: boolean;
-    isToolbarKebabOpen: boolean;
 };
 
 interface FilterConfig {
@@ -272,8 +269,7 @@ class WorkloadInventory extends React.Component<Props, State> {
                 name: 'Filter',
                 value: FilterTypeKeyEnum.NONE,
             },
-            filterValue: new Map(),
-            isToolbarKebabOpen: false
+            filterValue: new Map()
         };
     }
 
@@ -282,13 +278,7 @@ class WorkloadInventory extends React.Component<Props, State> {
         this.refreshFilters();
     }
 
-    public handleToolbarKebabToggle = (newIsOpen: boolean) => {
-        this.setState({ isToolbarKebabOpen: newIsOpen });
-    };
-
     public handleDownloadFilteredCSV = () => {
-        this.handleToolbarKebabToggle(false);
-
         const { sortBy, filterValue, } = this.state;
         const {reportId, fetchReportWorkloadInventoryFilteredCSV} = this.props;
 
@@ -297,24 +287,6 @@ class WorkloadInventory extends React.Component<Props, State> {
 
         const mappedFilterValue = this.prepareFiltersToBeSended(filterValue);
         fetchReportWorkloadInventoryFilteredCSV(reportId, orderByColumn, orderDirection, mappedFilterValue).then((response: any) => {
-            const contentDispositionHeader = response.value.headers['content-disposition'];
-            const fileName = extractFilenameFromContentDispositionHeaderValue(contentDispositionHeader);
-
-            const downloadUrl = window.URL.createObjectURL(new Blob([response.value.data]));
-            const link = document.createElement('a');
-            link.href = downloadUrl;
-            link.setAttribute('download', fileName || 'workloadInventoryReport.csv');
-            document.body.appendChild(link);
-            link.click();
-            link.remove();
-        });
-    };
-
-    public handleDownloadAllCSV = () => {
-        this.handleToolbarKebabToggle(false);
-
-        const {reportId, fetchReportWorkloadInventoryAllCSV} = this.props;
-        fetchReportWorkloadInventoryAllCSV(reportId).then((response: any) => {
             const contentDispositionHeader = response.value.headers['content-disposition'];
             const fileName = extractFilenameFromContentDispositionHeaderValue(contentDispositionHeader);
 
@@ -927,10 +899,9 @@ class WorkloadInventory extends React.Component<Props, State> {
     };
 
     public render() {
-        const { isToolbarKebabOpen } = this.state;
+        const { } = this.state;
         const {
             reportWorkloadInventoryFetchStatus,
-            reportWorkloadInventoryAllCSVFetchStatus,
             reportWorkloadInventoryFilteredCSVFetchStatus
         } = this.props;
 
@@ -947,24 +918,16 @@ class WorkloadInventory extends React.Component<Props, State> {
                         <ToolbarItem>{this.renderFilterTypeDropdown()}</ToolbarItem>
                         <ToolbarItem className="pf-u-mr-md">{this.renderFilterInput()}</ToolbarItem>
                         <ToolbarItem className="pf-u-mr-md">
-                        <Dropdown
-                            position={'right'}
-                            toggle={<KebabToggle onToggle={this.handleToolbarKebabToggle} />}
-                            isOpen={isToolbarKebabOpen}
-                            isPlain={true}
-                            dropdownItems={[
-                                <DropdownItem key="exportAsCSVAll" component="button" onClick={this.handleDownloadFilteredCSV}>
-                                    Export as CSV
-                                </DropdownItem>,
-                                <DropdownItem key="exportAsCSVFiltered" component="button" onClick={this.handleDownloadAllCSV}>
-                                    Export all as CSV
-                                </DropdownItem>
-                            ]}
-                            disabled={
-                                reportWorkloadInventoryAllCSVFetchStatus.status==='inProgress' ||
-                                reportWorkloadInventoryFilteredCSVFetchStatus.status==='inProgress'
-                            }
-                        />
+                            <Button
+                                variant={"primary"}
+                                onClick={this.handleDownloadFilteredCSV}
+                                isDisabled={reportWorkloadInventoryFilteredCSVFetchStatus.status==='inProgress'}
+                            >
+                                {
+                                    reportWorkloadInventoryFilteredCSVFetchStatus.status==='inProgress' ?
+                                        'Exporting CSV' : 'Export as CSV'
+                                }
+                            </Button>
                         </ToolbarItem>
                     </ToolbarGroup>
                     <ToolbarGroup>
