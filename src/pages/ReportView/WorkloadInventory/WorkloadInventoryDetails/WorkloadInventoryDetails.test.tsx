@@ -18,7 +18,8 @@ describe('WorkloadInventoryDetails', () => {
                 complexity: '',
                 flagsIMS: [],
                 workloads: [],
-                recommendedTargetsIMS: []
+                recommendedTargetsIMS: [],
+                insightsEnabled: true
             }
         };
         const wrapper = shallow(<WorkloadInventoryDetails {...props} />);

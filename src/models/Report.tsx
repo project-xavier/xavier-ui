@@ -256,6 +256,7 @@ export interface ReportWorkloadInventory {
     diskSpace: number;
     memory: number;
     cpuCores: number;
+    insightsEnabled: boolean;
 }
 
 export interface WorkloadInventoryReportFiltersModel {
