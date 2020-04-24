@@ -6,16 +6,26 @@ exports[`WorkloadInventoryDetails expect to render 1`] = `
 >
   <dl>
     <dt>
-      Disk space (GiB)
+      Relevant targets
+    </dt>
+    <dd />
+    <dt>
+      Flags
     </dt>
     <dd>
-      1.0
+      Not identified
     </dd>
     <dt>
-      Memory (GiB)
+      Disk space
     </dt>
     <dd>
-      2.0
+      1.0 GiB
+    </dd>
+    <dt>
+      Memory
+    </dt>
+    <dd>
+      2.0 GiB
     </dd>
     <dt>
       CPU cores
