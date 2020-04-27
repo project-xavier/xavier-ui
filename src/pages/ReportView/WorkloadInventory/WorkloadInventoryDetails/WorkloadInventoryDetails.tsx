@@ -1,8 +1,7 @@
 import React from 'react';
 import { Label, Tooltip } from '@patternfly/react-core';
 import { ReportWorkloadInventory } from '../../../../models';
-import { formatValue, formatNumber, formatBytes } from '../../../../Utilities/formatValue';
-import { bytesToGb } from '../../../../Utilities/unitConvertors';
+import { formatNumber, formatBytes } from '../../../../Utilities/formatValue';
 
 export interface WorkloadInventoryDetailsProps {
     reportWorkloadInventory: ReportWorkloadInventory;
@@ -21,7 +20,7 @@ export class WorkloadInventoryDetails extends React.Component<WorkloadInventoryD
         return (
             <div className="pf-c-content">
                 <dl>
-                    <dt>Relevant targets</dt>
+                    <dt>Recommended targets</dt>
                     <dd>{reportWorkloadInventory.recommendedTargetsIMS.map((e, index) => {
                         return (
                             <Tooltip key={index}
@@ -41,7 +40,7 @@ export class WorkloadInventoryDetails extends React.Component<WorkloadInventoryD
                     <dd>{
                         reportWorkloadInventory.flagsIMS && reportWorkloadInventory.flagsIMS.length > 0
                          ? reportWorkloadInventory.flagsIMS.join(", ")
-                         : 'Not identified'
+                         : 'None identified'
                     }
                     </dd>
                     <dt>Disk space</dt>

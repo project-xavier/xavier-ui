@@ -6,14 +6,14 @@ exports[`WorkloadInventoryDetails expect to render 1`] = `
 >
   <dl>
     <dt>
-      Relevant targets
+      Recommended targets
     </dt>
     <dd />
     <dt>
       Flags
     </dt>
     <dd>
-      Not identified
+      None identified
     </dd>
     <dt>
       Disk space
