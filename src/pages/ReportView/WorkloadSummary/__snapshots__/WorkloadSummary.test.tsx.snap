@@ -197,9 +197,9 @@ exports[`WorkloadMigrationSummary expect to render reports 1`] = `
     >
       <ReportCard
         skipBullseye={true}
-        title="Workloads detected"
+        title="Flags (factors that could increase migration complexity)"
       >
-        <Connect(WorkloadsDetectedTable)
+        <Connect(FlagsTable)
           reportId={1}
         />
       </ReportCard>
@@ -207,53 +207,83 @@ exports[`WorkloadMigrationSummary expect to render reports 1`] = `
     <StackItem
       isFilled={false}
     >
-      <ReportCard
-        title="Workloads detected (OS Types)"
+      <Grid
+        gutter="sm"
+        lg={4}
       >
-        <FancyChartDonut
-          chartLegendProps={
-            Object {
-              "height": 300,
-              "responsive": false,
-              "width": 210,
-              "y": 60,
-            }
-          }
-          chartProps={
-            Object {
-              "height": 300,
-              "subTitle": "Total workloads",
-              "title": "5",
-              "width": 300,
-            }
-          }
-          data={
-            Array [
+        <GridItem>
+          <Component
+            minHeight={311}
+            title="OS information"
+          />
+        </GridItem>
+        <GridItem>
+          <Component
+            reportWorkloadSummary={
               Object {
-                "extraData": 1,
-                "label": "ServerNT",
-                "value": 0.2,
-              },
-              Object {
-                "extraData": 4,
-                "label": "Linux",
-                "value": 0.8,
-              },
-            ]
-          }
-          tickFormat={[Function]}
-          tooltipFormat={[Function]}
-        />
-      </ReportCard>
+                "complexityModel": Object {
+                  "easy": 111,
+                  "hard": 0,
+                  "medium": 11,
+                  "unknown": 0,
+                  "unsupported": 4,
+                },
+                "javaRuntimes": Array [],
+                "recommendedTargetsIMSModel": Object {
+                  "ocp": 111,
+                  "osp": 121,
+                  "rhel": 7,
+                  "rhv": 122,
+                  "total": 126,
+                },
+                "scanRunModels": Array [
+                  Object {
+                    "date": 1580774400000,
+                    "smartStateEnabled": true,
+                    "target": "VMware",
+                  },
+                ],
+                "summaryModels": Array [
+                  Object {
+                    "clusters": 1,
+                    "hosts": 2,
+                    "product": "VMware vCenter",
+                    "provider": "VMware",
+                    "sockets": 164,
+                    "version": "6.5",
+                    "vms": 126,
+                  },
+                ],
+                "workloadsDetectedOSTypeModels": Array [
+                  Object {
+                    "osName": "ServerNT",
+                    "total": 1,
+                  },
+                  Object {
+                    "osName": "Linux",
+                    "total": 4,
+                  },
+                ],
+              }
+            }
+          />
+        </GridItem>
+        <GridItem>
+          <Component
+            minHeight={311}
+            title="Application platforms information"
+          />
+        </GridItem>
+      </Grid>
     </StackItem>
     <StackItem
       isFilled={false}
     >
       <ReportCard
         skipBullseye={true}
-        title="Flags (factors that could increase migration complexity)"
+        title="Workloads detected"
       >
-        <Connect(FlagsTable)
+        <Connect(WorkloadsDetectedTable)
           reportId={1}
         />
       </ReportCard>

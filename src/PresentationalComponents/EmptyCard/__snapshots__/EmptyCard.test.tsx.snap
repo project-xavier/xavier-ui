@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EmptyCard expect to render 1`] = `
+<Card>
+  <div
+    className="pf-c-card__header pf-c-title pf-m-xl"
+  >
+    My Title
+  </div>
+  <CardBody>
+    <Bullseye>
+      <EmptyState
+        variant="full"
+      >
+        <EmptyStateIcon
+          icon={[Function]}
+        />
+        <Title
+          headingLevel="h6"
+          size="lg"
+        >
+          Not enough data to show this card.
+        </Title>
+      </EmptyState>
+    </Bullseye>
+  </CardBody>
+</Card>
+`;
+
+exports[`EmptyCard expect to render with title as Element 1`] = `
+<Card>
+  <div
+    className="pf-c-card__header pf-c-title pf-m-xl"
+  >
+    <h1>
+      My Title
+    </h1>
+  </div>
+  <CardBody>
+    <Bullseye>
+      <EmptyState
+        variant="full"
+      >
+        <EmptyStateIcon
+          icon={[Function]}
+        />
+        <Title
+          headingLevel="h6"
+          size="lg"
+        >
+          Not enough data to show this card.
+        </Title>
+      </EmptyState>
+    </Bullseye>
+  </CardBody>
+</Card>
+`;

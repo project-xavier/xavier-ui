@@ -51,7 +51,8 @@ describe('WorkloadMigrationSummary', () => {
                 complexityModel: { easy: 111, medium: 11, hard: 0, unknown: 0, unsupported: 4 },
                 recommendedTargetsIMSModel: { total: 126, rhv: 122, rhel: 7, osp: 121, ocp: 111 },
                 workloadsDetectedOSTypeModels: [{ osName: 'ServerNT', total: 1 }, { osName: 'Linux', total: 4 }],
-                scanRunModels: [{ target: 'VMware', date: 1580774400000, smartStateEnabled: true }]
+                scanRunModels: [{ target: 'VMware', date: 1580774400000, smartStateEnabled: true }],
+                javaRuntimes: []
             },
             reportWorkloadSummaryFetchStatus: { error: null, status: 'complete' },
             fetchReportWorkloadSummary: (reportId: number) => ({

@@ -19,6 +19,7 @@ export interface ReportWorkloadSummary {
     recommendedTargetsIMSModel: RecommendedTargetsIMSModel;
     workloadsDetectedOSTypeModels: WorkloadDetectedOSTypeModel[];
     scanRunModels: ScanRunModel[];
+    javaRuntimes: JavaRuntimeModel[];
 }
 
 export interface Summary {
@@ -56,6 +57,12 @@ export interface ScanRunModel {
     target: string;
     smartStateEnabled: boolean;
     date: number;
+}
+
+export interface JavaRuntimeModel {
+    vendor: string;
+    version: string;
+    total: number;
 }
 
 export interface WorkloadModel {
