@@ -18,7 +18,7 @@ export class SolidCard extends React.Component<Props, State> {
         const { title, description, width } = this.props;
 
         return (
-            <Card className="xa-c-card-solid" style={width ? { width: width } : undefined}>
+            <Card className="xa-c-card-solid" style={width ? { width } : undefined}>
                 <CardBody>
                     <h2 className="pf-c-title pf-m-3xl">{title}</h2>
                     <p>{description}</p>
