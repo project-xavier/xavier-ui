@@ -71,7 +71,7 @@ export const JavaRuntimesCard: React.FC<Props> = ({ reportWorkloadSummary }) => 
 
     return (
         <ReportCard title={title} skipBullseye={true}>
-            <Grid sm={12} lg={6} xl={6}>
+            <Grid xl={6}>
                 <GridItem>
                     <Bullseye>
                         <FancyChartDonut
@@ -88,6 +88,7 @@ export const JavaRuntimesCard: React.FC<Props> = ({ reportWorkloadSummary }) => 
                         <SolidCard
                             title={`${total} OpenJDK`}
                             description="Oracle JDKs that can be replaced with OpenJDK"
+                            width={510}
                         />
                     </Bullseye>
                 </GridItem>
