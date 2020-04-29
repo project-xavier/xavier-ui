@@ -1,26 +1,38 @@
 import React from 'react';
-import { Card, CardBody, Bullseye, EmptyState, EmptyStateVariant, EmptyStateIcon, Title } from '@patternfly/react-core';
-import { InfoIcon } from '@patternfly/react-icons';
+import {
+    Card,
+    CardBody,
+    Bullseye,
+    EmptyState,
+    EmptyStateVariant,
+    EmptyStateIcon,
+    Title,
+    EmptyStateBody
+} from '@patternfly/react-core';
+import { SearchIcon } from '@patternfly/react-icons';
 import { css } from '@patternfly/react-styles';
 import styles from '@patternfly/react-styles/css/components/Card/card';
 import titleStyles from '@patternfly/react-styles/css/components/Title/title';
 
 interface Props {
-    title: string | React.ReactElement;
+    cardTitle: string | React.ReactElement;
+    message: string;
+    description?: string;
     minHeight?: number;
 }
 
-export const EmptyCard: React.FC<Props> = ({ title, minHeight }) => {
+export const EmptyCard: React.FC<Props> = ({ cardTitle, message, description, minHeight }) => {
     return (
         <Card>
-            <div className={css(styles.cardHeader, titleStyles.title, titleStyles.modifiers.xl)}>{title}</div>
+            <div className={css(styles.cardHeader, titleStyles.title, titleStyles.modifiers.xl)}>{cardTitle}</div>
             <CardBody style={minHeight ? { height: minHeight } : undefined}>
                 <Bullseye>
-                    <EmptyState variant={EmptyStateVariant.full}>
-                        <EmptyStateIcon icon={InfoIcon} />
+                    <EmptyState variant={EmptyStateVariant.small}>
+                        <EmptyStateIcon icon={SearchIcon} />
                         <Title headingLevel="h6" size="lg">
-                            Not enough data to show this card.
+                            {message}
                         </Title>
+                        {description && <EmptyStateBody>{description}</EmptyStateBody>}
                     </EmptyState>
                 </Bullseye>
             </CardBody>

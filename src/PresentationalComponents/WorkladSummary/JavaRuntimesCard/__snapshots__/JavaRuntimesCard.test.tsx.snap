@@ -5,66 +5,45 @@ exports[`JavaRuntimesCard expect to render 1`] = `
   skipBullseye={true}
   title="Oracle Java runtimes information"
 >
-  <Stack>
-    <StackItem>
-      <div
-        className="pf-c-content"
-      >
-        <h5>
-          <i>
-            <BullseyeIcon
-              color="currentColor"
-              noVerticalAlign={false}
-              size="sm"
-              title={null}
-            />
-          </i>
-           
-          45
-           Oracle JDKs can be replaced with OpenJDK
-        </h5>
-        <br />
-        <Divider
-          component="div"
-        />
-      </div>
-    </StackItem>
-    <StackItem
-      isFilled={true}
-    >
+  <Grid
+    lg={6}
+    sm={12}
+    xl={6}
+  >
+    <GridItem>
       <Bullseye>
         <FancyChartDonut
           chartLegendProps={
             Object {
-              "height": 200,
+              "height": 250,
               "responsive": false,
               "width": 210,
-              "y": 60,
+              "y": 70,
             }
           }
           chartProps={
             Object {
-              "height": 270,
+              "height": 250,
               "subTitle": "Total",
               "title": "45",
-              "width": 300,
+              "width": 250,
             }
           }
           data={
             Array [
               Object {
                 "extraData": 10,
-                "label": "VendorA 8",
+                "label": "VendorA JDK 8",
                 "value": 0.2222222222222222,
               },
               Object {
                 "extraData": 15,
-                "label": "VendorB 8",
+                "label": "VendorB JDK 8",
                 "value": 0.3333333333333333,
               },
               Object {
                 "extraData": 20,
-                "label": "VendorB 11",
+                "label": "VendorB JDK 11",
                 "value": 0.4444444444444444,
               },
             ]
@@ -73,19 +52,31 @@ exports[`JavaRuntimesCard expect to render 1`] = `
           tooltipFormat={[Function]}
         />
       </Bullseye>
-    </StackItem>
-  </Stack>
+    </GridItem>
+    <GridItem>
+      <Bullseye>
+        <SolidCard
+          description="Oracle JDKs that can be replaced with OpenJDK"
+          title="45 OpenJDK"
+        />
+      </Bullseye>
+    </GridItem>
+  </Grid>
 </ReportCard>
 `;
 
 exports[`JavaRuntimesCard expect to render empty card when no java runtimes 1`] = `
 <Component
-  title="Oracle Java runtimes information"
+  cardTitle="Oracle Java runtimes information"
+  description="No instances of Oracle JDKs have been discovered."
+  message="No instances found"
 />
 `;
 
 exports[`JavaRuntimesCard expect to render empty card when undefined reportWorkloadSummary 1`] = `
 <Component
-  title="Oracle Java runtimes information"
+  cardTitle="Oracle Java runtimes information"
+  description="No instances of Oracle JDKs have been discovered."
+  message="No instances found"
 />
 `;

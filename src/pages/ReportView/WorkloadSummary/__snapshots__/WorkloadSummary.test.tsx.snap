@@ -59,6 +59,35 @@ exports[`WorkloadMigrationSummary expect to render reports 1`] = `
       isFilled={false}
     >
       <ReportCard
+        skipBullseye={true}
+        title="Target recommendation"
+      >
+        <div
+          className="pf-l-grid pf-m-all-6-col-on-md pf-m-all-3-col-on-lg pf-m-gutter"
+        >
+          <SolidCard
+            description="Workloads suitable for Red Hat Virtualization"
+            title="97% RHV"
+          />
+          <SolidCard
+            description="Workloads could be running on Red Hat OpenStack Platform"
+            title="96% OSP"
+          />
+          <SolidCard
+            description="Workloads possible to migrate to Red Hat Enterprise Linux"
+            title="6% RHEL"
+          />
+          <SolidCard
+            description="Workloads targeted for OpenShift virtualization"
+            title="88% OCP"
+          />
+        </div>
+      </ReportCard>
+    </StackItem>
+    <StackItem
+      isFilled={false}
+    >
+      <ReportCard
         title={
           <span>
             <span>
@@ -168,35 +197,6 @@ exports[`WorkloadMigrationSummary expect to render reports 1`] = `
     >
       <ReportCard
         skipBullseye={true}
-        title="Target recommendation"
-      >
-        <div
-          className="pf-l-grid pf-m-all-6-col-on-md pf-m-all-3-col-on-lg pf-m-gutter"
-        >
-          <SolidCard
-            description="Workloads suitable for Red Hat Virtualization"
-            title="97% RHV"
-          />
-          <SolidCard
-            description="Workloads could be running on Red Hat OpenStack Platform"
-            title="96% OSP"
-          />
-          <SolidCard
-            description="Workloads possible to migrate to Red Hat Enterprise Linux"
-            title="6% RHEL"
-          />
-          <SolidCard
-            description="Workloads targeted for OpenShift virtualization"
-            title="88% OCP"
-          />
-        </div>
-      </ReportCard>
-    </StackItem>
-    <StackItem
-      isFilled={false}
-    >
-      <ReportCard
-        skipBullseye={true}
         title="Flags (factors that could increase migration complexity)"
       >
         <Connect(FlagsTable)
@@ -207,74 +207,55 @@ exports[`WorkloadMigrationSummary expect to render reports 1`] = `
     <StackItem
       isFilled={false}
     >
-      <Grid
-        gutter="sm"
-        lg={4}
-      >
-        <GridItem>
-          <Component
-            minHeight={311}
-            title="OS information"
-          />
-        </GridItem>
-        <GridItem>
-          <Component
-            reportWorkloadSummary={
+      <Component
+        reportWorkloadSummary={
+          Object {
+            "complexityModel": Object {
+              "easy": 111,
+              "hard": 0,
+              "medium": 11,
+              "unknown": 0,
+              "unsupported": 4,
+            },
+            "javaRuntimes": Array [],
+            "recommendedTargetsIMSModel": Object {
+              "ocp": 111,
+              "osp": 121,
+              "rhel": 7,
+              "rhv": 122,
+              "total": 126,
+            },
+            "scanRunModels": Array [
               Object {
-                "complexityModel": Object {
-                  "easy": 111,
-                  "hard": 0,
-                  "medium": 11,
-                  "unknown": 0,
-                  "unsupported": 4,
-                },
-                "javaRuntimes": Array [],
-                "recommendedTargetsIMSModel": Object {
-                  "ocp": 111,
-                  "osp": 121,
-                  "rhel": 7,
-                  "rhv": 122,
-                  "total": 126,
-                },
-                "scanRunModels": Array [
-                  Object {
-                    "date": 1580774400000,
-                    "smartStateEnabled": true,
-                    "target": "VMware",
-                  },
-                ],
-                "summaryModels": Array [
-                  Object {
-                    "clusters": 1,
-                    "hosts": 2,
-                    "product": "VMware vCenter",
-                    "provider": "VMware",
-                    "sockets": 164,
-                    "version": "6.5",
-                    "vms": 126,
-                  },
-                ],
-                "workloadsDetectedOSTypeModels": Array [
-                  Object {
-                    "osName": "ServerNT",
-                    "total": 1,
-                  },
-                  Object {
-                    "osName": "Linux",
-                    "total": 4,
-                  },
-                ],
-              }
-            }
-          />
-        </GridItem>
-        <GridItem>
-          <Component
-            minHeight={311}
-            title="Application platforms information"
-          />
-        </GridItem>
-      </Grid>
+                "date": 1580774400000,
+                "smartStateEnabled": true,
+                "target": "VMware",
+              },
+            ],
+            "summaryModels": Array [
+              Object {
+                "clusters": 1,
+                "hosts": 2,
+                "product": "VMware vCenter",
+                "provider": "VMware",
+                "sockets": 164,
+                "version": "6.5",
+                "vms": 126,
+              },
+            ],
+            "workloadsDetectedOSTypeModels": Array [
+              Object {
+                "osName": "ServerNT",
+                "total": 1,
+              },
+              Object {
+                "osName": "Linux",
+                "total": 4,
+              },
+            ],
+          }
+        }
+      />
     </StackItem>
     <StackItem
       isFilled={false}

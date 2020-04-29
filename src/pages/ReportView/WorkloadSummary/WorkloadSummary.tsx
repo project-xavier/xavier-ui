@@ -14,9 +14,7 @@ import {
     TitleLevel,
     Stack,
     StackItem,
-    Tooltip,
-    Grid,
-    GridItem
+    Tooltip
 } from '@patternfly/react-core';
 import { ErrorCircleOIcon, HelpIcon } from '@patternfly/react-icons';
 import ReportCard from '../../../PresentationalComponents/ReportCard';
@@ -74,8 +72,8 @@ export class WorkloadMigrationSummary extends React.Component<WorkloadMigrationS
         });
     };
 
-    public renderErrorCard = (title: string | React.ReactElement) => {
-        return <EmptyCard title={title} />;
+    public renderErrorCard = (cardTitle: string | React.ReactElement) => {
+        return <EmptyCard cardTitle={cardTitle} message="Not enought data to show this card"/>;
     };
 
     public renderSummary = () => {
@@ -241,19 +239,9 @@ export class WorkloadMigrationSummary extends React.Component<WorkloadMigrationS
         );
     };
 
-    public renderOSInformation = () => {
-        const title = "OS information";
-        return <EmptyCard title={title} minHeight={311} />;
-    };
-
     public renderJavaRuntimes = () => {
         const { reportWorkloadSummary } = this.props;
         return <JavaRuntimesCard reportWorkloadSummary={reportWorkloadSummary} />;
-    }
-
-    public renderApplicationPlatforms = () => {
-        const title = "Application platforms information";
-        return <EmptyCard title={title} minHeight={311} />;
     }
 
     public renderFlagsTable = () => {
@@ -301,20 +289,16 @@ export class WorkloadMigrationSummary extends React.Component<WorkloadMigrationS
                         { this.renderSummary() }
                     </StackItem>
                     <StackItem isFilled={ false }>
-                        { this.renderMigrationComplexity() }
+                        { this.renderTargetRecommendation() }
                     </StackItem>
                     <StackItem isFilled={ false }>
-                        { this.renderTargetRecommendation() }
+                        { this.renderMigrationComplexity() }
                     </StackItem>
                     <StackItem isFilled={ false }>
                         { this.renderFlagsTable() }
                     </StackItem>
                     <StackItem isFilled={ false }>
-                        <Grid gutter="sm" lg={4}>
-                            <GridItem>{ this.renderOSInformation() }</GridItem>
-                            <GridItem>{ this.renderJavaRuntimes() }</GridItem>
-                            <GridItem>{ this.renderApplicationPlatforms() }</GridItem>
-                        </Grid>
+                        { this.renderJavaRuntimes() }
                     </StackItem>
                     <StackItem isFilled={ false }>
                         { this.renderWorkloadsDetectedTable() }

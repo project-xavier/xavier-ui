@@ -1,33 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`EmptyCard expect to render 1`] = `
-<Card>
-  <div
-    className="pf-c-card__header pf-c-title pf-m-xl"
-  >
-    My Title
-  </div>
-  <CardBody>
-    <Bullseye>
-      <EmptyState
-        variant="full"
-      >
-        <EmptyStateIcon
-          icon={[Function]}
-        />
-        <Title
-          headingLevel="h6"
-          size="lg"
-        >
-          Not enough data to show this card.
-        </Title>
-      </EmptyState>
-    </Bullseye>
-  </CardBody>
-</Card>
-`;
-
-exports[`EmptyCard expect to render with title as Element 1`] = `
+exports[`EmptyCard expect to render with cardTitle as Element 1`] = `
 <Card>
   <div
     className="pf-c-card__header pf-c-title pf-m-xl"
@@ -39,7 +12,7 @@ exports[`EmptyCard expect to render with title as Element 1`] = `
   <CardBody>
     <Bullseye>
       <EmptyState
-        variant="full"
+        variant="small"
       >
         <EmptyStateIcon
           icon={[Function]}
@@ -48,7 +21,67 @@ exports[`EmptyCard expect to render with title as Element 1`] = `
           headingLevel="h6"
           size="lg"
         >
-          Not enough data to show this card.
+          My message
+        </Title>
+        <EmptyStateBody>
+          My description
+        </EmptyStateBody>
+      </EmptyState>
+    </Bullseye>
+  </CardBody>
+</Card>
+`;
+
+exports[`EmptyCard expect to render with description 1`] = `
+<Card>
+  <div
+    className="pf-c-card__header pf-c-title pf-m-xl"
+  >
+    My card title
+  </div>
+  <CardBody>
+    <Bullseye>
+      <EmptyState
+        variant="small"
+      >
+        <EmptyStateIcon
+          icon={[Function]}
+        />
+        <Title
+          headingLevel="h6"
+          size="lg"
+        >
+          My message
+        </Title>
+        <EmptyStateBody>
+          My description
+        </EmptyStateBody>
+      </EmptyState>
+    </Bullseye>
+  </CardBody>
+</Card>
+`;
+
+exports[`EmptyCard expect to render without description 1`] = `
+<Card>
+  <div
+    className="pf-c-card__header pf-c-title pf-m-xl"
+  >
+    My card title
+  </div>
+  <CardBody>
+    <Bullseye>
+      <EmptyState
+        variant="small"
+      >
+        <EmptyStateIcon
+          icon={[Function]}
+        />
+        <Title
+          headingLevel="h6"
+          size="lg"
+        >
+          My message
         </Title>
       </EmptyState>
     </Bullseye>

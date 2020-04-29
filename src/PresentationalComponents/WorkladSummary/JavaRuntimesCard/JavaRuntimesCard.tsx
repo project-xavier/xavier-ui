@@ -1,12 +1,12 @@
 import React from 'react';
-import { Stack, StackItem, Divider, Bullseye } from '@patternfly/react-core';
-import { BullseyeIcon } from '@patternfly/react-icons';
+import { Bullseye, Grid, GridItem } from '@patternfly/react-core';
 import ReportCard from '../../ReportCard';
-import { ReportWorkloadSummary, JavaRuntimeModel } from 'src/models';
+import { ReportWorkloadSummary, JavaRuntimeModel } from '../../../models';
 import FancyChartDonut from '../../FancyChartDonut';
 import { FancyChartDonutData } from '../../FancyChartDonut/FancyChartDonut';
 import { formatNumber, formatPercentage } from '../../../Utilities/formatValue';
 import { EmptyCard } from '../../EmptyCard';
+import { SolidCard } from '../../../PresentationalComponents/SolidCard';
 
 interface Props {
     reportWorkloadSummary: ReportWorkloadSummary | null;
@@ -15,14 +15,21 @@ interface Props {
 export const JavaRuntimesCard: React.FC<Props> = ({ reportWorkloadSummary }) => {
     const title = 'Oracle Java runtimes information';
 
-    if (!reportWorkloadSummary) {
-        return <EmptyCard title={title} />;
+    if (
+        !reportWorkloadSummary ||
+        !reportWorkloadSummary.javaRuntimes ||
+        reportWorkloadSummary.javaRuntimes.length === 0
+    ) {
+        return (
+            <EmptyCard
+                cardTitle={title}
+                message="No instances found"
+                description="No instances of Oracle JDKs have been discovered."
+            />
+        );
     }
 
     const javaRuntimes = reportWorkloadSummary.javaRuntimes;
-    if (!javaRuntimes || javaRuntimes.length === 0) {
-        return <EmptyCard title={title} />;
-    }
 
     const orderedJavaRuntimes = javaRuntimes.sort((a: JavaRuntimeModel, b: JavaRuntimeModel) => {
         if (a.vendor === b.vendor) {
@@ -40,18 +47,18 @@ export const JavaRuntimesCard: React.FC<Props> = ({ reportWorkloadSummary }) => 
     const chartProps = {
         title: formatNumber(total, 0),
         subTitle: 'Total',
-        height: 270,
-        width: 300
+        height: 250,
+        width: 250
     };
     const chartLegendProps = {
-        height: 200,
+        height: 250,
         width: 210,
         responsive: false,
-        y: 60
+        y: 70
     };
 
     const chartData: FancyChartDonutData[] = orderedJavaRuntimes.map((element, index: number) => ({
-        label: element.vendor + ' ' + element.version,
+        label: `${element.vendor} JDK ${element.version}`,
         value: percentages[index],
         extraData: pieValues[index]
     }));
@@ -60,24 +67,12 @@ export const JavaRuntimesCard: React.FC<Props> = ({ reportWorkloadSummary }) => 
         return `${label}: ${data}`;
     };
     const tooltipFormat = ({ datum }) =>
-        `${datum.x}: ${formatPercentage(datum.y, 2)} \n Runtimes: ${formatNumber(datum.extraData, 0)}`;
+        `${datum.x}: ${formatPercentage(datum.y, 2)} \n Total: ${formatNumber(datum.extraData, 0)}`;
 
     return (
         <ReportCard title={title} skipBullseye={true}>
-            <Stack>
-                <StackItem>
-                    <div className="pf-c-content">
-                        <h5>
-                            <i>
-                                <BullseyeIcon />
-                            </i>{' '}
-                            {total} Oracle JDKs can be replaced with OpenJDK
-                        </h5>
-                        <br />
-                        <Divider component="div" />
-                    </div>
-                </StackItem>
-                <StackItem isFilled>
+            <Grid sm={12} lg={6} xl={6}>
+                <GridItem>
                     <Bullseye>
                         <FancyChartDonut
                             data={chartData}
@@ -87,8 +82,16 @@ export const JavaRuntimesCard: React.FC<Props> = ({ reportWorkloadSummary }) => 
                             tooltipFormat={tooltipFormat}
                         />
                     </Bullseye>
-                </StackItem>
-            </Stack>
+                </GridItem>
+                <GridItem>
+                    <Bullseye>
+                        <SolidCard
+                            title={`${total} OpenJDK`}
+                            description="Oracle JDKs that can be replaced with OpenJDK"
+                        />
+                    </Bullseye>
+                </GridItem>
+            </Grid>
         </ReportCard>
     );
 };

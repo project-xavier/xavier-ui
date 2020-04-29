@@ -20,7 +20,7 @@ export class SolidCard extends React.Component<Props, State> {
             <Card className="xa-c-card-solid">
                 <CardBody>
                     <h2 className="pf-c-title pf-m-3xl">{title}</h2>
-                    <h3 className="pf-c-title pf-m-1xl">{description}</h3>
+                    <p>{description}</p>
                 </CardBody>
             </Card>
         );
