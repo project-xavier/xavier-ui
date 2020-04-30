@@ -30,6 +30,7 @@ import { ObjectFetchStatus } from '../../../models/state';
 import { ReportWorkloadSummary } from '../../../models';
 import { JavaRuntimesCard } from '../../../PresentationalComponents/WorkladSummary/JavaRuntimesCard';
 import { EmptyCard } from '../../../PresentationalComponents/EmptyCard';
+import { ApplicationPlatformsCard } from '../../../PresentationalComponents/WorkladSummary/ApplicationPlatformsCard';
 
 interface StateToProps {
     reportWorkloadSummary: ReportWorkloadSummary | null;
@@ -244,6 +245,11 @@ export class WorkloadMigrationSummary extends React.Component<WorkloadMigrationS
         return <JavaRuntimesCard reportWorkloadSummary={reportWorkloadSummary} />;
     }
 
+    public renderApplicationPlatforms = () => {
+        const { reportWorkloadSummary } = this.props;
+        return <ApplicationPlatformsCard reportWorkloadSummary={reportWorkloadSummary} />;
+    }
+    
     public renderFlagsTable = () => {
         const { reportId } = this.props;
 
@@ -299,6 +305,9 @@ export class WorkloadMigrationSummary extends React.Component<WorkloadMigrationS
                     </StackItem>
                     <StackItem isFilled={ false }>
                         { this.renderJavaRuntimes() }
+                    </StackItem>
+                    <StackItem isFilled={ false }>
+                        { this.renderApplicationPlatforms() }
                     </StackItem>
                     <StackItem isFilled={ false }>
                         { this.renderWorkloadsDetectedTable() }

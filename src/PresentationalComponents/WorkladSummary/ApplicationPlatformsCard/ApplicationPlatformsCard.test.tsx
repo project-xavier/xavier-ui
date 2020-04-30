@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { JavaRuntimesCard } from './JavaRuntimesCard';
+import { ApplicationPlatformsCard } from './ApplicationPlatformsCard';
 import { ReportWorkloadSummary } from 'src/models';
 
 const BasicReportWorkloadSummary: ReportWorkloadSummary = {
@@ -25,35 +25,35 @@ const BasicReportWorkloadSummary: ReportWorkloadSummary = {
     applicationPlatforms: []
 };
 
-describe('JavaRuntimesCard', () => {
+describe('ApplicationPlatformsCard', () => {
     it('expect to render', () => {
         const reportWorkloadSummary: ReportWorkloadSummary = {
             ...BasicReportWorkloadSummary,
-            javaRuntimes: [
+            applicationPlatforms: [
                 {
-                    vendor: 'VendorA',
-                    version: '8',
+                    name: 'Application1',
+                    version: null,
                     total: 10
                 },
                 {
-                    vendor: 'VendorB',
-                    version: '11',
+                    name: 'Application2',
+                    version: null,
                     total: 20
                 },
                 {
-                    vendor: 'VendorB',
-                    version: '8',
+                    name: 'Application2',
+                    version: null,
                     total: 15
                 }
             ]
         };
 
-        const wrapper = shallow(<JavaRuntimesCard reportWorkloadSummary={reportWorkloadSummary} />);
+        const wrapper = shallow(<ApplicationPlatformsCard reportWorkloadSummary={reportWorkloadSummary} />);
         expect(wrapper).toMatchSnapshot();
     });
 
     it('expect to render empty card when undefined reportWorkloadSummary', () => {
-        const wrapper = shallow(<JavaRuntimesCard reportWorkloadSummary={null} />);
+        const wrapper = shallow(<ApplicationPlatformsCard reportWorkloadSummary={null} />);
         expect(wrapper).toMatchSnapshot();
     });
 
@@ -63,7 +63,7 @@ describe('JavaRuntimesCard', () => {
             javaRuntimes: []
         };
 
-        const wrapper = shallow(<JavaRuntimesCard reportWorkloadSummary={reportWorkloadSummary} />);
+        const wrapper = shallow(<ApplicationPlatformsCard reportWorkloadSummary={reportWorkloadSummary} />);
         expect(wrapper).toMatchSnapshot();
     });
 });

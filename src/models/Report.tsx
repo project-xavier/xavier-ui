@@ -20,6 +20,7 @@ export interface ReportWorkloadSummary {
     workloadsDetectedOSTypeModels: WorkloadDetectedOSTypeModel[];
     scanRunModels: ScanRunModel[];
     javaRuntimes: JavaRuntimeModel[];
+    applicationPlatforms: ApplicationPlatformModel[];
 }
 
 export interface Summary {
@@ -62,6 +63,12 @@ export interface ScanRunModel {
 export interface JavaRuntimeModel {
     vendor: string;
     version: string;
+    total: number;
+}
+
+export interface ApplicationPlatformModel {
+    name: string;
+    version: string | null;
     total: number;
 }
 
