@@ -46,15 +46,7 @@ export const JavaRuntimesCard: React.FC<Props> = ({ reportWorkloadSummary }) => 
 
     const chartProps = {
         title: formatNumber(total, 0),
-        subTitle: 'Total',
-        height: 250,
-        width: 250
-    };
-    const chartLegendProps = {
-        height: 250,
-        width: 210,
-        responsive: false,
-        y: 70
+        subTitle: 'Total'
     };
 
     const chartData: FancyChartDonutData[] = orderedJavaRuntimes.map((element, index: number) => ({
@@ -77,7 +69,6 @@ export const JavaRuntimesCard: React.FC<Props> = ({ reportWorkloadSummary }) => 
                         <FancyChartDonut
                             data={chartData}
                             chartProps={chartProps}
-                            chartLegendProps={chartLegendProps}
                             tickFormat={tickFormat}
                             tooltipFormat={tooltipFormat}
                         />

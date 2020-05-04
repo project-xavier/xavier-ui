@@ -142,20 +142,10 @@ exports[`WorkloadMigrationSummary expect to render reports 1`] = `
         }
       >
         <FancyChartDonut
-          chartLegendProps={
-            Object {
-              "height": 300,
-              "responsive": false,
-              "width": 210,
-              "y": 60,
-            }
-          }
           chartProps={
             Object {
-              "height": 250,
               "subTitle": "Total VMs",
               "title": "126",
-              "width": 250,
             }
           }
           data={

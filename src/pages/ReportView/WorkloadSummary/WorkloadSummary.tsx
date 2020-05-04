@@ -128,15 +128,7 @@ export class WorkloadMigrationSummary extends React.Component<WorkloadMigrationS
 
         const chartProps = {
             title: formatNumber(total, 0),
-            subTitle: 'Total VMs',
-            height: 250,
-            width: 250
-        };
-        const chartLegendProps = {
-            height: 300,
-            width: 210,
-            responsive: false,
-            y: 60
+            subTitle: 'Total VMs'
         };
 
         const chartData: FancyChartDonutData[] = [
@@ -171,7 +163,6 @@ export class WorkloadMigrationSummary extends React.Component<WorkloadMigrationS
                 <FancyChartDonut
                     data={ chartData }
                     chartProps={ chartProps }
-                    chartLegendProps={ chartLegendProps }
                     tickFormat={ tickFormat }
                     tooltipFormat={ tooltipFormat }
                 />

@@ -11,20 +11,10 @@ exports[`ApplicationPlatformsCard expect to render 1`] = `
     <GridItem>
       <Bullseye>
         <FancyChartDonut
-          chartLegendProps={
-            Object {
-              "height": 250,
-              "responsive": false,
-              "width": 210,
-              "y": 70,
-            }
-          }
           chartProps={
             Object {
-              "height": 250,
               "subTitle": "Total",
               "title": "45",
-              "width": 250,
             }
           }
           data={

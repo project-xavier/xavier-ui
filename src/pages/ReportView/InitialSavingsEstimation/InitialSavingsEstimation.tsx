@@ -273,13 +273,13 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
         const chartProps = {
             title: formatValue(total, 'usd', { fractionDigits: 0 }),
             height: 300,
-            width: 300
-        };
-        const chartLegendProps = {
-            height: 300,
-            width: 210,
-            responsive: false,
-            y: 60
+            width: 600,
+            padding: {
+                bottom: 20,
+                left: 20,
+                right: 200, // Adjusted to accommodate legend
+                top: 20
+            }
         };
 
         const chartData: FancyChartDonutData[] = [
@@ -299,7 +299,6 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
                 <FancyChartDonut
                     data={ chartData }
                     chartProps={ chartProps }
-                    chartLegendProps={ chartLegendProps }
                     tickFormat={ tickFormat }
                     tooltipFormat={ tooltipFormat }
                 />

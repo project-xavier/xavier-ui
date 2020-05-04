@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import {
     ChartDonut,
     ChartDonutProps,
-    ChartLegend,
-    ChartLegendProps,
     ChartThemeColor,
     ChartThemeVariant,
     ChartTooltip
@@ -19,7 +17,6 @@ export interface FancyChartDonutData {
 interface Props {
     data: FancyChartDonutData[];
     chartProps?: ChartDonutProps;
-    chartLegendProps?: ChartLegendProps;
     tickFormat?: (label: string, value: number, data: any) => string;
     tooltipFormat?: (datum: any, active: boolean) => string;
 }
@@ -34,7 +31,7 @@ class FancyChartDonut extends Component<Props, State> {
     }
 
     public render() {
-        const { data, chartProps, chartLegendProps, tickFormat, tooltipFormat } = this.props;
+        const { data, chartProps, tickFormat, tooltipFormat } = this.props;
 
         const chartData = data.map((val) => {
             return {
@@ -50,8 +47,6 @@ class FancyChartDonut extends Component<Props, State> {
             };
         });
 
-        const colorScale = !data.some((val) => !val.color) ? data.map((val) => val.color || '') : undefined;
-
         const chartLabels = ({datum}): string => {
             return tickFormat ? tickFormat(datum.x, datum.y, datum.extraData) : `${datum.x}: ${datum.y}`;
         };
@@ -60,24 +55,26 @@ class FancyChartDonut extends Component<Props, State> {
             <React.Fragment>
                 <div className="pf-u-display-flex">
                     <div className="donut-chart-container">
-                        <ChartDonut
-                            data={ chartData }
-                            themeColor={colorScale ? undefined : ChartThemeColor.multiOrdered}
-                            themeVariant={colorScale ? undefined : ChartThemeVariant.light}
-                            colorScale={ colorScale }
-                            labels={ chartLabels }
-                            labelComponent={  <ChartTooltip text={ tooltipFormat ? tooltipFormat : undefined }/> }
-                            { ...chartProps }
-                        />
-                    </div>
-                    <ChartLegend
-                        data={ legendData }
-                        colorScale={ colorScale }
-                        themeColor={colorScale ? undefined : ChartThemeColor.multiOrdered}
-                        themeVariant={colorScale ? undefined : ChartThemeVariant.light}
-                        orientation="vertical"
-                        { ...chartLegendProps }
+                    <ChartDonut
+                        constrainToVisibleArea={true}
+                        data={ chartData }
+                        labels={ chartLabels }
+                        labelComponent={  <ChartTooltip text={ tooltipFormat ? tooltipFormat : undefined }/> }
+                        legendData={ legendData }
+                        legendOrientation="vertical"
+                        legendPosition="right"
+                        themeColor={ChartThemeColor.multiOrdered}
+                        themeVariant={ChartThemeVariant.light}
+                        padding={{
+                            bottom: 20,
+                            left: 20,
+                            right: 140, // Adjusted to accommodate legend
+                            top: 20
+                        }}
+                        width={550}
+                        { ...chartProps }
                     />
+                    </div>
                 </div>
             </React.Fragment>
         );
