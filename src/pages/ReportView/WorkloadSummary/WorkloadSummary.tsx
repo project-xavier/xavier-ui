@@ -14,7 +14,9 @@ import {
     TitleLevel,
     Stack,
     StackItem,
-    Tooltip
+    Tooltip,
+    Grid,
+    GridItem
 } from '@patternfly/react-core';
 import { ErrorCircleOIcon, HelpIcon } from '@patternfly/react-icons';
 import ReportCard from '../../../PresentationalComponents/ReportCard';
@@ -31,6 +33,7 @@ import { ReportWorkloadSummary } from '../../../models';
 import { JavaRuntimesCard } from '../../../PresentationalComponents/WorkladSummary/JavaRuntimesCard';
 import { EmptyCard } from '../../../PresentationalComponents/EmptyCard';
 import { ApplicationPlatformsCard } from '../../../PresentationalComponents/WorkladSummary/ApplicationPlatformsCard';
+import { OSInformation } from '../../../PresentationalComponents/WorkladSummary/OSInformation';
 
 interface StateToProps {
     reportWorkloadSummary: ReportWorkloadSummary | null;
@@ -196,7 +199,7 @@ export class WorkloadMigrationSummary extends React.Component<WorkloadMigrationS
 
         return (
             <ReportCard title={title} skipBullseye={true}>
-                <div className="pf-l-grid pf-m-all-6-col-on-md pf-m-all-3-col-on-lg pf-m-gutter">
+                <div className="pf-l-grid pf-m-all-6-col-on-md pf-m-all-4-col-on-lg pf-m-gutter">
                     <SolidCard
                         title={`${formatPercentage(percentages[0], 0)} RHV`}
                         description="Workloads suitable for Red Hat Virtualization"
@@ -205,10 +208,10 @@ export class WorkloadMigrationSummary extends React.Component<WorkloadMigrationS
                         title={`${formatPercentage(percentages[1], 0)} OSP`}
                         description="Workloads could be running on Red Hat OpenStack Platform"
                     />
-                    <SolidCard
+                    {/* <SolidCard
                         title={`${formatPercentage(percentages[2], 0)} RHEL`}
                         description="Workloads possible to migrate to Red Hat Enterprise Linux"
-                    />
+                    /> */}
                     <SolidCard
                         title={`${formatPercentage(percentages[3], 0)} OCP`}
                         description="Workloads targeted for OpenShift virtualization"
@@ -230,6 +233,11 @@ export class WorkloadMigrationSummary extends React.Component<WorkloadMigrationS
             </ReportCard>
         );
     };
+
+    public renderOSInformation = () => {
+        const { reportWorkloadSummary } = this.props;
+        return <OSInformation reportWorkloadSummary={reportWorkloadSummary} />;
+    }
 
     public renderJavaRuntimes = () => {
         const { reportWorkloadSummary } = this.props;
@@ -295,10 +303,17 @@ export class WorkloadMigrationSummary extends React.Component<WorkloadMigrationS
                         { this.renderFlagsTable() }
                     </StackItem>
                     <StackItem isFilled={ false }>
-                        { this.renderJavaRuntimes() }
+                        { this.renderOSInformation() }
                     </StackItem>
                     <StackItem isFilled={ false }>
-                        { this.renderApplicationPlatforms() }
+                        <Grid gutter="sm" xl={6}>
+                            <GridItem>
+                                { this.renderJavaRuntimes() }
+                            </GridItem>
+                            <GridItem>
+                                { this.renderApplicationPlatforms() }
+                            </GridItem>
+                        </Grid>
                     </StackItem>
                     <StackItem isFilled={ false }>
                         { this.renderWorkloadsDetectedTable() }

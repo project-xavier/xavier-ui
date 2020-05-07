@@ -22,7 +22,8 @@ const BasicReportWorkloadSummary: ReportWorkloadSummary = {
     summaryModels: [],
     workloadsDetectedOSTypeModels: [],
     javaRuntimes: [],
-    applicationPlatforms: []
+    applicationPlatforms: [],
+    osInformation: []
 };
 
 describe('JavaRuntimesCard', () => {
@@ -33,17 +34,20 @@ describe('JavaRuntimesCard', () => {
                 {
                     vendor: 'VendorA',
                     version: '8',
-                    total: 10
+                    total: 10,
+                    priority: 100
                 },
                 {
                     vendor: 'VendorB',
                     version: '11',
-                    total: 20
+                    total: 20,
+                    priority: null
                 },
                 {
                     vendor: 'VendorB',
                     version: '8',
-                    total: 15
+                    total: 15,
+                    priority: 10
                 }
             ]
         };

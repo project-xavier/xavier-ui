@@ -63,7 +63,7 @@ exports[`WorkloadMigrationSummary expect to render reports 1`] = `
         title="Target recommendation"
       >
         <div
-          className="pf-l-grid pf-m-all-6-col-on-md pf-m-all-3-col-on-lg pf-m-gutter"
+          className="pf-l-grid pf-m-all-6-col-on-md pf-m-all-4-col-on-lg pf-m-gutter"
         >
           <SolidCard
             description="Workloads suitable for Red Hat Virtualization"
@@ -72,10 +72,6 @@ exports[`WorkloadMigrationSummary expect to render reports 1`] = `
           <SolidCard
             description="Workloads could be running on Red Hat OpenStack Platform"
             title="96% OSP"
-          />
-          <SolidCard
-            description="Workloads possible to migrate to Red Hat Enterprise Linux"
-            title="6% RHEL"
           />
           <SolidCard
             description="Workloads targeted for OpenShift virtualization"
@@ -209,6 +205,7 @@ exports[`WorkloadMigrationSummary expect to render reports 1`] = `
               "unsupported": 4,
             },
             "javaRuntimes": Array [],
+            "osInformation": Array [],
             "recommendedTargetsIMSModel": Object {
               "ocp": 111,
               "osp": 121,
@@ -251,56 +248,117 @@ exports[`WorkloadMigrationSummary expect to render reports 1`] = `
     <StackItem
       isFilled={false}
     >
-      <Component
-        reportWorkloadSummary={
-          Object {
-            "applicationPlatforms": Array [],
-            "complexityModel": Object {
-              "easy": 111,
-              "hard": 0,
-              "medium": 11,
-              "unknown": 0,
-              "unsupported": 4,
-            },
-            "javaRuntimes": Array [],
-            "recommendedTargetsIMSModel": Object {
-              "ocp": 111,
-              "osp": 121,
-              "rhel": 7,
-              "rhv": 122,
-              "total": 126,
-            },
-            "scanRunModels": Array [
+      <Grid
+        gutter="sm"
+        xl={6}
+      >
+        <GridItem>
+          <Component
+            reportWorkloadSummary={
               Object {
-                "date": 1580774400000,
-                "smartStateEnabled": true,
-                "target": "VMware",
-              },
-            ],
-            "summaryModels": Array [
+                "applicationPlatforms": Array [],
+                "complexityModel": Object {
+                  "easy": 111,
+                  "hard": 0,
+                  "medium": 11,
+                  "unknown": 0,
+                  "unsupported": 4,
+                },
+                "javaRuntimes": Array [],
+                "osInformation": Array [],
+                "recommendedTargetsIMSModel": Object {
+                  "ocp": 111,
+                  "osp": 121,
+                  "rhel": 7,
+                  "rhv": 122,
+                  "total": 126,
+                },
+                "scanRunModels": Array [
+                  Object {
+                    "date": 1580774400000,
+                    "smartStateEnabled": true,
+                    "target": "VMware",
+                  },
+                ],
+                "summaryModels": Array [
+                  Object {
+                    "clusters": 1,
+                    "hosts": 2,
+                    "product": "VMware vCenter",
+                    "provider": "VMware",
+                    "sockets": 164,
+                    "version": "6.5",
+                    "vms": 126,
+                  },
+                ],
+                "workloadsDetectedOSTypeModels": Array [
+                  Object {
+                    "osName": "ServerNT",
+                    "total": 1,
+                  },
+                  Object {
+                    "osName": "Linux",
+                    "total": 4,
+                  },
+                ],
+              }
+            }
+          />
+        </GridItem>
+        <GridItem>
+          <Component
+            reportWorkloadSummary={
               Object {
-                "clusters": 1,
-                "hosts": 2,
-                "product": "VMware vCenter",
-                "provider": "VMware",
-                "sockets": 164,
-                "version": "6.5",
-                "vms": 126,
-              },
-            ],
-            "workloadsDetectedOSTypeModels": Array [
-              Object {
-                "osName": "ServerNT",
-                "total": 1,
-              },
-              Object {
-                "osName": "Linux",
-                "total": 4,
-              },
-            ],
-          }
-        }
-      />
+                "applicationPlatforms": Array [],
+                "complexityModel": Object {
+                  "easy": 111,
+                  "hard": 0,
+                  "medium": 11,
+                  "unknown": 0,
+                  "unsupported": 4,
+                },
+                "javaRuntimes": Array [],
+                "osInformation": Array [],
+                "recommendedTargetsIMSModel": Object {
+                  "ocp": 111,
+                  "osp": 121,
+                  "rhel": 7,
+                  "rhv": 122,
+                  "total": 126,
+                },
+                "scanRunModels": Array [
+                  Object {
+                    "date": 1580774400000,
+                    "smartStateEnabled": true,
+                    "target": "VMware",
+                  },
+                ],
+                "summaryModels": Array [
+                  Object {
+                    "clusters": 1,
+                    "hosts": 2,
+                    "product": "VMware vCenter",
+                    "provider": "VMware",
+                    "sockets": 164,
+                    "version": "6.5",
+                    "vms": 126,
+                  },
+                ],
+                "workloadsDetectedOSTypeModels": Array [
+                  Object {
+                    "osName": "ServerNT",
+                    "total": 1,
+                  },
+                  Object {
+                    "osName": "Linux",
+                    "total": 4,
+                  },
+                ],
+              }
+            }
+          />
+        </GridItem>
+      </Grid>
     </StackItem>
     <StackItem
       isFilled={false}

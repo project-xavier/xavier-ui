@@ -1,12 +1,11 @@
 import React from 'react';
-import { Bullseye, Grid, GridItem } from '@patternfly/react-core';
+import { Bullseye } from '@patternfly/react-core';
 import ReportCard from '../../ReportCard';
 import { ReportWorkloadSummary, ApplicationPlatformModel } from '../../../models';
 import FancyChartDonut from '../../FancyChartDonut';
 import { FancyChartDonutData } from '../../FancyChartDonut/FancyChartDonut';
 import { formatNumber, formatPercentage } from '../../../Utilities/formatValue';
 import { EmptyCard } from '../../EmptyCard';
-import { SolidCard } from '../../SolidCard';
 
 interface Props {
     reportWorkloadSummary: ReportWorkloadSummary | null;
@@ -31,11 +30,16 @@ export const ApplicationPlatformsCard: React.FC<Props> = ({ reportWorkloadSummar
 
     const applicationPlatforms = reportWorkloadSummary.applicationPlatforms;
 
-    const orderedApplicationPlatforms = applicationPlatforms.sort((a: ApplicationPlatformModel, b: ApplicationPlatformModel) => {
-        return a.name.localeCompare(b.name);
-    });
+    const orderedApplicationPlatforms = applicationPlatforms.sort(
+        (a: ApplicationPlatformModel, b: ApplicationPlatformModel) => {
+            return a.name.localeCompare(b.name);
+        }
+    );
 
-    const totalWithoutEAP = applicationPlatforms.filter(e => e.name !== 'JBoss EAP').map(e => e.total).reduce((a: number, b: number) => a + b);
+    const totalWithoutEAP = applicationPlatforms
+        .filter(e => e.name !== 'JBoss EAP')
+        .map(e => e.total)
+        .reduce((a: number, b: number) => a + b);
 
     //
     const pieValues = orderedApplicationPlatforms.map(element => element.total);
@@ -62,27 +66,14 @@ export const ApplicationPlatformsCard: React.FC<Props> = ({ reportWorkloadSummar
 
     return (
         <ReportCard title={title} skipBullseye={true}>
-            <Grid xl={6}>
-                <GridItem>
-                    <Bullseye>
-                        <FancyChartDonut
-                            data={chartData}
-                            chartProps={chartProps}
-                            tickFormat={tickFormat}
-                            tooltipFormat={tooltipFormat}
-                        />
-                    </Bullseye>
-                </GridItem>
-                <GridItem>
-                    <Bullseye>
-                        <SolidCard
-                            title={`${totalWithoutEAP} JBoss EAP`}
-                            description="App platforms that can be replatformed with JBoss EAP"
-                            width={510}
-                        />
-                    </Bullseye>
-                </GridItem>
-            </Grid>
+            <Bullseye>
+                <FancyChartDonut
+                    data={chartData}
+                    chartProps={chartProps}
+                    tickFormat={tickFormat}
+                    tooltipFormat={tooltipFormat}
+                />
+            </Bullseye>
         </ReportCard>
     );
 };

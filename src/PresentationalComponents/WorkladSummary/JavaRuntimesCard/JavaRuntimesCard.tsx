@@ -1,12 +1,11 @@
 import React from 'react';
-import { Bullseye, Grid, GridItem } from '@patternfly/react-core';
+import { Bullseye } from '@patternfly/react-core';
 import ReportCard from '../../ReportCard';
 import { ReportWorkloadSummary, JavaRuntimeModel } from '../../../models';
 import FancyChartDonut from '../../FancyChartDonut';
 import { FancyChartDonutData } from '../../FancyChartDonut/FancyChartDonut';
 import { formatNumber, formatPercentage } from '../../../Utilities/formatValue';
 import { EmptyCard } from '../../EmptyCard';
-import { SolidCard } from '../../../PresentationalComponents/SolidCard';
 
 interface Props {
     reportWorkloadSummary: ReportWorkloadSummary | null;
@@ -63,27 +62,14 @@ export const JavaRuntimesCard: React.FC<Props> = ({ reportWorkloadSummary }) => 
 
     return (
         <ReportCard title={title} skipBullseye={true}>
-            <Grid xl={6}>
-                <GridItem>
-                    <Bullseye>
-                        <FancyChartDonut
-                            data={chartData}
-                            chartProps={chartProps}
-                            tickFormat={tickFormat}
-                            tooltipFormat={tooltipFormat}
-                        />
-                    </Bullseye>
-                </GridItem>
-                <GridItem>
-                    <Bullseye>
-                        <SolidCard
-                            title={`${total} OpenJDK`}
-                            description="Oracle JDKs that can be replaced with OpenJDK"
-                            width={510}
-                        />
-                    </Bullseye>
-                </GridItem>
-            </Grid>
+            <Bullseye>
+                <FancyChartDonut
+                    data={chartData}
+                    chartProps={chartProps}
+                    tickFormat={tickFormat}
+                    tooltipFormat={tooltipFormat}
+                />
+            </Bullseye>
         </ReportCard>
     );
 };

@@ -53,7 +53,8 @@ describe('WorkloadMigrationSummary', () => {
                 workloadsDetectedOSTypeModels: [{ osName: 'ServerNT', total: 1 }, { osName: 'Linux', total: 4 }],
                 scanRunModels: [{ target: 'VMware', date: 1580774400000, smartStateEnabled: true }],
                 javaRuntimes: [],
-                applicationPlatforms: []
+                applicationPlatforms: [],
+                osInformation: []
             },
             reportWorkloadSummaryFetchStatus: { error: null, status: 'complete' },
             fetchReportWorkloadSummary: (reportId: number) => ({

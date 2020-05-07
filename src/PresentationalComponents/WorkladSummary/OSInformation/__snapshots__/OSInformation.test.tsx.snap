@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JavaRuntimesCard expect to render 1`] = `
+<Component
+  cardTitle="OS Information"
+  description="Could not extract OS Information."
+  message="Not enough data"
+/>
+`;
+
+exports[`JavaRuntimesCard expect to render empty card when no java runtimes 1`] = `
+<Component
+  cardTitle="OS Information"
+  description="Could not extract OS Information."
+  message="Not enough data"
+/>
+`;
+
+exports[`JavaRuntimesCard expect to render empty card when undefined reportWorkloadSummary 1`] = `
+<Component
+  cardTitle="OS Information"
+  description="Could not extract OS Information."
+  message="Not enough data"
+/>
+`;

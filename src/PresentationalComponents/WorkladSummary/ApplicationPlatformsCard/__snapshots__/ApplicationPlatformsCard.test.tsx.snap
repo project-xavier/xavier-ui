@@ -5,52 +5,37 @@ exports[`ApplicationPlatformsCard expect to render 1`] = `
   skipBullseye={true}
   title="Application platforms information"
 >
-  <Grid
-    xl={6}
-  >
-    <GridItem>
-      <Bullseye>
-        <FancyChartDonut
-          chartProps={
-            Object {
-              "subTitle": "Total",
-              "title": "45",
-            }
-          }
-          data={
-            Array [
-              Object {
-                "extraData": 10,
-                "label": "Application1",
-                "value": 0.2222222222222222,
-              },
-              Object {
-                "extraData": 20,
-                "label": "Application2",
-                "value": 0.4444444444444444,
-              },
-              Object {
-                "extraData": 15,
-                "label": "Application2",
-                "value": 0.3333333333333333,
-              },
-            ]
-          }
-          tickFormat={[Function]}
-          tooltipFormat={[Function]}
-        />
-      </Bullseye>
-    </GridItem>
-    <GridItem>
-      <Bullseye>
-        <SolidCard
-          description="App platforms that can be replatformed with JBoss EAP"
-          title="45 JBoss EAP"
-          width={510}
-        />
-      </Bullseye>
-    </GridItem>
-  </Grid>
+  <Bullseye>
+    <FancyChartDonut
+      chartProps={
+        Object {
+          "subTitle": "Total",
+          "title": "45",
+        }
+      }
+      data={
+        Array [
+          Object {
+            "extraData": 10,
+            "label": "Application1",
+            "value": 0.2222222222222222,
+          },
+          Object {
+            "extraData": 20,
+            "label": "Application2",
+            "value": 0.4444444444444444,
+          },
+          Object {
+            "extraData": 15,
+            "label": "Application2",
+            "value": 0.3333333333333333,
+          },
+        ]
+      }
+      tickFormat={[Function]}
+      tooltipFormat={[Function]}
+    />
+  </Bullseye>
 </ReportCard>
 `;
 

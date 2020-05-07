@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { ApplicationPlatformsCard } from './ApplicationPlatformsCard';
+import { OSInformation } from './OSInformation';
 import { ReportWorkloadSummary } from 'src/models';
 
 const BasicReportWorkloadSummary: ReportWorkloadSummary = {
@@ -26,38 +26,38 @@ const BasicReportWorkloadSummary: ReportWorkloadSummary = {
     osInformation: []
 };
 
-describe('ApplicationPlatformsCard', () => {
+describe('JavaRuntimesCard', () => {
     it('expect to render', () => {
         const reportWorkloadSummary: ReportWorkloadSummary = {
             ...BasicReportWorkloadSummary,
-            applicationPlatforms: [
+            javaRuntimes: [
                 {
-                    name: 'Application1',
-                    version: null,
+                    vendor: 'VendorA',
+                    version: '8',
                     total: 10,
-                    priority: 100
+                    priority: null
                 },
                 {
-                    name: 'Application2',
-                    version: null,
+                    vendor: 'VendorB',
+                    version: '11',
                     total: 20,
                     priority: 100
                 },
                 {
-                    name: 'Application2',
-                    version: null,
+                    vendor: 'VendorB',
+                    version: '8',
                     total: 15,
-                    priority: 100
+                    priority: 200
                 }
             ]
         };
 
-        const wrapper = shallow(<ApplicationPlatformsCard reportWorkloadSummary={reportWorkloadSummary} />);
+        const wrapper = shallow(<OSInformation reportWorkloadSummary={reportWorkloadSummary} />);
         expect(wrapper).toMatchSnapshot();
     });
 
     it('expect to render empty card when undefined reportWorkloadSummary', () => {
-        const wrapper = shallow(<ApplicationPlatformsCard reportWorkloadSummary={null} />);
+        const wrapper = shallow(<OSInformation reportWorkloadSummary={null} />);
         expect(wrapper).toMatchSnapshot();
     });
 
@@ -67,7 +67,7 @@ describe('ApplicationPlatformsCard', () => {
             javaRuntimes: []
         };
 
-        const wrapper = shallow(<ApplicationPlatformsCard reportWorkloadSummary={reportWorkloadSummary} />);
+        const wrapper = shallow(<OSInformation reportWorkloadSummary={reportWorkloadSummary} />);
         expect(wrapper).toMatchSnapshot();
     });
 });
