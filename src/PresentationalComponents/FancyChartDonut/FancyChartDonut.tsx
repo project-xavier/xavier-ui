@@ -55,25 +55,27 @@ class FancyChartDonut extends Component<Props, State> {
             <React.Fragment>
                 <div className="pf-u-display-flex">
                     <div className="donut-chart-container">
-                    <ChartDonut
-                        constrainToVisibleArea={true}
-                        data={ chartData }
-                        labels={ chartLabels }
-                        labelComponent={  <ChartTooltip text={ tooltipFormat ? tooltipFormat : undefined }/> }
-                        legendData={ legendData }
-                        legendOrientation="vertical"
-                        legendPosition="right"
-                        themeColor={ChartThemeColor.multiOrdered}
-                        themeVariant={ChartThemeVariant.light}
-                        padding={{
-                            bottom: 20,
-                            left: 20,
-                            right: 140, // Adjusted to accommodate legend
-                            top: 20
-                        }}
-                        width={550}
-                        { ...chartProps }
-                    />
+                        <ChartDonut
+                            constrainToVisibleArea={true}
+                            data={ chartData }
+                            labels={ chartLabels }
+                            labelComponent={  <ChartTooltip text={ tooltipFormat ? tooltipFormat : undefined }/> }
+                            legendData={ legendData }
+                            legendOrientation="vertical"
+                            legendPosition="right"
+                            themeColor={ChartThemeColor.multiOrdered}
+                            themeVariant={ChartThemeVariant.light}
+                            padding={{
+                                bottom: 20,
+                                left: 20,
+                                right: 160, // Adjusted to accommodate legend
+                                top: 20
+                            }}
+                            legendAllowWrap={true}
+                            width={420}
+                            height={190}
+                            { ...chartProps }
+                        />
                     </div>
                 </div>
             </React.Fragment>

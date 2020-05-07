@@ -14,9 +14,7 @@ import {
     TitleLevel,
     Stack,
     StackItem,
-    Tooltip,
-    Grid,
-    GridItem
+    Tooltip
 } from '@patternfly/react-core';
 import { ErrorCircleOIcon, HelpIcon } from '@patternfly/react-icons';
 import ReportCard from '../../../PresentationalComponents/ReportCard';
@@ -306,14 +304,10 @@ export class WorkloadMigrationSummary extends React.Component<WorkloadMigrationS
                         { this.renderOSInformation() }
                     </StackItem>
                     <StackItem isFilled={ false }>
-                        <Grid gutter="sm" xl={6}>
-                            <GridItem>
-                                { this.renderJavaRuntimes() }
-                            </GridItem>
-                            <GridItem>
-                                { this.renderApplicationPlatforms() }
-                            </GridItem>
-                        </Grid>
+                        <div className="pf-l-grid pf-m-all-6-col-on-lg pf-m-gutter">
+                            { this.renderJavaRuntimes() }
+                            { this.renderApplicationPlatforms() }
+                        </div>
                     </StackItem>
                     <StackItem isFilled={ false }>
                         { this.renderWorkloadsDetectedTable() }

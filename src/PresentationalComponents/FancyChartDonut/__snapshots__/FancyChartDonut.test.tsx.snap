@@ -34,8 +34,10 @@ exports[`FancyChartDonut expect to render with minimun props 1`] = `
             },
           ]
         }
+        height={190}
         labelComponent={<ChartTooltip />}
         labels={[Function]}
+        legendAllowWrap={true}
         legendData={
           Array [
             Object {
@@ -58,13 +60,13 @@ exports[`FancyChartDonut expect to render with minimun props 1`] = `
           Object {
             "bottom": 20,
             "left": 20,
-            "right": 140,
+            "right": 160,
             "top": 20,
           }
         }
         themeColor="multi-ordered"
         themeVariant="light"
-        width={550}
+        width={420}
       />
     </div>
   </div>

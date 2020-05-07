@@ -29,7 +29,7 @@ export const OSInformation: React.FC<Props> = ({ reportWorkloadSummary }) => {
 
     const orderedOsInformation = osInformation.sort((a: OSInformationModel, b: OSInformationModel) => {
         if (a.osFamily === b.osFamily) {
-            return Number(b.version) - Number(a.version);
+            return (Number(b.version) || 0) - (Number(a.version) || 0);
         } else if (a.priority || b.priority) {
             return (b.priority || 0) - (a.priority || 0);
         }

@@ -1,11 +1,69 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`JavaRuntimesCard expect to render 1`] = `
-<Component
-  cardTitle="OS Information"
-  description="Could not extract OS Information."
-  message="Not enough data"
-/>
+<ReportCard
+  skipBullseye={true}
+  title="OS Information"
+>
+  <Grid
+    gutter="sm"
+    xl={6}
+  >
+    <GridItem>
+      <Bullseye>
+        <FancyChartDonut
+          chartProps={
+            Object {
+              "padding": Object {
+                "bottom": 20,
+                "left": 20,
+                "right": 165,
+                "top": 20,
+              },
+              "subTitle": "Total",
+              "title": "65",
+            }
+          }
+          data={
+            Array [
+              Object {
+                "extraData": 10,
+                "label": "Windows Server",
+                "value": 0.15384615384615385,
+              },
+              Object {
+                "extraData": 20,
+                "label": "CentOS",
+                "value": 0.3076923076923077,
+              },
+              Object {
+                "extraData": 20,
+                "label": "Ubuntu",
+                "value": 0.3076923076923077,
+              },
+              Object {
+                "extraData": 15,
+                "label": "Other",
+                "value": 0.23076923076923078,
+              },
+            ]
+          }
+          tickFormat={[Function]}
+          tooltipFormat={[Function]}
+        />
+      </Bullseye>
+    </GridItem>
+    <GridItem>
+      <Bullseye>
+        <SolidCard
+          description="OS instances that can be converted to Red Hat Enterprise Linux"
+          title="30 RHEL"
+          width={510}
+        />
+      </Bullseye>
+    </GridItem>
+  </Grid>
+</ReportCard>
 `;
 
 exports[`JavaRuntimesCard expect to render empty card when no java runtimes 1`] = `

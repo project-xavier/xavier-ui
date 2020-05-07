@@ -30,24 +30,30 @@ describe('JavaRuntimesCard', () => {
     it('expect to render', () => {
         const reportWorkloadSummary: ReportWorkloadSummary = {
             ...BasicReportWorkloadSummary,
-            javaRuntimes: [
+            osInformation: [
                 {
-                    vendor: 'VendorA',
-                    version: '8',
+                    osFamily: 'Windows Server',
+                    version: null,
                     total: 10,
-                    priority: null
-                },
-                {
-                    vendor: 'VendorB',
-                    version: '11',
-                    total: 20,
                     priority: 100
                 },
                 {
-                    vendor: 'VendorB',
-                    version: '8',
+                    osFamily: 'CentOS',
+                    version: null,
+                    total: 20,
+                    priority: 90
+                },
+                {
+                    osFamily: 'Ubuntu',
+                    version: null,
+                    total: 20,
+                    priority: 80
+                },
+                {
+                    osFamily: 'Other',
+                    version: null,
                     total: 15,
-                    priority: 200
+                    priority: 70
                 }
             ]
         };

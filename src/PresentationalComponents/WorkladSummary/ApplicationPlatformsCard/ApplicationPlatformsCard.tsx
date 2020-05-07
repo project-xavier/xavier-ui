@@ -36,11 +36,6 @@ export const ApplicationPlatformsCard: React.FC<Props> = ({ reportWorkloadSummar
         }
     );
 
-    const totalWithoutEAP = applicationPlatforms
-        .filter(e => e.name !== 'JBoss EAP')
-        .map(e => e.total)
-        .reduce((a: number, b: number) => a + b);
-
     //
     const pieValues = orderedApplicationPlatforms.map(element => element.total);
 
