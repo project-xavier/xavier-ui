@@ -1,11 +1,12 @@
 import React from 'react';
-import { Bullseye } from '@patternfly/react-core';
+import { Bullseye, Grid, GridItem } from '@patternfly/react-core';
 import ReportCard from '../../ReportCard';
 import { ReportWorkloadSummary, ApplicationPlatformModel } from '../../../models';
 import FancyChartDonut from '../../FancyChartDonut';
 import { FancyChartDonutData } from '../../FancyChartDonut/FancyChartDonut';
 import { formatNumber, formatPercentage } from '../../../Utilities/formatValue';
 import { EmptyCard } from '../../EmptyCard';
+import { SolidCard } from '../../../PresentationalComponents/SolidCard';
 
 interface Props {
     reportWorkloadSummary: ReportWorkloadSummary | null;
@@ -23,7 +24,7 @@ export const ApplicationPlatformsCard: React.FC<Props> = ({ reportWorkloadSummar
             <EmptyCard
                 cardTitle={title}
                 message="No app platforms found"
-                description="No app platforms have been discovered."
+                description="No application platforms have been discovered."
             />
         );
     }
@@ -61,14 +62,27 @@ export const ApplicationPlatformsCard: React.FC<Props> = ({ reportWorkloadSummar
 
     return (
         <ReportCard title={title} skipBullseye={true}>
-            <Bullseye>
-                <FancyChartDonut
-                    data={chartData}
-                    chartProps={chartProps}
-                    tickFormat={tickFormat}
-                    tooltipFormat={tooltipFormat}
-                />
-            </Bullseye>
+            <Grid gutter="sm" xl={6}>
+                <GridItem>
+                    <Bullseye>
+                        <FancyChartDonut
+                            data={chartData}
+                            chartProps={chartProps}
+                            tickFormat={tickFormat}
+                            tooltipFormat={tooltipFormat}
+                        />
+                    </Bullseye>
+                </GridItem>
+                <GridItem>
+                    <Bullseye>
+                        <SolidCard
+                            title={`${reportWorkloadSummary.recommendedTargetsIMSModel.jbosseap || 0} JBoss EAP`}
+                            description="App platforms that can be replatformed with JBoss EAP"
+                            width={510}
+                        />
+                    </Bullseye>
+                </GridItem>
+            </Grid>
         </ReportCard>
     );
 };

@@ -48,6 +48,8 @@ export interface RecommendedTargetsIMSModel {
     osp: number;
     rhel: number;
     ocp: number;
+    openjdk: number;
+    jbosseap: number;
 }
 
 export interface WorkloadDetectedOSTypeModel {

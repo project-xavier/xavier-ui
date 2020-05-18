@@ -207,7 +207,9 @@ exports[`WorkloadMigrationSummary expect to render reports 1`] = `
             "javaRuntimes": Array [],
             "osInformation": Array [],
             "recommendedTargetsIMSModel": Object {
+              "jbosseap": 4,
               "ocp": 111,
+              "openjdk": 10,
               "osp": 121,
               "rhel": 7,
               "rhv": 122,
@@ -248,112 +250,114 @@ exports[`WorkloadMigrationSummary expect to render reports 1`] = `
     <StackItem
       isFilled={false}
     >
-      <div
-        className="pf-l-grid pf-m-all-6-col-on-lg pf-m-gutter"
-      >
-        <Component
-          reportWorkloadSummary={
-            Object {
-              "applicationPlatforms": Array [],
-              "complexityModel": Object {
-                "easy": 111,
-                "hard": 0,
-                "medium": 11,
-                "unknown": 0,
-                "unsupported": 4,
+      <Component
+        reportWorkloadSummary={
+          Object {
+            "applicationPlatforms": Array [],
+            "complexityModel": Object {
+              "easy": 111,
+              "hard": 0,
+              "medium": 11,
+              "unknown": 0,
+              "unsupported": 4,
+            },
+            "javaRuntimes": Array [],
+            "osInformation": Array [],
+            "recommendedTargetsIMSModel": Object {
+              "jbosseap": 4,
+              "ocp": 111,
+              "openjdk": 10,
+              "osp": 121,
+              "rhel": 7,
+              "rhv": 122,
+              "total": 126,
+            },
+            "scanRunModels": Array [
+              Object {
+                "date": 1580774400000,
+                "smartStateEnabled": true,
+                "target": "VMware",
               },
-              "javaRuntimes": Array [],
-              "osInformation": Array [],
-              "recommendedTargetsIMSModel": Object {
-                "ocp": 111,
-                "osp": 121,
-                "rhel": 7,
-                "rhv": 122,
-                "total": 126,
+            ],
+            "summaryModels": Array [
+              Object {
+                "clusters": 1,
+                "hosts": 2,
+                "product": "VMware vCenter",
+                "provider": "VMware",
+                "sockets": 164,
+                "version": "6.5",
+                "vms": 126,
               },
-              "scanRunModels": Array [
-                Object {
-                  "date": 1580774400000,
-                  "smartStateEnabled": true,
-                  "target": "VMware",
-                },
-              ],
-              "summaryModels": Array [
-                Object {
-                  "clusters": 1,
-                  "hosts": 2,
-                  "product": "VMware vCenter",
-                  "provider": "VMware",
-                  "sockets": 164,
-                  "version": "6.5",
-                  "vms": 126,
-                },
-              ],
-              "workloadsDetectedOSTypeModels": Array [
-                Object {
-                  "osName": "ServerNT",
-                  "total": 1,
-                },
-                Object {
-                  "osName": "Linux",
-                  "total": 4,
-                },
-              ],
-            }
+            ],
+            "workloadsDetectedOSTypeModels": Array [
+              Object {
+                "osName": "ServerNT",
+                "total": 1,
+              },
+              Object {
+                "osName": "Linux",
+                "total": 4,
+              },
+            ],
           }
-        />
-        <Component
-          reportWorkloadSummary={
-            Object {
-              "applicationPlatforms": Array [],
-              "complexityModel": Object {
-                "easy": 111,
-                "hard": 0,
-                "medium": 11,
-                "unknown": 0,
-                "unsupported": 4,
+        }
+      />
+    </StackItem>
+    <StackItem>
+      <Component
+        reportWorkloadSummary={
+          Object {
+            "applicationPlatforms": Array [],
+            "complexityModel": Object {
+              "easy": 111,
+              "hard": 0,
+              "medium": 11,
+              "unknown": 0,
+              "unsupported": 4,
+            },
+            "javaRuntimes": Array [],
+            "osInformation": Array [],
+            "recommendedTargetsIMSModel": Object {
+              "jbosseap": 4,
+              "ocp": 111,
+              "openjdk": 10,
+              "osp": 121,
+              "rhel": 7,
+              "rhv": 122,
+              "total": 126,
+            },
+            "scanRunModels": Array [
+              Object {
+                "date": 1580774400000,
+                "smartStateEnabled": true,
+                "target": "VMware",
               },
-              "javaRuntimes": Array [],
-              "osInformation": Array [],
-              "recommendedTargetsIMSModel": Object {
-                "ocp": 111,
-                "osp": 121,
-                "rhel": 7,
-                "rhv": 122,
-                "total": 126,
+            ],
+            "summaryModels": Array [
+              Object {
+                "clusters": 1,
+                "hosts": 2,
+                "product": "VMware vCenter",
+                "provider": "VMware",
+                "sockets": 164,
+                "version": "6.5",
+                "vms": 126,
               },
-              "scanRunModels": Array [
-                Object {
-                  "date": 1580774400000,
-                  "smartStateEnabled": true,
-                  "target": "VMware",
-                },
-              ],
-              "summaryModels": Array [
-                Object {
-                  "clusters": 1,
-                  "hosts": 2,
-                  "product": "VMware vCenter",
-                  "provider": "VMware",
-                  "sockets": 164,
-                  "version": "6.5",
-                  "vms": 126,
-                },
-              ],
-              "workloadsDetectedOSTypeModels": Array [
-                Object {
-                  "osName": "ServerNT",
-                  "total": 1,
-                },
-                Object {
-                  "osName": "Linux",
-                  "total": 4,
-                },
-              ],
-            }
+            ],
+            "workloadsDetectedOSTypeModels": Array [
+              Object {
+                "osName": "ServerNT",
+                "total": 1,
+              },
+              Object {
+                "osName": "Linux",
+                "total": 4,
+              },
+            ],
           }
-        />
-      </div>
+        }
+      />
     </StackItem>
     <StackItem
       isFilled={false}

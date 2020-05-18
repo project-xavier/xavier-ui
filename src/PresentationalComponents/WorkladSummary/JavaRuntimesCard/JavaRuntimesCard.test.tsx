@@ -16,7 +16,9 @@ const BasicReportWorkloadSummary: ReportWorkloadSummary = {
         osp: 20,
         rhel: 30,
         rhv: 40,
-        total: 100
+        total: 100,
+        openjdk: 8,
+        jbosseap: 9
     },
     scanRunModels: [],
     summaryModels: [],

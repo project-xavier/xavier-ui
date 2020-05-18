@@ -304,10 +304,10 @@ export class WorkloadMigrationSummary extends React.Component<WorkloadMigrationS
                         { this.renderOSInformation() }
                     </StackItem>
                     <StackItem isFilled={ false }>
-                        <div className="pf-l-grid pf-m-all-6-col-on-lg pf-m-gutter">
-                            { this.renderJavaRuntimes() }
-                            { this.renderApplicationPlatforms() }
-                        </div>
+                        { this.renderJavaRuntimes() }
+                    </StackItem>
+                    <StackItem>
+                        { this.renderApplicationPlatforms() }
                     </StackItem>
                     <StackItem isFilled={ false }>
                         { this.renderWorkloadsDetectedTable() }
