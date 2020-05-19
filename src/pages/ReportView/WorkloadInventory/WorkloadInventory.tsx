@@ -326,7 +326,7 @@ class WorkloadInventory extends React.Component<Props, State> {
         let rows: any[][] = [];
         if (items.length > 0) {
             rows = items.reduce((a: any[], b: ReportWorkloadInventory, index: number) => {
-                const workloads = b.workloads && b.workloads.length > 0 ? b.workloads.join(", ") : undefined;
+                const workloads = b.workloads && b.workloads.length > 0 ? b.workloads.join(", ") : 'Not identified';
 
                 a.push(
                     {
@@ -345,14 +345,14 @@ class WorkloadInventory extends React.Component<Props, State> {
                                 title: <Tooltip position="top" content={<div>{b.vmName}</div>}><span>{b.vmName}</span></Tooltip>
                             },
                             {
-                                title: workloads
-                                    ? <Tooltip position="top" content={<div>{workloads}</div>}><span>{workloads}</span></Tooltip>
-                                    : 'Not identified'
+                                title: <Tooltip position="top" content={<div>{workloads}</div>}><span>{workloads}</span></Tooltip>
                             },
                             {
                                 title: <Tooltip position="top" content={<div>{b.osName}</div>}><span>{b.osName}</span></Tooltip>
                             },
-                            b.complexity,
+                            {
+                                title: <Tooltip position="top" content={<div>{b.complexity}</div>}><span>{b.complexity}</span></Tooltip>
+                            },
                             {
                                 title: <span><i><FlagIcon /></i>&nbsp;{b.flagsIMS.length}</span>
                             }
