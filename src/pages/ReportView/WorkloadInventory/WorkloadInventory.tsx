@@ -46,9 +46,15 @@ import {
     Chip,
     ButtonVariant,
     Form,
-    KebabToggle
+    Tooltip
 } from '@patternfly/react-core';
-import { ErrorCircleOIcon, SearchIcon, FilterIcon } from '@patternfly/react-icons';
+import {
+    ErrorCircleOIcon,
+    SearchIcon,
+    FilterIcon,
+    FlagIcon,
+    MiddlewareIcon
+} from '@patternfly/react-icons';
 import './WorkloadInventory.scss';
 import { ReportWorkloadInventory, WorkloadInventoryReportFiltersModel } from '../../../models';
 import { ObjectFetchStatus } from '../../../models/state';
@@ -130,7 +136,7 @@ const filtersConfig = {
     osName: { key: 'osName', label: 'OS type' } as FilterConfig,
     effort: { key: 'complexity', label: 'Effort' } as FilterConfig,
     recommendedTargetIMS: { key: 'recommendedTargetIMS', label: 'Recommended targets', abbreviation: 'Rec. Targets' } as FilterConfig,
-    flagIMS: { key: 'flagIMS', label: 'Flags IMS' } as FilterConfig,
+    flagIMS: { key: 'flagIMS', label: 'Flags' } as FilterConfig,
 };
 
 enum FilterTypeKeyEnum {
@@ -186,7 +192,7 @@ class WorkloadInventory extends React.Component<Props, State> {
                     title: filtersConfig.provider.label,
                     key: filtersConfig.provider.key,
                     props: {
-                        className: 'vertical-align-middle'
+                        className: 'vertical-align-middle WorkloadInventory_truncate_table_column'
                     },
                     cellFormatters: [ expandable ],
                     transforms: [ cellWidth('10') ]
@@ -195,23 +201,23 @@ class WorkloadInventory extends React.Component<Props, State> {
                     title: filtersConfig.datacenter.label,
                     key: filtersConfig.datacenter.key,
                     props: {
-                        className: 'vertical-align-middle'
+                        className: 'vertical-align-middle WorkloadInventory_truncate_table_column'
                     },
-                    transforms: [ cellWidth('10') ]
+                    transforms: [ cellWidth('15') ]
                 },
                 {
                     title: filtersConfig.cluster.label,
                     key: filtersConfig.cluster.key,
                     props: {
-                        className: 'vertical-align-middle'
+                        className: 'vertical-align-middle WorkloadInventory_truncate_table_column'
                     },
-                    transforms: [ cellWidth('10') ]
+                    transforms: [ cellWidth('15') ]
                 },
                 {
                     title: filtersConfig.vmName.label,
                     key: filtersConfig.vmName.key,
                     props: {
-                        className: 'vertical-align-middle'
+                        className: 'vertical-align-middle WorkloadInventory_truncate_table_column'
                     },
                     transforms: [ sortable, cellWidth('15') ]
                 },
@@ -219,7 +225,7 @@ class WorkloadInventory extends React.Component<Props, State> {
                     title: filtersConfig.workload.label,
                     key: filtersConfig.workload.key,
                     props: {
-                        className: 'vertical-align-middle'
+                        className: 'vertical-align-middle WorkloadInventory_truncate_table_column'
                     },
                     transforms: [ cellWidth('10') ],
                     columnTransforms: [classNames(Visibility.hiddenOnMd, Visibility.visibleOnLg)]
@@ -228,36 +234,27 @@ class WorkloadInventory extends React.Component<Props, State> {
                     title: filtersConfig.osName.label,
                     key: filtersConfig.osName.key,
                     props: {
-                        className: 'vertical-align-middle'
+                        className: 'vertical-align-middle WorkloadInventory_truncate_table_column'
                     },
-                    transforms: [ sortable, cellWidth('10') ],
+                    transforms: [ sortable, cellWidth('15') ],
                     columnTransforms: [classNames(Visibility.hiddenOnMd, Visibility.visibleOnLg)]
                 },
                 {
                     title: filtersConfig.effort.label,
                     key: filtersConfig.effort.key,
                     props: {
-                        className: 'vertical-align-middle'
+                        className: 'vertical-align-middle WorkloadInventory_truncate_table_column'
                     },
                     transforms: [ sortable, cellWidth('10') ],
-                    columnTransforms: [classNames(Visibility.hiddenOnMd, Visibility.visibleOnLg)]
-                },
-                {
-                    title: filtersConfig.recommendedTargetIMS.label,
-                    key: filtersConfig.recommendedTargetIMS.key,
-                    props: {
-                        className: 'vertical-align-middle'
-                    },
-                    transforms: [],
                     columnTransforms: [classNames(Visibility.hiddenOnMd, Visibility.visibleOnLg)]
                 },
                 {
                     title: filtersConfig.flagIMS.label,
                     key: filtersConfig.flagIMS.key,
                     props: {
-                        className: 'vertical-align-middle'
+                        className: 'vertical-align-middle WorkloadInventory_truncate_table_column'
                     },
-                    transforms: [],
+                    transforms: [ cellWidth('10') ],
                     columnTransforms: [classNames(Visibility.hiddenOnMd, Visibility.visibleOnLg)]
                 }
             ],
@@ -329,45 +326,35 @@ class WorkloadInventory extends React.Component<Props, State> {
         let rows: any[][] = [];
         if (items.length > 0) {
             rows = items.reduce((a: any[], b: ReportWorkloadInventory, index: number) => {
+                const workloads = b.workloads && b.workloads.length > 0 ? b.workloads.join(", ") : 'Not identified';
+
                 a.push(
                     {
                         isOpen: false,
                         cells: [
-                            b.provider,
-                            b.datacenter,
-                            b.cluster,
-                            b.vmName,
                             {
-                                title: <span>
-                                    {
-                                        b.workloads.map((val: string, workloadIndex: number) => {
-                                            return (
-                                                <span key={ workloadIndex }>{ val }<br/></span>
-                                            );
-                                        })
-                                    }</span>
-                            },
-                            b.osName,
-                            b.complexity,
-                            {
-                                title: <span>
-                                    {
-                                        b.recommendedTargetsIMS.map((val: string, targetsIndex: number) => {
-                                            return (
-                                                <span key={ targetsIndex }>{ val }<br/></span>
-                                            );
-                                        })
-                                    }</span>
+                                title: <Tooltip position="top" content={<div>{b.provider}</div>}><span>{b.provider}</span></Tooltip>
                             },
                             {
-                                title: <span>
-                                    {
-                                        b.flagsIMS.map((val: string, flagIndex: number) => {
-                                            return (
-                                                <span key={ flagIndex }>{ val }<br/></span>
-                                            );
-                                        })
-                                    }</span>
+                                title: <Tooltip position="top" content={<div>{b.datacenter}</div>}><span>{b.datacenter}</span></Tooltip>
+                            },
+                            {
+                                title: <Tooltip position="top" content={<div>{b.cluster}</div>}><span>{b.cluster}</span></Tooltip>
+                            },
+                            {
+                                title: <Tooltip position="top" content={<div>{b.vmName}</div>}><span>{b.vmName}</span></Tooltip>
+                            },
+                            {
+                                title: <Tooltip position="top" content={<div>{workloads}</div>}><span>{workloads}</span></Tooltip>
+                            },
+                            {
+                                title: <Tooltip position="top" content={<div>{b.osName}</div>}><span>{b.osName}</span></Tooltip>
+                            },
+                            {
+                                title: <Tooltip position="top" content={<div>{b.complexity}</div>}><span>{b.complexity}</span></Tooltip>
+                            },
+                            {
+                                title: <span><i><FlagIcon /></i>&nbsp;{b.flagsIMS.length}</span>
                             }
                         ]
                     },
