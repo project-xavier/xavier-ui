@@ -24,6 +24,11 @@ exports[`ScansRunTable should render table expect to render table using smartSta
           "Virt Platform",
           "September 18, 2019, UTC",
         ],
+        Array [
+          "vSphere3",
+          "Virt Platform",
+          "May 26, 2020, UTC",
+        ],
       ]
     }
     variant="compact"

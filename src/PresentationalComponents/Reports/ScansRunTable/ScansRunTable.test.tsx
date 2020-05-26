@@ -13,6 +13,11 @@ const props: Props = {
             target: 'vSphere2',
             smartStateEnabled: false,
             date: 1568764800000
+        },
+        {
+            target: 'vSphere3',
+            smartStateEnabled: false,
+            date: "2020-05-26T09:50:25.771+0000"
         }
     ]
 };
