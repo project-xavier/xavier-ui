@@ -8,7 +8,8 @@ import {
     ReportWorkloadInventory,
     WorkloadModel,
     FlagModel,
-    WorkloadInventoryReportFiltersModel
+    WorkloadInventoryReportFiltersModel,
+    PaginationResponse
 } from '../models';
 
 export function getAllReports(page: number, perPage: number, filterText: string): AxiosPromise<SearchResult<Report>> {
@@ -104,14 +105,18 @@ export function getReportWorkloadInventory(
     orderBy: string | undefined,
     orderDirection: 'asc' | 'desc' | undefined,
     filters: Map<string, string[]>
-): AxiosPromise<SearchResult<ReportWorkloadInventory>> {
-    // Using page-1 because the backend considers page 0 as the first one
-    const params = {
-        page: page - 1,
-        size: perPage,
-        orderBy: orderBy ? orderBy : undefined,
-        orderAsc: orderDirection ? orderDirection === 'asc' : undefined
+): AxiosPromise<PaginationResponse<ReportWorkloadInventory>> {
+    let params = {
+        offset: (page - 1) * perPage,
+        limit: perPage
     };
+    
+    let sort_by = orderBy ? orderBy : undefined;
+    if (sort_by && orderDirection) {
+        sort_by = `${sort_by}:${orderDirection === 'asc' ? 'asc' : 'desc'}`
+    }
+    params['sort_by'] = sort_by;
+
     const query: string[] = [];
 
     Object.keys(params).map(key => {
@@ -130,7 +135,7 @@ export function getReportWorkloadInventory(
     });
 
     const url = `/report/${id}/workload-inventory?${query.join('&')}`;
-    return ApiClient.get<SearchResult<ReportWorkloadInventory>>(url);
+    return ApiClient.get<PaginationResponse<ReportWorkloadInventory>>(url);
 }
 
 export function getReportWorkloadInventoryFilteredCSV(

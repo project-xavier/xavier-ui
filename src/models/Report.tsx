@@ -1,3 +1,22 @@
+export interface PaginationResponse<T> {
+    meta: PaginationMeta;
+    links: PaginationLinks;
+    data: T[];
+}
+
+export interface PaginationMeta {
+    count: number;
+    limit: number;
+    offset: number;
+}
+
+export interface PaginationLinks {
+    first: string;
+    previous: string | null;
+    next: string | null;
+    last: string;
+}
+
 export interface SearchResult<T> {
     totalElements: number;
     content: T[];
