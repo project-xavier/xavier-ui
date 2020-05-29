@@ -10,11 +10,31 @@ exports[`SolidCard expect to render 1`] = `
     >
       My Title
     </h2>
-    <h3
-      className="pf-c-title pf-m-1xl"
-    >
+    <p>
       My description
-    </h3>
+    </p>
+  </CardBody>
+</Card>
+`;
+
+exports[`SolidCard expect to render with setted width 1`] = `
+<Card
+  className="xa-c-card-solid"
+  style={
+    Object {
+      "width": 123,
+    }
+  }
+>
+  <CardBody>
+    <h2
+      className="pf-c-title pf-m-3xl"
+    >
+      My Title
+    </h2>
+    <p>
+      My description
+    </p>
   </CardBody>
 </Card>
 `;
