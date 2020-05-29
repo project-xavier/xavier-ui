@@ -106,16 +106,16 @@ export function getReportWorkloadInventory(
     orderDirection: 'asc' | 'desc' | undefined,
     filters: Map<string, string[]>
 ): AxiosPromise<PaginationResponse<ReportWorkloadInventory>> {
-    let params = {
-        offset: (page - 1) * perPage,
-        limit: perPage
-    };
-    
-    let sort_by = orderBy ? orderBy : undefined;
-    if (sort_by && orderDirection) {
-        sort_by = `${sort_by}:${orderDirection === 'asc' ? 'asc' : 'desc'}`
+    let sortBy = orderBy ? orderBy : undefined;
+    if (sortBy && orderDirection) {
+        sortBy = `${sortBy}:${orderDirection === 'asc' ? 'asc' : 'desc'}`
     }
-    params['sort_by'] = sort_by;
+
+    const params = {
+        offset: (page - 1) * perPage,
+        limit: perPage,
+        sort_by: sortBy
+    };
 
     const query: string[] = [];
 
