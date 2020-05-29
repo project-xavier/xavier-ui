@@ -271,7 +271,9 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
         const percentages = pieValues.map((val) => ((val / total) * 100));
 
         const chartProps = {
-            title: formatValue(total, 'usd', { fractionDigits: 0 })
+            title: formatValue(total, 'usd', { fractionDigits: 0 }),
+            height: 240,
+            width: 470
         };
 
         const chartData: FancyChartDonutData[] = [
