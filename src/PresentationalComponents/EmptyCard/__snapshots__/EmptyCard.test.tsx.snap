@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EmptyCard expect to render with cardTitle as Element 1`] = `
+<Card>
+  <div
+    className="pf-c-card__header pf-c-title pf-m-xl"
+  >
+    <h1>
+      My Title
+    </h1>
+  </div>
+  <CardBody>
+    <Bullseye>
+      <EmptyState
+        variant="small"
+      >
+        <EmptyStateIcon
+          icon={[Function]}
+        />
+        <Title
+          headingLevel="h6"
+          size="lg"
+        >
+          My message
+        </Title>
+        <EmptyStateBody>
+          My description
+        </EmptyStateBody>
+      </EmptyState>
+    </Bullseye>
+  </CardBody>
+</Card>
+`;
+
+exports[`EmptyCard expect to render with description 1`] = `
+<Card>
+  <div
+    className="pf-c-card__header pf-c-title pf-m-xl"
+  >
+    My card title
+  </div>
+  <CardBody>
+    <Bullseye>
+      <EmptyState
+        variant="small"
+      >
+        <EmptyStateIcon
+          icon={[Function]}
+        />
+        <Title
+          headingLevel="h6"
+          size="lg"
+        >
+          My message
+        </Title>
+        <EmptyStateBody>
+          My description
+        </EmptyStateBody>
+      </EmptyState>
+    </Bullseye>
+  </CardBody>
+</Card>
+`;
+
+exports[`EmptyCard expect to render without description 1`] = `
+<Card>
+  <div
+    className="pf-c-card__header pf-c-title pf-m-xl"
+  >
+    My card title
+  </div>
+  <CardBody>
+    <Bullseye>
+      <EmptyState
+        variant="small"
+      >
+        <EmptyStateIcon
+          icon={[Function]}
+        />
+        <Title
+          headingLevel="h6"
+          size="lg"
+        >
+          My message
+        </Title>
+      </EmptyState>
+    </Bullseye>
+  </CardBody>
+</Card>
+`;
