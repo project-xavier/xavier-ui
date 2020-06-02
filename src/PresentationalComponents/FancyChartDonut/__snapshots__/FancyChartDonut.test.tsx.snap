@@ -9,14 +9,7 @@ exports[`FancyChartDonut expect to render with minimun props 1`] = `
       className="donut-chart-container"
     >
       <ChartDonut
-        colorScale={
-          Array [
-            "red",
-            "blue",
-            "yellow",
-            "green",
-          ]
-        }
+        constrainToVisibleArea={true}
         data={
           Array [
             Object {
@@ -41,37 +34,41 @@ exports[`FancyChartDonut expect to render with minimun props 1`] = `
             },
           ]
         }
+        height={190}
         labelComponent={<ChartTooltip />}
         labels={[Function]}
+        legendAllowWrap={true}
+        legendData={
+          Array [
+            Object {
+              "name": "year1: 10",
+            },
+            Object {
+              "name": "year2: 20",
+            },
+            Object {
+              "name": "year3: 30",
+            },
+            Object {
+              "name": "year4: 40",
+            },
+          ]
+        }
+        legendOrientation="vertical"
+        legendPosition="right"
+        padding={
+          Object {
+            "bottom": 20,
+            "left": 20,
+            "right": 160,
+            "top": 20,
+          }
+        }
+        themeColor="multi-ordered"
+        themeVariant="light"
+        width={420}
       />
     </div>
-    <ChartLegend
-      colorScale={
-        Array [
-          "red",
-          "blue",
-          "yellow",
-          "green",
-        ]
-      }
-      data={
-        Array [
-          Object {
-            "name": "year1: 10",
-          },
-          Object {
-            "name": "year2: 20",
-          },
-          Object {
-            "name": "year3: 30",
-          },
-          Object {
-            "name": "year4: 40",
-          },
-        ]
-      }
-      orientation="vertical"
-    />
   </div>
 </Fragment>
 `;

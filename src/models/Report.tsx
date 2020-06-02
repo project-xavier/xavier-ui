@@ -19,6 +19,9 @@ export interface ReportWorkloadSummary {
     recommendedTargetsIMSModel: RecommendedTargetsIMSModel;
     workloadsDetectedOSTypeModels: WorkloadDetectedOSTypeModel[];
     scanRunModels: ScanRunModel[];
+    javaRuntimes: JavaRuntimeModel[];
+    applicationPlatforms: ApplicationPlatformModel[];
+    osInformation: OSInformationModel[];
 }
 
 export interface Summary {
@@ -45,6 +48,8 @@ export interface RecommendedTargetsIMSModel {
     osp: number;
     rhel: number;
     ocp: number;
+    openjdk: number;
+    jbosseap: number;
 }
 
 export interface WorkloadDetectedOSTypeModel {
@@ -56,6 +61,27 @@ export interface ScanRunModel {
     target: string;
     smartStateEnabled: boolean;
     date: number | string;
+}
+
+export interface JavaRuntimeModel {
+    vendor: string;
+    version: string;
+    total: number;
+    priority: number | null;
+}
+
+export interface ApplicationPlatformModel {
+    name: string;
+    version: string | null;
+    total: number;
+    priority: number | null;
+}
+
+export interface OSInformationModel {
+    osFamily: string;
+    version: string | null;
+    total: number;
+    priority: number | null;
 }
 
 export interface WorkloadModel {
