@@ -13,7 +13,7 @@ interface Props {
 }
 
 export const OSInformation: React.FC<Props> = ({ reportWorkloadSummary }) => {
-    const title = 'OS Information';
+    const title = 'OS information';
 
     if (
         !reportWorkloadSummary ||
@@ -21,7 +21,7 @@ export const OSInformation: React.FC<Props> = ({ reportWorkloadSummary }) => {
         reportWorkloadSummary.osInformation.length === 0
     ) {
         return (
-            <EmptyCard cardTitle={title} message="Not enough data" description="Could not extract OS Information." />
+            <EmptyCard cardTitle={title} message="Not enough data" description="Could not extract OS information." />
         );
     }
 
