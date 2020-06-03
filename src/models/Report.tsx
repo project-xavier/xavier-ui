@@ -8,8 +8,8 @@ export interface Report {
     reportName: string;
     reportDescription: string;
     payloadName: string;
-    inserted: number;
-    lastUpdate: number;
+    inserted: number | string;
+    lastUpdate: number | string;
     status: 'CREATED' | 'IN_PROGRESS' | 'FAILED';
 }
 
@@ -60,7 +60,7 @@ export interface WorkloadDetectedOSTypeModel {
 export interface ScanRunModel {
     target: string;
     smartStateEnabled: boolean;
-    date: number;
+    date: number | string;
 }
 
 export interface JavaRuntimeModel {
@@ -103,7 +103,7 @@ export interface ReportInitialSavingEstimation {
     id: number;
     customerId: string;
     fileName: string;
-    creationDate: Date;
+    creationDate: number | string;
     environmentModel: EnvironmentModel;
     sourceCostsModel: SourceCostsModel;
     sourceRampDownCostsModel: SourceRampDownCostsModel;
