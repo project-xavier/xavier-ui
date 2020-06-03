@@ -115,7 +115,7 @@ exports[`Reports should render list depending of TOTAL value expect to render li
     <ToolbarGroup>
       <ToolbarItem>
         <Component
-          itemCount={2}
+          itemCount={3}
           onPageInput={[Function]}
           onPerPageSelect={[Function]}
           onSetPage={[Function]}
@@ -190,6 +190,30 @@ exports[`Reports should render list depending of TOTAL value expect to render li
             },
           ],
         },
+        Object {
+          "cells": Array [
+            Object {
+              "title": <span>
+                My report name 38
+              </span>,
+            },
+            Object {
+              "title": <p>
+                <InProgressIcon
+                  className="progress"
+                  color="currentColor"
+                  noVerticalAlign={false}
+                  size="sm"
+                  title={null}
+                />
+                 Analyzing the upload file
+              </p>,
+            },
+            Object {
+              "title": "",
+            },
+          ],
+        },
       ]
     }
   >
@@ -201,7 +225,7 @@ exports[`Reports should render list depending of TOTAL value expect to render li
           colSpan={10}
         >
           <Component
-            itemCount={2}
+            itemCount={3}
             onPageInput={[Function]}
             onPerPageSelect={[Function]}
             onSetPage={[Function]}

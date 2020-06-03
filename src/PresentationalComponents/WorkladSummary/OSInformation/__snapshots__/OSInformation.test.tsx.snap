@@ -3,7 +3,7 @@
 exports[`JavaRuntimesCard expect to render 1`] = `
 <ReportCard
   skipBullseye={true}
-  title="OS Information"
+  title="OS information"
 >
   <Grid
     gutter="sm"
@@ -68,16 +68,16 @@ exports[`JavaRuntimesCard expect to render 1`] = `
 
 exports[`JavaRuntimesCard expect to render empty card when no java runtimes 1`] = `
 <Component
-  cardTitle="OS Information"
-  description="Could not extract OS Information."
+  cardTitle="OS information"
+  description="Could not extract OS information."
   message="Not enough data"
 />
 `;
 
 exports[`JavaRuntimesCard expect to render empty card when undefined reportWorkloadSummary 1`] = `
 <Component
-  cardTitle="OS Information"
-  description="Could not extract OS Information."
+  cardTitle="OS information"
+  description="Could not extract OS information."
   message="Not enough data"
 />
 `;
