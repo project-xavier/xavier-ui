@@ -41,7 +41,7 @@ export const mappingsReducer = (state: MappingsState = defaultState, action: Gen
                 ...state,
                 flagAssessment: {
                     ...state.flagAssessment,
-                    allFlags: action.payload.data,
+                    allFlags: action.payload.data.data,
                     allFlagsFetchStatus: {
                         status: 'complete',
                         error: null
