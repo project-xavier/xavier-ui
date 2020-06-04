@@ -47,12 +47,16 @@ export function getReportWorkloadsDetected(
     orderBy: string | undefined,
     orderDirection: 'asc' | 'desc' | undefined
 ): AxiosPromise<SearchResult<WorkloadModel>> {
+    let sortBy = orderBy ? orderBy : undefined;
+    if (sortBy && orderDirection) {
+        sortBy = `${sortBy}:${orderDirection === 'asc' ? 'asc' : 'desc'}`
+    }
+
     // Using page-1 because the backend considers page 0 as the first one
     const params = {
-        page: page - 1,
-        size: perPage,
-        orderBy: orderBy ? orderBy : undefined,
-        orderAsc: orderDirection ? orderDirection === 'asc' : undefined
+        offset: (page - 1) * perPage,
+        limit: perPage,
+        sort_by: sortBy
     };
     const query: string[] = [];
 
@@ -74,13 +78,17 @@ export function getReportFlags(
     orderBy: string | undefined,
     orderDirection: 'asc' | 'desc' | undefined
 ): AxiosPromise<SearchResult<FlagModel>> {
-    // Using page-1 because the backend considers page 0 as the first one
+    let sortBy = orderBy ? orderBy : undefined;
+    if (sortBy && orderDirection) {
+        sortBy = `${sortBy}:${orderDirection === 'asc' ? 'asc' : 'desc'}`
+    }
+
     const params = {
-        page: page - 1,
-        size: perPage,
-        orderBy: orderBy ? orderBy : undefined,
-        orderAsc: orderDirection ? orderDirection === 'asc' : undefined
+        offset: (page - 1) * perPage,
+        limit: perPage,
+        sort_by: sortBy
     };
+    
     const query: string[] = [];
 
     Object.keys(params).map(key => {
@@ -144,10 +152,15 @@ export function getReportWorkloadInventoryFilteredCSV(
     orderDirection: 'asc' | 'desc' | undefined,
     filters: Map<string, string[]>
 ): AxiosPromise<any> {
+    let sortBy = orderBy ? orderBy : undefined;
+    if (sortBy && orderDirection) {
+        sortBy = `${sortBy}:${orderDirection === 'asc' ? 'asc' : 'desc'}`
+    }
+
     const params = {
-        orderBy: orderBy ? orderBy : undefined,
-        orderAsc: orderDirection ? orderDirection === 'asc' : undefined
+        sort_by: sortBy
     };
+
     const query: string[] = [];
 
     Object.keys(params).map(key => {

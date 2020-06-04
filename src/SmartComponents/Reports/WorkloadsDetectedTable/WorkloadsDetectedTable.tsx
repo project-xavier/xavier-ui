@@ -120,7 +120,7 @@ export class WorkloadsDetectedTable extends React.Component<WorkloadsDetectedTab
     ) => {
         const { reportId, fetchReportWorkloadsDetected } = this.props;
 
-        const column = index ? this.state.columns[index].key : undefined;
+        const column = index !== undefined ? this.state.columns[index].key : undefined;
         const orderDirection = direction ? direction : undefined;
         
         await fetchReportWorkloadsDetected(reportId, page, perPage, column, orderDirection);
@@ -156,7 +156,7 @@ export class WorkloadsDetectedTable extends React.Component<WorkloadsDetectedTab
         const { reportId } = this.props;
         const { perPage } = this.state;
 
-        const column = index ? this.state.columns[index].key : undefined;
+        const column = index !== undefined ? this.state.columns[index].key : undefined;
         const orderDirection = direction ? direction : undefined;
         
         await this.props.fetchReportWorkloadsDetected(reportId, page, perPage, column, orderDirection);
