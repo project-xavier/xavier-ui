@@ -143,7 +143,7 @@ export class FlagsTable extends React.Component<FlagsTableProps, State> {
     ) => {
         const { reportId, fetchReportFlags } = this.props;
 
-        const column = index ? this.state.columns[index].key : undefined;
+        const column = index !== undefined ? this.state.columns[index].key : undefined;
         const orderDirection = direction ? direction : undefined;
 
         await fetchReportFlags(reportId, page, perPage, column, orderDirection);
@@ -191,7 +191,7 @@ export class FlagsTable extends React.Component<FlagsTableProps, State> {
         const { reportId } = this.props;
         const { perPage } = this.state;
 
-        const column = index ? this.state.columns[index].key : undefined;
+        const column = index !== undefined ? this.state.columns[index].key : undefined;
         const orderDirection = direction ? direction : undefined;
         
         await this.props.fetchReportFlags(reportId, page, perPage, column, orderDirection);
