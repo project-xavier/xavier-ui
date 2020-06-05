@@ -89,8 +89,8 @@ export const reportsReducer = (state: ReportState = initialState, action: Generi
                 ...state,
                 reports: {
                     ...state.reports,
-                    items: action.payload.data.content,
-                    total: action.payload.data.totalElements
+                    items: action.payload.data.data,
+                    total: action.payload.data.meta.count
                 },
                 reportsFetchStatus: {
                     ...state.reportsFetchStatus,
