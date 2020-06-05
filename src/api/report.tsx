@@ -14,7 +14,10 @@ import {
 
 export function getAllReports(page: number, perPage: number, filterText: string): AxiosPromise<SearchResult<Report>> {
     // Using page-1 because the backend considers page 0 as the first one
-    const params = { page: page - 1, size: perPage, filterText };
+    const params = {
+        offset: (page - 1) * perPage,
+        limit: perPage
+    };
     const query: string[] = [];
 
     Object.keys(params).map(key => {
