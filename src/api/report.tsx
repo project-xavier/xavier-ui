@@ -16,7 +16,8 @@ export function getAllReports(page: number, perPage: number, filterText: string)
     // Using page-1 because the backend considers page 0 as the first one
     const params = {
         offset: (page - 1) * perPage,
-        limit: perPage
+        limit: perPage,
+        filterText
     };
     const query: string[] = [];
 
