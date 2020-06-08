@@ -52,7 +52,8 @@ import {
     ErrorCircleOIcon,
     SearchIcon,
     FilterIcon,
-    FlagIcon} from '@patternfly/react-icons';
+    FlagIcon
+} from '@patternfly/react-icons';
 import './WorkloadInventory.scss';
 import { ReportWorkloadInventory, WorkloadInventoryReportFiltersModel } from '../../../models';
 import { ObjectFetchStatus } from '../../../models/state';
