@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-    TableToolbar,
     SkeletonTable
 } from '@redhat-cloud-services/frontend-components';
 import {
@@ -186,13 +185,7 @@ export class WorkloadsDetectedTable extends React.Component<WorkloadsDetectedTab
     };
 
     public onPerPageSelect = (_event: any, perPage: number) => {
-        let page = this.state.page;
-        const total = this.props.reportWorkloadsDetected.total;
-
-        // If current page and perPage would request data beyond total, show last available page
-        if (page * perPage > total) {
-            page = Math.floor(total / perPage) + 1;
-        }
+        const page = 1;
 
         this.setState({ page, perPage });
         this.refreshData(page, perPage);

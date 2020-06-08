@@ -52,9 +52,7 @@ import {
     ErrorCircleOIcon,
     SearchIcon,
     FilterIcon,
-    FlagIcon,
-    MiddlewareIcon
-} from '@patternfly/react-icons';
+    FlagIcon} from '@patternfly/react-icons';
 import './WorkloadInventory.scss';
 import { ReportWorkloadInventory, WorkloadInventoryReportFiltersModel } from '../../../models';
 import { ObjectFetchStatus } from '../../../models/state';
@@ -413,13 +411,7 @@ class WorkloadInventory extends React.Component<Props, State> {
     };
 
     public onPerPageSelect = (_event: any, perPage: number) => {
-        let page = this.state.page;
-        const total = this.props.reportWorkloadInventory.total;
-
-        // If current page and perPage would request data beyond total, show last available page
-        if (page * perPage > total) {
-            page = Math.floor(total / perPage) + 1;
-        }
+        const page = 1;
 
         this.setState({ page, perPage });
         this.refreshData(page, perPage);
