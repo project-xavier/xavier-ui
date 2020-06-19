@@ -43,9 +43,18 @@ import {
     classNames,
     Visibility
 } from '@patternfly/react-table';
-import { ErrorCircleOIcon, SearchIcon, FilterIcon } from '@patternfly/react-icons';
-import { Formik } from 'formik';
+import {
+    ErrorCircleOIcon,
+    SearchIcon,
+    FilterIcon,
+    FlagIcon
+} from '@patternfly/react-icons';
+import {
+    TableToolbar,
+    SkeletonTable
+} from '@redhat-cloud-services/frontend-components';
 import debounce from 'lodash/debounce';
+import { Formik } from 'formik';
 import { RouterGlobalProps } from '../../../models/router';
 import { ReportWorkloadInventory, WorkloadInventoryReportFiltersModel } from '../../../models';
 import { ObjectFetchStatus } from '../../../models/state';
