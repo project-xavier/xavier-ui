@@ -1,6 +1,4 @@
 import React from 'react';
-import { ObjectFetchStatus } from '../../../models/state';
-import { ReportWorkloadSummary } from '../../../models';
 import {
     Bullseye,
     EmptyState,
@@ -12,9 +10,7 @@ import {
     TitleLevel,
     Stack,
     StackItem,
-    Tooltip,
-    Grid,
-    GridItem
+    Tooltip
 } from '@patternfly/react-core';
 import { ErrorCircleOIcon, HelpIcon } from '@patternfly/react-icons';
 import {
@@ -30,6 +26,12 @@ import ScansRunTable from '../../../PresentationalComponents/Reports/ScansRunTab
 import WorkloadsDetectedTable from '../../../SmartComponents/Reports/WorkloadsDetectedTable';
 import FlagsTable from '../../../SmartComponents/Reports/FlagsTable';
 import { SolidCard } from '../../../PresentationalComponents/SolidCard';
+import { ObjectFetchStatus } from '../../../models/state';
+import { ReportWorkloadSummary } from '../../../models';
+import { JavaRuntimesCard } from '../../../PresentationalComponents/WorkladSummary/JavaRuntimesCard';
+import { EmptyCard } from '../../../PresentationalComponents/EmptyCard';
+import { ApplicationPlatformsCard } from '../../../PresentationalComponents/WorkladSummary/ApplicationPlatformsCard';
+import { OSInformation } from '../../../PresentationalComponents/WorkladSummary/OSInformation';
 
 interface StateToProps {
     reportWorkloadSummary: ReportWorkloadSummary | null;
@@ -72,12 +74,8 @@ export class WorkloadMigrationSummary extends React.Component<WorkloadMigrationS
         });
     };
 
-    public renderErrorCard = (title: string) => {
-        return (
-            <ReportCard title={title}>
-                There is no enough data to render this card.
-            </ReportCard>
-        );
+    public renderErrorCard = (cardTitle: string | React.ReactElement) => {
+        return <EmptyCard cardTitle={cardTitle} message="Not enought data to show this card"/>;
     };
 
     public renderSummary = () => {
@@ -131,15 +129,7 @@ export class WorkloadMigrationSummary extends React.Component<WorkloadMigrationS
 
         const chartProps = {
             title: formatNumber(total, 0),
-            subTitle: 'Total VMs',
-            height: 250,
-            width: 250
-        };
-        const chartLegendProps = {
-            height: 300,
-            width: 210,
-            responsive: false,
-            y: 60
+            subTitle: 'Total VMs'
         };
 
         const chartData: FancyChartDonutData[] = [
@@ -174,7 +164,6 @@ export class WorkloadMigrationSummary extends React.Component<WorkloadMigrationS
                 <FancyChartDonut
                     data={ chartData }
                     chartProps={ chartProps }
-                    chartLegendProps={ chartLegendProps }
                     tickFormat={ tickFormat }
                     tooltipFormat={ tooltipFormat }
                 />
@@ -208,32 +197,24 @@ export class WorkloadMigrationSummary extends React.Component<WorkloadMigrationS
 
         return (
             <ReportCard title={title} skipBullseye={true}>
-                <Grid gutter="sm" md={6} lg={3}>
-                    <GridItem>
-                        <SolidCard
-                            title={`${formatPercentage(percentages[0], 0)} RHV`}
-                            description="Workloads suitable for Red Hat Virtualization"
-                        />
-                    </GridItem>
-                    <GridItem>
-                        <SolidCard
-                            title={`${formatPercentage(percentages[1], 0)} OSP`}
-                            description="Workloads could be running on Red Hat OpenStack Platform"
-                        />
-                    </GridItem>
-                    <GridItem>
-                        <SolidCard
-                            title={`${formatPercentage(percentages[2], 0)} RHEL`}
-                            description="Workloads possible to migrate to Red Hat Enterprise Linux"
-                        />
-                    </GridItem>
-                    <GridItem>
-                        <SolidCard
-                            title={`${formatPercentage(percentages[3], 0)} OCP`}
-                            description="Workloads targeted for OpenShift virtualization"
-                        />
-                    </GridItem>
-                </Grid>
+                <div className="pf-l-grid pf-m-all-6-col-on-md pf-m-all-4-col-on-lg pf-m-gutter">
+                    <SolidCard
+                        title={`${formatPercentage(percentages[0], 0)} RHV`}
+                        description="Workloads suitable for Red Hat Virtualization"
+                    />
+                    <SolidCard
+                        title={`${formatPercentage(percentages[1], 0)} OSP`}
+                        description="Workloads could be running on Red Hat OpenStack Platform"
+                    />
+                    {/* <SolidCard
+                        title={`${formatPercentage(percentages[2], 0)} RHEL`}
+                        description="Workloads possible to migrate to Red Hat Enterprise Linux"
+                    /> */}
+                    <SolidCard
+                        title={`${formatPercentage(percentages[3], 0)} OCP`}
+                        description="Workloads targeted for OpenShift virtualization"
+                    />
+                </div>
             </ReportCard>
         );
     };
@@ -251,63 +232,20 @@ export class WorkloadMigrationSummary extends React.Component<WorkloadMigrationS
         );
     };
 
-    public renderWorkloadsDetected = () => {
+    public renderOSInformation = () => {
         const { reportWorkloadSummary } = this.props;
-        const title="Workloads detected (OS Types)";
+        return <OSInformation reportWorkloadSummary={reportWorkloadSummary} />;
+    }
 
-        if (!reportWorkloadSummary) {
-            return this.renderErrorCard(title);
-        }
+    public renderJavaRuntimes = () => {
+        const { reportWorkloadSummary } = this.props;
+        return <JavaRuntimesCard reportWorkloadSummary={reportWorkloadSummary} />;
+    }
 
-        // TODO this validation was created when Models were not complete in the backend
-        // It should be safe to remove this
-        const workloadsDetectedOSTypeModels = reportWorkloadSummary.workloadsDetectedOSTypeModels;
-        if (!workloadsDetectedOSTypeModels) {
-            return this.renderErrorCard(title);
-        }
-
-        //
-        const pieValues = workloadsDetectedOSTypeModels.map(element => element.total);
-
-        const total = pieValues.reduce(sumReducer, 0);
-        const percentages = pieValues.map((val: number) => val / total);
-
-        const chartProps = {
-            title: formatNumber(total, 0),
-            subTitle: 'Total workloads',
-            height: 300,
-            width: 300
-        };
-        const chartLegendProps = {
-            height: 300,
-            width: 210,
-            responsive: false,
-            y: 60
-        };
-
-        const chartData: FancyChartDonutData[] = workloadsDetectedOSTypeModels.map((element, index: number) => ({
-            label: element.osName,
-            value: percentages[index],
-            extraData: pieValues[index]
-        }));
-
-        const tickFormat = (label: string, value: number) => `${label}: ${formatPercentage(value, 2)}`;
-        const tooltipFormat = ({datum}) => `${datum.x}: ${formatPercentage(datum.y, 2)} \n Workloads: ${formatNumber(datum.extraData, 0)}`;
-
-        return (
-            <ReportCard
-                title={title}
-            >
-                <FancyChartDonut
-                    data={ chartData }
-                    chartProps={ chartProps }
-                    chartLegendProps={ chartLegendProps }
-                    tickFormat={ tickFormat }
-                    tooltipFormat={ tooltipFormat }
-                />
-            </ReportCard>
-        );
-    };
+    public renderApplicationPlatforms = () => {
+        const { reportWorkloadSummary } = this.props;
+        return <ApplicationPlatformsCard reportWorkloadSummary={reportWorkloadSummary} />;
+    }
 
     public renderFlagsTable = () => {
         const { reportId } = this.props;
@@ -354,19 +292,25 @@ export class WorkloadMigrationSummary extends React.Component<WorkloadMigrationS
                         { this.renderSummary() }
                     </StackItem>
                     <StackItem isFilled={ false }>
-                        { this.renderMigrationComplexity() }
-                    </StackItem>
-                    <StackItem isFilled={ false }>
                         { this.renderTargetRecommendation() }
                     </StackItem>
                     <StackItem isFilled={ false }>
-                        { this.renderWorkloadsDetectedTable() }
-                    </StackItem>
-                    <StackItem isFilled={ false }>
-                        { this.renderWorkloadsDetected() }
+                        { this.renderMigrationComplexity() }
                     </StackItem>
                     <StackItem isFilled={ false }>
                         { this.renderFlagsTable() }
+                    </StackItem>
+                    <StackItem isFilled={ false }>
+                        { this.renderOSInformation() }
+                    </StackItem>
+                    <StackItem isFilled={ false }>
+                        { this.renderJavaRuntimes() }
+                    </StackItem>
+                    <StackItem>
+                        { this.renderApplicationPlatforms() }
+                    </StackItem>
+                    <StackItem isFilled={ false }>
+                        { this.renderWorkloadsDetectedTable() }
                     </StackItem>
                     <StackItem isFilled={ false }>
                         { this.renderScansRun() }

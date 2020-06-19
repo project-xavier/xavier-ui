@@ -1,18 +1,4 @@
 import React from 'react';
-import { RouterGlobalProps } from '../../../models/router';
-import {
-    expandable,
-    Table,
-    TableHeader,
-    TableBody,
-    ICell,
-    IRow,
-    sortable,
-    ISortBy,
-    cellWidth,
-    classNames,
-    Visibility
-} from '@patternfly/react-table';
 import {
     ToolbarGroup,
     ToolbarItem,
@@ -42,17 +28,27 @@ import {
     Chip,
     ButtonVariant,
     Form,
-    KebabToggle
+    Tooltip
 } from '@patternfly/react-core';
-import { ErrorCircleOIcon, SearchIcon, FilterIcon } from '@patternfly/react-icons';
 import {
-    TableToolbar,
-    SkeletonTable
-} from '@redhat-cloud-services/frontend-components';
+    expandable,
+    Table,
+    TableHeader,
+    TableBody,
+    ICell,
+    IRow,
+    sortable,
+    ISortBy,
+    cellWidth,
+    classNames,
+    Visibility
+} from '@patternfly/react-table';
+import { ErrorCircleOIcon, SearchIcon, FilterIcon } from '@patternfly/react-icons';
 import { Formik } from 'formik';
 import debounce from 'lodash/debounce';
-import { ObjectFetchStatus } from '../../../models/state';
+import { RouterGlobalProps } from '../../../models/router';
 import { ReportWorkloadInventory, WorkloadInventoryReportFiltersModel } from '../../../models';
+import { ObjectFetchStatus } from '../../../models/state';
 import { extractFilenameFromContentDispositionHeaderValue } from '../../../Utilities/extractUtils';
 import { WorkloadInventoryDetails } from './WorkloadInventoryDetails';
 import './WorkloadInventory.scss';
@@ -63,7 +59,6 @@ interface StateToProps extends RouterGlobalProps {
         items: ReportWorkloadInventory[]
     };
     reportWorkloadInventoryFetchStatus: ObjectFetchStatus;
-    reportWorkloadInventoryAllCSVFetchStatus: ObjectFetchStatus;
     reportWorkloadInventoryFilteredCSVFetchStatus: ObjectFetchStatus;
     reportWorkloadInventoryAvailableFilters: WorkloadInventoryReportFiltersModel | null;
     reportWorkloadInventoryAvailableFiltersFetchStatus: ObjectFetchStatus;
@@ -78,7 +73,6 @@ interface DispatchToProps {
         orderDirection: 'asc' | 'desc' | undefined,
         filterValue: Map<string, string[]>
     ) => any;
-    fetchReportWorkloadInventoryAllCSV:(reportId: number) => any;
     fetchReportWorkloadInventoryFilteredCSV:(
         id: number,
         orderBy: string | undefined,
@@ -115,7 +109,6 @@ interface State {
     };
     filterValue: Map<FilterTypeKeyEnum, string[]>;
     secondaryFilterDropDownOpen: boolean;
-    isToolbarKebabOpen: boolean;
 };
 
 interface FilterConfig {
@@ -133,7 +126,7 @@ const filtersConfig = {
     osName: { key: 'osName', label: 'OS type' } as FilterConfig,
     effort: { key: 'complexity', label: 'Effort' } as FilterConfig,
     recommendedTargetIMS: { key: 'recommendedTargetIMS', label: 'Recommended targets', abbreviation: 'Rec. Targets' } as FilterConfig,
-    flagIMS: { key: 'flagIMS', label: 'Flags IMS' } as FilterConfig,
+    flagIMS: { key: 'flagIMS', label: 'Flags' } as FilterConfig,
 };
 
 enum FilterTypeKeyEnum {
@@ -189,7 +182,7 @@ class WorkloadInventory extends React.Component<Props, State> {
                     title: filtersConfig.provider.label,
                     key: filtersConfig.provider.key,
                     props: {
-                        className: 'vertical-align-middle'
+                        className: 'vertical-align-middle WorkloadInventory_truncate_table_column'
                     },
                     cellFormatters: [ expandable ],
                     transforms: [ cellWidth('10') ]
@@ -198,23 +191,23 @@ class WorkloadInventory extends React.Component<Props, State> {
                     title: filtersConfig.datacenter.label,
                     key: filtersConfig.datacenter.key,
                     props: {
-                        className: 'vertical-align-middle'
+                        className: 'vertical-align-middle WorkloadInventory_truncate_table_column'
                     },
-                    transforms: [ cellWidth('10') ]
+                    transforms: [ cellWidth('15') ]
                 },
                 {
                     title: filtersConfig.cluster.label,
                     key: filtersConfig.cluster.key,
                     props: {
-                        className: 'vertical-align-middle'
+                        className: 'vertical-align-middle WorkloadInventory_truncate_table_column'
                     },
-                    transforms: [ cellWidth('10') ]
+                    transforms: [ cellWidth('15') ]
                 },
                 {
                     title: filtersConfig.vmName.label,
                     key: filtersConfig.vmName.key,
                     props: {
-                        className: 'vertical-align-middle'
+                        className: 'vertical-align-middle WorkloadInventory_truncate_table_column'
                     },
                     transforms: [ sortable, cellWidth('15') ]
                 },
@@ -222,7 +215,7 @@ class WorkloadInventory extends React.Component<Props, State> {
                     title: filtersConfig.workload.label,
                     key: filtersConfig.workload.key,
                     props: {
-                        className: 'vertical-align-middle'
+                        className: 'vertical-align-middle WorkloadInventory_truncate_table_column'
                     },
                     transforms: [ cellWidth('10') ],
                     columnTransforms: [classNames(Visibility.hiddenOnMd, Visibility.visibleOnLg)]
@@ -231,36 +224,27 @@ class WorkloadInventory extends React.Component<Props, State> {
                     title: filtersConfig.osName.label,
                     key: filtersConfig.osName.key,
                     props: {
-                        className: 'vertical-align-middle'
+                        className: 'vertical-align-middle WorkloadInventory_truncate_table_column'
                     },
-                    transforms: [ sortable, cellWidth('10') ],
+                    transforms: [ sortable, cellWidth('15') ],
                     columnTransforms: [classNames(Visibility.hiddenOnMd, Visibility.visibleOnLg)]
                 },
                 {
                     title: filtersConfig.effort.label,
                     key: filtersConfig.effort.key,
                     props: {
-                        className: 'vertical-align-middle'
+                        className: 'vertical-align-middle WorkloadInventory_truncate_table_column'
                     },
                     transforms: [ sortable, cellWidth('10') ],
-                    columnTransforms: [classNames(Visibility.hiddenOnMd, Visibility.visibleOnLg)]
-                },
-                {
-                    title: filtersConfig.recommendedTargetIMS.label,
-                    key: filtersConfig.recommendedTargetIMS.key,
-                    props: {
-                        className: 'vertical-align-middle'
-                    },
-                    transforms: [],
                     columnTransforms: [classNames(Visibility.hiddenOnMd, Visibility.visibleOnLg)]
                 },
                 {
                     title: filtersConfig.flagIMS.label,
                     key: filtersConfig.flagIMS.key,
                     props: {
-                        className: 'vertical-align-middle'
+                        className: 'vertical-align-middle WorkloadInventory_truncate_table_column'
                     },
-                    transforms: [],
+                    transforms: [ cellWidth('10') ],
                     columnTransforms: [classNames(Visibility.hiddenOnMd, Visibility.visibleOnLg)]
                 }
             ],
@@ -272,8 +256,7 @@ class WorkloadInventory extends React.Component<Props, State> {
                 name: 'Filter',
                 value: FilterTypeKeyEnum.NONE,
             },
-            filterValue: new Map(),
-            isToolbarKebabOpen: false
+            filterValue: new Map()
         };
     }
 
@@ -282,13 +265,7 @@ class WorkloadInventory extends React.Component<Props, State> {
         this.refreshFilters();
     }
 
-    public handleToolbarKebabToggle = (newIsOpen: boolean) => {
-        this.setState({ isToolbarKebabOpen: newIsOpen });
-    };
-
     public handleDownloadFilteredCSV = () => {
-        this.handleToolbarKebabToggle(false);
-
         const { sortBy, filterValue, } = this.state;
         const {reportId, fetchReportWorkloadInventoryFilteredCSV} = this.props;
 
@@ -297,24 +274,6 @@ class WorkloadInventory extends React.Component<Props, State> {
 
         const mappedFilterValue = this.prepareFiltersToBeSended(filterValue);
         fetchReportWorkloadInventoryFilteredCSV(reportId, orderByColumn, orderDirection, mappedFilterValue).then((response: any) => {
-            const contentDispositionHeader = response.value.headers['content-disposition'];
-            const fileName = extractFilenameFromContentDispositionHeaderValue(contentDispositionHeader);
-
-            const downloadUrl = window.URL.createObjectURL(new Blob([response.value.data]));
-            const link = document.createElement('a');
-            link.href = downloadUrl;
-            link.setAttribute('download', fileName || 'workloadInventoryReport.csv');
-            document.body.appendChild(link);
-            link.click();
-            link.remove();
-        });
-    };
-
-    public handleDownloadAllCSV = () => {
-        this.handleToolbarKebabToggle(false);
-
-        const {reportId, fetchReportWorkloadInventoryAllCSV} = this.props;
-        fetchReportWorkloadInventoryAllCSV(reportId).then((response: any) => {
             const contentDispositionHeader = response.value.headers['content-disposition'];
             const fileName = extractFilenameFromContentDispositionHeaderValue(contentDispositionHeader);
 
@@ -357,45 +316,35 @@ class WorkloadInventory extends React.Component<Props, State> {
         let rows: any[][] = [];
         if (items.length > 0) {
             rows = items.reduce((a: any[], b: ReportWorkloadInventory, index: number) => {
+                const workloads = b.workloads && b.workloads.length > 0 ? b.workloads.join(", ") : 'Not identified';
+
                 a.push(
                     {
                         isOpen: false,
                         cells: [
-                            b.provider,
-                            b.datacenter,
-                            b.cluster,
-                            b.vmName,
                             {
-                                title: <span>
-                                    {
-                                        b.workloads.map((val: string, workloadIndex: number) => {
-                                            return (
-                                                <span key={ workloadIndex }>{ val }<br/></span>
-                                            );
-                                        })
-                                    }</span>
-                            },
-                            b.osName,
-                            b.complexity,
-                            {
-                                title: <span>
-                                    {
-                                        b.recommendedTargetsIMS.map((val: string, targetsIndex: number) => {
-                                            return (
-                                                <span key={ targetsIndex }>{ val }<br/></span>
-                                            );
-                                        })
-                                    }</span>
+                                title: <Tooltip position="top" content={<div>{b.provider}</div>}><span>{b.provider}</span></Tooltip>
                             },
                             {
-                                title: <span>
-                                    {
-                                        b.flagsIMS.map((val: string, flagIndex: number) => {
-                                            return (
-                                                <span key={ flagIndex }>{ val }<br/></span>
-                                            );
-                                        })
-                                    }</span>
+                                title: <Tooltip position="top" content={<div>{b.datacenter}</div>}><span>{b.datacenter}</span></Tooltip>
+                            },
+                            {
+                                title: <Tooltip position="top" content={<div>{b.cluster}</div>}><span>{b.cluster}</span></Tooltip>
+                            },
+                            {
+                                title: <Tooltip position="top" content={<div>{b.vmName}</div>}><span>{b.vmName}</span></Tooltip>
+                            },
+                            {
+                                title: <Tooltip position="top" content={<div>{workloads}</div>}><span>{workloads}</span></Tooltip>
+                            },
+                            {
+                                title: <Tooltip position="top" content={<div>{b.osName}</div>}><span>{b.osName}</span></Tooltip>
+                            },
+                            {
+                                title: <Tooltip position="top" content={<div>{b.complexity}</div>}><span>{b.complexity}</span></Tooltip>
+                            },
+                            {
+                                title: <span><i><FlagIcon /></i>&nbsp;{b.flagsIMS.length}</span>
                             }
                         ]
                     },
@@ -454,13 +403,7 @@ class WorkloadInventory extends React.Component<Props, State> {
     };
 
     public onPerPageSelect = (_event: any, perPage: number) => {
-        let page = this.state.page;
-        const total = this.props.reportWorkloadInventory.total;
-
-        // If current page and perPage would request data beyond total, show last available page
-        if (page * perPage > total) {
-            page = Math.floor(total / perPage) + 1;
-        }
+        const page = 1;
 
         this.setState({ page, perPage });
         this.refreshData(page, perPage);
@@ -927,10 +870,9 @@ class WorkloadInventory extends React.Component<Props, State> {
     };
 
     public render() {
-        const { isToolbarKebabOpen } = this.state;
+        const { } = this.state;
         const {
             reportWorkloadInventoryFetchStatus,
-            reportWorkloadInventoryAllCSVFetchStatus,
             reportWorkloadInventoryFilteredCSVFetchStatus
         } = this.props;
 
@@ -947,24 +889,16 @@ class WorkloadInventory extends React.Component<Props, State> {
                         <ToolbarItem>{this.renderFilterTypeDropdown()}</ToolbarItem>
                         <ToolbarItem className="pf-u-mr-md">{this.renderFilterInput()}</ToolbarItem>
                         <ToolbarItem className="pf-u-mr-md">
-                        <Dropdown
-                            position={'right'}
-                            toggle={<KebabToggle onToggle={this.handleToolbarKebabToggle} />}
-                            isOpen={isToolbarKebabOpen}
-                            isPlain={true}
-                            dropdownItems={[
-                                <DropdownItem key="exportAsCSVAll" component="button" onClick={this.handleDownloadFilteredCSV}>
-                                    Export as CSV
-                                </DropdownItem>,
-                                <DropdownItem key="exportAsCSVFiltered" component="button" onClick={this.handleDownloadAllCSV}>
-                                    Export all as CSV
-                                </DropdownItem>
-                            ]}
-                            disabled={
-                                reportWorkloadInventoryAllCSVFetchStatus.status==='inProgress' ||
-                                reportWorkloadInventoryFilteredCSVFetchStatus.status==='inProgress'
-                            }
-                        />
+                            <Button
+                                variant={"primary"}
+                                onClick={this.handleDownloadFilteredCSV}
+                                isDisabled={reportWorkloadInventoryFilteredCSVFetchStatus.status==='inProgress'}
+                            >
+                                {
+                                    reportWorkloadInventoryFilteredCSVFetchStatus.status==='inProgress' ?
+                                        'Exporting CSV' : 'Export as CSV'
+                                }
+                            </Button>
                         </ToolbarItem>
                     </ToolbarGroup>
                     <ToolbarGroup>

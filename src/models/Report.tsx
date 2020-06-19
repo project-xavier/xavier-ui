@@ -1,3 +1,22 @@
+export interface PaginationResponse<T> {
+    meta: PaginationMeta;
+    links: PaginationLinks;
+    data: T[];
+}
+
+export interface PaginationMeta {
+    count: number;
+    limit: number;
+    offset: number;
+}
+
+export interface PaginationLinks {
+    first: string;
+    previous: string | null;
+    next: string | null;
+    last: string;
+}
+
 export interface SearchResult<T> {
     totalElements: number;
     content: T[];
@@ -8,8 +27,8 @@ export interface Report {
     reportName: string;
     reportDescription: string;
     payloadName: string;
-    inserted: number;
-    lastUpdate: number;
+    inserted: number | string;
+    lastUpdate: number | string;
     status: 'CREATED' | 'IN_PROGRESS' | 'FAILED';
 }
 
@@ -19,6 +38,9 @@ export interface ReportWorkloadSummary {
     recommendedTargetsIMSModel: RecommendedTargetsIMSModel;
     workloadsDetectedOSTypeModels: WorkloadDetectedOSTypeModel[];
     scanRunModels: ScanRunModel[];
+    javaRuntimes: JavaRuntimeModel[];
+    applicationPlatforms: ApplicationPlatformModel[];
+    osInformation: OSInformationModel[];
 }
 
 export interface Summary {
@@ -45,6 +67,8 @@ export interface RecommendedTargetsIMSModel {
     osp: number;
     rhel: number;
     ocp: number;
+    openjdk: number;
+    jbosseap: number;
 }
 
 export interface WorkloadDetectedOSTypeModel {
@@ -55,7 +79,28 @@ export interface WorkloadDetectedOSTypeModel {
 export interface ScanRunModel {
     target: string;
     smartStateEnabled: boolean;
-    date: number;
+    date: number | string;
+}
+
+export interface JavaRuntimeModel {
+    vendor: string;
+    version: string;
+    total: number;
+    priority: number | null;
+}
+
+export interface ApplicationPlatformModel {
+    name: string;
+    version: string | null;
+    total: number;
+    priority: number | null;
+}
+
+export interface OSInformationModel {
+    osFamily: string;
+    version: string | null;
+    total: number;
+    priority: number | null;
 }
 
 export interface WorkloadModel {
@@ -77,7 +122,7 @@ export interface ReportInitialSavingEstimation {
     id: number;
     customerId: string;
     fileName: string;
-    creationDate: Date;
+    creationDate: number | string;
     environmentModel: EnvironmentModel;
     sourceCostsModel: SourceCostsModel;
     sourceRampDownCostsModel: SourceRampDownCostsModel;
@@ -256,6 +301,7 @@ export interface ReportWorkloadInventory {
     diskSpace: number;
     memory: number;
     cpuCores: number;
+    insightsEnabled: boolean;
 }
 
 export interface WorkloadInventoryReportFiltersModel {

@@ -120,9 +120,9 @@ export class WorkloadsDetectedTable extends React.Component<WorkloadsDetectedTab
     ) => {
         const { reportId, fetchReportWorkloadsDetected } = this.props;
 
-        const column = index ? this.state.columns[index].key : undefined;
+        const column = index !== undefined ? this.state.columns[index].key : undefined;
         const orderDirection = direction ? direction : undefined;
-        
+
         await fetchReportWorkloadsDetected(reportId, page, perPage, column, orderDirection);
         this.filtersInRowsAndCells();
     }
@@ -156,9 +156,9 @@ export class WorkloadsDetectedTable extends React.Component<WorkloadsDetectedTab
         const { reportId } = this.props;
         const { perPage } = this.state;
 
-        const column = index ? this.state.columns[index].key : undefined;
+        const column = index !== undefined ? this.state.columns[index].key : undefined;
         const orderDirection = direction ? direction : undefined;
-        
+
         await this.props.fetchReportWorkloadsDetected(reportId, page, perPage, column, orderDirection);
         this.setState({
             page,
@@ -186,13 +186,7 @@ export class WorkloadsDetectedTable extends React.Component<WorkloadsDetectedTab
     };
 
     public onPerPageSelect = (_event: any, perPage: number) => {
-        let page = this.state.page;
-        const total = this.props.reportWorkloadsDetected.total;
-
-        // If current page and perPage would request data beyond total, show last available page
-        if (page * perPage > total) {
-            page = Math.floor(total / perPage) + 1;
-        }
+        const page = 1;
 
         this.setState({ page, perPage });
         this.refreshData(page, perPage);

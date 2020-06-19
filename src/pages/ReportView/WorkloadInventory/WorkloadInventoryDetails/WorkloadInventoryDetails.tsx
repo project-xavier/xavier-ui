@@ -1,7 +1,7 @@
 import React from 'react';
+import { Label, Tooltip } from '@patternfly/react-core';
 import { ReportWorkloadInventory } from '../../../../models';
-import { formatValue, formatNumber } from '../../../../Utilities/formatValue';
-import { bytesToGb } from '../../../../Utilities/unitConvertors';
+import { formatNumber, formatBytes } from '../../../../Utilities/formatValue';
 
 export interface WorkloadInventoryDetailsProps {
     reportWorkloadInventory: ReportWorkloadInventory;
@@ -20,14 +20,39 @@ export class WorkloadInventoryDetails extends React.Component<WorkloadInventoryD
         return (
             <div className="pf-c-content">
                 <dl>
-                    <dt>Disk space (GiB)</dt>
-                    <dd>{formatValue(bytesToGb(reportWorkloadInventory.diskSpace), 'gb', { fractionDigits: 1 })}</dd>
-                    <dt>Memory (GiB)</dt>
-                    <dd>{formatValue(bytesToGb(reportWorkloadInventory.memory), 'gb', { fractionDigits: 1 })}</dd>
+                    <dt>Recommended targets</dt>
+                    <dd>{reportWorkloadInventory.recommendedTargetsIMS.map((e, index) => {
+                        return (
+                            <Tooltip key={index}
+                                position="top"
+                                content={
+                                    <div>VM suitable to be migrated to {e}</div>
+                                }
+                            >
+                                <React.Fragment>
+                                    <Label>{e}</Label>&nbsp;
+                                </React.Fragment>
+                            </Tooltip>
+                        );
+                    })}
+                    </dd>
+                    <dt>Flags</dt>
+                    <dd>{
+                        reportWorkloadInventory.flagsIMS && reportWorkloadInventory.flagsIMS.length > 0
+                         ? reportWorkloadInventory.flagsIMS.join(", ")
+                         : 'None identified'
+                    }
+                    </dd>
+                    <dt>Disk space</dt>
+                    <dd>{formatBytes(reportWorkloadInventory.diskSpace, 1)}</dd>
+                    <dt>Memory</dt>
+                    <dd>{formatBytes(reportWorkloadInventory.memory, 1)}</dd>
                     <dt>CPU cores</dt>
                     <dd>{formatNumber(reportWorkloadInventory.cpuCores, 0)}</dd>
                     <dt>Operating system description</dt>
                     <dd>{reportWorkloadInventory.osDescription}</dd>
+                    <dt>Red Hat Insights</dt>
+                    <dd>{reportWorkloadInventory.insightsEnabled ? 'Enabled' : 'Disabled'}</dd>
                 </dl>
             </div>
         );

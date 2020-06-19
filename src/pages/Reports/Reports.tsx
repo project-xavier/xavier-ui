@@ -165,7 +165,7 @@ class Reports extends React.Component<Props, State> {
     // Table data management section
 
     public refreshData = (page: number = this.state.page, perPage: number = this.state.perPage, filterText: string = this.state.filterText) => {
-        
+
         this.props.fetchReports(page, perPage, filterText).then(() => {
             this.filtersInRowsAndCells();
 
@@ -231,7 +231,7 @@ class Reports extends React.Component<Props, State> {
 
         // close kebab
         this.handleReportKebabToggle(report, false);
-        
+
 
         fetchReportPayloadDownloadLink(report.id).then((response: any) => {
             if (response && response.value && response.value.data) {
@@ -297,13 +297,7 @@ class Reports extends React.Component<Props, State> {
     };
 
     public onPerPageSelect = (_event: any, perPage: number) => {
-        let page = this.state.page;
-        const total = this.props.reports.total;
-
-        // If current page and perPage would request data beyond total, show last available page
-        if (page * perPage > total) {
-            page = Math.floor(total / perPage) + 1;
-        }
+        const page = 1;
 
         this.setStateAndResetTimerAndSetRenderStatus({page, perPage});
         this.refreshData(page, perPage);

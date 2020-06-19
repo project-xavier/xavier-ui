@@ -4,7 +4,7 @@ import Reports, { Props } from './Reports';
 
 const props: Props = {
   reports: {
-    total: 2,
+    total: 3,
     items: [
       {
         id: 36,
@@ -22,6 +22,15 @@ const props: Props = {
         payloadName: "file2.json",
         inserted: 123654565464,
         lastUpdate: 123654565464,
+        status: 'IN_PROGRESS'
+      },
+      {
+        id: 38,
+        reportName: "My report name 38",
+        reportDescription: "My report description 38",
+        payloadName: "file3.json",
+        inserted: "2020-05-25T08:30:25.771+0000",
+        lastUpdate: "2020-05-26T09:50:25.771+0000",
         status: 'IN_PROGRESS'
       }
     ]

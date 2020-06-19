@@ -7,4 +7,9 @@ describe('SolidCard', () => {
         const wrapper = shallow(<SolidCard title="My Title" description="My description" />);
         expect(wrapper).toMatchSnapshot();
     });
+
+    it('expect to render with setted width', () => {
+        const wrapper = shallow(<SolidCard title="My Title" description="My description" width={123} />);
+        expect(wrapper).toMatchSnapshot();
+    });
 });

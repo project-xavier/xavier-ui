@@ -137,8 +137,10 @@ describe('report reducer', () => {
             reportTestInitialState,
             fromRequest(successMessage(ActionTypes.FETCH_REPORTS), {
                 data: {
-                    content: [...reportsMock.data],
-                    totalElements: total
+                    data: [...reportsMock.data],
+                    meta: {
+                        count: total
+                    }
                 }
             })
         );

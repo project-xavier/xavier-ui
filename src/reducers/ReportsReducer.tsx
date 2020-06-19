@@ -89,8 +89,8 @@ export const reportsReducer = (state: ReportState = initialState, action: Generi
                 ...state,
                 reports: {
                     ...state.reports,
-                    items: action.payload.data.content,
-                    total: action.payload.data.totalElements
+                    items: action.payload.data.data,
+                    total: action.payload.data.meta.count
                 },
                 reportsFetchStatus: {
                     ...state.reportsFetchStatus,
@@ -238,8 +238,8 @@ export const reportsReducer = (state: ReportState = initialState, action: Generi
                 ...state,
                 reportWorkloadsDetected: {
                     ...state.reportWorkloadsDetected,
-                    items: action.payload.data.content,
-                    total: action.payload.data.totalElements
+                    items: action.payload.data.data,
+                    total: action.payload.data.meta.count
                 },
                 reportWorkloadsDetectedFetchStatus: {
                     ...state.reportWorkloadsDetectedFetchStatus,
@@ -286,8 +286,8 @@ export const reportsReducer = (state: ReportState = initialState, action: Generi
                 ...state,
                 reportFlags: {
                     ...state.reportFlags,
-                    items: action.payload.data.content,
-                    total: action.payload.data.totalElements
+                    items: action.payload.data.data,
+                    total: action.payload.data.meta.count
                 },
                 reportFlagsFetchStatus: {
                     ...state.reportFlagsFetchStatus,
@@ -375,8 +375,8 @@ export const reportsReducer = (state: ReportState = initialState, action: Generi
                 ...state,
                 reportWorkloadInventory: {
                     ...state.reportWorkloadInventory,
-                    items: action.payload.data.content,
-                    total: action.payload.data.totalElements
+                    items: action.payload.data.data,
+                    total: action.payload.data.meta.count
                 },
                 reportWorkloadInventoryFetchStatus: {
                     ...state.reportWorkloadInventoryFetchStatus,
