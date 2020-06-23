@@ -2,9 +2,10 @@
 
 exports[`ScansRunTable should render table expect to render table using smartStateEnabled mapping 1`] = `
 <Fragment>
-  <Component
+  <Table
     aria-label="Scans run table"
     borders={false}
+    canSelectAll={true}
     cells={
       Array [
         "Target",
@@ -12,6 +13,15 @@ exports[`ScansRunTable should render table expect to render table using smartSta
         "Date",
       ]
     }
+    className=""
+    contentId="expanded-content"
+    dropdownDirection="down"
+    dropdownPosition="right"
+    expandId="expandable-toggle"
+    gridBreakPoint="grid-md"
+    ouiaSafe={true}
+    role="grid"
+    rowLabeledBy="simple-node"
     rows={
       Array [
         Array [
@@ -34,7 +44,7 @@ exports[`ScansRunTable should render table expect to render table using smartSta
     variant="compact"
   >
     <TableHeader />
-    <TableBody />
-  </Component>
+    <Component />
+  </Table>
 </Fragment>
 `;

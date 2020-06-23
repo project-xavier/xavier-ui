@@ -22,7 +22,7 @@ import {
 import { SearchIcon } from '@patternfly/react-icons';
 import {
     SkeletonTable
-} from '@redhat-cloud-services/frontend-components';
+} from '@redhat-cloud-services/frontend-components/components/SkeletonTable';
 import debounce from 'lodash/debounce';
 import { WorkloadModel } from '../../../models';
 import { ObjectFetchStatus } from '../../../models/state';
@@ -83,25 +83,25 @@ export class WorkloadsDetectedTable extends React.Component<WorkloadsDetectedTab
                     title: 'Workloads',
                     key: 'workload',
                     props: { },
-                    transforms: [ cellWidth('25'), sortable ]
+                    transforms: [ cellWidth(25), sortable ]
                 },
                 {
                     title: 'OS',
                     key: 'osName',
                     props: { },
-                    transforms: [ cellWidth('25'), sortable ]
+                    transforms: [ cellWidth(25), sortable ]
                 },
                 {
                     title: 'In Clusters',
                     key: 'clusters',
                     props: { },
-                    transforms: [ cellWidth('25') ]
+                    transforms: [ cellWidth(25) ]
                 },
                 {
                     title: 'VMs',
                     key: 'vms',
                     props: { },
-                    transforms: [ cellWidth('25'), sortable ]
+                    transforms: [ cellWidth(25), sortable ]
                 }
             ],
             rows: [],

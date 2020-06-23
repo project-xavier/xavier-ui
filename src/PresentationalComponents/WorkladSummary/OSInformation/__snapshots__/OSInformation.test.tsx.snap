@@ -6,7 +6,7 @@ exports[`JavaRuntimesCard expect to render 1`] = `
   title="OS information"
 >
   <Grid
-    gutter="sm"
+    hasGutter={true}
     xl={6}
   >
     <GridItem>

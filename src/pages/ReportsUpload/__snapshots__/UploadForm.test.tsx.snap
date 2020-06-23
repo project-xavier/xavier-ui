@@ -7,8 +7,8 @@ exports[`UploadForm expect to render 1`] = `
   <FormGroup
     fieldId="file"
     isRequired={true}
-    isValid={true}
     label="Inventory data file"
+    validated="default"
   >
     <Dropzone
       multiple={false}
@@ -22,40 +22,40 @@ exports[`UploadForm expect to render 1`] = `
   <FormGroup
     fieldId="reportName"
     isRequired={true}
-    isValid={true}
     label="Report name"
+    validated="default"
   >
     <ForwardRef
       aria-describedby="Report name"
       id="reportName"
       isRequired={true}
-      isValid={true}
       name="reportName"
       onBlur={[MockFunction]}
       onChange={[Function]}
       type="text"
+      validated="default"
     />
   </FormGroup>
   <FormGroup
     fieldId="reportDescription"
-    isValid={true}
     label="Report description"
+    validated="default"
   >
     <ForwardRef
       aria-describedby="Report description"
       id="reportDescription"
-      isValid={true}
       name="reportDescription"
       onBlur={[MockFunction]}
       onChange={[Function]}
       type="text"
+      validated="default"
     />
   </FormGroup>
   <FormGroup
     fieldId="yearOverYearGrowthRatePercentage"
     isRequired={true}
-    isValid={true}
     label="Year-over-year growth rate for new hypervisors"
+    validated="default"
   >
     <Grid
       md={3}
@@ -67,11 +67,11 @@ exports[`UploadForm expect to render 1`] = `
             className="pf-u-text-align-right"
             id="yearOverYearGrowthRatePercentage"
             isRequired={true}
-            isValid={true}
             name="yearOverYearGrowthRatePercentage"
             onBlur={[MockFunction]}
             onChange={[Function]}
             type="number"
+            validated="default"
           />
           <InputGroupText>
             %
@@ -82,7 +82,7 @@ exports[`UploadForm expect to render 1`] = `
   </FormGroup>
   <Stack
     className="pf-sm-gutter"
-    gutter="lg"
+    hasGutter={true}
   >
     <StackItem
       isFilled={false}
@@ -103,8 +103,8 @@ exports[`UploadForm expect to render 1`] = `
     >
       <FormGroup
         fieldId="percentageOfHypervisorsMigratedOnYear1"
-        isValid={true}
         label="Year1"
+        validated="default"
       >
         <Grid
           md={3}
@@ -116,11 +116,11 @@ exports[`UploadForm expect to render 1`] = `
                 className="pf-u-text-align-right"
                 id="percentageOfHypervisorsMigratedOnYear1"
                 isRequired={true}
-                isValid={true}
                 name="percentageOfHypervisorsMigratedOnYear1"
                 onBlur={[MockFunction]}
                 onChange={[Function]}
                 type="number"
+                validated="default"
               />
               <InputGroupText>
                 %
@@ -136,8 +136,8 @@ exports[`UploadForm expect to render 1`] = `
     >
       <FormGroup
         fieldId="percentageOfHypervisorsMigratedOnYear2"
-        isValid={true}
         label="Year 2"
+        validated="default"
       >
         <Grid
           md={3}
@@ -149,11 +149,11 @@ exports[`UploadForm expect to render 1`] = `
                 className="pf-u-text-align-right"
                 id="percentageOfHypervisorsMigratedOnYear2"
                 isRequired={true}
-                isValid={true}
                 name="percentageOfHypervisorsMigratedOnYear2"
                 onBlur={[MockFunction]}
                 onChange={[Function]}
                 type="number"
+                validated="default"
               />
               <InputGroupText>
                 %
@@ -169,8 +169,8 @@ exports[`UploadForm expect to render 1`] = `
     >
       <FormGroup
         fieldId="percentageOfHypervisorsMigratedOnYear3"
-        isValid={true}
         label="Year 3"
+        validated="default"
       >
         <Grid
           md={3}
@@ -182,11 +182,11 @@ exports[`UploadForm expect to render 1`] = `
                 className="pf-u-text-align-right"
                 id="percentageOfHypervisorsMigratedOnYear3"
                 isRequired={true}
-                isValid={true}
                 name="percentageOfHypervisorsMigratedOnYear3"
                 onBlur={[MockFunction]}
                 onChange={[Function]}
                 type="number"
+                validated="default"
               />
               <InputGroupText>
                 %
@@ -198,21 +198,21 @@ exports[`UploadForm expect to render 1`] = `
     </StackItem>
   </Stack>
   <ActionGroup>
-    <Component
+    <Button
       disabled={false}
       isDisabled={false}
       type="submit"
       variant="primary"
     >
       Create report
-    </Component>
-    <Component
+    </Button>
+    <Button
       onClick={[MockFunction]}
       type="button"
       variant="secondary"
     >
       Cancel
-    </Component>
+    </Button>
   </ActionGroup>
 </Form>
 `;
@@ -225,8 +225,8 @@ exports[`UploadForm expect to render errors 1`] = `
     fieldId="file"
     helperTextInvalid="Field value invalid"
     isRequired={true}
-    isValid={false}
     label="Inventory data file"
+    validated="error"
   >
     <Dropzone
       multiple={false}
@@ -241,42 +241,42 @@ exports[`UploadForm expect to render errors 1`] = `
     fieldId="reportName"
     helperTextInvalid="Field value invalid"
     isRequired={true}
-    isValid={false}
     label="Report name"
+    validated="error"
   >
     <ForwardRef
       aria-describedby="Report name"
       id="reportName"
       isRequired={true}
-      isValid={false}
       name="reportName"
       onBlur={[MockFunction]}
       onChange={[Function]}
       type="text"
+      validated="error"
     />
   </FormGroup>
   <FormGroup
     fieldId="reportDescription"
     helperTextInvalid="Field value invalid"
-    isValid={false}
     label="Report description"
+    validated="error"
   >
     <ForwardRef
       aria-describedby="Report description"
       id="reportDescription"
-      isValid={false}
       name="reportDescription"
       onBlur={[MockFunction]}
       onChange={[Function]}
       type="text"
+      validated="error"
     />
   </FormGroup>
   <FormGroup
     fieldId="yearOverYearGrowthRatePercentage"
     helperTextInvalid="Field value invalid"
     isRequired={true}
-    isValid={false}
     label="Year-over-year growth rate for new hypervisors"
+    validated="error"
   >
     <Grid
       md={3}
@@ -288,11 +288,11 @@ exports[`UploadForm expect to render errors 1`] = `
             className="pf-u-text-align-right"
             id="yearOverYearGrowthRatePercentage"
             isRequired={true}
-            isValid={false}
             name="yearOverYearGrowthRatePercentage"
             onBlur={[MockFunction]}
             onChange={[Function]}
             type="number"
+            validated="error"
           />
           <InputGroupText>
             %
@@ -303,7 +303,7 @@ exports[`UploadForm expect to render errors 1`] = `
   </FormGroup>
   <Stack
     className="pf-sm-gutter"
-    gutter="lg"
+    hasGutter={true}
   >
     <StackItem
       isFilled={false}
@@ -325,8 +325,8 @@ exports[`UploadForm expect to render errors 1`] = `
       <FormGroup
         fieldId="percentageOfHypervisorsMigratedOnYear1"
         helperTextInvalid="Field value invalid"
-        isValid={false}
         label="Year1"
+        validated="error"
       >
         <Grid
           md={3}
@@ -338,11 +338,11 @@ exports[`UploadForm expect to render errors 1`] = `
                 className="pf-u-text-align-right"
                 id="percentageOfHypervisorsMigratedOnYear1"
                 isRequired={true}
-                isValid={false}
                 name="percentageOfHypervisorsMigratedOnYear1"
                 onBlur={[MockFunction]}
                 onChange={[Function]}
                 type="number"
+                validated="error"
               />
               <InputGroupText>
                 %
@@ -359,8 +359,8 @@ exports[`UploadForm expect to render errors 1`] = `
       <FormGroup
         fieldId="percentageOfHypervisorsMigratedOnYear2"
         helperTextInvalid="Field value invalid"
-        isValid={false}
         label="Year 2"
+        validated="error"
       >
         <Grid
           md={3}
@@ -372,11 +372,11 @@ exports[`UploadForm expect to render errors 1`] = `
                 className="pf-u-text-align-right"
                 id="percentageOfHypervisorsMigratedOnYear2"
                 isRequired={true}
-                isValid={false}
                 name="percentageOfHypervisorsMigratedOnYear2"
                 onBlur={[MockFunction]}
                 onChange={[Function]}
                 type="number"
+                validated="error"
               />
               <InputGroupText>
                 %
@@ -393,8 +393,8 @@ exports[`UploadForm expect to render errors 1`] = `
       <FormGroup
         fieldId="percentageOfHypervisorsMigratedOnYear3"
         helperTextInvalid="Field value invalid"
-        isValid={false}
         label="Year 3"
+        validated="error"
       >
         <Grid
           md={3}
@@ -406,11 +406,11 @@ exports[`UploadForm expect to render errors 1`] = `
                 className="pf-u-text-align-right"
                 id="percentageOfHypervisorsMigratedOnYear3"
                 isRequired={true}
-                isValid={true}
                 name="percentageOfHypervisorsMigratedOnYear3"
                 onBlur={[MockFunction]}
                 onChange={[Function]}
                 type="number"
+                validated="default"
               />
               <InputGroupText>
                 %
@@ -422,21 +422,21 @@ exports[`UploadForm expect to render errors 1`] = `
     </StackItem>
   </Stack>
   <ActionGroup>
-    <Component
+    <Button
       disabled={false}
       isDisabled={false}
       type="submit"
       variant="primary"
     >
       Create report
-    </Component>
-    <Component
+    </Button>
+    <Button
       onClick={[MockFunction]}
       type="button"
       variant="secondary"
     >
       Cancel
-    </Component>
+    </Button>
   </ActionGroup>
 </Form>
 `;

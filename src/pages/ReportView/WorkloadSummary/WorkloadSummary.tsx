@@ -7,16 +7,17 @@ import {
     Title,
     EmptyStateBody,
     Button,
-    TitleLevel,
     Stack,
     StackItem,
     Tooltip
 } from '@patternfly/react-core';
 import { ErrorCircleOIcon, HelpIcon } from '@patternfly/react-icons';
 import {
-    Skeleton,
+    Skeleton
+} from '@redhat-cloud-services/frontend-components/components/Skeleton';
+import {
     SkeletonTable
-} from '@redhat-cloud-services/frontend-components';
+} from '@redhat-cloud-services/frontend-components/components/SkeletonTable';
 import ReportCard from '../../../PresentationalComponents/ReportCard';
 import SummaryTable from '../../../PresentationalComponents/Reports/SummaryTable';
 import FancyChartDonut from '../../../PresentationalComponents/FancyChartDonut';
@@ -287,7 +288,7 @@ export class WorkloadMigrationSummary extends React.Component<WorkloadMigrationS
     public renderReports = () => {
         return (
             <React.Fragment>
-                <Stack gutter='md'>
+                <Stack hasGutter={true}>
                     <StackItem isFilled={ false }>
                         { this.renderSummary() }
                     </StackItem>
@@ -323,7 +324,7 @@ export class WorkloadMigrationSummary extends React.Component<WorkloadMigrationS
     public renderReportSkeleton = () => {
         return (
             <React.Fragment>
-                <Stack gutter='md'>
+                <Stack hasGutter={true}>
                     <StackItem isFilled={ false }>
                         <ReportCard
                             title={ <Skeleton size="sm" /> }
@@ -355,7 +356,7 @@ export class WorkloadMigrationSummary extends React.Component<WorkloadMigrationS
             <Bullseye>
                 <EmptyState variant={ EmptyStateVariant.large }>
                     <EmptyStateIcon icon={ ErrorCircleOIcon } />
-                    <Title headingLevel={ TitleLevel.h5 } size="lg">
+                    <Title headingLevel="h5" size="lg">
                         Error
                     </Title>
                     <EmptyStateBody>

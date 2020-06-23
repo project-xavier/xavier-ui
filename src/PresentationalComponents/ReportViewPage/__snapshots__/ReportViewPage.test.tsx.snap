@@ -14,7 +14,7 @@ exports[`ReportViewPage expect to render skeleton 1`] = `
       title={
         <React.Fragment>
           <Stack
-            gutter="sm"
+            hasGutter={true}
           >
             <StackItem>
               <Skeleton
@@ -83,7 +83,7 @@ exports[`ReportViewPage expect to render tabs when fetch status is complete 1`] 
     <PageHeaderTitle
       title={
         <React.Fragment>
-          <Unknown
+          <Breadcrumb
             style={
               Object {
                 "marginBottom": "25px",
@@ -103,7 +103,7 @@ exports[`ReportViewPage expect to render tabs when fetch status is complete 1`] 
             >
               My report name 123
             </BreadcrumbItem>
-          </Unknown>
+          </Breadcrumb>
           <div
             className="pf-c-content"
             style={
@@ -153,10 +153,19 @@ exports[`ReportViewPage expect to render tabs when fetch status is complete 1`] 
               </span>
             </p>
           </div>
-          <Unknown
+          <Tabs
             activeKey={0}
+            component="div"
+            isBox={true}
             isFilled={true}
+            isSecondary={false}
+            isVertical={false}
+            leftScrollAriaLabel="Scroll left"
+            mountOnEnter={false}
             onSelect={[Function]}
+            ouiaSafe={true}
+            rightScrollAriaLabel="Scroll right"
+            unmountOnExit={false}
           >
             <Tab
               eventKey={0}
@@ -170,7 +179,7 @@ exports[`ReportViewPage expect to render tabs when fetch status is complete 1`] 
               eventKey={2}
               title="Workload migration inventory"
             />
-          </Unknown>
+          </Tabs>
         </React.Fragment>
       }
     />
@@ -193,7 +202,7 @@ exports[`ReportViewPage expect to render tabs when fetch status is complete and 
     <PageHeaderTitle
       title={
         <React.Fragment>
-          <Unknown
+          <Breadcrumb
             style={
               Object {
                 "marginBottom": "25px",
@@ -213,7 +222,7 @@ exports[`ReportViewPage expect to render tabs when fetch status is complete and 
             >
               
             </BreadcrumbItem>
-          </Unknown>
+          </Breadcrumb>
           <div
             className="pf-c-content"
             style={
@@ -257,10 +266,19 @@ exports[`ReportViewPage expect to render tabs when fetch status is complete and 
               </span>
             </p>
           </div>
-          <Unknown
+          <Tabs
             activeKey={0}
+            component="div"
+            isBox={true}
             isFilled={true}
+            isSecondary={false}
+            isVertical={false}
+            leftScrollAriaLabel="Scroll left"
+            mountOnEnter={false}
             onSelect={[Function]}
+            ouiaSafe={true}
+            rightScrollAriaLabel="Scroll right"
+            unmountOnExit={false}
           >
             <Tab
               eventKey={0}
@@ -274,7 +292,7 @@ exports[`ReportViewPage expect to render tabs when fetch status is complete and 
               eventKey={2}
               title="Workload migration inventory"
             />
-          </Unknown>
+          </Tabs>
         </React.Fragment>
       }
     />

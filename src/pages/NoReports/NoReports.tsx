@@ -6,8 +6,7 @@ import {
     EmptyStateIcon,
     Title,
     EmptyStateBody,
-    Bullseye,
-    TitleLevel
+    Bullseye
 } from '@patternfly/react-core';
 import {
     AddCircleOIcon
@@ -46,7 +45,7 @@ class NoReports extends React.Component<Props, State> {
                 <Bullseye>
                     <EmptyState variant={ EmptyStateVariant.large }>
                         <EmptyStateIcon icon={ AddCircleOIcon } />
-                        <Title headingLevel={ TitleLevel.h5 } size="lg">No reports found</Title>
+                        <Title headingLevel="h5" size="lg">No reports found</Title>
                         <EmptyStateBody>
                             Reports are created from inventory data files that are uploaded to Red Hat Migration Analytics.
                         </EmptyStateBody>

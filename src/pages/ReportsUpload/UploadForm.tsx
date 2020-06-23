@@ -87,8 +87,8 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                     label="Inventory data file"
                     fieldId="file"
                     helperTextInvalid={ errors.file }
-                    isValid={
-                        (errors.file) ? false : true
+                    validated={
+                        (errors.file) ? "error" : "default"
                     }
                 >
                     <Dropzone
@@ -109,8 +109,8 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                                                 type="text"
                                                 aria-label="Select a File"
                                                 value={ values.file ? values.file.name : '' }
-                                                isValid={
-                                                    (errors.file && touched.file) ? false : true
+                                                validated={
+                                                    (errors.file && touched.file) ? "error" : "default"
                                                 } />
                                             <Button
                                                 variant={ ButtonVariant.secondary }
@@ -131,8 +131,8 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                     label="Report name"
                     fieldId="reportName"
                     helperTextInvalid={ errors.reportName }
-                    isValid={
-                        (errors.reportName && touched.reportName) ? false : true
+                    validated={
+                        (errors.reportName && touched.reportName) ? "error" : "default"
                     }
                 >
                     <TextInput
@@ -144,8 +144,8 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                         onChange={ customHandleChange }
                         onBlur={ handleBlur }
                         value={ values.reportName }
-                        isValid={
-                            (errors.reportName && touched.reportName) ? false : true
+                        validated={
+                            (errors.reportName && touched.reportName) ? "error" : "default"
                         }
                     />
                 </FormGroup>
@@ -153,7 +153,7 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                     label="Report description"
                     fieldId="reportDescription"
                     helperTextInvalid={ errors.reportDescription }
-                    isValid={ (errors.reportDescription && touched.reportDescription) ? false : true }
+                    validated={ (errors.reportDescription && touched.reportDescription) ? "error" : "default" }
                 >
                     <TextInput
                         type="text"
@@ -163,8 +163,8 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                         onChange={ customHandleChange }
                         onBlur={ handleBlur }
                         value={ values.reportDescription }
-                        isValid={
-                            (errors.reportDescription && touched.reportDescription) ? false : true
+                        validated={
+                            (errors.reportDescription && touched.reportDescription) ? "error" : "default"
                         }
                     />
                 </FormGroup>
@@ -173,8 +173,8 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                     label="Year-over-year growth rate for new hypervisors"
                     fieldId="yearOverYearGrowthRatePercentage"
                     helperTextInvalid={ errors.yearOverYearGrowthRatePercentage }
-                    isValid={
-                        (errors.yearOverYearGrowthRatePercentage && touched.yearOverYearGrowthRatePercentage) ? false : true
+                    validated={
+                        (errors.yearOverYearGrowthRatePercentage && touched.yearOverYearGrowthRatePercentage) ? "error" : "default"
                     }
                 >
                     <Grid md={3}>
@@ -190,8 +190,8 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                                     onChange={ customHandleChange }
                                     onBlur={ handleBlur }
                                     value={ values.yearOverYearGrowthRatePercentage }
-                                    isValid={
-                                        (errors.yearOverYearGrowthRatePercentage && touched.yearOverYearGrowthRatePercentage) ? false : true
+                                    validated={
+                                        (errors.yearOverYearGrowthRatePercentage && touched.yearOverYearGrowthRatePercentage) ? "error" : "default"
                                     }
                                 />
                                 <InputGroupText>%</InputGroupText>
@@ -200,7 +200,7 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                     </Grid>
                 </FormGroup>
                 {/* Add  pf-sm-gutter manually until https://github.com/patternfly/patternfly-react/issues/4062 is solved*/}
-                <Stack gutter="lg" className="pf-sm-gutter">
+                <Stack hasGutter={true} className="pf-sm-gutter">
                     <StackItem isFilled={ false }>
                         <label className="pf-c-form__label">
                             <span className="pf-c-form__label-text">Percentage of hypervisors migrated each year</span>
@@ -211,9 +211,9 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                             label="Year1"
                             fieldId="percentageOfHypervisorsMigratedOnYear1"
                             helperTextInvalid={ errors.percentageOfHypervisorsMigratedOnYear1 || errors.percentageOfHypervisorsMigratedSum }
-                            isValid={
+                            validated={
                                 (errors.percentageOfHypervisorsMigratedOnYear1 && touched.percentageOfHypervisorsMigratedOnYear1) ||
-                                (errors.percentageOfHypervisorsMigratedSum) ? false : true
+                                (errors.percentageOfHypervisorsMigratedSum) ? "error" : "default"
                             }
                         >
                             <Grid md={3}>
@@ -229,9 +229,9 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                                             onChange={ customHandleChange }
                                             onBlur={ handleBlur }
                                             value={ values.percentageOfHypervisorsMigratedOnYear1 }
-                                            isValid={
+                                            validated={
                                                 (errors.percentageOfHypervisorsMigratedOnYear1
-                                                    && touched.percentageOfHypervisorsMigratedOnYear1) ? false : true
+                                                    && touched.percentageOfHypervisorsMigratedOnYear1) ? "error" : "default"
                                             }
                                         />
                                         <InputGroupText>%</InputGroupText>
@@ -245,9 +245,9 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                             label="Year 2"
                             fieldId="percentageOfHypervisorsMigratedOnYear2"
                             helperTextInvalid={ errors.percentageOfHypervisorsMigratedOnYear2 || errors.percentageOfHypervisorsMigratedSum }
-                            isValid={
+                            validated={
                                 (errors.percentageOfHypervisorsMigratedOnYear2 && touched.percentageOfHypervisorsMigratedOnYear2) ||
-                                (errors.percentageOfHypervisorsMigratedSum) ? false : true
+                                (errors.percentageOfHypervisorsMigratedSum) ? "error" : "default"
                             }
                         >
                             <Grid md={3}>
@@ -263,9 +263,9 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                                             onChange={ customHandleChange }
                                             onBlur={ handleBlur }
                                             value={ values.percentageOfHypervisorsMigratedOnYear2 }
-                                            isValid={
+                                            validated={
                                                 (errors.percentageOfHypervisorsMigratedOnYear2
-                                                    && touched.percentageOfHypervisorsMigratedOnYear2) ? false : true
+                                                    && touched.percentageOfHypervisorsMigratedOnYear2) ? "error" : "default"
                                             }
                                         />
                                         <InputGroupText>%</InputGroupText>
@@ -279,9 +279,9 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                             label="Year 3"
                             fieldId="percentageOfHypervisorsMigratedOnYear3"
                             helperTextInvalid={ errors.percentageOfHypervisorsMigratedOnYear3 || errors.percentageOfHypervisorsMigratedSum }
-                            isValid={
+                            validated={
                                 (errors.percentageOfHypervisorsMigratedOnYear3 && touched.percentageOfHypervisorsMigratedOnYear3) ||
-                                (errors.percentageOfHypervisorsMigratedSum) ? false : true
+                                (errors.percentageOfHypervisorsMigratedSum) ? "error" : "default"
                             }
                         >
                             <Grid md={3}>
@@ -297,9 +297,9 @@ class UploadForm extends React.Component<UploadFormProps, { }> {
                                             onChange={ customHandleChange }
                                             onBlur={ handleBlur }
                                             value={ values.percentageOfHypervisorsMigratedOnYear3 }
-                                            isValid={
+                                            validated={
                                                 (errors.percentageOfHypervisorsMigratedOnYear3
-                                                    && touched.percentageOfHypervisorsMigratedOnYear3) ? false : true
+                                                    && touched.percentageOfHypervisorsMigratedOnYear3) ? "error" : "default"
                                             }
                                         />
                                         <InputGroupText>%</InputGroupText>

@@ -11,11 +11,15 @@ import {
     GridItem
 } from '@patternfly/react-core';
 import {
-    Main,
     PageHeader,
-    PageHeaderTitle,
+    PageHeaderTitle
+} from '@redhat-cloud-services/frontend-components/components/PageHeader';
+import {
+    Main
+} from '@redhat-cloud-services/frontend-components/components/Main';
+import {
     Skeleton
-} from '@redhat-cloud-services/frontend-components';
+} from '@redhat-cloud-services/frontend-components/components/Skeleton';
 import { Report } from '../../models';
 import { RouterGlobalProps } from '../../models/router';
 import { ObjectFetchStatus } from '../../models/state';
@@ -88,9 +92,10 @@ class ReportViewPage extends Component<Props, State> {
                     </p>
                 </div>
                 <Tabs
-                    isFilled={true}
+                    isFilled={ true }
                     onSelect={ this.handleTabClick }
                     activeKey={ activeTabKey }
+                    isBox={ true }
                 >
                     { REPORT_VIEW_PATHS.map((elem, index) => {
                         return (
@@ -105,7 +110,7 @@ class ReportViewPage extends Component<Props, State> {
     public renderTabsSkeleton = () => {
         return (
             <React.Fragment>
-                <Stack gutter="sm">
+                <Stack hasGutter={true}>
                     <StackItem>
                         <Skeleton size="sm" />
                     </StackItem>

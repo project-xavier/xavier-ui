@@ -9,7 +9,6 @@ import {
     EmptyStateIcon,
     EmptyStateVariant,
     Title,
-    TitleLevel,
     EmptyStateBody,
     Stack,
     StackItem,
@@ -24,7 +23,6 @@ import {
     SelectVariant,
     SelectOption,
     ChipGroup,
-    ChipGroupToolbarItem,
     Chip,
     ButtonVariant,
     Form,
@@ -41,7 +39,8 @@ import {
     ISortBy,
     cellWidth,
     classNames,
-    Visibility
+    Visibility,
+    truncate
 } from '@patternfly/react-table';
 import {
     ErrorCircleOIcon,
@@ -50,9 +49,11 @@ import {
     FlagIcon
 } from '@patternfly/react-icons';
 import {
-    TableToolbar,
     SkeletonTable
-} from '@redhat-cloud-services/frontend-components';
+} from '@redhat-cloud-services/frontend-components/components/SkeletonTable';
+import {
+    TableToolbar
+} from '@redhat-cloud-services/frontend-components/components/TableToolbar';
 import debounce from 'lodash/debounce';
 import { Formik } from 'formik';
 import { RouterGlobalProps } from '../../../models/router';
@@ -191,70 +192,77 @@ class WorkloadInventory extends React.Component<Props, State> {
                     title: filtersConfig.provider.label,
                     key: filtersConfig.provider.key,
                     props: {
-                        className: 'vertical-align-middle WorkloadInventory_truncate_table_column'
+                        className: 'vertical-align-middle'
                     },
                     cellFormatters: [ expandable ],
-                    transforms: [ cellWidth('10') ]
+                    transforms: [ cellWidth(10) ],
+                    cellTransforms: [ truncate ]
                 },
                 {
                     title: filtersConfig.datacenter.label,
                     key: filtersConfig.datacenter.key,
                     props: {
-                        className: 'vertical-align-middle WorkloadInventory_truncate_table_column'
+                        className: 'vertical-align-middle'
                     },
-                    transforms: [ cellWidth('15') ]
+                    transforms: [ cellWidth(15) ],
+                    cellTransforms: [ truncate ]
                 },
                 {
                     title: filtersConfig.cluster.label,
                     key: filtersConfig.cluster.key,
                     props: {
-                        className: 'vertical-align-middle WorkloadInventory_truncate_table_column'
+                        className: 'vertical-align-middle'
                     },
-                    transforms: [ cellWidth('15') ]
+                    transforms: [ cellWidth(15) ],
+                    cellTransforms: [ truncate ]
                 },
                 {
                     title: filtersConfig.vmName.label,
                     key: filtersConfig.vmName.key,
                     props: {
-                        className: 'vertical-align-middle WorkloadInventory_truncate_table_column'
+                        className: 'vertical-align-middle'
                     },
-                    transforms: [ sortable, cellWidth('15') ]
+                    transforms: [ sortable, cellWidth(15) ],
+                    cellTransforms: [ truncate ]
                 },
                 {
                     title: filtersConfig.workload.label,
                     key: filtersConfig.workload.key,
                     props: {
-                        className: 'vertical-align-middle WorkloadInventory_truncate_table_column'
+                        className: 'vertical-align-middle'
                     },
-                    transforms: [ cellWidth('10') ],
-                    columnTransforms: [classNames(Visibility.hiddenOnMd, Visibility.visibleOnLg)]
+                    transforms: [ cellWidth(10) ],
+                    cellTransforms: [ truncate ],
+                    columnTransforms: [classNames(Visibility.hiddenOnMd!, Visibility.visibleOnLg!)]
                 },
                 {
                     title: filtersConfig.osName.label,
                     key: filtersConfig.osName.key,
                     props: {
-                        className: 'vertical-align-middle WorkloadInventory_truncate_table_column'
+                        className: 'vertical-align-middle'
                     },
-                    transforms: [ sortable, cellWidth('15') ],
-                    columnTransforms: [classNames(Visibility.hiddenOnMd, Visibility.visibleOnLg)]
+                    transforms: [ sortable, cellWidth(15) ],
+                    cellTransforms: [ truncate ],
+                    columnTransforms: [classNames(Visibility.hiddenOnMd!, Visibility.visibleOnLg!)]
                 },
                 {
                     title: filtersConfig.effort.label,
                     key: filtersConfig.effort.key,
                     props: {
-                        className: 'vertical-align-middle WorkloadInventory_truncate_table_column'
+                        className: 'vertical-align-middle'
                     },
-                    transforms: [ sortable, cellWidth('10') ],
-                    columnTransforms: [classNames(Visibility.hiddenOnMd, Visibility.visibleOnLg)]
+                    transforms: [ sortable, cellWidth(10) ],
+                    cellTransforms: [ truncate ],
+                    columnTransforms: [classNames(Visibility.hiddenOnMd!, Visibility.visibleOnLg!)]
                 },
                 {
                     title: filtersConfig.flagIMS.label,
                     key: filtersConfig.flagIMS.key,
                     props: {
-                        className: 'vertical-align-middle WorkloadInventory_truncate_table_column'
+                        className: 'vertical-align-middle'
                     },
-                    transforms: [ cellWidth('10') ],
-                    columnTransforms: [classNames(Visibility.hiddenOnMd, Visibility.visibleOnLg)]
+                    transforms: [ cellWidth(10) ],
+                    columnTransforms: [classNames(Visibility.hiddenOnMd!, Visibility.visibleOnLg!)]
                 }
             ],
             rows: [],
@@ -332,25 +340,25 @@ class WorkloadInventory extends React.Component<Props, State> {
                         isOpen: false,
                         cells: [
                             {
-                                title: <Tooltip position="top" content={<div>{b.provider}</div>}><span>{b.provider}</span></Tooltip>
+                                title: b.provider
                             },
                             {
-                                title: <Tooltip position="top" content={<div>{b.datacenter}</div>}><span>{b.datacenter}</span></Tooltip>
+                                title: b.datacenter
                             },
                             {
-                                title: <Tooltip position="top" content={<div>{b.cluster}</div>}><span>{b.cluster}</span></Tooltip>
+                                title: b.cluster
                             },
                             {
-                                title: <Tooltip position="top" content={<div>{b.vmName}</div>}><span>{b.vmName}</span></Tooltip>
+                                title: b.vmName
                             },
                             {
-                                title: <Tooltip position="top" content={<div>{workloads}</div>}><span>{workloads}</span></Tooltip>
+                                title: workloads
                             },
                             {
-                                title: <Tooltip position="top" content={<div>{b.osName}</div>}><span>{b.osName}</span></Tooltip>
+                                title: b.osName
                             },
                             {
-                                title: <Tooltip position="top" content={<div>{b.complexity}</div>}><span>{b.complexity}</span></Tooltip>
+                                title: b.complexity
                             },
                             {
                                 title: <span><i><FlagIcon /></i>&nbsp;{b.flagsIMS.length}</span>
@@ -679,9 +687,9 @@ class WorkloadInventory extends React.Component<Props, State> {
                     aria-label={`Select ${filterType.name} Input`}
                     onToggle={this.onSecondaryFilterDropdownToggle}
                     onSelect={onEmptySelect}
-                    isExpanded={secondaryFilterDropDownOpen}
+                    isOpen={secondaryFilterDropDownOpen}
                     placeholderText={`Filter by ${filterType.name}`}
-                    ariaLabelledBy={filterType.name}
+                    aria-labelledby={filterType.name}
                 >
                     {[
                         <SelectOption key="EmptyKey" value="No values available" />
@@ -699,10 +707,10 @@ class WorkloadInventory extends React.Component<Props, State> {
                 aria-label={`Select ${filterType.name} Input`}
                 onToggle={this.onSecondaryFilterDropdownToggle}
                 onSelect={onSelect}
-                isExpanded={secondaryFilterDropDownOpen}
+                isOpen={secondaryFilterDropDownOpen}
                 selections={selections}
                 placeholderText={`Filter by ${filterType.name}`}
-                ariaLabelledBy={filterType.name}
+                aria-labelledby={filterType.name}
             >
                 {options.map((val, index) => {
                     return <SelectOption key={index} value={val} />;
@@ -807,10 +815,10 @@ class WorkloadInventory extends React.Component<Props, State> {
 
         return (
             <React.Fragment>
-                <ChipGroup withToolbar={true}>
+                <ChipGroup>
                     { filterValueArray.map((group) => {
                         return (
-                            <ChipGroupToolbarItem key={group.key} categoryName={chipLabelsMap.get(group.key)}>
+                            <ChipGroup key={group.key} categoryName={chipLabelsMap.get(group.key)}>
                                 { group.value.map((chip: string) => {
                                     const onDeleteChipItem = () => {
                                         this.deleteChipItem(group.key, chip);
@@ -822,7 +830,7 @@ class WorkloadInventory extends React.Component<Props, State> {
                                         </Chip>
                                     );
                                 })}
-                            </ChipGroupToolbarItem>
+                            </ChipGroup>
                         );
                     })}
                 </ChipGroup>
@@ -848,7 +856,7 @@ class WorkloadInventory extends React.Component<Props, State> {
     public renderWorkloadInventorySkeleton = () => {
         return (
             <React.Fragment>
-                <Stack gutter='md'>
+                <Stack hasGutter={true}>
                     <StackItem isFilled={ false }>
                         <SkeletonTable colSize={ 9 } rowSize={ 10 }/>
                     </StackItem>
@@ -866,7 +874,7 @@ class WorkloadInventory extends React.Component<Props, State> {
             <Bullseye>
                 <EmptyState variant={ EmptyStateVariant.large }>
                     <EmptyStateIcon icon={ ErrorCircleOIcon } />
-                    <Title headingLevel={ TitleLevel.h5 } size="lg">
+                    <Title headingLevel="h5" size="lg">
                         Error
                     </Title>
                     <EmptyStateBody>
@@ -893,7 +901,7 @@ class WorkloadInventory extends React.Component<Props, State> {
 
         return (
             <React.Fragment>
-                <TableToolbar className="pf-u-justify-content-space-between">
+                <TableToolbar className="pf-u-justify-content-space-between" style={{display: "flex", marginRight: 0, marginBottom: 0}}>
                     <ToolbarGroup>
                         <ToolbarItem>{this.renderFilterTypeDropdown()}</ToolbarItem>
                         <ToolbarItem className="pf-u-mr-md">{this.renderFilterInput()}</ToolbarItem>
@@ -916,7 +924,7 @@ class WorkloadInventory extends React.Component<Props, State> {
                         </ToolbarItem>
                     </ToolbarGroup>
                 </TableToolbar>
-                <TableToolbar className="pf-u-justify-content-space-between">
+                <TableToolbar className="pf-u-justify-content-space-between" style={{display: "flex", marginRight: 0, marginBottom: 0, marginTop: 0}}>
                     <ToolbarGroup>
                         <ToolbarItem>
                             { this.reportFilterChips() }

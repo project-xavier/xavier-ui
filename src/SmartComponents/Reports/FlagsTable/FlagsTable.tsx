@@ -22,7 +22,7 @@ import {
 import { SearchIcon } from '@patternfly/react-icons';
 import {
     SkeletonTable
-} from '@redhat-cloud-services/frontend-components';
+} from '@redhat-cloud-services/frontend-components/components/SkeletonTable';
 import debounce from 'lodash/debounce';
 import { FlagModel, FlagAssessmentModel } from '../../../models';
 import { ObjectFetchStatus } from '../../../models/state';
@@ -98,7 +98,7 @@ export class FlagsTable extends React.Component<FlagsTableProps, State> {
                     title: 'OS',
                     key: 'osName',
                     props: { },
-                    transforms: [ cellWidth('10'), sortable ]
+                    transforms: [ cellWidth(10), sortable ]
                 },
                 {
                     title: 'In Clusters',

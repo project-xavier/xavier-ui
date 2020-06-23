@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Modal, ButtonVariant } from '@patternfly/react-core';
+import { Button, Modal, ButtonVariant, ModalVariant } from '@patternfly/react-core';
 import './DeleteDialog.scss';
 
 interface Props {
@@ -33,10 +33,11 @@ class DeleteDialogBase extends React.Component<Props, State> {
 
         return (
             <Modal
-                isSmall={true}
+                variant={ ModalVariant.small }
                 title={ `Delete ${name}?` }
                 onClose={ onCancel }
                 isOpen={ isOpen }
+                className="ma-delete-modal"
                 actions={ [
                     <Button
                         key="confirm"

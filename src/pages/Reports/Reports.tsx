@@ -35,9 +35,11 @@ import {
     InProgressIcon
 } from '@patternfly/react-icons';
 import {
-    TableToolbar,
     SkeletonTable
-} from '@redhat-cloud-services/frontend-components';
+} from '@redhat-cloud-services/frontend-components/components/SkeletonTable';
+import {
+    TableToolbar
+} from '@redhat-cloud-services/frontend-components/components/TableToolbar';
 import debounce from 'lodash/debounce';
 import { Formik } from 'formik';
 import { Report } from '../../models';
@@ -248,7 +250,7 @@ class Reports extends React.Component<Props, State> {
                         variant: 'danger',
                         title: 'Could not download payload file',
                         description: 'The retention period for the payload file has expired',
-                        dismissable: true
+                        dismissable: false,
                     });
                 }
             } else {
@@ -500,7 +502,7 @@ class Reports extends React.Component<Props, State> {
             toolbar = '';
         } else {
             toolbar = (
-                <TableToolbar className="pf-u-justify-content-space-between">
+                <TableToolbar className="pf-u-justify-content-space-between" style={{display: "flex", marginRight: 0, marginBottom: 0}}>
                     <ToolbarGroup>
                         <ToolbarItem className="pf-u-mr-xl">{ this.renderSearchBox() }</ToolbarItem>
                         <ToolbarItem className="pf-u-mr-md">
