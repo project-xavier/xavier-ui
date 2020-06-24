@@ -32,7 +32,8 @@ describe('openModal', () => {
             config: {},
             name: 'error',
             message: 'my custom error message',
-            isAxiosError: false
+            isAxiosError: false,
+            toJSON: jest.fn()
         };
         expect(actionGenerator.error(error)).toMatchSnapshot();
     });

@@ -25,12 +25,7 @@ Object {
 exports[`openModal returns a state object 2`] = `
 Object {
   "meta": undefined,
-  "payload": Object {
-    "config": Object {},
-    "isAxiosError": false,
-    "message": "my custom error message",
-    "name": "error",
-  },
+  "payload": undefined,
   "type": "dialog/delete/error",
 }
 `;
