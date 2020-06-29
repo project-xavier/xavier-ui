@@ -291,7 +291,7 @@ class ReportsUpload extends React.Component<Props, State> {
                         <Progress
                             value={ this.props.progress }
                             measureLocation={ ProgressMeasureLocation.outside }
-                            variant={ this.props.error ? ProgressVariant.danger : (this.props.progress === 100 ? ProgressVariant.success : undefined) }
+                            variant={ this.props.error ? ProgressVariant.danger : undefined }
                         />
                     </div>
                     <EmptyStateBody>
