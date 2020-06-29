@@ -17,12 +17,12 @@ exports[`WorkloadMigrationSummary expect to render error 1`] = `
     <EmptyStateBody>
       Something unexpected happend, please try again!
     </EmptyStateBody>
-    <Component
+    <Button
       onClick={[Function]}
       variant="primary"
     >
       Retry
-    </Component>
+    </Button>
   </EmptyState>
 </Bullseye>
 `;
@@ -30,7 +30,7 @@ exports[`WorkloadMigrationSummary expect to render error 1`] = `
 exports[`WorkloadMigrationSummary expect to render reports 1`] = `
 <Fragment>
   <Stack
-    gutter="md"
+    hasGutter={true}
   >
     <StackItem
       isFilled={false}
@@ -130,7 +130,6 @@ exports[`WorkloadMigrationSummary expect to render reports 1`] = `
                   color="currentColor"
                   noVerticalAlign={false}
                   size="sm"
-                  title={null}
                 />
               </Tooltip>
             </span>
@@ -397,7 +396,7 @@ exports[`WorkloadMigrationSummary expect to render reports 1`] = `
 exports[`WorkloadMigrationSummary expect to render skeleton 1`] = `
 <Fragment>
   <Stack
-    gutter="md"
+    hasGutter={true}
   >
     <StackItem
       isFilled={false}

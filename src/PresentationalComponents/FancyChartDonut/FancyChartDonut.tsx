@@ -3,8 +3,7 @@ import {
     ChartDonut,
     ChartDonutProps,
     ChartThemeColor,
-    ChartThemeVariant,
-    ChartTooltip
+    ChartThemeVariant
 } from '@patternfly/react-charts';
 
 export interface FancyChartDonutData {
@@ -18,7 +17,7 @@ interface Props {
     data: FancyChartDonutData[];
     chartProps?: ChartDonutProps;
     tickFormat?: (label: string, value: number, data: any) => string;
-    tooltipFormat?: (datum: any, active: boolean) => string;
+    tooltipFormat?: (datum: any) => string;
 }
 
 interface State {
@@ -47,8 +46,13 @@ class FancyChartDonut extends Component<Props, State> {
             };
         });
 
-        const chartLabels = ({datum}): string => {
-            return tickFormat ? tickFormat(datum.x, datum.y, datum.extraData) : `${datum.x}: ${datum.y}`;
+        const chartLabels = (d: any): string => {
+            if (tooltipFormat) {
+                return tooltipFormat(d);
+            } else if (tickFormat) {
+                tickFormat(d.datum.x, d.datum.y, d.datum.extraData)
+            }
+            return `${d.datum.x}: ${d.datum.y}`;
         };
 
         return (
@@ -56,10 +60,8 @@ class FancyChartDonut extends Component<Props, State> {
                 <div className="pf-u-display-flex">
                     <div className="donut-chart-container">
                         <ChartDonut
-                            constrainToVisibleArea={true}
                             data={ chartData }
                             labels={ chartLabels }
-                            labelComponent={  <ChartTooltip text={ tooltipFormat ? tooltipFormat : undefined }/> }
                             legendData={ legendData }
                             legendOrientation="vertical"
                             legendPosition="right"

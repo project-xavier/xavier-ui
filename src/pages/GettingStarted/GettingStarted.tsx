@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import {
     EmptyStateBody,
     EmptyState,
@@ -7,11 +7,10 @@ import {
     Bullseye,
     EmptyStateVariant
 } from '@patternfly/react-core';
-import ProcessImprovementSvg from '../../PresentationalComponents/Icons/process-improvement_svg';
-import './GettingStarted.scss';
-import ReportsPage from '../../PresentationalComponents/ReportsPage/ReportsPage';
 import { User } from '../../models';
-import { Redirect } from 'react-router';
+import ProcessImprovementSvg from '../../PresentationalComponents/Icons/process-improvement_svg';
+import ReportsPage from '../../PresentationalComponents/ReportsPage/ReportsPage';
+import './GettingStarted.scss';
 
 interface StateToProps {
     user: User | null;
@@ -46,7 +45,7 @@ class GettingStarted extends React.Component<Props, State> {
                         <div>
                             <ProcessImprovementSvg height="80px" className="pf-c-empty-state__icon" style={ { opacity: 0.6 } } />
                         </div>
-                        <Title size="lg">Let Red Hat Migration Analytics suggest ways to optimize your environment</Title>
+                        <Title size="lg" headingLevel="h2">Let Red Hat Migration Analytics suggest ways to optimize your environment</Title>
                         <EmptyStateBody>
                             See how you can optimize your virtual environment <br />
                             by uploading a Red Hat CloudForms generated Inventory file <br />

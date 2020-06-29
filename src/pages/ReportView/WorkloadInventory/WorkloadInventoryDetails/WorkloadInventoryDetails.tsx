@@ -30,7 +30,7 @@ export class WorkloadInventoryDetails extends React.Component<WorkloadInventoryD
                                 }
                             >
                                 <React.Fragment>
-                                    <Label>{e}</Label>&nbsp;
+                                    <Label color="blue">{e}</Label>&nbsp;
                                 </React.Fragment>
                             </Tooltip>
                         );

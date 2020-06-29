@@ -5,8 +5,15 @@ exports[`Reports should render list depending of TOTAL value expect to render em
   <TableToolbar
     className="pf-u-justify-content-space-between"
     isFooter={false}
+    style={
+      Object {
+        "display": "flex",
+        "marginBottom": 0,
+        "marginRight": 0,
+      }
+    }
   >
-    <ToolbarGroup>
+    <ForwardRef>
       <ToolbarItem
         className="pf-u-mr-xl"
       >
@@ -37,19 +44,70 @@ exports[`Reports should render list depending of TOTAL value expect to render em
           Create
         </Link>
       </ToolbarItem>
-    </ToolbarGroup>
-    <ToolbarGroup>
+    </ForwardRef>
+    <ForwardRef>
       <ToolbarItem>
-        <Component
+        <Pagination
+          className=""
+          defaultToFullPage={false}
+          firstPage={1}
+          isCompact={false}
+          isDisabled={false}
           itemCount={0}
+          itemsEnd={null}
+          itemsStart={null}
+          offset={0}
+          onFirstClick={[Function]}
+          onLastClick={[Function]}
+          onNextClick={[Function]}
           onPageInput={[Function]}
           onPerPageSelect={[Function]}
+          onPreviousClick={[Function]}
           onSetPage={[Function]}
+          ouiaSafe={true}
           page={1}
           perPage={10}
+          perPageOptions={
+            Array [
+              Object {
+                "title": "10",
+                "value": 10,
+              },
+              Object {
+                "title": "20",
+                "value": 20,
+              },
+              Object {
+                "title": "50",
+                "value": 50,
+              },
+              Object {
+                "title": "100",
+                "value": 100,
+              },
+            ]
+          }
+          titles={
+            Object {
+              "currPage": "Current page",
+              "items": "",
+              "itemsPerPage": "Items per page",
+              "optionsToggle": "Items per page",
+              "page": "",
+              "paginationTitle": "Pagination",
+              "perPageSuffix": "per page",
+              "toFirstPage": "Go to first page",
+              "toLastPage": "Go to last page",
+              "toNextPage": "Go to next page",
+              "toPreviousPage": "Go to previous page",
+            }
+          }
+          toggleTemplate={[Function]}
+          variant="top"
+          widgetId="pagination-options-menu"
         />
       </ToolbarItem>
-    </ToolbarGroup>
+    </ForwardRef>
   </TableToolbar>
   <Card>
     <CardBody>
@@ -79,8 +137,15 @@ exports[`Reports should render list depending of TOTAL value expect to render li
   <TableToolbar
     className="pf-u-justify-content-space-between"
     isFooter={false}
+    style={
+      Object {
+        "display": "flex",
+        "marginBottom": 0,
+        "marginRight": 0,
+      }
+    }
   >
-    <ToolbarGroup>
+    <ForwardRef>
       <ToolbarItem
         className="pf-u-mr-xl"
       >
@@ -111,22 +176,75 @@ exports[`Reports should render list depending of TOTAL value expect to render li
           Create
         </Link>
       </ToolbarItem>
-    </ToolbarGroup>
-    <ToolbarGroup>
+    </ForwardRef>
+    <ForwardRef>
       <ToolbarItem>
-        <Component
+        <Pagination
+          className=""
+          defaultToFullPage={false}
+          firstPage={1}
+          isCompact={false}
+          isDisabled={false}
           itemCount={3}
+          itemsEnd={null}
+          itemsStart={null}
+          offset={0}
+          onFirstClick={[Function]}
+          onLastClick={[Function]}
+          onNextClick={[Function]}
           onPageInput={[Function]}
           onPerPageSelect={[Function]}
+          onPreviousClick={[Function]}
           onSetPage={[Function]}
+          ouiaSafe={true}
           page={1}
           perPage={10}
+          perPageOptions={
+            Array [
+              Object {
+                "title": "10",
+                "value": 10,
+              },
+              Object {
+                "title": "20",
+                "value": 20,
+              },
+              Object {
+                "title": "50",
+                "value": 50,
+              },
+              Object {
+                "title": "100",
+                "value": 100,
+              },
+            ]
+          }
+          titles={
+            Object {
+              "currPage": "Current page",
+              "items": "",
+              "itemsPerPage": "Items per page",
+              "optionsToggle": "Items per page",
+              "page": "",
+              "paginationTitle": "Pagination",
+              "perPageSuffix": "per page",
+              "toFirstPage": "Go to first page",
+              "toLastPage": "Go to last page",
+              "toNextPage": "Go to next page",
+              "toPreviousPage": "Go to previous page",
+            }
+          }
+          toggleTemplate={[Function]}
+          variant="top"
+          widgetId="pagination-options-menu"
         />
       </ToolbarItem>
-    </ToolbarGroup>
+    </ForwardRef>
   </TableToolbar>
-  <Component
+  <Table
     aria-label="Reports list"
+    borders={true}
+    canSelectAll={true}
     cells={
       Array [
         "Name",
@@ -139,7 +257,15 @@ exports[`Reports should render list depending of TOTAL value expect to render li
         },
       ]
     }
+    className=""
+    contentId="expanded-content"
+    dropdownDirection="down"
+    dropdownPosition="right"
+    expandId="expandable-toggle"
     gridBreakPoint="grid-md"
+    ouiaSafe={true}
+    role="grid"
+    rowLabeledBy="simple-node"
     rows={
       Array [
         Object {
@@ -156,7 +282,6 @@ exports[`Reports should render list depending of TOTAL value expect to render li
                   color="currentColor"
                   noVerticalAlign={false}
                   size="sm"
-                  title={null}
                 />
                  Analyzing the upload file
               </p>,
@@ -180,7 +305,6 @@ exports[`Reports should render list depending of TOTAL value expect to render li
                   color="currentColor"
                   noVerticalAlign={false}
                   size="sm"
-                  title={null}
                 />
                  Analyzing the upload file
               </p>,
@@ -204,7 +328,6 @@ exports[`Reports should render list depending of TOTAL value expect to render li
                   color="currentColor"
                   noVerticalAlign={false}
                   size="sm"
-                  title={null}
                 />
                  Analyzing the upload file
               </p>,
@@ -216,25 +339,77 @@ exports[`Reports should render list depending of TOTAL value expect to render li
         },
       ]
     }
+    variant={null}
   >
     <TableHeader />
-    <TableBody />
+    <Component />
     <tfoot>
       <tr>
         <td
           colSpan={10}
         >
-          <Component
+          <Pagination
+            className=""
+            defaultToFullPage={false}
+            firstPage={1}
+            isCompact={false}
+            isDisabled={false}
             itemCount={3}
+            itemsEnd={null}
+            itemsStart={null}
+            offset={0}
+            onFirstClick={[Function]}
+            onLastClick={[Function]}
+            onNextClick={[Function]}
             onPageInput={[Function]}
             onPerPageSelect={[Function]}
+            onPreviousClick={[Function]}
             onSetPage={[Function]}
+            ouiaSafe={true}
             page={1}
             perPage={10}
+            perPageOptions={
+              Array [
+                Object {
+                  "title": "10",
+                  "value": 10,
+                },
+                Object {
+                  "title": "20",
+                  "value": 20,
+                },
+                Object {
+                  "title": "50",
+                  "value": 50,
+                },
+                Object {
+                  "title": "100",
+                  "value": 100,
+                },
+              ]
+            }
+            titles={
+              Object {
+                "currPage": "Current page",
+                "items": "",
+                "itemsPerPage": "Items per page",
+                "optionsToggle": "Items per page",
+                "page": "",
+                "paginationTitle": "Pagination",
+                "perPageSuffix": "per page",
+                "toFirstPage": "Go to first page",
+                "toLastPage": "Go to last page",
+                "toNextPage": "Go to next page",
+                "toPreviousPage": "Go to previous page",
+              }
+            }
+            toggleTemplate={[Function]}
+            variant="top"
+            widgetId="pagination-options-menu"
           />
         </td>
       </tr>
     </tfoot>
-  </Component>
+  </Table>
 </ReportsPage>
 `;

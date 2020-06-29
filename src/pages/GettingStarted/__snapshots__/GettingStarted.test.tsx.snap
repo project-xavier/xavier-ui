@@ -25,6 +25,7 @@ exports[`GettingStarted expect to render 1`] = `
         />
       </div>
       <Title
+        headingLevel="h2"
         size="lg"
       >
         Let Red Hat Migration Analytics suggest ways to optimize your environment

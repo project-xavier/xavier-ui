@@ -1,10 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {
-    TableToolbar,
-    SkeletonTable
-} from '@redhat-cloud-services/frontend-components';
-import {
     Button,
     ToolbarGroup,
     ToolbarItem,
@@ -32,22 +28,27 @@ import {
     IRow,
     ICell
 } from '@patternfly/react-table';
-
-import './Reports.scss';
-import { Report } from '../../models';
-import { RouterGlobalProps } from '../../models/router';
-import ReportsPage from '../../PresentationalComponents/ReportsPage';
-import * as deleteActions from '../../actions/DialogDeleteActions';
 import {
     SearchIcon,
     OkIcon,
     ErrorCircleOIcon,
     InProgressIcon
 } from '@patternfly/react-icons';
+import {
+    SkeletonTable
+} from '@redhat-cloud-services/frontend-components/components/SkeletonTable';
+import {
+    TableToolbar
+} from '@redhat-cloud-services/frontend-components/components/TableToolbar';
 import debounce from 'lodash/debounce';
 import { Formik } from 'formik';
+import { Report } from '../../models';
+import { RouterGlobalProps } from '../../models/router';
 import { ObjectFetchStatus } from '../../models/state';
+import * as deleteActions from '../../actions/DialogDeleteActions';
 import { formatDate } from '../../Utilities/formatValue';
+import ReportsPage from '../../PresentationalComponents/ReportsPage';
+import './Reports.scss';
 
 interface StateToProps {
     reports: {
@@ -166,7 +167,7 @@ class Reports extends React.Component<Props, State> {
     // Table data management section
 
     public refreshData = (page: number = this.state.page, perPage: number = this.state.perPage, filterText: string = this.state.filterText) => {
-        
+
         this.props.fetchReports(page, perPage, filterText).then(() => {
             this.filtersInRowsAndCells();
 
@@ -232,7 +233,7 @@ class Reports extends React.Component<Props, State> {
 
         // close kebab
         this.handleReportKebabToggle(report, false);
-        
+
 
         fetchReportPayloadDownloadLink(report.id).then((response: any) => {
             if (response && response.value && response.value.data) {
@@ -249,7 +250,7 @@ class Reports extends React.Component<Props, State> {
                         variant: 'danger',
                         title: 'Could not download payload file',
                         description: 'The retention period for the payload file has expired',
-                        dismissable: true
+                        dismissable: false,
                     });
                 }
             } else {
@@ -501,7 +502,7 @@ class Reports extends React.Component<Props, State> {
             toolbar = '';
         } else {
             toolbar = (
-                <TableToolbar className="pf-u-justify-content-space-between">
+                <TableToolbar className="pf-u-justify-content-space-between" style={{display: "flex", marginRight: 0, marginBottom: 0}}>
                     <ToolbarGroup>
                         <ToolbarItem className="pf-u-mr-xl">{ this.renderSearchBox() }</ToolbarItem>
                         <ToolbarItem className="pf-u-mr-md">

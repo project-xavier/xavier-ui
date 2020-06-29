@@ -1,23 +1,30 @@
 import React, { Fragment, Component } from 'react';
-import { Redirect } from 'react-router-dom';
-import {
-    Main,
-    PageHeader,
-    PageHeaderTitle,
-    Skeleton
-} from '@redhat-cloud-services/frontend-components';
+import { Link, Redirect } from 'react-router-dom';
 import {
     Tabs,
     Tab,
     Breadcrumb,
-    BreadcrumbItem
+    BreadcrumbItem,
+    Stack,
+    StackItem,
+    Grid,
+    GridItem
 } from '@patternfly/react-core';
+import {
+    PageHeader,
+    PageHeaderTitle
+} from '@redhat-cloud-services/frontend-components/components/PageHeader';
+import {
+    Main
+} from '@redhat-cloud-services/frontend-components/components/Main';
+import {
+    Skeleton
+} from '@redhat-cloud-services/frontend-components/components/Skeleton';
 import { Report } from '../../models';
-import { Link } from 'react-router-dom';
 import { RouterGlobalProps } from '../../models/router';
-import { REPORT_VIEW_PATHS, DEFAULT_VIEW_PATH_INDEX, INITIAL_SAVINGS_ESTIMATION_KEY } from '../../pages/ReportView/ReportViewConstants';
 import { ObjectFetchStatus } from '../../models/state';
 import { formatDate } from '../../Utilities/formatValue';
+import { REPORT_VIEW_PATHS, DEFAULT_VIEW_PATH_INDEX, INITIAL_SAVINGS_ESTIMATION_KEY } from '../../pages/ReportView/ReportViewConstants';
 
 export interface Props extends RouterGlobalProps {
     mainStyle?: any;
@@ -85,9 +92,10 @@ class ReportViewPage extends Component<Props, State> {
                     </p>
                 </div>
                 <Tabs
-                    isFilled={true}
+                    isFilled={ true }
                     onSelect={ this.handleTabClick }
                     activeKey={ activeTabKey }
+                    isBox={ true }
                 >
                     { REPORT_VIEW_PATHS.map((elem, index) => {
                         return (
@@ -102,30 +110,30 @@ class ReportViewPage extends Component<Props, State> {
     public renderTabsSkeleton = () => {
         return (
             <React.Fragment>
-                <div className="pf-l-stack pf-m-gutter">
-                    <div className="pf-l-stack__item">
+                <Stack hasGutter={true}>
+                    <StackItem>
                         <Skeleton size="sm" />
-                    </div>
-                    <div className="pf-l-stack__item">
+                    </StackItem>
+                    <StackItem>
                         <Skeleton size="sm" />
-                    </div>
-                    <div className="pf-l-stack__item">
+                    </StackItem>
+                    <StackItem>
                         <Skeleton size="sm" />
-                    </div>
-                    <div className="pf-l-stack__item">
-                        <div className="pf-l-grid">
-                            <div className="pf-l-grid__item pf-m-4-col">
+                    </StackItem>
+                    <StackItem>
+                        <Grid>
+                            <GridItem span={4}>
                                 <Skeleton size="md" />
-                            </div>
-                            <div className="pf-l-grid__item pf-m-4-col">
+                            </GridItem>
+                            <GridItem span={4}>
                                 <Skeleton size="md" />
-                            </div>
-                            <div className="pf-l-grid__item pf-m-4-col">
+                            </GridItem>
+                            <GridItem span={4}>
                                 <Skeleton size="md" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                            </GridItem>
+                        </Grid>
+                    </StackItem>
+                </Stack>
             </React.Fragment>
         );
     };

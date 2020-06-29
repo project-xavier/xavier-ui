@@ -2,8 +2,10 @@
 
 exports[`ProjectCostBreakdownTable expect to render 1`] = `
 <Fragment>
-  <Component
+  <Table
     aria-label="Project cost breakdown"
+    borders={true}
+    canSelectAll={true}
     cells={
       Array [
         "",
@@ -16,6 +18,15 @@ exports[`ProjectCostBreakdownTable expect to render 1`] = `
         },
       ]
     }
+    className=""
+    contentId="expanded-content"
+    dropdownDirection="down"
+    dropdownPosition="right"
+    expandId="expandable-toggle"
+    gridBreakPoint="grid-md"
+    ouiaSafe={true}
+    role="grid"
+    rowLabeledBy="simple-node"
     rows={
       Array [
         Object {
@@ -112,15 +123,17 @@ exports[`ProjectCostBreakdownTable expect to render 1`] = `
     }
     variant="compact"
   >
-    <TableBody />
-  </Component>
+    <Component />
+  </Table>
 </Fragment>
 `;
 
 exports[`ProjectCostBreakdownTable expect to render using null and undefined data 1`] = `
 <Fragment>
-  <Component
+  <Table
     aria-label="Project cost breakdown"
+    borders={true}
+    canSelectAll={true}
     cells={
       Array [
         "",
@@ -133,6 +146,15 @@ exports[`ProjectCostBreakdownTable expect to render using null and undefined dat
         },
       ]
     }
+    className=""
+    contentId="expanded-content"
+    dropdownDirection="down"
+    dropdownPosition="right"
+    expandId="expandable-toggle"
+    gridBreakPoint="grid-md"
+    ouiaSafe={true}
+    role="grid"
+    rowLabeledBy="simple-node"
     rows={
       Array [
         Object {
@@ -229,15 +251,17 @@ exports[`ProjectCostBreakdownTable expect to render using null and undefined dat
     }
     variant="compact"
   >
-    <TableBody />
-  </Component>
+    <Component />
+  </Table>
 </Fragment>
 `;
 
 exports[`ProjectCostBreakdownTable expect to render using values equal to 0 1`] = `
 <Fragment>
-  <Component
+  <Table
     aria-label="Project cost breakdown"
+    borders={true}
+    canSelectAll={true}
     cells={
       Array [
         "",
@@ -250,6 +274,15 @@ exports[`ProjectCostBreakdownTable expect to render using values equal to 0 1`] 
         },
       ]
     }
+    className=""
+    contentId="expanded-content"
+    dropdownDirection="down"
+    dropdownPosition="right"
+    expandId="expandable-toggle"
+    gridBreakPoint="grid-md"
+    ouiaSafe={true}
+    role="grid"
+    rowLabeledBy="simple-node"
     rows={
       Array [
         Object {
@@ -346,7 +379,7 @@ exports[`ProjectCostBreakdownTable expect to render using values equal to 0 1`] 
     }
     variant="compact"
   >
-    <TableBody />
-  </Component>
+    <Component />
+  </Table>
 </Fragment>
 `;

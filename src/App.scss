@@ -27,3 +27,11 @@
         border-color: var(--xa-c-card--BorderColor) !important;
     }
 }
+
+// Patternfly 4 Upgrade
+
+// Workaround to have the Delete Modal with overflow header
+.ma-delete-modal .pf-c-modal-box__header {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

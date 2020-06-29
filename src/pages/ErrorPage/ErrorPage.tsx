@@ -1,20 +1,21 @@
 import React from 'react';
-import {
-    Main,
-    PageHeader,
-    PageHeaderTitle
-} from '@redhat-cloud-services/frontend-components';
+import { Link } from 'react-router-dom';
 import {
     Bullseye,
     EmptyState,
     EmptyStateVariant,
     EmptyStateIcon,
     Title,
-    TitleLevel,
     EmptyStateBody
 } from '@patternfly/react-core';
 import { ErrorCircleOIcon } from '@patternfly/react-icons';
-import { Link } from 'react-router-dom';
+import {
+    PageHeader,
+    PageHeaderTitle
+} from '@redhat-cloud-services/frontend-components/components/PageHeader';
+import {
+    Main
+} from '@redhat-cloud-services/frontend-components/components/Main';
 
 interface StateToProps {}
 
@@ -42,7 +43,7 @@ class ErrorPage extends React.Component<Props, State> {
                     <Bullseye>
                         <EmptyState variant={ EmptyStateVariant.large }>
                             <EmptyStateIcon icon={ ErrorCircleOIcon } />
-                            <Title headingLevel={ TitleLevel.h5 } size="lg">
+                            <Title headingLevel="h5" size="lg">
                                 Error
                             </Title>
                             <EmptyStateBody>

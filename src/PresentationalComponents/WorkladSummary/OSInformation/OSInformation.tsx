@@ -67,7 +67,7 @@ export const OSInformation: React.FC<Props> = ({ reportWorkloadSummary }) => {
 
     return (
         <ReportCard title={title} skipBullseye={true}>
-            <Grid gutter="sm" xl={6}>
+            <Grid hasGutter={true} xl={6}>
                 <GridItem>
                     <Bullseye>
                         <FancyChartDonut
