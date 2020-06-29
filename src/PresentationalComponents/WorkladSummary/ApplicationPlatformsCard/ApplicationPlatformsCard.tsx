@@ -76,7 +76,7 @@ export const ApplicationPlatformsCard: React.FC<Props> = ({ reportWorkloadSummar
                 <GridItem>
                     <Bullseye>
                         <SolidCard
-                            title={`Application server environments that can be replatformed with JBoss EAP: ${reportWorkloadSummary.recommendedTargetsIMSModel.jbosseap || 0}`}
+                            title={`Application server environments that can be replatformed with JBoss EAP: ${formatNumber(reportWorkloadSummary.recommendedTargetsIMSModel.jbosseap || 0, 0)}`}
                             // description="App platforms that can be replatformed with JBoss EAP"
                             width={510}
                         />

@@ -3,7 +3,7 @@
 exports[`JavaRuntimesCard expect to render 1`] = `
 <ReportCard
   skipBullseye={true}
-  title="Oracle Java runtimes information"
+  title="Oracle Java runtime information"
 >
   <Grid
     hasGutter={true}
@@ -45,8 +45,7 @@ exports[`JavaRuntimesCard expect to render 1`] = `
     <GridItem>
       <Bullseye>
         <SolidCard
-          description="Oracle JDKs that can be replaced with OpenJDK"
-          title="8 OpenJDK"
+          title="Oracle JDKs that can be replaced with Open JDK: 8"
           width={510}
         />
       </Bullseye>
@@ -57,7 +56,7 @@ exports[`JavaRuntimesCard expect to render 1`] = `
 
 exports[`JavaRuntimesCard expect to render empty card when no java runtimes 1`] = `
 <Component
-  cardTitle="Oracle Java runtimes information"
+  cardTitle="Oracle Java runtime information"
   description="No instances of Oracle JDKs have been discovered."
   message="No instances found"
 />
@@ -65,7 +64,7 @@ exports[`JavaRuntimesCard expect to render empty card when no java runtimes 1`] 
 
 exports[`JavaRuntimesCard expect to render empty card when undefined reportWorkloadSummary 1`] = `
 <Component
-  cardTitle="Oracle Java runtimes information"
+  cardTitle="Oracle Java runtime information"
   description="No instances of Oracle JDKs have been discovered."
   message="No instances found"
 />

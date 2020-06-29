@@ -81,7 +81,7 @@ export const OSInformation: React.FC<Props> = ({ reportWorkloadSummary }) => {
                 <GridItem>
                     <Bullseye>
                         <SolidCard
-                            title={`Operating systems that can be migrated to Red Hat Enterprise Linux: ${reportWorkloadSummary.recommendedTargetsIMSModel.rhel || 0}`}
+                            title={`Operating systems that can be migrated to Red Hat Enterprise Linux: ${formatNumber(reportWorkloadSummary.recommendedTargetsIMSModel.rhel || 0, 0)}`}
                             // description="Operating system instances that can be converted to Red Hat Enterprise Linux"
                             width={510}
                         />

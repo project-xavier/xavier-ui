@@ -3,7 +3,7 @@
 exports[`ApplicationPlatformsCard expect to render 1`] = `
 <ReportCard
   skipBullseye={true}
-  title="Application platforms information"
+  title="Application server platform information"
 >
   <Grid
     hasGutter={true}
@@ -45,8 +45,7 @@ exports[`ApplicationPlatformsCard expect to render 1`] = `
     <GridItem>
       <Bullseye>
         <SolidCard
-          description="App platforms that can be replatformed with JBoss EAP"
-          title="1 JBoss EAP"
+          title="Application server environments that can be replatformed with JBoss EAP: 1"
           width={510}
         />
       </Bullseye>
@@ -57,16 +56,16 @@ exports[`ApplicationPlatformsCard expect to render 1`] = `
 
 exports[`ApplicationPlatformsCard expect to render empty card when no java runtimes 1`] = `
 <Component
-  cardTitle="Application platforms information"
-  description="No application platforms have been discovered."
-  message="No app platforms found"
+  cardTitle="Application server platform information"
+  description="No application server platforms have been discovered."
+  message="No application server platforms found"
 />
 `;
 
 exports[`ApplicationPlatformsCard expect to render empty card when undefined reportWorkloadSummary 1`] = `
 <Component
-  cardTitle="Application platforms information"
-  description="No application platforms have been discovered."
-  message="No app platforms found"
+  cardTitle="Application server platform information"
+  description="No application server platforms have been discovered."
+  message="No application server platforms found"
 />
 `;

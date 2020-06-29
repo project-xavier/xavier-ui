@@ -339,12 +339,12 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
         // Chart config
         const chartProps: ChartProps = {
             width: 650,
-            height: 350,
+            height: 400,
             domainPadding: {
                 x: 50,
                 y: 60
             },
-            padding: { left: 110, right: 0, bottom: 100, top: 0 }
+            padding: { left: 110, right: 0, bottom: 170, top: 0 }
         };
         const chartGroupProps: ChartGroupProps = { offset: 0 };
         const chartBarProps: ChartBarProps = { barWidth: 50 };
@@ -354,10 +354,10 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
             colors: undefined,
             values: [
                 [{ x: 'VMware', y: vmwareTotal, label: formatValue(vmwareTotal, 'usd', { fractionDigits: 0 }) }],
-                [{ x: 'RVH Hypervisors', y: rhvHypervisorsTotal, label: formatValue(rhvHypervisorsTotal, 'usd', { fractionDigits: 0 }) }],
-                [{ x: 'RHV Growth', y: rhvGrowthTotal, label: formatValue(rhvGrowthTotal, 'usd', { fractionDigits: 0 }) }],
-                [{ x: 'Red Hat Training', y: rhTrainingTotal, label: formatValue(rhTrainingTotal, 'usd', { fractionDigits: 0 }) }],
-                [{ x: 'Red Hat Consulting', y: rhConsultingTotal, label: formatValue(rhConsultingTotal, 'usd', { fractionDigits: 0 }) }],
+                [{ x: 'Red Hat Virtualization hypervisors', y: rhvHypervisorsTotal, label: formatValue(rhvHypervisorsTotal, 'usd', { fractionDigits: 0 }) }],
+                [{ x: 'Red Hat Virtualization growth', y: rhvGrowthTotal, label: formatValue(rhvGrowthTotal, 'usd', { fractionDigits: 0 }) }],
+                [{ x: 'Red Hat training', y: rhTrainingTotal, label: formatValue(rhTrainingTotal, 'usd', { fractionDigits: 0 }) }],
+                [{ x: 'Red Hat consulting', y: rhConsultingTotal, label: formatValue(rhConsultingTotal, 'usd', { fractionDigits: 0 }) }],
                 [{ x: 'Travel and lodging', y: rhTravelAndLodgingTotal, label: formatValue(rhTravelAndLodgingTotal, 'usd', { fractionDigits: 0 }) }]
             ]
         };

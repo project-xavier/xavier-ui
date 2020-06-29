@@ -49,7 +49,7 @@ exports[`WorkloadsDetectedTable should render result table 1`] = `
         Object {
           "key": "osName",
           "props": Object {},
-          "title": "OS",
+          "title": "Operating system",
           "transforms": Array [
             [Function],
             [Function],

@@ -54,7 +54,7 @@ exports[`FlagsTable should render result table 1`] = `
         Object {
           "key": "osName",
           "props": Object {},
-          "title": "OS",
+          "title": "Operating system",
           "transforms": Array [
             [Function],
             [Function],
@@ -64,13 +64,16 @@ exports[`FlagsTable should render result table 1`] = `
           "key": "clusters",
           "props": Object {},
           "title": "In Clusters",
-          "transforms": Array [],
+          "transforms": Array [
+            [Function],
+          ],
         },
         Object {
           "key": "vms",
           "props": Object {},
           "title": "In VMs",
           "transforms": Array [
+            [Function],
             [Function],
           ],
         },

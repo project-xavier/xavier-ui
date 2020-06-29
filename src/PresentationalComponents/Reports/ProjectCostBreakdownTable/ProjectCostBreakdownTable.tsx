@@ -137,14 +137,14 @@ class ProjectCostBreakdownTable extends Component<Props, State> {
             {
                 cells: [
                     '',
-                    'RHV hypervisor subscriptions',
+                    'Red Hat Virtualization hypervisor subscriptions',
                     isNullOrUndefined(hypervisorSubscriptions) ? 'Unknown' : formatValue(hypervisorSubscriptions, 'usd', { fractionDigits: 0 })
                 ]
             },
             {
                 cells: [
                     '',
-                    'RHV hypervisor growth subscriptions',
+                    'Red Hat Virtualization hypervisor growth subscriptions',
                     isNullOrUndefined(hypervisorGrowthSubscriptions) ? 'Unknown' : formatValue(hypervisorGrowthSubscriptions, 'usd', { fractionDigits: 0 })
                 ]
             },
