@@ -94,7 +94,7 @@ export class FlagsTable extends React.Component<FlagsTableProps, State> {
                     transforms: [ ]
                 },
                 {
-                    title: 'OS',
+                    title: 'Operating system',
                     key: 'osName',
                     props: { },
                     transforms: [ cellWidth('10'), sortable ]

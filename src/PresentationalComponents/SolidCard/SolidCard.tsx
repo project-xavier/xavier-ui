@@ -3,7 +3,7 @@ import { Card, CardBody } from '@patternfly/react-core';
 
 interface Props {
     title: string;
-    description: string;
+    description?: string;
     width?: number;
 }
 
@@ -20,8 +20,8 @@ export class SolidCard extends React.Component<Props, State> {
         return (
             <Card className="xa-c-card-solid" style={width ? { width } : undefined}>
                 <CardBody>
-                    <h2 className="pf-c-title pf-m-3xl">{title}</h2>
-                    <p>{description}</p>
+                    <h2 className="pf-c-title pf-m-2xl">{title}</h2>
+                    {description && <p>{description}</p>}
                 </CardBody>
             </Card>
         );

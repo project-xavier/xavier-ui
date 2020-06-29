@@ -140,7 +140,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
         const chartBarProps: ChartBarProps = { barWidth: 50 };
 
         const barChartData: FancyGroupedBarChartData = {
-            legends: [ 'VMware Costs', 'RHV Costs' ],
+            legends: [ 'VMware costs', 'Red Hat Virtualization costs' ],
             colors: undefined,
             values: [
                 [
@@ -273,16 +273,16 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
         const chartProps = {
             title: formatValue(total, 'usd', { fractionDigits: 0 }),
             height: 240,
-            width: 470
+            width: 670
         };
 
         const chartData: FancyChartDonutData[] = [
             { label: 'VMware', value: percentages[0] },
-            { label: 'RHV Hypervisors', value: percentages[1] },
-            { label: 'RHV Growth', value: percentages[2] },
-            { label: 'Red Hat Training', value: percentages[3] },
-            { label: 'Red Hat Consulting', value: percentages[4] },
-            { label: 'Travel and Lodging', value: percentages[5] }
+            { label: 'Red Hat Virtualization hypervisors', value: percentages[1] },
+            { label: 'Red Hat Virtualization growth', value: percentages[2] },
+            { label: 'Red Hat training', value: percentages[3] },
+            { label: 'Red Hat consulting', value: percentages[4] },
+            { label: 'Travel and lodging', value: percentages[5] }
         ];
 
         const tickFormat = (label: string, value: number) => `${label}: ${value.toFixed(2)}%`;

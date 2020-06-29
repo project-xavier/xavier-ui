@@ -13,7 +13,7 @@ interface Props {
 }
 
 export const OSInformation: React.FC<Props> = ({ reportWorkloadSummary }) => {
-    const title = 'OS information';
+    const title = 'Operating system information';
 
     if (
         !reportWorkloadSummary ||
@@ -21,7 +21,7 @@ export const OSInformation: React.FC<Props> = ({ reportWorkloadSummary }) => {
         reportWorkloadSummary.osInformation.length === 0
     ) {
         return (
-            <EmptyCard cardTitle={title} message="Not enough data" description="Could not extract OS information." />
+            <EmptyCard cardTitle={title} message="Not enough data" description="Could not extract operating system information." />
         );
     }
 
@@ -81,8 +81,8 @@ export const OSInformation: React.FC<Props> = ({ reportWorkloadSummary }) => {
                 <GridItem>
                     <Bullseye>
                         <SolidCard
-                            title={`${reportWorkloadSummary.recommendedTargetsIMSModel.rhel || 0} RHEL`}
-                            description="OS instances that can be converted to Red Hat Enterprise Linux"
+                            title={`Operating systems that can be migrated to Red Hat Enterprise Linux: ${reportWorkloadSummary.recommendedTargetsIMSModel.rhel || 0}`}
+                            // description="Operating system instances that can be converted to Red Hat Enterprise Linux"
                             width={510}
                         />
                     </Bullseye>

@@ -85,7 +85,7 @@ export class WorkloadsDetectedTable extends React.Component<WorkloadsDetectedTab
                     transforms: [ cellWidth('25'), sortable ]
                 },
                 {
-                    title: 'OS',
+                    title: 'Operating system',
                     key: 'osName',
                     props: { },
                     transforms: [ cellWidth('25'), sortable ]
