@@ -6,7 +6,7 @@ exports[`ApplicationPlatformsCard expect to render 1`] = `
   title="Application platforms information"
 >
   <Grid
-    gutter="sm"
+    hasGutter={true}
     xl={6}
   >
     <GridItem>

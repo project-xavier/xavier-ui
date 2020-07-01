@@ -2,9 +2,10 @@
 
 exports[`RenewalEstimation expect to render 1`] = `
 <Fragment>
-  <Component
+  <Table
     aria-label="Renewal estimation"
     borders={false}
+    canSelectAll={true}
     cells={
       Array [
         "For vSphere Enterprise Plus",
@@ -16,6 +17,15 @@ exports[`RenewalEstimation expect to render 1`] = `
         },
       ]
     }
+    className=""
+    contentId="expanded-content"
+    dropdownDirection="down"
+    dropdownPosition="right"
+    expandId="expandable-toggle"
+    gridBreakPoint="grid-md"
+    ouiaSafe={true}
+    role="grid"
+    rowLabeledBy="simple-node"
     rows={
       Array [
         Array [
@@ -35,16 +45,17 @@ exports[`RenewalEstimation expect to render 1`] = `
     variant="compact"
   >
     <TableHeader />
-    <TableBody />
-  </Component>
+    <Component />
+  </Table>
 </Fragment>
 `;
 
 exports[`RenewalEstimation expect to render using null and undefined data 1`] = `
 <Fragment>
-  <Component
+  <Table
     aria-label="Renewal estimation"
     borders={false}
+    canSelectAll={true}
     cells={
       Array [
         "For vSphere Enterprise Plus",
@@ -56,6 +67,15 @@ exports[`RenewalEstimation expect to render using null and undefined data 1`] = 
         },
       ]
     }
+    className=""
+    contentId="expanded-content"
+    dropdownDirection="down"
+    dropdownPosition="right"
+    expandId="expandable-toggle"
+    gridBreakPoint="grid-md"
+    ouiaSafe={true}
+    role="grid"
+    rowLabeledBy="simple-node"
     rows={
       Array [
         Array [
@@ -75,16 +95,17 @@ exports[`RenewalEstimation expect to render using null and undefined data 1`] = 
     variant="compact"
   >
     <TableHeader />
-    <TableBody />
-  </Component>
+    <Component />
+  </Table>
 </Fragment>
 `;
 
 exports[`RenewalEstimation expect to render using null and undefined data 2`] = `
 <Fragment>
-  <Component
+  <Table
     aria-label="Renewal estimation"
     borders={false}
+    canSelectAll={true}
     cells={
       Array [
         "For vSphere Enterprise Plus",
@@ -96,6 +117,15 @@ exports[`RenewalEstimation expect to render using null and undefined data 2`] = 
         },
       ]
     }
+    className=""
+    contentId="expanded-content"
+    dropdownDirection="down"
+    dropdownPosition="right"
+    expandId="expandable-toggle"
+    gridBreakPoint="grid-md"
+    ouiaSafe={true}
+    role="grid"
+    rowLabeledBy="simple-node"
     rows={
       Array [
         Array [
@@ -115,16 +145,17 @@ exports[`RenewalEstimation expect to render using null and undefined data 2`] = 
     variant="compact"
   >
     <TableHeader />
-    <TableBody />
-  </Component>
+    <Component />
+  </Table>
 </Fragment>
 `;
 
 exports[`RenewalEstimation expect to render using values equal to 0 1`] = `
 <Fragment>
-  <Component
+  <Table
     aria-label="Renewal estimation"
     borders={false}
+    canSelectAll={true}
     cells={
       Array [
         "For vSphere Enterprise Plus",
@@ -136,6 +167,15 @@ exports[`RenewalEstimation expect to render using values equal to 0 1`] = `
         },
       ]
     }
+    className=""
+    contentId="expanded-content"
+    dropdownDirection="down"
+    dropdownPosition="right"
+    expandId="expandable-toggle"
+    gridBreakPoint="grid-md"
+    ouiaSafe={true}
+    role="grid"
+    rowLabeledBy="simple-node"
     rows={
       Array [
         Array [
@@ -155,7 +195,7 @@ exports[`RenewalEstimation expect to render using values equal to 0 1`] = `
     variant="compact"
   >
     <TableHeader />
-    <TableBody />
-  </Component>
+    <Component />
+  </Table>
 </Fragment>
 `;

@@ -1,9 +1,5 @@
 import React from 'react';
 import {
-    Skeleton,
-    SkeletonTable
-} from '@redhat-cloud-services/frontend-components';
-import {
     Card,
     CardBody,
     CardHeader,
@@ -14,11 +10,25 @@ import {
     EmptyStateVariant,
     EmptyStateIcon,
     Title,
-    TitleLevel,
     EmptyStateBody,
     Button,
-    Tooltip
+    Tooltip,
+    Grid
 } from '@patternfly/react-core';
+import { ErrorCircleOIcon, HelpIcon } from '@patternfly/react-icons';
+import {
+    ChartAxisProps,
+    ChartLegendProps,
+    ChartProps,
+    ChartGroupProps,
+    ChartBarProps
+} from '@patternfly/react-charts';
+import {
+    Skeleton
+} from '@redhat-cloud-services/frontend-components/components/Skeleton';
+import {
+    SkeletonTable
+} from '@redhat-cloud-services/frontend-components/components/SkeletonTable';
 
 import { Report, ReportInitialSavingEstimation } from '../../../models';
 import { formatValue } from '../../../Utilities/formatValue';
@@ -31,14 +41,6 @@ import FancyGroupedBarChart from '../../../PresentationalComponents/FancyGrouped
 import ReportCard from '../../../PresentationalComponents/ReportCard';
 import ProjectCostBreakdownTable from '../../../PresentationalComponents/Reports/ProjectCostBreakdownTable';
 import { ObjectFetchStatus } from '../../../models/state';
-import { ErrorCircleOIcon, HelpIcon } from '@patternfly/react-icons';
-import {
-    ChartAxisProps,
-    ChartLegendProps,
-    ChartProps,
-    ChartGroupProps,
-    ChartBarProps
-} from '@patternfly/react-charts';
 import { FancyChartDonutData } from '../../../PresentationalComponents/FancyChartDonut/FancyChartDonut';
 
 interface StateToProps {
@@ -215,7 +217,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
 
     public renderTotalMaintenance = () => {
         const { reportInitialSavingEstimation } = this.props;
-        const title = (<span>
+        const title = (<span style={{width: "100%"}}>
             <span>Total costs during 3 years migration</span>
             <span style={{float: 'right'}}>
                 <Tooltip
@@ -417,27 +419,28 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
     public renderReports = () => {
         return (
             <React.Fragment>
-                <Stack gutter='md'>
+                <Stack hasGutter={true}>
                     <StackItem isFilled={ false }>
                         { this.renderInfo() }
                     </StackItem>
                     <StackItem isFilled={ false }>
-                        <div className="pf-l-grid pf-m-all-6-col-on-lg pf-m-gutter">
+                        {/* Use Grid without GridItem to fill the height of panel */}
+                        <Grid hasGutter={true} lg={6}>
                             { this.renderCostExpenditureComparison() }
                             { this.renderEnvironment() }
-                        </div>
+                        </Grid>
                     </StackItem>
                     <StackItem isFilled={ false }>
-                        <div className="pf-l-grid pf-m-all-6-col-on-lg pf-m-gutter">
+                        <Grid hasGutter={true} lg={6}>
                             { this.renderTotalMaintenance() }
                             { this.renderRenewalEstimation() }
-                        </div>
+                        </Grid>
                     </StackItem>
                     <StackItem isFilled={ false }>
-                        <div className="pf-l-grid pf-m-all-6-col-on-lg pf-m-gutter">
+                        <Grid hasGutter={true} lg={6}>
                             { this.renderProjectCostBreakdown() }
                             { this.renderProjectCostBreakdownTable() }
-                        </div>
+                        </Grid>
                     </StackItem>
                     <StackItem isFilled={ false }>
                         <Card>
@@ -460,13 +463,13 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
     public renderReportsSkeleton = () => {
         return (
             <React.Fragment>
-                <Stack gutter='md'>
+                <Stack hasGutter={true}>
                     <StackItem isFilled={ false }>
                         <ReportCard
                             title={ <Skeleton size="sm" /> }
                             skipBullseye={ true }
                         >
-                            <Stack gutter="md">
+                            <Stack hasGutter={true}>
                                 <StackItem isFilled={ false }>
                                     <Skeleton size="lg"/>
                                 </StackItem>
@@ -474,21 +477,21 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
                         </ReportCard>
                     </StackItem>
                     <StackItem isFilled={ false }>
-                        <div className="pf-l-grid pf-m-all-6-col-on-lg pf-m-gutter">
+                        <Grid lg={6} hasGutter={true}>
                             <ReportCard
                                 title={ <Skeleton size="sm" /> }
                             >
                                 <Skeleton size="sm" style={ { height: '300px' } }/>
-                            </ReportCard>
+                            </ReportCard>                            
                             <ReportCard
                                 title={ <Skeleton size="sm" /> }
                             >
                                 <SkeletonTable colSize={ 3 } rowSize={ 3 }/>
                             </ReportCard>
-                        </div>
+                        </Grid>
                     </StackItem>
                     <StackItem isFilled={ false }>
-                        <div className="pf-l-grid pf-m-all-6-col-on-lg pf-m-gutter">
+                        <Grid lg={6} hasGutter={true}>
                             <ReportCard
                                 title={ <Skeleton size="sm" /> }
                             >
@@ -499,10 +502,10 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
                             >
                                 <SkeletonTable colSize={ 2 } rowSize={ 2 }/>
                             </ReportCard>
-                        </div>
+                        </Grid>
                     </StackItem>
                     <StackItem isFilled={ false }>
-                        <div className="pf-l-grid pf-m-all-6-col-on-lg pf-m-gutter">
+                        <Grid lg={6} hasGutter={true}>
                             <ReportCard
                                 title={ <Skeleton size="sm" /> }
                             >
@@ -513,7 +516,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
                             >
                                 <SkeletonTable colSize={ 3 } rowSize={ 3 }/>
                             </ReportCard>
-                        </div>
+                        </Grid>
                     </StackItem>
                 </Stack>
             </React.Fragment>
@@ -525,7 +528,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
             <Bullseye>
                 <EmptyState variant={ EmptyStateVariant.large }>
                     <EmptyStateIcon icon={ ErrorCircleOIcon } />
-                    <Title headingLevel={ TitleLevel.h5 } size="lg">
+                    <Title headingLevel="h5" size="lg">
                         Error
                     </Title>
                     <EmptyStateBody>

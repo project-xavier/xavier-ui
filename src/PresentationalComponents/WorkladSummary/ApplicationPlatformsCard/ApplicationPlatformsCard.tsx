@@ -62,7 +62,7 @@ export const ApplicationPlatformsCard: React.FC<Props> = ({ reportWorkloadSummar
 
     return (
         <ReportCard title={title} skipBullseye={true}>
-            <Grid gutter="sm" xl={6}>
+            <Grid hasGutter={true} xl={6}>
                 <GridItem>
                     <Bullseye>
                         <FancyChartDonut

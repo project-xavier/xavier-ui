@@ -1,7 +1,13 @@
 import React from 'react';
 import {
-    SkeletonTable
-} from '@redhat-cloud-services/frontend-components';
+    Pagination,
+    Bullseye,
+    EmptyState,
+    EmptyStateIcon,
+    EmptyStateVariant,
+    Title,
+    EmptyStateBody
+} from '@patternfly/react-core';
 import {
     Table,
     TableHeader,
@@ -13,22 +19,17 @@ import {
     cellWidth,
     TableVariant
 } from '@patternfly/react-table';
-import {
-    Pagination,
-    Bullseye,
-    EmptyState,
-    EmptyStateIcon,
-    EmptyStateVariant,
-    Title,
-    EmptyStateBody} from '@patternfly/react-core';
 import { SearchIcon } from '@patternfly/react-icons';
+import {
+    SkeletonTable
+} from '@redhat-cloud-services/frontend-components/components/SkeletonTable';
+import debounce from 'lodash/debounce';
 import { FlagModel, FlagAssessmentModel } from '../../../models';
 import { ObjectFetchStatus } from '../../../models/state';
-import debounce from 'lodash/debounce';
 import { formatNumber } from '../../../Utilities/formatValue';
-import './FlagsTable.scss';
 import { isNullOrUndefined } from '../../../Utilities/formUtils';
 import { FetchErrorEmptyState } from '../../../PresentationalComponents/FetchErrorEmptyState';
+import './FlagsTable.scss';
 
 interface StateToProps {
     reportFlags: {
@@ -97,7 +98,7 @@ export class FlagsTable extends React.Component<FlagsTableProps, State> {
                     title: 'OS',
                     key: 'osName',
                     props: { },
-                    transforms: [ cellWidth('10'), sortable ]
+                    transforms: [ cellWidth(10), sortable ]
                 },
                 {
                     title: 'In Clusters',
@@ -119,7 +120,7 @@ export class FlagsTable extends React.Component<FlagsTableProps, State> {
 
     public componentDidMount() {
         const { allFlags, fetchAllFlagAssessments } = this.props;
-        
+
         // Fetch Flag-Assessment column
         // Fetch all Flags just once and the reuse the value from redux
         if (!allFlags || allFlags.length === 0) {
@@ -160,11 +161,11 @@ export class FlagsTable extends React.Component<FlagsTableProps, State> {
                 let flagAssessmentModel = allFlags.find((element: FlagAssessmentModel) => {
                     return (element.flag === row.flag && element.osName === row.osName)
                 });
-                
+
                 if (!flagAssessmentModel) {
                     flagAssessmentModel = allFlags.find((element: FlagAssessmentModel) => {
                         return (element.flag === row.flag && element.osName === '')
-                    }); 
+                    });
                 }
 
                 return {
@@ -192,7 +193,7 @@ export class FlagsTable extends React.Component<FlagsTableProps, State> {
 
         const column = index !== undefined ? this.state.columns[index].key : undefined;
         const orderDirection = direction ? direction : undefined;
-        
+
         await this.props.fetchReportFlags(reportId, page, perPage, column, orderDirection);
         this.setState({
             page,

@@ -1,10 +1,11 @@
 import React, { Fragment, Component } from 'react';
-
 import {
-    Main,
     PageHeader,
     PageHeaderTitle
-} from '@redhat-cloud-services/frontend-components';
+} from '@redhat-cloud-services/frontend-components/components/PageHeader';
+import {
+    Main
+} from '@redhat-cloud-services/frontend-components/components/Main';
 
 interface Props {
     mainStyle?: any;

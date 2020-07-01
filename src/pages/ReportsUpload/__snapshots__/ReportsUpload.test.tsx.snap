@@ -11,16 +11,17 @@ exports[`ReportsUpload expect to render form 1`] = `
     <Modal
       actions={Array []}
       appendTo={<body />}
-      ariaDescribedById="Report options"
+      aria-describedby="Report options"
+      aria-label=""
+      aria-labelledby=""
       className=""
-      hideTitle={false}
-      isFooterLeftAligned={false}
-      isLarge={false}
+      hasNoBodyWrapper={false}
       isOpen={true}
-      isSmall={true}
       onClose={[Function]}
+      ouiaSafe={true}
       showClose={true}
       title="Report options"
+      variant="small"
     >
       <Formik
         enableReinitialize={false}

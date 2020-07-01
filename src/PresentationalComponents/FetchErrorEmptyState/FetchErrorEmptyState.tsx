@@ -6,8 +6,7 @@ import {
     Title,
     EmptyStateBody,
     Button,
-    EmptyStateVariant,
-    TitleLevel
+    EmptyStateVariant
 } from '@patternfly/react-core';
 import { ErrorCircleOIcon } from '@patternfly/react-icons';
 
@@ -20,7 +19,7 @@ export const FetchErrorEmptyState: React.FC<FetchErrorEmptyStateProps> = ({ onRe
         <Bullseye>
             <EmptyState variant={EmptyStateVariant.large}>
                 <EmptyStateIcon icon={ErrorCircleOIcon} />
-                <Title headingLevel={TitleLevel.h5} size="lg">
+                <Title headingLevel="h5" size="lg">
                     Error
                 </Title>
                 <EmptyStateBody>Something unexpected happend, please try again!</EmptyStateBody>

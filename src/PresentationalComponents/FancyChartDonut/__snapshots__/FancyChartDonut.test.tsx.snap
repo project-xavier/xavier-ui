@@ -9,7 +9,6 @@ exports[`FancyChartDonut expect to render with minimun props 1`] = `
       className="donut-chart-container"
     >
       <ChartDonut
-        constrainToVisibleArea={true}
         data={
           Array [
             Object {
@@ -35,7 +34,6 @@ exports[`FancyChartDonut expect to render with minimun props 1`] = `
           ]
         }
         height={190}
-        labelComponent={<ChartTooltip />}
         labels={[Function]}
         legendAllowWrap={true}
         legendData={

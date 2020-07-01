@@ -31,9 +31,10 @@ exports[`FlagsTable should render error 1`] = `
 
 exports[`FlagsTable should render result table 1`] = `
 <Fragment>
-  <Component
+  <Table
     aria-label="Workloads detected"
     borders={false}
+    canSelectAll={true}
     cells={
       Array [
         Object {
@@ -75,13 +76,22 @@ exports[`FlagsTable should render result table 1`] = `
         },
       ]
     }
+    className=""
+    contentId="expanded-content"
+    dropdownDirection="down"
+    dropdownPosition="right"
+    expandId="expandable-toggle"
+    gridBreakPoint="grid-md"
     onSort={[Function]}
+    ouiaSafe={true}
+    role="grid"
+    rowLabeledBy="simple-node"
     rows={Array []}
     sortBy={Object {}}
     variant="compact"
   >
     <TableHeader />
-    <TableBody />
+    <Component />
     <tfoot>
       <tr
         className="flags-table-footer"
@@ -89,18 +99,69 @@ exports[`FlagsTable should render result table 1`] = `
         <td
           colSpan={10}
         >
-          <Component
+          <Pagination
+            className=""
+            defaultToFullPage={false}
+            firstPage={1}
+            isCompact={false}
+            isDisabled={false}
             itemCount={1}
+            itemsEnd={null}
+            itemsStart={null}
+            offset={0}
+            onFirstClick={[Function]}
+            onLastClick={[Function]}
+            onNextClick={[Function]}
             onPageInput={[Function]}
             onPerPageSelect={[Function]}
+            onPreviousClick={[Function]}
             onSetPage={[Function]}
+            ouiaSafe={true}
             page={1}
             perPage={10}
+            perPageOptions={
+              Array [
+                Object {
+                  "title": "10",
+                  "value": 10,
+                },
+                Object {
+                  "title": "20",
+                  "value": 20,
+                },
+                Object {
+                  "title": "50",
+                  "value": 50,
+                },
+                Object {
+                  "title": "100",
+                  "value": 100,
+                },
+              ]
+            }
+            titles={
+              Object {
+                "currPage": "Current page",
+                "items": "",
+                "itemsPerPage": "Items per page",
+                "optionsToggle": "Items per page",
+                "page": "",
+                "paginationTitle": "Pagination",
+                "perPageSuffix": "per page",
+                "toFirstPage": "Go to first page",
+                "toLastPage": "Go to last page",
+                "toNextPage": "Go to next page",
+                "toPreviousPage": "Go to previous page",
+              }
+            }
+            toggleTemplate={[Function]}
+            variant="top"
+            widgetId="pagination-options-menu"
           />
         </td>
       </tr>
     </tfoot>
-  </Component>
+  </Table>
 </Fragment>
 `;
 

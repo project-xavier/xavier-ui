@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import {
     Button,
     Modal,
@@ -11,25 +12,26 @@ import {
     EmptyStateBody,
     ProgressMeasureLocation,
     Progress,
-    TitleLevel,
     ProgressVariant,
-    EmptyStateSecondaryActions
+    EmptyStateSecondaryActions,
+    ModalVariant
 } from '@patternfly/react-core';
 import { VolumeIcon } from '@patternfly/react-icons';
-import { Link } from 'react-router-dom';
+import {
+    PageHeader,
+    PageHeaderTitle
+} from '@redhat-cloud-services/frontend-components/components/PageHeader';
+import {
+    Main
+} from '@redhat-cloud-services/frontend-components/components/Main';
 import Axios from 'axios';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { RouterGlobalProps } from '../../models/router';
-import {
-    Main,
-    PageHeader,
-    PageHeaderTitle
-} from '@redhat-cloud-services/frontend-components';
 import { Upload, User } from '../../models';
-import './ReportsUpload.scss';
-import UploadForm from './UploadForm';
 import { validateForm } from '../../Utilities/formUtils';
+import UploadForm from './UploadForm';
+import './ReportsUpload.scss';
 
 interface FormValues {
     file: File | undefined;
@@ -284,12 +286,12 @@ class ReportsUpload extends React.Component<Props, State> {
             <Bullseye>
                 <EmptyState variant={ EmptyStateVariant.full }>
                     <EmptyStateIcon icon={ VolumeIcon } />
-                    <Title headingLevel={ TitleLevel.h5 } size="lg">{ title }</Title>
+                    <Title headingLevel="h5" size="lg">{ title }</Title>
                     <div className="pf-c-empty-state__body">
                         <Progress
                             value={ this.props.progress }
                             measureLocation={ ProgressMeasureLocation.outside }
-                            variant={ this.props.error ? ProgressVariant.danger : ProgressVariant.info }
+                            variant={ this.props.error ? ProgressVariant.danger : undefined }
                         />
                     </div>
                     <EmptyStateBody>
@@ -341,11 +343,10 @@ class ReportsUpload extends React.Component<Props, State> {
                 <Main>
                     <Modal
                         title='Report options'
-                        isSmall={ showForm }
-                        isLarge={ !showForm }
+                        variant={ showForm ? ModalVariant.small : ModalVariant.large }                        
                         isOpen={ true }
                         onClose={ this.handleCloseModel }
-                        ariaDescribedById="Report options"
+                        aria-describedby="Report options"
                         actions={ [] }
                     >
                         { this.state.showForm ? this.renderForm() : this.renderProgress() }

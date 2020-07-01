@@ -1,7 +1,13 @@
 import React from 'react';
 import {
-    SkeletonTable
-} from '@redhat-cloud-services/frontend-components';
+    Pagination,
+    Bullseye,
+    EmptyState,
+    EmptyStateIcon,
+    EmptyStateVariant,
+    Title,
+    EmptyStateBody
+} from '@patternfly/react-core';
 import {
     Table,
     TableHeader,
@@ -13,22 +19,17 @@ import {
     cellWidth,
     TableVariant
 } from '@patternfly/react-table';
-import {
-    Pagination,
-    Bullseye,
-    EmptyState,
-    EmptyStateIcon,
-    EmptyStateVariant,
-    Title,
-    EmptyStateBody} from '@patternfly/react-core';
 import { SearchIcon } from '@patternfly/react-icons';
+import {
+    SkeletonTable
+} from '@redhat-cloud-services/frontend-components/components/SkeletonTable';
+import debounce from 'lodash/debounce';
 import { WorkloadModel } from '../../../models';
 import { ObjectFetchStatus } from '../../../models/state';
-import debounce from 'lodash/debounce';
 import { formatNumber } from '../../../Utilities/formatValue';
-import './WorkloadsDetectedTable.scss';
 import { isNullOrUndefined } from '../../../Utilities/formUtils';
 import { FetchErrorEmptyState } from '../../../PresentationalComponents/FetchErrorEmptyState';
+import './WorkloadsDetectedTable.scss';
 
 interface StateToProps {
     reportWorkloadsDetected: {
@@ -82,25 +83,25 @@ export class WorkloadsDetectedTable extends React.Component<WorkloadsDetectedTab
                     title: 'Workloads',
                     key: 'workload',
                     props: { },
-                    transforms: [ cellWidth('25'), sortable ]
+                    transforms: [ cellWidth(25), sortable ]
                 },
                 {
                     title: 'OS',
                     key: 'osName',
                     props: { },
-                    transforms: [ cellWidth('25'), sortable ]
+                    transforms: [ cellWidth(25), sortable ]
                 },
                 {
                     title: 'In Clusters',
                     key: 'clusters',
                     props: { },
-                    transforms: [ cellWidth('25') ]
+                    transforms: [ cellWidth(25) ]
                 },
                 {
                     title: 'VMs',
                     key: 'vms',
                     props: { },
-                    transforms: [ cellWidth('25'), sortable ]
+                    transforms: [ cellWidth(25), sortable ]
                 }
             ],
             rows: [],
@@ -121,7 +122,7 @@ export class WorkloadsDetectedTable extends React.Component<WorkloadsDetectedTab
 
         const column = index !== undefined ? this.state.columns[index].key : undefined;
         const orderDirection = direction ? direction : undefined;
-        
+
         await fetchReportWorkloadsDetected(reportId, page, perPage, column, orderDirection);
         this.filtersInRowsAndCells();
     }
@@ -157,7 +158,7 @@ export class WorkloadsDetectedTable extends React.Component<WorkloadsDetectedTab
 
         const column = index !== undefined ? this.state.columns[index].key : undefined;
         const orderDirection = direction ? direction : undefined;
-        
+
         await this.props.fetchReportWorkloadsDetected(reportId, page, perPage, column, orderDirection);
         this.setState({
             page,
