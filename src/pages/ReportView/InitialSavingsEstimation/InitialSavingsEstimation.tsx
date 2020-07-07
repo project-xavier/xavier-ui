@@ -134,7 +134,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
             height: 300,
             domainPadding: {
                 x: 110,
-                y: 60
+                y: 30
             },
             padding: { left: 110, right: 20, bottom: 30, top: 0 }
         };
@@ -275,7 +275,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
         const chartProps = {
             title: formatValue(total, 'usd', { fractionDigits: 0 }),
             height: 240,
-            width: 470
+            width: 520
         };
 
         const chartData: FancyChartDonutData[] = [
@@ -342,7 +342,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
             height: 350,
             domainPadding: {
                 x: 50,
-                y: 60
+                y: 30
             },
             padding: { left: 110, right: 0, bottom: 100, top: 0 }
         };
