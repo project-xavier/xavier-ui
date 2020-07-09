@@ -134,7 +134,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
             height: 300,
             domainPadding: {
                 x: 110,
-                y: 30
+                y: 0
             },
             padding: { left: 110, right: 20, bottom: 30, top: 0 }
         };
