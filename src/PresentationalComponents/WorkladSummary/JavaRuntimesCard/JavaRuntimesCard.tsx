@@ -56,7 +56,7 @@ export const JavaRuntimesCard: React.FC<Props> = ({ reportWorkloadSummary }) => 
     }));
 
     const tickFormat = (label: string, value: number, data: any) => {
-        return `${label}: ${data}`;
+        return `${label}: ${formatNumber(data, 0)}`;
     };
     const tooltipFormat = ({ datum }) =>
         `${datum.x}: ${formatPercentage(datum.y, 2)} \n Total: ${formatNumber(datum.extraData, 0)}`;

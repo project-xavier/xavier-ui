@@ -88,7 +88,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
     public renderInfo = () => {
         const { reportInitialSavingEstimation } = this.props;
         const title = "Over 3 year(s) with Red Hat Virtualization, your initial savings estimation could be as much as:";
-        
+
         if (!reportInitialSavingEstimation) {
             return this.renderErrorCard(title);
         }
@@ -134,7 +134,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
             height: 300,
             domainPadding: {
                 x: 110,
-                y: 60
+                y: 0
             },
             padding: { left: 110, right: 20, bottom: 30, top: 0 }
         };
@@ -188,7 +188,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
     public renderEnvironment = () => {
         const { reportInitialSavingEstimation } = this.props;
         const title = "Environment";
-        
+
         if (!reportInitialSavingEstimation) {
             return this.renderErrorCard(title);
         }
@@ -203,7 +203,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
     public renderRenewalEstimation = () => {
         const { reportInitialSavingEstimation } = this.props;
         const title = "VMware ELA renewal estimation";
-        
+
         if (!reportInitialSavingEstimation) {
             return this.renderErrorCard(title);
         }
@@ -275,7 +275,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
         const chartProps = {
             title: formatValue(total, 'usd', { fractionDigits: 0 }),
             height: 240,
-            width: 670
+            width: 520
         };
 
         const chartData: FancyChartDonutData[] = [
@@ -342,7 +342,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
             height: 400,
             domainPadding: {
                 x: 50,
-                y: 60
+                y: 30
             },
             padding: { left: 110, right: 0, bottom: 170, top: 0 }
         };
@@ -482,7 +482,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
                                 title={ <Skeleton size="sm" /> }
                             >
                                 <Skeleton size="sm" style={ { height: '300px' } }/>
-                            </ReportCard>                            
+                            </ReportCard>
                             <ReportCard
                                 title={ <Skeleton size="sm" /> }
                             >
