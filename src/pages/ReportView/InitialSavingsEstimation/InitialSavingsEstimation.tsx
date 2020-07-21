@@ -275,7 +275,13 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
         const chartProps = {
             title: formatValue(total, 'usd', { fractionDigits: 0 }),
             height: 240,
-            width: 520
+            width: 620,
+            padding: {
+                bottom: 20,
+                left: 20,
+                right: 200,
+                top: 20
+            }
         };
 
         const chartData: FancyChartDonutData[] = [
