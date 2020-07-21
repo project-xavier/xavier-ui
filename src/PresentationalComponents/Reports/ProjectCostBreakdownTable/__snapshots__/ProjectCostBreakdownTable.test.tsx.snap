@@ -65,14 +65,14 @@ exports[`ProjectCostBreakdownTable expect to render 1`] = `
         Object {
           "cells": Array [
             "",
-            "Red Hat Virtualization hypervisor subscriptions",
+            "Red Hat Virtualization Hosts subscriptions",
             "$6,000",
           ],
         },
         Object {
           "cells": Array [
             "",
-            "Red Hat Virtualization hypervisor growth subscriptions",
+            "Red Hat Virtualization Hosts growth subscriptions",
             "$15,000",
           ],
         },
@@ -193,14 +193,14 @@ exports[`ProjectCostBreakdownTable expect to render using null and undefined dat
         Object {
           "cells": Array [
             "",
-            "Red Hat Virtualization hypervisor subscriptions",
+            "Red Hat Virtualization Hosts subscriptions",
             "Unknown",
           ],
         },
         Object {
           "cells": Array [
             "",
-            "Red Hat Virtualization hypervisor growth subscriptions",
+            "Red Hat Virtualization Hosts growth subscriptions",
             "Unknown",
           ],
         },
@@ -321,14 +321,14 @@ exports[`ProjectCostBreakdownTable expect to render using values equal to 0 1`] 
         Object {
           "cells": Array [
             "",
-            "Red Hat Virtualization hypervisor subscriptions",
+            "Red Hat Virtualization Hosts subscriptions",
             "$0",
           ],
         },
         Object {
           "cells": Array [
             "",
-            "Red Hat Virtualization hypervisor growth subscriptions",
+            "Red Hat Virtualization Hosts growth subscriptions",
             "$0",
           ],
         },

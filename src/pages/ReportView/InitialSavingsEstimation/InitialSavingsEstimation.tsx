@@ -286,7 +286,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
 
         const chartData: FancyChartDonutData[] = [
             { label: 'VMware', value: percentages[0] },
-            { label: 'Red Hat Virtualization hypervisors', value: percentages[1] },
+            { label: 'Red Hat Virtualization hosts', value: percentages[1] },
             { label: 'Red Hat Virtualization growth', value: percentages[2] },
             { label: 'Red Hat training', value: percentages[3] },
             { label: 'Red Hat consulting', value: percentages[4] },
@@ -360,7 +360,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
             colors: undefined,
             values: [
                 [{ x: 'VMware', y: vmwareTotal, label: formatValue(vmwareTotal, 'usd', { fractionDigits: 0 }) }],
-                [{ x: 'Red Hat Virtualization hypervisors', y: rhvHypervisorsTotal, label: formatValue(rhvHypervisorsTotal, 'usd', { fractionDigits: 0 }) }],
+                [{ x: 'Red Hat Virtualization hosts', y: rhvHypervisorsTotal, label: formatValue(rhvHypervisorsTotal, 'usd', { fractionDigits: 0 }) }],
                 [{ x: 'Red Hat Virtualization growth', y: rhvGrowthTotal, label: formatValue(rhvGrowthTotal, 'usd', { fractionDigits: 0 }) }],
                 [{ x: 'Red Hat training', y: rhTrainingTotal, label: formatValue(rhTrainingTotal, 'usd', { fractionDigits: 0 }) }],
                 [{ x: 'Red Hat consulting', y: rhConsultingTotal, label: formatValue(rhConsultingTotal, 'usd', { fractionDigits: 0 }) }],
@@ -385,7 +385,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
 
         const footer = (
             <div className="pf-u-text-align-center">
-                <span style={ { marginLeft: 70 } }>Migration Cost Breakdown</span>
+                <span style={ { marginLeft: 70 } }>Migration cost breakdown</span>
             </div>
         );
 

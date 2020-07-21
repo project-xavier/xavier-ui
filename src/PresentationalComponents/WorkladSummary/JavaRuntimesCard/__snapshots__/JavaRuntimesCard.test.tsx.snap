@@ -45,7 +45,7 @@ exports[`JavaRuntimesCard expect to render 1`] = `
     <GridItem>
       <Bullseye>
         <SolidCard
-          title="Oracle JDKs that can be replaced with OpenJDK: 8"
+          title="Oracle JDKs that can be replaced with Open JDK: 8"
           width={510}
         />
       </Bullseye>

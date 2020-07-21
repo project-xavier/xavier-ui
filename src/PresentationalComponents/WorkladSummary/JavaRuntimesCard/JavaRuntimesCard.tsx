@@ -77,8 +77,7 @@ export const JavaRuntimesCard: React.FC<Props> = ({ reportWorkloadSummary }) => 
                 <GridItem>
                     <Bullseye>
                         <SolidCard
-                            title={`Oracle JDKs that can be replaced with OpenJDK: ${formatNumber(reportWorkloadSummary.recommendedTargetsIMSModel.openjdk || 0, 0)}`}
-                            // description="Oracle JDKs that can be replaced with OpenJDK"
+                            title={`Oracle JDKs that can be replaced with Open JDK: ${formatNumber(reportWorkloadSummary.recommendedTargetsIMSModel.openjdk || 0, 0)}`}
                             width={510}
                         />
                     </Bullseye>                    
