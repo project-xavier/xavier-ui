@@ -13,7 +13,7 @@ interface Props {
 }
 
 export const ApplicationPlatformsCard: React.FC<Props> = ({ reportWorkloadSummary }) => {
-    const title = 'Application platforms information';
+    const title = 'Application server platform information';
 
     if (
         !reportWorkloadSummary ||
@@ -23,8 +23,8 @@ export const ApplicationPlatformsCard: React.FC<Props> = ({ reportWorkloadSummar
         return (
             <EmptyCard
                 cardTitle={title}
-                message="No app platforms found"
-                description="No application platforms have been discovered."
+                message="No application server platforms found"
+                description="No application server platforms have been discovered."
             />
         );
     }
@@ -76,8 +76,8 @@ export const ApplicationPlatformsCard: React.FC<Props> = ({ reportWorkloadSummar
                 <GridItem>
                     <Bullseye>
                         <SolidCard
-                            title={`${reportWorkloadSummary.recommendedTargetsIMSModel.jbosseap || 0} JBoss EAP`}
-                            description="App platforms that can be replatformed with JBoss EAP"
+                            title={`Application server environments that can be replatformed with JBoss EAP: ${formatNumber(reportWorkloadSummary.recommendedTargetsIMSModel.jbosseap || 0, 0)}`}
+                            // description="App platforms that can be replatformed with JBoss EAP"
                             width={510}
                         />
                     </Bullseye>

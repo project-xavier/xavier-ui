@@ -133,7 +133,7 @@ const filtersConfig = {
     cluster: { key: 'cluster', label: 'Cluster' } as FilterConfig,
     vmName: { key: 'vmName', label: 'VM name' } as FilterConfig,
     workload: { key: 'workload', label: 'Workload' } as FilterConfig,
-    osName: { key: 'osName', label: 'OS type' } as FilterConfig,
+    osName: { key: 'osName', label: 'Operating system type' } as FilterConfig,
     effort: { key: 'complexity', label: 'Effort' } as FilterConfig,
     recommendedTargetIMS: { key: 'recommendedTargetIMS', label: 'Recommended targets', abbreviation: 'Rec. Targets' } as FilterConfig,
     flagIMS: { key: 'flagIMS', label: 'Flags' } as FilterConfig,

@@ -95,22 +95,22 @@ export class FlagsTable extends React.Component<FlagsTableProps, State> {
                     transforms: [ ]
                 },
                 {
-                    title: 'OS',
+                    title: 'Operating system',
                     key: 'osName',
                     props: { },
-                    transforms: [ cellWidth(10), sortable ]
+                    transforms: [ cellWidth(15), sortable ]
                 },
                 {
                     title: 'In Clusters',
                     key: 'clusters',
                     props: { },
-                    transforms: []
+                    transforms: [cellWidth(10)]
                 },
                 {
                     title: 'In VMs',
                     key: 'vms',
                     props: { },
-                    transforms: [ sortable ]
+                    transforms: [ cellWidth(10), sortable ]
                 }
             ],
             rows: [],

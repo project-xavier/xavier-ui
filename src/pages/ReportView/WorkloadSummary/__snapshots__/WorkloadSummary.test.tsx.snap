@@ -60,22 +60,22 @@ exports[`WorkloadMigrationSummary expect to render reports 1`] = `
     >
       <ReportCard
         skipBullseye={true}
-        title="Target recommendation"
+        title="Target recommendations"
       >
         <div
           className="pf-l-grid pf-m-all-6-col-on-md pf-m-all-4-col-on-lg pf-m-gutter"
         >
           <SolidCard
             description="Workloads suitable for Red Hat Virtualization"
-            title="97% RHV"
+            title="97% Red Hat Virtualization"
           />
           <SolidCard
             description="Workloads could be running on Red Hat OpenStack Platform"
-            title="96% OSP"
+            title="96% Red Hat OpenStack Platform"
           />
           <SolidCard
             description="Workloads targeted for OpenShift virtualization"
-            title="88% OCP"
+            title="88% Red Hat OpenShift virtualization"
           />
         </div>
       </ReportCard>
@@ -182,7 +182,7 @@ exports[`WorkloadMigrationSummary expect to render reports 1`] = `
     >
       <ReportCard
         skipBullseye={true}
-        title="Flags (factors that could increase migration complexity)"
+        title="Flags (factors that might increase the migration effort)"
       >
         <Connect(FlagsTable)
           reportId={1}

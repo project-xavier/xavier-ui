@@ -6,7 +6,7 @@ exports[`SolidCard expect to render 1`] = `
 >
   <CardBody>
     <h2
-      className="pf-c-title pf-m-3xl"
+      className="pf-c-title pf-m-2xl"
     >
       My Title
     </h2>
@@ -28,7 +28,7 @@ exports[`SolidCard expect to render with setted width 1`] = `
 >
   <CardBody>
     <h2
-      className="pf-c-title pf-m-3xl"
+      className="pf-c-title pf-m-2xl"
     >
       My Title
     </h2>

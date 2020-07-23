@@ -88,7 +88,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
     public renderInfo = () => {
         const { reportInitialSavingEstimation } = this.props;
         const title = "Over 3 year(s) with Red Hat Virtualization, your initial savings estimation could be as much as:";
-        
+
         if (!reportInitialSavingEstimation) {
             return this.renderErrorCard(title);
         }
@@ -142,7 +142,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
         const chartBarProps: ChartBarProps = { barWidth: 50 };
 
         const barChartData: FancyGroupedBarChartData = {
-            legends: [ 'VMware Costs', 'RHV Costs' ],
+            legends: [ 'VMware costs', 'Red Hat Virtualization costs' ],
             colors: undefined,
             values: [
                 [
@@ -188,7 +188,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
     public renderEnvironment = () => {
         const { reportInitialSavingEstimation } = this.props;
         const title = "Environment";
-        
+
         if (!reportInitialSavingEstimation) {
             return this.renderErrorCard(title);
         }
@@ -203,7 +203,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
     public renderRenewalEstimation = () => {
         const { reportInitialSavingEstimation } = this.props;
         const title = "VMware ELA renewal estimation";
-        
+
         if (!reportInitialSavingEstimation) {
             return this.renderErrorCard(title);
         }
@@ -275,16 +275,22 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
         const chartProps = {
             title: formatValue(total, 'usd', { fractionDigits: 0 }),
             height: 240,
-            width: 520
+            width: 620,
+            padding: {
+                bottom: 20,
+                left: 20,
+                right: 200,
+                top: 20
+            }
         };
 
         const chartData: FancyChartDonutData[] = [
             { label: 'VMware', value: percentages[0] },
-            { label: 'RHV Hypervisors', value: percentages[1] },
-            { label: 'RHV Growth', value: percentages[2] },
-            { label: 'Red Hat Training', value: percentages[3] },
-            { label: 'Red Hat Consulting', value: percentages[4] },
-            { label: 'Travel and Lodging', value: percentages[5] }
+            { label: 'Red Hat Virtualization hosts', value: percentages[1] },
+            { label: 'Red Hat Virtualization growth', value: percentages[2] },
+            { label: 'Red Hat training', value: percentages[3] },
+            { label: 'Red Hat consulting', value: percentages[4] },
+            { label: 'Travel and lodging', value: percentages[5] }
         ];
 
         const tickFormat = (label: string, value: number) => `${label}: ${value.toFixed(2)}%`;
@@ -339,12 +345,12 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
         // Chart config
         const chartProps: ChartProps = {
             width: 650,
-            height: 350,
+            height: 400,
             domainPadding: {
                 x: 50,
                 y: 30
             },
-            padding: { left: 110, right: 0, bottom: 100, top: 0 }
+            padding: { left: 110, right: 0, bottom: 170, top: 0 }
         };
         const chartGroupProps: ChartGroupProps = { offset: 0 };
         const chartBarProps: ChartBarProps = { barWidth: 50 };
@@ -354,10 +360,10 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
             colors: undefined,
             values: [
                 [{ x: 'VMware', y: vmwareTotal, label: formatValue(vmwareTotal, 'usd', { fractionDigits: 0 }) }],
-                [{ x: 'RVH Hypervisors', y: rhvHypervisorsTotal, label: formatValue(rhvHypervisorsTotal, 'usd', { fractionDigits: 0 }) }],
-                [{ x: 'RHV Growth', y: rhvGrowthTotal, label: formatValue(rhvGrowthTotal, 'usd', { fractionDigits: 0 }) }],
-                [{ x: 'Red Hat Training', y: rhTrainingTotal, label: formatValue(rhTrainingTotal, 'usd', { fractionDigits: 0 }) }],
-                [{ x: 'Red Hat Consulting', y: rhConsultingTotal, label: formatValue(rhConsultingTotal, 'usd', { fractionDigits: 0 }) }],
+                [{ x: 'Red Hat Virtualization hosts', y: rhvHypervisorsTotal, label: formatValue(rhvHypervisorsTotal, 'usd', { fractionDigits: 0 }) }],
+                [{ x: 'Red Hat Virtualization growth', y: rhvGrowthTotal, label: formatValue(rhvGrowthTotal, 'usd', { fractionDigits: 0 }) }],
+                [{ x: 'Red Hat training', y: rhTrainingTotal, label: formatValue(rhTrainingTotal, 'usd', { fractionDigits: 0 }) }],
+                [{ x: 'Red Hat consulting', y: rhConsultingTotal, label: formatValue(rhConsultingTotal, 'usd', { fractionDigits: 0 }) }],
                 [{ x: 'Travel and lodging', y: rhTravelAndLodgingTotal, label: formatValue(rhTravelAndLodgingTotal, 'usd', { fractionDigits: 0 }) }]
             ]
         };
@@ -379,7 +385,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
 
         const footer = (
             <div className="pf-u-text-align-center">
-                <span style={ { marginLeft: 70 } }>Migration Cost Breakdown</span>
+                <span style={ { marginLeft: 70 } }>Migration cost breakdown</span>
             </div>
         );
 
@@ -482,7 +488,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
                                 title={ <Skeleton size="sm" /> }
                             >
                                 <Skeleton size="sm" style={ { height: '300px' } }/>
-                            </ReportCard>                            
+                            </ReportCard>
                             <ReportCard
                                 title={ <Skeleton size="sm" /> }
                             >

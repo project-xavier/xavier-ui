@@ -174,7 +174,7 @@ export class WorkloadMigrationSummary extends React.Component<WorkloadMigrationS
 
     public renderTargetRecommendation = () => {
         const { reportWorkloadSummary } = this.props;
-        const title="Target recommendation";
+        const title="Target recommendations";
 
         if (!reportWorkloadSummary) {
             return this.renderErrorCard(title);
@@ -200,11 +200,11 @@ export class WorkloadMigrationSummary extends React.Component<WorkloadMigrationS
             <ReportCard title={title} skipBullseye={true}>
                 <div className="pf-l-grid pf-m-all-6-col-on-md pf-m-all-4-col-on-lg pf-m-gutter">
                     <SolidCard
-                        title={`${formatPercentage(percentages[0], 0)} RHV`}
+                        title={`${formatPercentage(percentages[0], 0)} Red Hat Virtualization`}
                         description="Workloads suitable for Red Hat Virtualization"
                     />
                     <SolidCard
-                        title={`${formatPercentage(percentages[1], 0)} OSP`}
+                        title={`${formatPercentage(percentages[1], 0)} Red Hat OpenStack Platform`}
                         description="Workloads could be running on Red Hat OpenStack Platform"
                     />
                     {/* <SolidCard
@@ -212,7 +212,7 @@ export class WorkloadMigrationSummary extends React.Component<WorkloadMigrationS
                         description="Workloads possible to migrate to Red Hat Enterprise Linux"
                     /> */}
                     <SolidCard
-                        title={`${formatPercentage(percentages[3], 0)} OCP`}
+                        title={`${formatPercentage(percentages[3], 0)} Red Hat OpenShift virtualization`}
                         description="Workloads targeted for OpenShift virtualization"
                     />
                 </div>
@@ -253,7 +253,7 @@ export class WorkloadMigrationSummary extends React.Component<WorkloadMigrationS
 
         return (
             <ReportCard
-                title='Flags (factors that could increase migration complexity)'
+                title='Flags (factors that might increase the migration effort)'
                 skipBullseye={ true }
             >
                 <FlagsTable reportId={ reportId }/>

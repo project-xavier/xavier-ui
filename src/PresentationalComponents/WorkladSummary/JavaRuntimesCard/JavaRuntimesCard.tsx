@@ -13,7 +13,7 @@ interface Props {
 }
 
 export const JavaRuntimesCard: React.FC<Props> = ({ reportWorkloadSummary }) => {
-    const title = 'Oracle Java runtimes information';
+    const title = 'Oracle Java runtime information';
 
     if (
         !reportWorkloadSummary ||
@@ -77,8 +77,7 @@ export const JavaRuntimesCard: React.FC<Props> = ({ reportWorkloadSummary }) => 
                 <GridItem>
                     <Bullseye>
                         <SolidCard
-                            title={`${reportWorkloadSummary.recommendedTargetsIMSModel.openjdk || 0} OpenJDK`}
-                            description="Oracle JDKs that can be replaced with OpenJDK"
+                            title={`Oracle JDKs that can be replaced with Open JDK: ${formatNumber(reportWorkloadSummary.recommendedTargetsIMSModel.openjdk || 0, 0)}`}
                             width={510}
                         />
                     </Bullseye>                    
