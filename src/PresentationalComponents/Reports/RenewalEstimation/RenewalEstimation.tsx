@@ -31,7 +31,7 @@ class RenewalEstimation extends Component<Props, State> {
 
         const columns = [
             'For vSphere Enterprise Plus',
-            { title: 'ELA Renewal Estimation', props: { className: 'pf-u-text-align-right' }}
+            { title: 'ELA renewal estimation', props: { className: 'pf-u-text-align-right' }}
         ];
 
         const rows = [
