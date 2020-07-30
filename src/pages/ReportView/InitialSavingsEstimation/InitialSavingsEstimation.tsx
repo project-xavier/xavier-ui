@@ -223,7 +223,7 @@ class InitialSavingsEstimation extends React.Component<Props, State> {
                 <Tooltip
                     position="right"
                     content={
-                        <div>Includes VMWare maintenance, Red Hat virtualization subscriptions, training and services</div>
+                        <div>Includes VMWare maintenance, Red Hat Virtualization subscriptions, training and services</div>
                     }
                 >
                     <HelpIcon />

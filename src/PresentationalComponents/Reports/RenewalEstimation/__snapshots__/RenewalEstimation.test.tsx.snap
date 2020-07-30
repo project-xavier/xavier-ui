@@ -13,7 +13,7 @@ exports[`RenewalEstimation expect to render 1`] = `
           "props": Object {
             "className": "pf-u-text-align-right",
           },
-          "title": "ELA Renewal Estimation",
+          "title": "ELA renewal estimation",
         },
       ]
     }
@@ -63,7 +63,7 @@ exports[`RenewalEstimation expect to render using null and undefined data 1`] = 
           "props": Object {
             "className": "pf-u-text-align-right",
           },
-          "title": "ELA Renewal Estimation",
+          "title": "ELA renewal estimation",
         },
       ]
     }
@@ -113,7 +113,7 @@ exports[`RenewalEstimation expect to render using null and undefined data 2`] = 
           "props": Object {
             "className": "pf-u-text-align-right",
           },
-          "title": "ELA Renewal Estimation",
+          "title": "ELA renewal estimation",
         },
       ]
     }
@@ -163,7 +163,7 @@ exports[`RenewalEstimation expect to render using values equal to 0 1`] = `
           "props": Object {
             "className": "pf-u-text-align-right",
           },
-          "title": "ELA Renewal Estimation",
+          "title": "ELA renewal estimation",
         },
       ]
     }

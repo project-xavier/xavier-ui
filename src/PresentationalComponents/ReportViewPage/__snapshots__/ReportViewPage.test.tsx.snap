@@ -132,7 +132,7 @@ exports[`ReportViewPage expect to render tabs when fetch status is complete 1`] 
                 </span>
                  
                 <span>
-                  VSphere Enterprise Plus
+                  vSphere Enterprise Plus
                 </span>
                 <br />
                 <span>
@@ -245,7 +245,7 @@ exports[`ReportViewPage expect to render tabs when fetch status is complete and 
                 </span>
                  
                 <span>
-                  VSphere Enterprise Plus
+                  vSphere Enterprise Plus
                 </span>
                 <br />
                 <span>

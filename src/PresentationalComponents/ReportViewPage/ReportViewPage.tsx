@@ -84,7 +84,7 @@ class ReportViewPage extends Component<Props, State> {
                     <p>
                         { (report && report.reportDescription) && <React.Fragment><span>{report.reportDescription}</span><br/></React.Fragment> }
                         { (REPORT_VIEW_PATHS[activeTabKey].key === INITIAL_SAVINGS_ESTIMATION_KEY) && <React.Fragment>
-                                <span>Source:</span>&nbsp;<span>VSphere Enterprise Plus</span><br/>
+                                <span>Source:</span>&nbsp;<span>vSphere Enterprise Plus</span><br/>
                                 <span>Target:</span>&nbsp;<span>Red Hat Virtualization</span><br/>
                             </React.Fragment>
                         }
