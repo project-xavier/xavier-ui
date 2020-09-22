@@ -1,5 +1,7 @@
 import React from 'react';
-import { Bullseye, Grid, GridItem } from '@patternfly/react-core';
+import { Bullseye, Grid, GridItem, Tooltip } from '@patternfly/react-core';
+import { HelpIcon } from '@patternfly/react-icons';
+
 import ReportCard from '../../ReportCard';
 import { ReportWorkloadSummary, OSInformationModel } from '../../../models';
 import FancyChartDonut from '../../FancyChartDonut';
@@ -13,7 +15,16 @@ interface Props {
 }
 
 export const OSInformation: React.FC<Props> = ({ reportWorkloadSummary }) => {
-    const title = 'Operating system information';
+    const title = (
+        <span>
+            <span>Operating system information</span>&nbsp;
+            <span>
+                <Tooltip position="top" content={<div>See the Workload migration inventory for details</div>}>
+                    <HelpIcon />
+                </Tooltip>
+            </span>
+        </span>
+    );
 
     if (
         !reportWorkloadSummary ||
@@ -21,7 +32,11 @@ export const OSInformation: React.FC<Props> = ({ reportWorkloadSummary }) => {
         reportWorkloadSummary.osInformation.length === 0
     ) {
         return (
-            <EmptyCard cardTitle={title} message="Not enough data" description="Could not extract operating system information." />
+            <EmptyCard
+                cardTitle={title}
+                message="Not enough data"
+                description="Could not extract operating system information."
+            />
         );
     }
 
@@ -81,7 +96,10 @@ export const OSInformation: React.FC<Props> = ({ reportWorkloadSummary }) => {
                 <GridItem>
                     <Bullseye>
                         <SolidCard
-                            title={`Operating systems that can be migrated to Red Hat Enterprise Linux: ${formatNumber(reportWorkloadSummary.recommendedTargetsIMSModel.rhel || 0, 0)}`}
+                            title={`Operating systems that can be migrated to Red Hat Enterprise Linux: ${formatNumber(
+                                reportWorkloadSummary.recommendedTargetsIMSModel.rhel || 0,
+                                0
+                            )}`}
                             width={510}
                         />
                     </Bullseye>

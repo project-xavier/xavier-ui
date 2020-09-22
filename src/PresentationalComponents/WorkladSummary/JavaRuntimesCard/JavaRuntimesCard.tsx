@@ -1,5 +1,6 @@
 import React from 'react';
-import { Bullseye, GridItem, Grid } from '@patternfly/react-core';
+import { Bullseye, GridItem, Grid, Tooltip } from '@patternfly/react-core';
+import { HelpIcon } from '@patternfly/react-icons';
 import ReportCard from '../../ReportCard';
 import { ReportWorkloadSummary, JavaRuntimeModel } from '../../../models';
 import FancyChartDonut from '../../FancyChartDonut';
@@ -13,7 +14,16 @@ interface Props {
 }
 
 export const JavaRuntimesCard: React.FC<Props> = ({ reportWorkloadSummary }) => {
-    const title = 'Oracle Java runtime information';
+    const title = (
+        <span>
+            <span>Oracle Java runtime information</span>&nbsp;
+            <span>
+                <Tooltip position="top" content={<div>See the Workload migration inventory for details</div>}>
+                    <HelpIcon />
+                </Tooltip>
+            </span>
+        </span>
+    );
 
     if (
         !reportWorkloadSummary ||
@@ -77,10 +87,13 @@ export const JavaRuntimesCard: React.FC<Props> = ({ reportWorkloadSummary }) => 
                 <GridItem>
                     <Bullseye>
                         <SolidCard
-                            title={`Oracle JDKs that can be replaced with Open JDK: ${formatNumber(reportWorkloadSummary.recommendedTargetsIMSModel.openjdk || 0, 0)}`}
+                            title={`Oracle JDKs that can be replaced with Open JDK: ${formatNumber(
+                                reportWorkloadSummary.recommendedTargetsIMSModel.openjdk || 0,
+                                0
+                            )}`}
                             width={510}
                         />
-                    </Bullseye>                    
+                    </Bullseye>
                 </GridItem>
             </Grid>
         </ReportCard>

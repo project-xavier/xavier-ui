@@ -1,5 +1,6 @@
 import React from 'react';
-import { Bullseye, Grid, GridItem } from '@patternfly/react-core';
+import { Bullseye, Grid, GridItem, Tooltip } from '@patternfly/react-core';
+import { HelpIcon } from '@patternfly/react-icons';
 import ReportCard from '../../ReportCard';
 import { ReportWorkloadSummary, ApplicationPlatformModel } from '../../../models';
 import FancyChartDonut from '../../FancyChartDonut';
@@ -13,7 +14,16 @@ interface Props {
 }
 
 export const ApplicationPlatformsCard: React.FC<Props> = ({ reportWorkloadSummary }) => {
-    const title = 'Application server platform information';
+    const title = (
+        <span>
+            <span>Application server platform information</span>&nbsp;
+            <span>
+                <Tooltip position="top" content={<div>See the Workload migration inventory for details</div>}>
+                    <HelpIcon />
+                </Tooltip>
+            </span>
+        </span>
+    );
 
     if (
         !reportWorkloadSummary ||
@@ -76,7 +86,10 @@ export const ApplicationPlatformsCard: React.FC<Props> = ({ reportWorkloadSummar
                 <GridItem>
                     <Bullseye>
                         <SolidCard
-                            title={`Application server environments that can be replatformed with JBoss EAP: ${formatNumber(reportWorkloadSummary.recommendedTargetsIMSModel.jbosseap || 0, 0)}`}
+                            title={`Application server environments that can be replatformed with JBoss EAP: ${formatNumber(
+                                reportWorkloadSummary.recommendedTargetsIMSModel.jbosseap || 0,
+                                0
+                            )}`}
                             // description="App platforms that can be replatformed with JBoss EAP"
                             width={510}
                         />
