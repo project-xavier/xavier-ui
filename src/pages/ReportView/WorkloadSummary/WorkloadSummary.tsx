@@ -212,8 +212,8 @@ export class WorkloadMigrationSummary extends React.Component<WorkloadMigrationS
                         description="Workloads possible to migrate to Red Hat Enterprise Linux"
                     /> */}
                     <SolidCard
-                        title={`${formatPercentage(percentages[3], 0)} Red Hat OpenShift virtualization`}
-                        description="Workloads targeted for OpenShift virtualization"
+                        title={`${formatPercentage(percentages[3], 0)} Red Hat OpenShift Virtualization`}
+                        description="Workloads targeted for Red Hat OpenShift Virtualization"
                     />
                 </div>
             </ReportCard>

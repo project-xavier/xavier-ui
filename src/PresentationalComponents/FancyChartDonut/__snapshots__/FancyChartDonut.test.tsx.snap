@@ -64,7 +64,7 @@ exports[`FancyChartDonut expect to render with minimun props 1`] = `
         }
         themeColor="multi-ordered"
         themeVariant="light"
-        width={420}
+        width={450}
       />
     </div>
   </div>

@@ -3,7 +3,57 @@
 exports[`ApplicationPlatformsCard expect to render 1`] = `
 <ReportCard
   skipBullseye={true}
-  title="Application server platform information"
+  title={
+    <span>
+      <span>
+        Application server platform information
+      </span>
+       
+      <span>
+        <Tooltip
+          appendTo={[Function]}
+          aria="describedby"
+          boundary="window"
+          className=""
+          content={
+            <div>
+              See the Workload migration inventory for details
+            </div>
+          }
+          distance={15}
+          enableFlip={true}
+          entryDelay={500}
+          exitDelay={500}
+          flipBehavior={
+            Array [
+              "top",
+              "right",
+              "bottom",
+              "left",
+              "top",
+              "right",
+              "bottom",
+            ]
+          }
+          id=""
+          isAppLauncher={false}
+          isContentLeftAligned={false}
+          isVisible={false}
+          maxWidth="18.75rem"
+          position="top"
+          tippyProps={Object {}}
+          trigger="mouseenter focus"
+          zIndex={9999}
+        >
+          <HelpIcon
+            color="currentColor"
+            noVerticalAlign={false}
+            size="sm"
+          />
+        </Tooltip>
+      </span>
+    </span>
+  }
 >
   <Grid
     hasGutter={true}
@@ -56,7 +106,57 @@ exports[`ApplicationPlatformsCard expect to render 1`] = `
 
 exports[`ApplicationPlatformsCard expect to render empty card when no java runtimes 1`] = `
 <Component
-  cardTitle="Application server platform information"
+  cardTitle={
+    <span>
+      <span>
+        Application server platform information
+      </span>
+       
+      <span>
+        <Tooltip
+          appendTo={[Function]}
+          aria="describedby"
+          boundary="window"
+          className=""
+          content={
+            <div>
+              See the Workload migration inventory for details
+            </div>
+          }
+          distance={15}
+          enableFlip={true}
+          entryDelay={500}
+          exitDelay={500}
+          flipBehavior={
+            Array [
+              "top",
+              "right",
+              "bottom",
+              "left",
+              "top",
+              "right",
+              "bottom",
+            ]
+          }
+          id=""
+          isAppLauncher={false}
+          isContentLeftAligned={false}
+          isVisible={false}
+          maxWidth="18.75rem"
+          position="top"
+          tippyProps={Object {}}
+          trigger="mouseenter focus"
+          zIndex={9999}
+        >
+          <HelpIcon
+            color="currentColor"
+            noVerticalAlign={false}
+            size="sm"
+          />
+        </Tooltip>
+      </span>
+    </span>
+  }
   description="No application server platforms have been discovered."
   message="No application server platforms found"
 />
@@ -64,7 +164,57 @@ exports[`ApplicationPlatformsCard expect to render empty card when no java runti
 
 exports[`ApplicationPlatformsCard expect to render empty card when undefined reportWorkloadSummary 1`] = `
 <Component
-  cardTitle="Application server platform information"
+  cardTitle={
+    <span>
+      <span>
+        Application server platform information
+      </span>
+       
+      <span>
+        <Tooltip
+          appendTo={[Function]}
+          aria="describedby"
+          boundary="window"
+          className=""
+          content={
+            <div>
+              See the Workload migration inventory for details
+            </div>
+          }
+          distance={15}
+          enableFlip={true}
+          entryDelay={500}
+          exitDelay={500}
+          flipBehavior={
+            Array [
+              "top",
+              "right",
+              "bottom",
+              "left",
+              "top",
+              "right",
+              "bottom",
+            ]
+          }
+          id=""
+          isAppLauncher={false}
+          isContentLeftAligned={false}
+          isVisible={false}
+          maxWidth="18.75rem"
+          position="top"
+          tippyProps={Object {}}
+          trigger="mouseenter focus"
+          zIndex={9999}
+        >
+          <HelpIcon
+            color="currentColor"
+            noVerticalAlign={false}
+            size="sm"
+          />
+        </Tooltip>
+      </span>
+    </span>
+  }
   description="No application server platforms have been discovered."
   message="No application server platforms found"
 />

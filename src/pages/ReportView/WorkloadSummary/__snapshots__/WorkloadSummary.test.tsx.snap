@@ -74,8 +74,8 @@ exports[`WorkloadMigrationSummary expect to render reports 1`] = `
             title="96% Red Hat OpenStack Platform"
           />
           <SolidCard
-            description="Workloads targeted for OpenShift virtualization"
-            title="88% Red Hat OpenShift virtualization"
+            description="Workloads targeted for Red Hat OpenShift Virtualization"
+            title="88% Red Hat OpenShift Virtualization"
           />
         </div>
       </ReportCard>

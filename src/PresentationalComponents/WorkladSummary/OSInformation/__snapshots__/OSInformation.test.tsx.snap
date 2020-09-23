@@ -3,7 +3,57 @@
 exports[`JavaRuntimesCard expect to render 1`] = `
 <ReportCard
   skipBullseye={true}
-  title="Operating system information"
+  title={
+    <span>
+      <span>
+        Operating system information
+      </span>
+       
+      <span>
+        <Tooltip
+          appendTo={[Function]}
+          aria="describedby"
+          boundary="window"
+          className=""
+          content={
+            <div>
+              See the Workload migration inventory for details
+            </div>
+          }
+          distance={15}
+          enableFlip={true}
+          entryDelay={500}
+          exitDelay={500}
+          flipBehavior={
+            Array [
+              "top",
+              "right",
+              "bottom",
+              "left",
+              "top",
+              "right",
+              "bottom",
+            ]
+          }
+          id=""
+          isAppLauncher={false}
+          isContentLeftAligned={false}
+          isVisible={false}
+          maxWidth="18.75rem"
+          position="top"
+          tippyProps={Object {}}
+          trigger="mouseenter focus"
+          zIndex={9999}
+        >
+          <HelpIcon
+            color="currentColor"
+            noVerticalAlign={false}
+            size="sm"
+          />
+        </Tooltip>
+      </span>
+    </span>
+  }
 >
   <Grid
     hasGutter={true}
@@ -67,7 +117,57 @@ exports[`JavaRuntimesCard expect to render 1`] = `
 
 exports[`JavaRuntimesCard expect to render empty card when no java runtimes 1`] = `
 <Component
-  cardTitle="Operating system information"
+  cardTitle={
+    <span>
+      <span>
+        Operating system information
+      </span>
+       
+      <span>
+        <Tooltip
+          appendTo={[Function]}
+          aria="describedby"
+          boundary="window"
+          className=""
+          content={
+            <div>
+              See the Workload migration inventory for details
+            </div>
+          }
+          distance={15}
+          enableFlip={true}
+          entryDelay={500}
+          exitDelay={500}
+          flipBehavior={
+            Array [
+              "top",
+              "right",
+              "bottom",
+              "left",
+              "top",
+              "right",
+              "bottom",
+            ]
+          }
+          id=""
+          isAppLauncher={false}
+          isContentLeftAligned={false}
+          isVisible={false}
+          maxWidth="18.75rem"
+          position="top"
+          tippyProps={Object {}}
+          trigger="mouseenter focus"
+          zIndex={9999}
+        >
+          <HelpIcon
+            color="currentColor"
+            noVerticalAlign={false}
+            size="sm"
+          />
+        </Tooltip>
+      </span>
+    </span>
+  }
   description="Could not extract operating system information."
   message="Not enough data"
 />
@@ -75,7 +175,57 @@ exports[`JavaRuntimesCard expect to render empty card when no java runtimes 1`] 
 
 exports[`JavaRuntimesCard expect to render empty card when undefined reportWorkloadSummary 1`] = `
 <Component
-  cardTitle="Operating system information"
+  cardTitle={
+    <span>
+      <span>
+        Operating system information
+      </span>
+       
+      <span>
+        <Tooltip
+          appendTo={[Function]}
+          aria="describedby"
+          boundary="window"
+          className=""
+          content={
+            <div>
+              See the Workload migration inventory for details
+            </div>
+          }
+          distance={15}
+          enableFlip={true}
+          entryDelay={500}
+          exitDelay={500}
+          flipBehavior={
+            Array [
+              "top",
+              "right",
+              "bottom",
+              "left",
+              "top",
+              "right",
+              "bottom",
+            ]
+          }
+          id=""
+          isAppLauncher={false}
+          isContentLeftAligned={false}
+          isVisible={false}
+          maxWidth="18.75rem"
+          position="top"
+          tippyProps={Object {}}
+          trigger="mouseenter focus"
+          zIndex={9999}
+        >
+          <HelpIcon
+            color="currentColor"
+            noVerticalAlign={false}
+            size="sm"
+          />
+        </Tooltip>
+      </span>
+    </span>
+  }
   description="Could not extract operating system information."
   message="Not enough data"
 />
