@@ -74,7 +74,7 @@ class FancyChartDonut extends Component<Props, State> {
                                 top: 20
                             }}
                             legendAllowWrap={true}
-                            width={420}
+                            width={450}
                             height={190}
                             { ...chartProps }
                         />
