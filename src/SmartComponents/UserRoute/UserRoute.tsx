@@ -4,54 +4,49 @@ import { User } from '../../models';
 import { ObjectFetchStatus } from '../../models/state';
 
 interface StateToProps {
-    user: User | null;
-    userFetchStatus: ObjectFetchStatus;
+  user: User | null;
+  userFetchStatus: ObjectFetchStatus;
 }
 
 interface DispatchToProps {
-    fetchUser: () => any;
+  fetchUser: () => any;
 }
 
 interface Props extends StateToProps, DispatchToProps {
-    component: any;
+  component: any;
 }
 
-interface State {}
+class UserRoute extends React.Component<Props> {
+  constructor(props: Props) {
+    super(props);
+  }
 
-class UserRoute extends React.Component<Props, State> {
+  public componentDidMount() {
+    this.props.fetchUser();
+  }
 
-    constructor(props: Props) {
-        super(props);
-    }
+  public render() {
+    const { user, userFetchStatus, component: Component, ...rest } = this.props;
 
-    public componentDidMount() {
-        this.props.fetchUser();
-    }
+    const redirectToError = () => {
+      return <Redirect to="/error" />;
+    };
+    const nullComponent = () => {
+      return null;
+    };
 
-    public render() {
-        const { user, userFetchStatus, component: Component, ...rest } = this.props;
-        
-        const redirectToError = () => {
-            return (
-                <Redirect to="/error" />
-            );
-        };
-        const nullComponent = () => {
-            return null;
-        };
-
-        switch (userFetchStatus.status) {
-            case 'complete':
-                if (user) {
-                    return <Route { ...rest } component={ Component } />;
-                } else {
-                    return <Route { ...rest } render={ redirectToError } />;
-                }
-
-            default:
-                return <Route { ...rest } render={ nullComponent } />;
+    switch (userFetchStatus.status) {
+      case 'complete':
+        if (user) {
+          return <Route {...rest} component={Component} />;
+        } else {
+          return <Route {...rest} render={redirectToError} />;
         }
+
+      default:
+        return <Route {...rest} render={nullComponent} />;
     }
+  }
 }
 
 export default UserRoute;

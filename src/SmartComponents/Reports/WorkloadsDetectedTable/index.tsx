@@ -4,21 +4,15 @@ import { GlobalState } from '../../../models/state';
 import * as reportActions from '../../../actions/ReportActions';
 
 const mapStateToProps = (state: GlobalState) => {
-    const {
-        reportWorkloadsDetected,
-        reportWorkloadsDetectedFetchStatus,
-    } = state.reportState;
-    return {
-        reportWorkloadsDetected,
-        reportWorkloadsDetectedFetchStatus,
-    };
+  const { reportWorkloadsDetected, reportWorkloadsDetectedFetchStatus } = state.reportState;
+  return {
+    reportWorkloadsDetected,
+    reportWorkloadsDetectedFetchStatus,
+  };
 };
 
 const mapDispatchToProps = {
-    fetchReportWorkloadsDetected: reportActions.fetchReportWorkloadsDetected
+  fetchReportWorkloadsDetected: reportActions.fetchReportWorkloadsDetected,
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
-)(WorkloadsDetectedTable);
+export default connect(mapStateToProps, mapDispatchToProps)(WorkloadsDetectedTable);

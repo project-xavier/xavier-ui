@@ -6,7 +6,7 @@ import { Routes } from './Routes';
 import './App.scss';
 import '@patternfly/patternfly/patternfly-addons.css';
 import '@redhat-cloud-services/frontend-components-notifications/index.css';
-import { NotificationsPortal } from '@redhat-cloud-services/frontend-components-notifications';
+import { NotificationPortal } from '@redhat-cloud-services/frontend-components-notifications';
 import asyncComponent from './Utilities/asyncComponent';
 
 const DeleteMessageDialog = asyncComponent(() =>
@@ -14,31 +14,32 @@ const DeleteMessageDialog = asyncComponent(() =>
 );
 
 class App extends Component {
+  componentDidMount() {
+    insights.chrome.init();
+    insights.chrome.identifyApp('migration-analytics');
 
-    componentDidMount () {
-        insights.chrome.init();
-        insights.chrome.identifyApp('migration-analytics');
+    this.appNav = insights.chrome.on('APP_NAVIGATION', (event) =>
+      this.props.history.push(`/${event.navId}`)
+    );
+  }
 
-        this.appNav = insights.chrome.on('APP_NAVIGATION', event => this.props.history.push(`/${event.navId}`));
-    }
+  componentWillUnmount() {
+    this.appNav();
+  }
 
-    componentWillUnmount () {
-        this.appNav();
-    }
-
-    render () {
-        return (
-            <React.Fragment>
-                <Routes childProps={ this.props } />
-                <NotificationsPortal />
-                <DeleteMessageDialog />
-            </React.Fragment>
-        );
-    }
+  render() {
+    return (
+      <React.Fragment>
+        <Routes childProps={this.props} />
+        <NotificationPortal />
+        <DeleteMessageDialog />
+      </React.Fragment>
+    );
+  }
 }
 
 App.propTypes = {
-    history: PropTypes.object
+  history: PropTypes.object,
 };
 
 /**
@@ -46,4 +47,4 @@ App.propTypes = {
  * connect: https://github.com/reactjs/react-redux/blob/master/docs/api.md
  *          https://reactjs.org/docs/higher-order-components.html
  */
-export default withRouter (connect()(App));
+export default withRouter(connect()(App));

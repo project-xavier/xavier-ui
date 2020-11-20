@@ -23,10 +23,6 @@ git clone https://github.com/project-xavier/xavier-ui.git
 cd xavier-ui
 npm ci
 
-git clone https://github.com/RedHatInsights/insights-chrome
-cd insights-chrome
-npm ci
-
 git clone https://github.com/RedHatInsights/insights-proxy.git
 cd insights-proxy
 npm install
@@ -48,19 +44,11 @@ npm ci # Always execute this when package.json changed
 npm run start
 ```
 
-### insights-chrome
-
-```shell
-cd insights-chrome
-npm run build
-npm run start
-```
-
 ### insights-proxy
 Move to insight-chrome/build folder and then execute:
 ```shell
-cd insights-chrome/build
-SPANDX_CONFIG=../../xavier-ui/profiles/local-frontend-and-api.js LOCAL_CHROME=true sh ../../insights-proxy/scripts/run.sh
+cd insights-proxy
+SPANDX_CONFIG=../xavier-ui/profiles/local-frontend-and-api.js sh scripts/run.sh
 ```
 
 # Open you browser

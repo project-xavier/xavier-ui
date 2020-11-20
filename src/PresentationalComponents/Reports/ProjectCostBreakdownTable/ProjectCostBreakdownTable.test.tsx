@@ -1,7 +1,7 @@
-import React from "react";
-import { shallow } from "enzyme";
-import ProjectCostBreakdownTable from "./ProjectCostBreakdownTable";
-import { RHVRampUpCostsModel, SourceRampDownCostsModel } from "../../../models";
+import React from 'react';
+import { shallow } from 'enzyme';
+import ProjectCostBreakdownTable from './ProjectCostBreakdownTable';
+import { RHVRampUpCostsModel, SourceRampDownCostsModel } from '../../../models';
 
 const baseRhvRampUpCostsModel: RHVRampUpCostsModel = {
   year1RhvTotalValue: 1000,
@@ -16,59 +16,59 @@ const baseRhvRampUpCostsModel: RHVRampUpCostsModel = {
 
   year1RhvGrandTotalGrowthValue: 0,
   year2RhvGrandTotalGrowthValue: 0,
-  year3RhvGrandTotalGrowthValue: 0
+  year3RhvGrandTotalGrowthValue: 0,
 };
 
 const baseSourceRampDownCostsModel: SourceRampDownCostsModel = {
   year1SourceMaintenanceTotalValue: 1000,
   year2SourceMaintenanceTotalValue: 2000,
-  year3SourceMaintenanceTotalValue: 3000
-}
+  year3SourceMaintenanceTotalValue: 3000,
+};
 
-describe("ProjectCostBreakdownTable", () => {
-  it("expect to render", () => {
+describe('ProjectCostBreakdownTable', () => {
+  it('expect to render', () => {
     const rhvRampUpCostsModel: RHVRampUpCostsModel = {
-      ...baseRhvRampUpCostsModel
+      ...baseRhvRampUpCostsModel,
     };
 
     const sourceRampDownCostsModel: SourceRampDownCostsModel = {
-      ...baseSourceRampDownCostsModel
+      ...baseSourceRampDownCostsModel,
     };
 
     const wrapper = shallow(
       <ProjectCostBreakdownTable
-        rhvRampUpCostsModel={ rhvRampUpCostsModel }
-        sourceRampDownCostsModel={ sourceRampDownCostsModel }
+        rhvRampUpCostsModel={rhvRampUpCostsModel}
+        sourceRampDownCostsModel={sourceRampDownCostsModel}
       />
     );
 
     expect(wrapper).toMatchSnapshot();
   });
 
-  it("expect to render using null and undefined data", () => {
+  it('expect to render using null and undefined data', () => {
     const rhvRampUpCostsModel: RHVRampUpCostsModel = {
-      ...baseRhvRampUpCostsModel
+      ...baseRhvRampUpCostsModel,
     };
-    
+
     const sourceRampDownCostsModel: SourceRampDownCostsModel = {
-      ...baseSourceRampDownCostsModel
+      ...baseSourceRampDownCostsModel,
     };
 
     // Force null values
-    Object.keys(rhvRampUpCostsModel).forEach(key => rhvRampUpCostsModel[key] = null);
-    Object.keys(sourceRampDownCostsModel).forEach(key => sourceRampDownCostsModel[key] = null);
+    Object.keys(rhvRampUpCostsModel).forEach((key) => (rhvRampUpCostsModel[key] = null));
+    Object.keys(sourceRampDownCostsModel).forEach((key) => (sourceRampDownCostsModel[key] = null));
 
     const wrapper = shallow(
       <ProjectCostBreakdownTable
-        rhvRampUpCostsModel={ rhvRampUpCostsModel }
-        sourceRampDownCostsModel={ sourceRampDownCostsModel }
+        rhvRampUpCostsModel={rhvRampUpCostsModel}
+        sourceRampDownCostsModel={sourceRampDownCostsModel}
       />
     );
 
     expect(wrapper).toMatchSnapshot();
   });
 
-  it("expect to render using values equal to 0", () => {
+  it('expect to render using values equal to 0', () => {
     const rhvRampUpCostsModel: RHVRampUpCostsModel = {
       ...baseRhvRampUpCostsModel,
       year1RhvTotalValue: 0,
@@ -79,24 +79,23 @@ describe("ProjectCostBreakdownTable", () => {
       year3RhvTotalGrowthValue: 0,
       rhvSwitchLearningSubsValue: 0,
       rhvSwitchConsultValue: 0,
-      rhvSwitchTAndEValue: 0
+      rhvSwitchTAndEValue: 0,
     };
 
     const sourceRampDownCostsModel: SourceRampDownCostsModel = {
       ...baseSourceRampDownCostsModel,
-        year1SourceMaintenanceTotalValue: 0,
-        year2SourceMaintenanceTotalValue: 0,
-        year3SourceMaintenanceTotalValue: 0
+      year1SourceMaintenanceTotalValue: 0,
+      year2SourceMaintenanceTotalValue: 0,
+      year3SourceMaintenanceTotalValue: 0,
     };
 
     const wrapper = shallow(
       <ProjectCostBreakdownTable
-        rhvRampUpCostsModel={ rhvRampUpCostsModel }
-        sourceRampDownCostsModel={ sourceRampDownCostsModel }
+        rhvRampUpCostsModel={rhvRampUpCostsModel}
+        sourceRampDownCostsModel={sourceRampDownCostsModel}
       />
     );
 
     expect(wrapper).toMatchSnapshot();
   });
-
 });

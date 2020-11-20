@@ -4,26 +4,26 @@
 module.exports = {
     // Automatically clear mock calls and instances between every test
     clearMocks: true,
-  
+
     // Indicates whether the coverage information should be collected while executing the test
     collectCoverage: true,
-  
+
     // The directory where Jest should output its coverage files
     coverageDirectory: 'coverage',
-  
+
     // An array of directory names to be searched recursively up from the requiring module's location
     moduleDirectories: [
       "node_modules",
       "<rootDir>/src"
     ],
-  
+
     // An array of file extensions your modules use
     moduleFileExtensions: [
       "ts",
       "tsx",
       "js"
     ],
-  
+
     // A map from regular expressions to module names that allow to stub out resources with a single module
     moduleNameMapper: {
       '\\.(css|scss|less)$': '<rootDir>/__mocks__/styleMock.js',
@@ -31,16 +31,16 @@ module.exports = {
       "@app/(.*)": '<rootDir>/src/app/$1',
       "^lodash-es$": "lodash"
     },
-  
+
     // A preset that is used as a base for Jest's configuration
     preset: "ts-jest/presets/js-with-ts",
-  
+
     // The path to a module that runs some code to configure or set up the testing framework before each test
-    setupFilesAfterEnv: ['<rootDir>/test-setup.js'],
-  
+    setupFilesAfterEnv: ['<rootDir>/config/setupTests.js'],
+
     // The test environment that will be used for testing.
     testEnvironment: "jsdom",
-  
+
     // A list of paths to snapshot serializer modules Jest should use for snapshot testing
     snapshotSerializers: ['enzyme-to-json/serializer'],
   
@@ -53,4 +53,4 @@ module.exports = {
     transform: {
       "^.+\\.(ts|tsx)$": "ts-jest"
     }
-  };
+};

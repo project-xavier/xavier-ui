@@ -1,6 +1,6 @@
-import React from "react";
-import { shallow } from "enzyme";
-import ReportsUpload, { Props } from "./ReportsUpload";
+import React from 'react';
+import { shallow } from 'enzyme';
+import ReportsUpload, { Props } from './ReportsUpload';
 
 const props: Props = {
   file: null,
@@ -19,14 +19,14 @@ const props: Props = {
   match: null,
 
   user: {
-    firstTimeCreatingReports: false
-  },  
-  updateUser: jest.fn()
+    firstTimeCreatingReports: false,
+  },
+  updateUser: jest.fn(),
 };
 
-describe("ReportsUpload", () => {
-  it("expect to render form", () => {
-    const wrapper = shallow(<ReportsUpload { ...props }/>);
+describe('ReportsUpload', () => {
+  it('expect to render form', () => {
+    const wrapper = shallow(<ReportsUpload {...props} />);
     expect(wrapper).toMatchSnapshot();
   });
 });

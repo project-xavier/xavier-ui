@@ -1,3 +1,3 @@
 export interface User {
-    firstTimeCreatingReports: boolean;
+  firstTimeCreatingReports: boolean;
 }
