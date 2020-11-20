@@ -21,7 +21,7 @@
     "react-router-dom": "^4.2.2",
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
-    "redux-promise-middleware": "^6.1.2",
+    "redux-promise-middleware": "^5.1.1",
     "typesafe-actions": "^4.4.2",
     "typescript": "^3.9.7",
     "yup": "^0.27.0"
