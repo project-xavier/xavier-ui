@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { JavaRuntimesCard } from './JavaRuntimesCard';
-import { ReportWorkloadSummary } from 'src/models';
+import { ReportWorkloadSummary } from 'models';
 
 const BasicReportWorkloadSummary: ReportWorkloadSummary = {
   complexityModel: {

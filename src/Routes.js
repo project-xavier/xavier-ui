@@ -45,10 +45,6 @@ const paths = {
   error: '/error',
 };
 
-type Props = {
-  childProps: any,
-};
-
 const InsightsRoute = ({ component: Component, rootClass, skipLoadUser, ...rest }) => {
   const root = document.getElementById('root');
   root.removeAttribute('class');
@@ -76,7 +72,7 @@ InsightsRoute.propTypes = {
  *      path - https://prod.foo.redhat.com:1337/insights/advisor/rules
  *      component - component to be rendered when a route has been chosen.
  */
-export const Routes = (props: Props) => {
+export const Routes = (props) => {
   const path = props.childProps.location.pathname;
 
   return (
