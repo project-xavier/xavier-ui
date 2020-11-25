@@ -4,32 +4,29 @@ import { FetchErrorEmptyState, FetchErrorEmptyStateProps } from './FetchErrorEmp
 import { Button } from '@patternfly/react-core';
 
 describe('FetchErrorEmptyState', () => {
-    it('FetchErrorEmptyState should render', () => {
-        const props: FetchErrorEmptyStateProps = {
-            onRetry: jest.fn()
-        };
+  it('FetchErrorEmptyState should render', () => {
+    const props: FetchErrorEmptyStateProps = {
+      onRetry: jest.fn(),
+    };
 
-        const wrapper = shallow(<FetchErrorEmptyState {...props} />);
-        expect(wrapper).toMatchSnapshot();
-    });
+    const wrapper = shallow(<FetchErrorEmptyState {...props} />);
+    expect(wrapper).toMatchSnapshot();
+  });
 
-    it('FetchErrorEmptyState on retry click should execute callback', () => {
-        // Given
-        const callbackMock = jest.fn();
-        const props: FetchErrorEmptyStateProps = {
-            onRetry: callbackMock
-        };
+  it('FetchErrorEmptyState on retry click should execute callback', () => {
+    // Given
+    const callbackMock = jest.fn();
+    const props: FetchErrorEmptyStateProps = {
+      onRetry: callbackMock,
+    };
 
-        // When
+    // When
 
-        const wrapper = shallow(<FetchErrorEmptyState {...props} />);
-        wrapper
-            .find(Button)
-            .first()
-            .simulate('click');
+    const wrapper = shallow(<FetchErrorEmptyState {...props} />);
+    wrapper.find(Button).first().simulate('click');
 
-        // Then
+    // Then
 
-        expect(callbackMock.mock.calls.length).toEqual(1);
-    });
+    expect(callbackMock.mock.calls.length).toEqual(1);
+  });
 });

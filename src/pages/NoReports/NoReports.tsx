@@ -1,60 +1,55 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import {
-    EmptyState,
-    EmptyStateVariant,
-    EmptyStateIcon,
-    Title,
-    EmptyStateBody,
-    Bullseye
+  EmptyState,
+  EmptyStateVariant,
+  EmptyStateIcon,
+  Title,
+  EmptyStateBody,
+  Bullseye,
 } from '@patternfly/react-core';
-import {
-    AddCircleOIcon
-} from '@patternfly/react-icons';
+import { AddCircleOIcon } from '@patternfly/react-icons';
 import { User } from '../../models';
 import ReportsPage from '../../PresentationalComponents/ReportsPage';
 
 interface StateToProps {
-    user: User | null;
+  user: User | null;
 }
 
-interface DispatchToProps {
-}
+export type Props = StateToProps;
 
-export interface Props extends StateToProps, DispatchToProps {
-};
+class NoReports extends React.Component<Props> {
+  constructor(props: Props) {
+    super(props);
+  }
 
-interface State {
-};
+  public render() {
+    const { user } = this.props;
 
-class NoReports extends React.Component<Props, State> {
-
-    constructor(props: Props) {
-        super(props);
+    if (user && user.firstTimeCreatingReports) {
+      return <Redirect to="/getting-started" />;
     }
 
-    public render() {
-        const { user } = this.props;
-
-        if (user && user.firstTimeCreatingReports) {
-            return <Redirect to="/getting-started" />;
-        }
-
-        return (
-            <ReportsPage>
-                <Bullseye>
-                    <EmptyState variant={ EmptyStateVariant.large }>
-                        <EmptyStateIcon icon={ AddCircleOIcon } />
-                        <Title headingLevel="h5" size="lg">No reports found</Title>
-                        <EmptyStateBody>
-                            Reports are created from inventory data files that are uploaded to Red Hat Migration Analytics.
-                        </EmptyStateBody>
-                        <Link to={ '/reports/upload' } className="pf-c-button pf-m-primary">Create report</Link>
-                    </EmptyState>
-                </Bullseye>
-            </ReportsPage>
-        );
-    }
+    return (
+      <ReportsPage>
+        <Bullseye>
+          <EmptyState variant={EmptyStateVariant.large}>
+            <EmptyStateIcon icon={AddCircleOIcon} />
+            <Title headingLevel="h5" size="lg">
+              No reports found
+            </Title>
+            <EmptyStateBody>
+              Reports are created from inventory data files that are uploaded to Red Hat Migration
+              Analytics.
+            </EmptyStateBody>
+            <Link to={'/reports/upload'} className="pf-c-button pf-m-primary">
+              Create report
+            </Link>
+          </EmptyState>
+        </Bullseye>
+      </ReportsPage>
+    );
+  }
 }
 
 export default NoReports;

@@ -11,11 +11,11 @@ import { initApi } from './api/apiInit';
 initApi();
 
 ReactDOM.render(
-    <Provider store={ init(logger).getStore() }>
-        <Router basename={ getBaseName(window.location.pathname) }>
-            <App/>
-        </Router>
-    </Provider>,
+  <Provider store={init(logger).getStore()}>
+    <Router basename={getBaseName(window.location.pathname)}>
+      <App />
+    </Router>
+  </Provider>,
 
-    document.getElementById('root')
+  document.getElementById('root')
 );

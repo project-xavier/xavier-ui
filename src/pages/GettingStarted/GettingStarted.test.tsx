@@ -1,41 +1,35 @@
-import React from "react";
-import { shallow } from "enzyme";
-import GettingStarted, { Props } from "./GettingStarted";
+import React from 'react';
+import { shallow } from 'enzyme';
+import GettingStarted, { Props } from './GettingStarted';
 
 const baseProps: Props = {
   user: {
-    firstTimeCreatingReports: true
-  }
+    firstTimeCreatingReports: true,
+  },
 };
 
-describe("GettingStarted", () => {
-
-  it("expect to render", () => {
+describe('GettingStarted', () => {
+  it('expect to render', () => {
     const props = {
-      ...baseProps
+      ...baseProps,
     };
 
-    const wrapper = shallow(
-      <GettingStarted { ...props } />
-    );
-    
+    const wrapper = shallow(<GettingStarted {...props} />);
+
     expect(wrapper).toMatchSnapshot();
   });
 
-  it("expect to redirect", () => {
+  it('expect to redirect', () => {
     const props = {
       ...baseProps,
       user: {
         ...baseProps.user,
-        firstTimeCreatingReports: false
-      }
+        firstTimeCreatingReports: false,
+      },
     };
 
-    const wrapper = shallow(
-      <GettingStarted { ...props } />
-    );
+    const wrapper = shallow(<GettingStarted {...props} />);
 
     expect(wrapper).toMatchSnapshot();
   });
-
 });

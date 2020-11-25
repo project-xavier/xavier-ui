@@ -2,10 +2,10 @@ import { AxiosError } from 'axios';
 import { createAction, createStandardAction } from 'typesafe-actions';
 
 export interface Item {
-    name: string;
-    type: string;
-    onDelete: () => void;
-    onCancel: () => void;
+  name: string;
+  type: string;
+  onDelete: () => void;
+  onCancel: () => void;
 }
 
 export const openModal = createStandardAction('dialog/delete/open')<Item>();

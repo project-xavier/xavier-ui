@@ -1,66 +1,66 @@
 import ApiClient from './apiClient';
 
 describe('request', () => {
-    const objectResolver = Promise.resolve({});
-    const mockFetchPromise = Promise.resolve({
-        ok: true,
-        json: () => objectResolver
-    });
-    const fetchSpy: any = jest.fn(() => mockFetchPromise);
+  const objectResolver = Promise.resolve({});
+  const mockFetchPromise = Promise.resolve({
+    ok: true,
+    json: () => objectResolver,
+  });
+  const fetchSpy: any = jest.fn(() => mockFetchPromise);
 
-    beforeAll(() => {
-        window.fetch = fetchSpy;
-    });
+  beforeAll(() => {
+    window.fetch = fetchSpy;
+  });
 
-    it('calls fetch', () => {
-        expect(ApiClient.request('/path', {}, 'get')).toEqual(objectResolver);
-    });
+  it('calls fetch', () => {
+    expect(ApiClient.request('/path', {}, 'get')).toEqual(objectResolver);
+  });
 
-    afterAll(() => {
-        const fetch: any = window.fetch;
-        fetch.mockClear();
-    });
+  afterAll(() => {
+    const fetch: any = window.fetch;
+    fetch.mockClear();
+  });
 });
 
 describe('API calls', () => {
-    const mockGet = jest.fn(() => ({}));
+  const mockGet = jest.fn(() => ({}));
 
-    beforeAll(() => {
-        Object.assign(ApiClient, {
-            request: mockGet
-        });
+  beforeAll(() => {
+    Object.assign(ApiClient, {
+      request: mockGet,
     });
+  });
 
-    describe('post', () => {
-        it('calls request with /create and post', () => {
-            expect(ApiClient.post('/create', { key: 'value' })).toEqual({});
-            expect(ApiClient.request).toHaveBeenCalledWith('/create', { key: 'value' }, 'post', {});
-        });
+  describe('post', () => {
+    it('calls request with /create and post', () => {
+      expect(ApiClient.post('/create', { key: 'value' })).toEqual({});
+      expect(ApiClient.request).toHaveBeenCalledWith('/create', { key: 'value' }, 'post', {});
     });
+  });
 
-    describe('get', () => {
-        it('calls request with path and get', () => {
-            expect(ApiClient.get('/get')).toEqual({});
-            expect(ApiClient.request).toHaveBeenCalledWith('/get');
-        });
+  describe('get', () => {
+    it('calls request with path and get', () => {
+      expect(ApiClient.get('/get')).toEqual({});
+      expect(ApiClient.request).toHaveBeenCalledWith('/get');
     });
+  });
 
-    describe('put', () => {
-        it('calls request with path and put', () => {
-            expect(ApiClient.put('/update', { key: 'value' })).toEqual({});
-            expect(ApiClient.request).toHaveBeenCalledWith('/update', { key: 'value' }, 'put', {});
-        });
+  describe('put', () => {
+    it('calls request with path and put', () => {
+      expect(ApiClient.put('/update', { key: 'value' })).toEqual({});
+      expect(ApiClient.request).toHaveBeenCalledWith('/update', { key: 'value' }, 'put', {});
     });
+  });
 
-    describe('delete', () => {
-        it('calls request with path and delete', () => {
-            expect(ApiClient.delete('/destroy')).toEqual({});
-            expect(ApiClient.request).toHaveBeenCalledWith('/destroy', null, 'delete', {});
-        });
+  describe('delete', () => {
+    it('calls request with path and delete', () => {
+      expect(ApiClient.delete('/destroy')).toEqual({});
+      expect(ApiClient.request).toHaveBeenCalledWith('/destroy', null, 'delete', {});
     });
+  });
 
-    afterAll(() => {
-        const request: any = ApiClient.request;
-        request.mockClear();
-    });
+  afterAll(() => {
+    const request: any = ApiClient.request;
+    request.mockClear();
+  });
 });

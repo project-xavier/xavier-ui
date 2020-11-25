@@ -3,20 +3,14 @@ import GettingStarted from './GettingStarted';
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state: GlobalState) => {
-    const {
-        userState: {
-            user
-        }
-    } = state;
-    return {
-        user
-    };
+  const {
+    userState: { user },
+  } = state;
+  return {
+    user,
+  };
 };
 
-const mapDispatchToProps = {
-};
+const mapDispatchToProps = {};
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(GettingStarted);
+export default connect(mapStateToProps, mapDispatchToProps)(GettingStarted);

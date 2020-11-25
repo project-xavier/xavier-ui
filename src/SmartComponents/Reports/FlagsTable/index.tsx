@@ -5,30 +5,21 @@ import * as reportActions from '../../../actions/ReportActions';
 import * as mappingActions from '../../../actions/MappingsActions';
 
 const mapStateToProps = (state: GlobalState) => {
-    const {
-        reportFlags,
-        reportFlagsFetchStatus
-    } = state.reportState;
-    const {
-        flagAssessment: {
-            allFlags,
-            allFlagsFetchStatus
-        }
-    } = state.mappingsState;
-    return {
-        reportFlags,
-        reportFlagsFetchStatus,
-        allFlags,
-        allFlagsFetchStatus
-    };
+  const { reportFlags, reportFlagsFetchStatus } = state.reportState;
+  const {
+    flagAssessment: { allFlags, allFlagsFetchStatus },
+  } = state.mappingsState;
+  return {
+    reportFlags,
+    reportFlagsFetchStatus,
+    allFlags,
+    allFlagsFetchStatus,
+  };
 };
 
 const mapDispatchToProps = {
-    fetchReportFlags: reportActions.fetchReportFlags,
-    fetchAllFlagAssessments: mappingActions.fetchAllFlagAssessments
+  fetchReportFlags: reportActions.fetchReportFlags,
+  fetchAllFlagAssessments: mappingActions.fetchAllFlagAssessments,
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(FlagsTable);
+export default connect(mapStateToProps, mapDispatchToProps)(FlagsTable);

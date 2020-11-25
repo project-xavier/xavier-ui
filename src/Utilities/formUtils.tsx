@@ -1,23 +1,23 @@
 export const isNullOrUndefined = (...value: any[]): boolean => {
-    return value.some((element: any) => element === undefined || element === null);
+  return value.some((element: any) => element === undefined || element === null);
 };
 
 export const getErrorsFromValidationError = (validationError: any) => {
-    const FIRST_ERROR = 0;
-    return validationError.inner.reduce((errors: any, error: any) => {
-        return {
-            ...errors,
-            [error.path]: error.errors[FIRST_ERROR]
-        };
-    }, {});
+  const FIRST_ERROR = 0;
+  return validationError.inner.reduce((errors: any, error: any) => {
+    return {
+      ...errors,
+      [error.path]: error.errors[FIRST_ERROR],
+    };
+  }, {});
 };
 
 export const validateForm = (values: any, validateFn: any) => {
-    const validationSchema = validateFn(values);
-    try {
-        validationSchema.validateSync(values, { abortEarly: false });
-        return {};
-    } catch (error) {
-        return getErrorsFromValidationError(error);
-    }
+  const validationSchema = validateFn(values);
+  try {
+    validationSchema.validateSync(values, { abortEarly: false });
+    return {};
+  } catch (error) {
+    return getErrorsFromValidationError(error);
+  }
 };

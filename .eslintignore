@@ -1,1 +1,7 @@
-src/demoData/*
+node_modules/*
+static/*
+dist/*
+scripts/
+cypress/
+deploy/
+lib/
