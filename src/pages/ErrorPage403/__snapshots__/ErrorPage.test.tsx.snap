@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorPage403 expect to render 1`] = `
+<Fragment>
+  <PageHeader>
+    <PageHeaderTitle
+      title="Error: 403 Forbidden"
+    />
+  </PageHeader>
+  <Connect(Main)>
+    <Bullseye>
+      <EmptyState
+        variant="large"
+      >
+        <EmptyStateIcon
+          icon={[Function]}
+        />
+        <Title
+          headingLevel="h5"
+          size="lg"
+        >
+          Error: 403 Forbidden
+        </Title>
+        <EmptyStateBody>
+          You tried to access a forbidden resource!.
+        </EmptyStateBody>
+        <Link
+          className="pf-c-button pf-m-primary"
+          replace={false}
+          target="_self"
+          to="/"
+        >
+          Home
+        </Link>
+      </EmptyState>
+    </Bullseye>
+  </Connect(Main)>
+</Fragment>
+`;
